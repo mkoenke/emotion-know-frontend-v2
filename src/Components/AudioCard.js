@@ -1,9 +1,9 @@
-import React from "react"
-import Animista, { AnimistaTypes } from "react-animista"
-import Flippy, { BackSide, FrontSide } from "react-flippy"
-import { connect } from "react-redux"
-import { Button, Card, Image, Popup } from "semantic-ui-react"
-import { deleteAudio } from "../Redux/actions"
+import React from 'react'
+import Animista, { AnimistaTypes } from 'react-animista'
+import Flippy, { BackSide, FrontSide } from 'react-flippy'
+import { connect } from 'react-redux'
+import { Button, Card, Image, Popup } from 'semantic-ui-react'
+import { deleteAudio } from '../Redux/actions'
 
 class AudioCard extends React.Component {
   handleDeleteClick = () => {
@@ -42,7 +42,7 @@ class AudioCard extends React.Component {
               </div>
               <div className="buttonDiv">
                 <Popup
-                  content="Warning!  This will delete this journal entry!"
+                  content="Warning!  This will delete this journal entry! TESTING"
                   trigger={
                     <Button
                       icon="close"
