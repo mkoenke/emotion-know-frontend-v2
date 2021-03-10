@@ -117,6 +117,7 @@ class RecordView extends React.Component {
       sadness: this.state.sadnessArr,
       surprise: this.state.surpriseArr,
     }
+    console.log("reportToPost:", reportToPost)
     return fetch("http://localhost:3000/video_reports", {
       method: "POST",
       headers: {
@@ -127,7 +128,8 @@ class RecordView extends React.Component {
     })
       .then((resp) => resp.json())
       .then((returnedReport) => {
-        this.props.dispatchReport(returnedReport)
+        // this.props.dispatchReport(returnedReport)
+        console.log("report posted!", returnedReport)
       })
   }
 
@@ -146,6 +148,7 @@ class RecordView extends React.Component {
       sadnessArr: sadnessData,
     })
     this.props.stopSDK()
+    console.log("angerArr:",this.state.angerArr)
   }
 
   startListening = () => {

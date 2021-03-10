@@ -14,15 +14,15 @@ import WelcomePageContainer from './Containers/WelcomePageContainer'
 
 class App extends React.Component {
   componentDidMount() {
+    const config = {smoothness: 0.90, enableBalancer : false};
     CY.loader()
       .licenseKey(process.env.sdkLicense)
-      .addModule(CY.modules().FACE_EMOTION.name)
+      .addModule(CY.modules().FACE_EMOTION.name, config)
       .addModule(CY.modules().FACE_AROUSAL_VALENCE.name)
       .load()
       .then(({ start, stop }) => {
         this.stopSDK = stop
         this.startSDK = start
-        console.log('fully loaded and ready to go', this)
       })
   }
 
