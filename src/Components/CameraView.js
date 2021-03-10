@@ -30,12 +30,12 @@ class RecordView extends React.Component {
     emo: "",
     emoData: "",
     isRecording: false,
-    angerAvg: "",
-    fearAvg: "",
-    joyAvg: "",
-    surpriseAvg: "",
-    disgustAvg: "",
-    sadnessAvg: "",
+    angerArr: "",
+    fearArr: "",
+    joyArr: "",
+    surpriseArr: "",
+    disgustArr: "",
+    sadnessArr: "",
     isLoading: true,
   }
 
@@ -110,12 +110,12 @@ class RecordView extends React.Component {
       video_entry_id: journal.id,
       child_id: this.props.child.id,
       parent_id: this.props.child.parent.id,
-      anger: this.state.angerAvg,
-      disgust: this.state.disgustAvg,
-      fear: this.state.fearAvg,
-      joy: this.state.joyAvg,
-      sadness: this.state.sadnessAvg,
-      surprise: this.state.surpriseAvg,
+      anger: this.state.angerArr,
+      disgust: this.state.disgustArr,
+      fear: this.state.fearArr,
+      joy: this.state.joyArr,
+      sadness: this.state.sadnessArr,
+      surprise: this.state.surpriseArr,
     }
     return fetch("http://localhost:3000/video_reports", {
       method: "POST",
@@ -131,31 +131,21 @@ class RecordView extends React.Component {
       })
   }
 
-  getAverages = () => {
-    const average = (arr) => arr.reduce((sume, el) => sume + el, 0) / arr.length
-
-    let angerAvg = average(angerData)
-    let fearAvg = average(fearData)
-    let disgustAvg = average(disgustData)
-    let joyAvg = average(joyData)
-    let sadnessAvg = average(sadnessData)
-    let surpriseAvg = average(surpriseData)
-    this.setState({
-      angerAvg,
-      fearAvg,
-      disgustAvg,
-      joyAvg,
-      sadnessAvg,
-      surpriseAvg,
-    })
-  }
-
-  onRecordingComplete = (videoBlob) => {
-    this.setState({ videoBlob, isRecording: false }, this.getAverages)
-    this.props.stopSDK()
-  }
   onStartRecording = () => {
     this.setState({ isRecording: true }, this.startListening)
+  }
+  onRecordingComplete = (videoBlob) => {
+    this.setState({
+      videoBlob,
+      isRecording: false,
+      angerArr: angerData,
+      fearArr: fearData,
+      joyArr: joyData,
+      surpriseArr: surpriseData,
+      disgustArr: disgustData,
+      sadnessArr: sadnessData,
+    })
+    this.props.stopSDK()
   }
 
   startListening = () => {
@@ -190,22 +180,22 @@ class RecordView extends React.Component {
                 {this.state.submittedTitle}
               </Header>
             ) : (
-                <Grid centered>
-                  <Form onSubmit={this.handleTitleSubmit}>
-                    <Form.Group widths="equal">
-                      <Form.Input
-                        style={{ width: "300px" }}
-                        fluid
-                        placeholder="Create Title"
-                        onChange={this.changeHandler}
-                        name="title"
-                        value={this.state.title}
-                      />
-                    </Form.Group>
-                    <Form.Button>Set Title</Form.Button>
-                  </Form>
-                </Grid>
-              )}
+              <Grid centered>
+                <Form onSubmit={this.handleTitleSubmit}>
+                  <Form.Group widths="equal">
+                    <Form.Input
+                      style={{ width: "300px" }}
+                      fluid
+                      placeholder="Create Title"
+                      onChange={this.changeHandler}
+                      name="title"
+                      value={this.state.title}
+                    />
+                  </Form.Group>
+                  <Form.Button>Set Title</Form.Button>
+                </Form>
+              </Grid>
+            )}
           </div>
           <div>
             <Grid centered>

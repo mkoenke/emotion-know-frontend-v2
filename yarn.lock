@@ -2486,13 +2486,6 @@
   "resolved" "https://registry.npmjs.org/atob/-/atob-2.1.2.tgz"
   "version" "2.1.2"
 
-"audio-react-recorder@^1.0.4":
-  "integrity" "sha512-an7eX0yOGDbZOSu2LvnfWIsI41pkx9nXgtBVbI+9ByS91WKqoVGVb5pbmqHax5sZty2DjOIG/neuxcghIU/ucg=="
-  "resolved" "https://registry.npmjs.org/audio-react-recorder/-/audio-react-recorder-1.0.4.tgz"
-  "version" "1.0.4"
-  dependencies:
-    "prop-types" "^15.7.2"
-
 "autoprefixer@^9.6.1":
   "integrity" "sha512-XrvP4VVHdRBCdX1S3WXVD8+RyG9qeb1D5Sn1DeLiG2xfSpzellk5k54xbUERJ3M5DggQxes39UGOTP8CFrEGbg=="
   "resolved" "https://registry.npmjs.org/autoprefixer/-/autoprefixer-9.8.6.tgz"

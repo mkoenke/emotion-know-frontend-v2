@@ -41,7 +41,7 @@ class SignUpModal extends React.Component {
           password: this.state.password,
           parent_id: data.parent.id,
         }
-
+        
         fetch("http://localhost:3000/children", {
           method: "POST",
           headers: {
