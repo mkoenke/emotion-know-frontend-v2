@@ -16,11 +16,11 @@ import { addReportToAllReports, addVideoToAllVideos } from "../Redux/actions"
 import Video from "./VideoRecorder"
 
 let angerData = []
+let disgustData = []
 let fearData = []
 let joyData = []
-let surpriseData = []
-let disgustData = []
 let sadnessData = []
+let surpriseData = []
 
 class RecordView extends React.Component {
   state = {
@@ -30,12 +30,12 @@ class RecordView extends React.Component {
     emo: "",
     emoData: "",
     isRecording: false,
-    angerArr: "",
-    fearArr: "",
-    joyArr: "",
-    surpriseArr: "",
-    disgustArr: "",
-    sadnessArr: "",
+    angerArr: [],
+    fearArr: [],
+    joyArr: [],
+    surpriseArr: [],
+    disgustArr: [],
+    sadnessArr: [],
     isLoading: true,
   }
 
@@ -43,7 +43,6 @@ class RecordView extends React.Component {
     console.log("mounting component", this.props)
     this.setState({ isLoading: false })
   }
-
   componentWillUnmount() {
     this.props.stopSDK()
   }
@@ -51,12 +50,14 @@ class RecordView extends React.Component {
   changeHandler = (e) => {
     this.setState({ [e.target.name]: e.target.value })
   }
+
   handleTitleSubmit = () => {
     this.setState(
       { submittedTitle: this.state.title },
       this.setState({ title: "" })
     )
   }
+
   handleUploadClick = () => {
     this.handleVideoUpload(this.state.videoBlob)
   }
@@ -130,6 +131,12 @@ class RecordView extends React.Component {
       .then((returnedReport) => {
         // this.props.dispatchReport(returnedReport)
         console.log("report posted!", returnedReport)
+        angerData = []
+        disgustData = []
+        fearData = [] 
+        joyData = [] 
+        sadnessData = []
+        surpriseData = []
       })
   }
 
