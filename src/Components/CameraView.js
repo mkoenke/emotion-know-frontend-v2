@@ -133,8 +133,8 @@ class RecordView extends React.Component {
         console.log("report posted!", returnedReport)
         angerData = []
         disgustData = []
-        fearData = [] 
-        joyData = [] 
+        fearData = []
+        joyData = []
         sadnessData = []
         surpriseData = []
       })
@@ -155,7 +155,7 @@ class RecordView extends React.Component {
       sadnessArr: sadnessData,
     })
     this.props.stopSDK()
-    console.log("angerArr:",this.state.angerArr)
+    console.log("angerArr:", this.state.angerArr)
   }
 
   startListening = () => {
@@ -171,7 +171,26 @@ class RecordView extends React.Component {
     })
   }
 
+  // startListening = () => {
+  //   this.props.startSDK()
+  //   while(this.state.isRecording){
+  //     setTimeout(function () {
+  //       console.log("inside timout")
+  //       window.addEventListener(CY.modules().FACE_EMOTION.eventName, (evt) => {
+  //         this.setState({
+  //           emo: evt.detail.output.dominantEmotion,
+  //           emoData: evt.detail.output.rawEmotion,
+  //         })
+  //         if (this.state.isRecording) {
+  //           this.collectEmotionData(evt.detail.output.rawEmotion)
+  //         }
+  //       })
+  //     }, 1000)
+  //   }
+  // }
+
   collectEmotionData = (emotionObj) => {
+    console.log('collecting emotional data')
     angerData = [...angerData, emotionObj.Angry]
     fearData = [...fearData, emotionObj.Fear]
     disgustData = [...disgustData, emotionObj.Disgust]
