@@ -21,6 +21,12 @@ let fearData = []
 let joyData = []
 let sadnessData = []
 let surpriseData = []
+let timedAngerData = []
+let timedDisgustData = []
+let timedFearData = []
+let timedJoyData = []
+let timedSadnessData = []
+let timedSurpriseData = []
 
 class RecordView extends React.Component {
   state = {
@@ -40,7 +46,6 @@ class RecordView extends React.Component {
   }
 
   componentDidMount() {
-    console.log("mounting component", this.props)
     this.setState({ isLoading: false })
   }
   componentWillUnmount() {
@@ -129,33 +134,57 @@ class RecordView extends React.Component {
     })
       .then((resp) => resp.json())
       .then((returnedReport) => {
-        // this.props.dispatchReport(returnedReport)
+        this.props.dispatchReport(returnedReport)
         console.log("report posted!", returnedReport)
-        angerData = []
-        disgustData = []
-        fearData = []
-        joyData = []
-        sadnessData = []
-        surpriseData = []
       })
   }
 
+  timedDataCollectorVar = null
+  startTimedDataCollector = () => {
+    this.timedDataCollectorVar = setInterval(() => {
+      timedAngerData.push(angerData[angerData.length - 1])
+      timedDisgustData.push(disgustData[disgustData.length - 1])
+      timedFearData.push(fearData[fearData.length - 1])
+      timedJoyData.push(joyData[joyData.length - 1])
+      timedSadnessData.push(sadnessData[sadnessData.length - 1])
+      timedSurpriseData.push(surpriseData[surpriseData.length - 1])
+    }, 500)
+  }
+  stopTimedDataCollector = () => {
+    clearInterval(this.timedDataCollectorVar)
+    this.timedDataCollectorVar = null
+  }
+
   onStartRecording = () => {
-    this.setState({ isRecording: true }, this.startListening)
+    angerData = []
+    disgustData = []
+    fearData = []
+    joyData = []
+    sadnessData = []
+    surpriseData = []
+    timedAngerData = []
+    timedDisgustData = []
+    timedFearData = []
+    timedJoyData = []
+    timedSadnessData = []
+    timedSurpriseData = []
+    this.setState({ isRecording: true }, () => {
+      this.startListening()
+      this.startTimedDataCollector()
+    })
   }
   onRecordingComplete = (videoBlob) => {
+    this.props.stopSDK()
     this.setState({
       videoBlob,
       isRecording: false,
-      angerArr: angerData,
-      fearArr: fearData,
-      joyArr: joyData,
-      surpriseArr: surpriseData,
-      disgustArr: disgustData,
-      sadnessArr: sadnessData,
-    })
-    this.props.stopSDK()
-    console.log("angerArr:", this.state.angerArr)
+      angerArr: timedAngerData.splice(5),
+      fearArr: timedFearData.splice(5),
+      joyArr: timedJoyData.splice(5),
+      surpriseArr: timedSurpriseData.splice(5),
+      disgustArr: timedDisgustData.splice(5),
+      sadnessArr: timedSadnessData.splice(5),
+    }, () => this.stopTimedDataCollector())
   }
 
   startListening = () => {
@@ -171,26 +200,7 @@ class RecordView extends React.Component {
     })
   }
 
-  // startListening = () => {
-  //   this.props.startSDK()
-  //   while(this.state.isRecording){
-  //     setTimeout(function () {
-  //       console.log("inside timout")
-  //       window.addEventListener(CY.modules().FACE_EMOTION.eventName, (evt) => {
-  //         this.setState({
-  //           emo: evt.detail.output.dominantEmotion,
-  //           emoData: evt.detail.output.rawEmotion,
-  //         })
-  //         if (this.state.isRecording) {
-  //           this.collectEmotionData(evt.detail.output.rawEmotion)
-  //         }
-  //       })
-  //     }, 1000)
-  //   }
-  // }
-
   collectEmotionData = (emotionObj) => {
-    console.log('collecting emotional data')
     angerData = [...angerData, emotionObj.Angry]
     fearData = [...fearData, emotionObj.Fear]
     disgustData = [...disgustData, emotionObj.Disgust]
