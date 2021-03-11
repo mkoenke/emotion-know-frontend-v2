@@ -12,7 +12,9 @@ import {
 } from 'semantic-ui-react'
 import { BigPlayButton, ControlBar, LoadingSpinner, Player } from 'video-react'
 import BarGraph from '../Components/BarGraph'
+import IndividualLineGraph from '../Components/IndividualLineGraph'
 import LineGraph from '../Components/LineGraph'
+import { setClickedReport } from '../Redux/actions'
 
 class ReportGalleryPage extends React.Component {
   state = {
@@ -38,6 +40,7 @@ class ReportGalleryPage extends React.Component {
     let clickedReport = this.props.allReports.find(
       (report) => report.created_at === event.target.closest('tr').id
     )
+    this.props.dispatchClickedReport(clickedReport)
     this.setState(
       {
         clickedReport: clickedReport,
@@ -50,6 +53,7 @@ class ReportGalleryPage extends React.Component {
     let clickedReport = this.props.parentsReports.find(
       (report) => report.created_at === event.target.closest('tr').id
     )
+    this.props.dispatchClickedReport(clickedReport)
     this.setState(
       {
         clickedReport: clickedReport,
@@ -59,25 +63,6 @@ class ReportGalleryPage extends React.Component {
   }
 
   findJournal = () => {
-    // if (this.state.clickedReport.journal_entry_id) {
-    //   let journal = this.props.allJournals.find(
-    //     (journal) => journal.id === this.state.clickedReport.journal_entry_id
-    //   )
-
-    //   this.setState({
-    //     clickedJournal: journal,
-    //     beenClicked: true,
-    //   })
-    // } else if (this.state.clickedReport.audio_entry_id) {
-    //   let journal = this.props.allAudios.find(
-    //     (journal) => journal.id === this.state.clickedReport.audio_entry_id
-    //   )
-
-    //   this.setState({
-    //     clickedJournal: journal,
-    //     beenClicked: true,
-    //   })
-    // } else
     if (this.state.clickedReport.video_entry_id) {
       let journal = this.props.allVideos.find(
         (journal) => journal.id === this.state.clickedReport.video_entry_id
@@ -95,6 +80,7 @@ class ReportGalleryPage extends React.Component {
   }
 
   renderReportGraph = () => {
+    console.log('Clicked report: ', this.state.clickedReport)
     let date = new Date(this.state.clickedReport.created_at)
     let dateWithoutTime =
       date.getMonth() + 1 + '/' + date.getDate() + '/' + date.getFullYear()
@@ -103,10 +89,12 @@ class ReportGalleryPage extends React.Component {
         <Grid.Row>
           <Grid.Column>
             <div className="bargraph smallGraph pattern smallGraphPadding">
-              <BarGraph
+              {/* <BarGraph
                 report={this.state.clickedReport}
                 date={dateWithoutTime}
-              />
+              /> */}
+              <IndividualLineGraph />
+              {/* <IndividualLineGraph clickedReport={this.state.clickedReport} /> */}
             </div>
           </Grid.Column>
           <Grid.Column>
@@ -373,4 +361,10 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps)(ReportGalleryPage)
+function mapDispatchToProps(dispatch) {
+  return {
+    dispatchClickedReport: (report) => dispatch(setClickedReport(report)),
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ReportGalleryPage)

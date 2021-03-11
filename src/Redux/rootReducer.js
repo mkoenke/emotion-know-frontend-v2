@@ -4,6 +4,7 @@ import {
   ADD_VIDEO,
   ALL_REPORTS,
   ALL_VIDEOS,
+  CLICKED_REPORT,
   DELETE_VIDEO,
   LOGOUT,
   MODAL_OPEN,
@@ -23,6 +24,7 @@ const defaultState = {
   parentsReports: [],
   modalOpen: false,
   parentModalOpen: false,
+  clickedReport: null,
 }
 
 function modalReducer(prevState = defaultState.modalOpen, action) {
@@ -93,6 +95,15 @@ function reportArrayReducer(prevState = defaultState.allReports, action) {
   }
 }
 
+function clickedReportReducer(prevState = defaultState.clickedReport, action) {
+  switch (action.type) {
+    case CLICKED_REPORT:
+      return action.payload
+    default:
+      return prevState
+  }
+}
+
 function parentReportReducer(prevState = defaultState.parentsReports, action) {
   switch (action.type) {
     case PARENTS_REPORTS:
@@ -120,6 +131,7 @@ const rootReducer = combineReducers({
   error: errorReducer,
   modalOpen: modalReducer,
   parentModalOpen: parentModalReducer,
+  clickedReport: clickedReportReducer,
 })
 
 export default rootReducer

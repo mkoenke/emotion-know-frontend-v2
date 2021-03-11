@@ -3,6 +3,7 @@ import {
   ADD_VIDEO,
   ALL_REPORTS,
   ALL_VIDEOS,
+  CLICKED_REPORT,
   DELETE_VIDEO,
   LOGOUT,
   MODAL_OPEN,
@@ -139,6 +140,10 @@ export function allReports(arrayOfVideos) {
 
 export function addReportToAllReports(report) {
   return { type: ADD_REPORT, payload: report }
+}
+
+export function setClickedReport(report) {
+  return { type: CLICKED_REPORT, payload: report }
 }
 
 export function parentsReports(videoReports) {
