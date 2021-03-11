@@ -1,10 +1,11 @@
-import React from "react"
-import { connect } from "react-redux"
-import { Header } from "semantic-ui-react"
-import CameraView from "../Components/CameraView"
+import React from 'react'
+import { connect } from 'react-redux'
+import { Header } from 'semantic-ui-react'
+import CameraView from '../Components/CameraView'
 
 class CameraPage extends React.Component {
   render() {
+    console.log(this.props)
     return (
       <>
         <div className="pattern">
@@ -14,7 +15,11 @@ class CameraPage extends React.Component {
             </Header>
           ) : null}
           <div>
-            <CameraView history={this.props.history} stopSDK={this.props.stopSDK} startSDK={this.props.startSDK} />
+            <CameraView
+              history={this.props.history}
+              stopSDK={this.props.stopSDK}
+              startSDK={this.props.startSDK}
+            />
           </div>
         </div>
       </>

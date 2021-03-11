@@ -1,6 +1,6 @@
-import JwPagination from "jw-react-pagination"
-import React from "react"
-import { connect } from "react-redux"
+import JwPagination from 'jw-react-pagination'
+import React from 'react'
+import { connect } from 'react-redux'
 import {
   Card,
   Container,
@@ -9,10 +9,10 @@ import {
   Menu,
   Popup,
   Table,
-} from "semantic-ui-react"
-import { BigPlayButton, ControlBar, LoadingSpinner, Player } from "video-react"
-import BarGraph from "../Components/BarGraph"
-import LineGraph from "../Components/LineGraph"
+} from 'semantic-ui-react'
+import { BigPlayButton, ControlBar, LoadingSpinner, Player } from 'video-react'
+import BarGraph from '../Components/BarGraph'
+import LineGraph from '../Components/LineGraph'
 
 class ReportGalleryPage extends React.Component {
   state = {
@@ -36,7 +36,7 @@ class ReportGalleryPage extends React.Component {
       this.setState({ beenClicked: false })
     }
     let clickedReport = this.props.allReports.find(
-      (report) => report.created_at === event.target.closest("tr").id
+      (report) => report.created_at === event.target.closest('tr').id
     )
     this.setState(
       {
@@ -48,7 +48,7 @@ class ReportGalleryPage extends React.Component {
 
   handleParentReportClick = (event) => {
     let clickedReport = this.props.parentsReports.find(
-      (report) => report.created_at === event.target.closest("tr").id
+      (report) => report.created_at === event.target.closest('tr').id
     )
     this.setState(
       {
@@ -59,25 +59,26 @@ class ReportGalleryPage extends React.Component {
   }
 
   findJournal = () => {
-    if (this.state.clickedReport.journal_entry_id) {
-      let journal = this.props.allJournals.find(
-        (journal) => journal.id === this.state.clickedReport.journal_entry_id
-      )
+    // if (this.state.clickedReport.journal_entry_id) {
+    //   let journal = this.props.allJournals.find(
+    //     (journal) => journal.id === this.state.clickedReport.journal_entry_id
+    //   )
 
-      this.setState({
-        clickedJournal: journal,
-        beenClicked: true,
-      })
-    } else if (this.state.clickedReport.audio_entry_id) {
-      let journal = this.props.allAudios.find(
-        (journal) => journal.id === this.state.clickedReport.audio_entry_id
-      )
+    //   this.setState({
+    //     clickedJournal: journal,
+    //     beenClicked: true,
+    //   })
+    // } else if (this.state.clickedReport.audio_entry_id) {
+    //   let journal = this.props.allAudios.find(
+    //     (journal) => journal.id === this.state.clickedReport.audio_entry_id
+    //   )
 
-      this.setState({
-        clickedJournal: journal,
-        beenClicked: true,
-      })
-    } else if (this.state.clickedReport.video_entry_id) {
+    //   this.setState({
+    //     clickedJournal: journal,
+    //     beenClicked: true,
+    //   })
+    // } else
+    if (this.state.clickedReport.video_entry_id) {
       let journal = this.props.allVideos.find(
         (journal) => journal.id === this.state.clickedReport.video_entry_id
       )
@@ -96,7 +97,7 @@ class ReportGalleryPage extends React.Component {
   renderReportGraph = () => {
     let date = new Date(this.state.clickedReport.created_at)
     let dateWithoutTime =
-      date.getMonth() + 1 + "/" + date.getDate() + "/" + date.getFullYear()
+      date.getMonth() + 1 + '/' + date.getDate() + '/' + date.getFullYear()
     return (
       <Grid centered columns="two">
         <Grid.Row>
@@ -143,7 +144,7 @@ class ReportGalleryPage extends React.Component {
   renderParentReportGraph = () => {
     let date = new Date(this.state.clickedReport.created_at)
     let dateWithoutTime =
-      date.getMonth() + 1 + "/" + date.getDate() + "/" + date.getFullYear()
+      date.getMonth() + 1 + '/' + date.getDate() + '/' + date.getFullYear()
     return (
       <Grid centered columns="one">
         <Grid.Row>
@@ -164,7 +165,7 @@ class ReportGalleryPage extends React.Component {
     return this.state.pageOfItems.map((report) => {
       let date = new Date(report.created_at)
       let dateWithoutTime =
-        date.getMonth() + 1 + "/" + date.getDate() + "/" + date.getFullYear()
+        date.getMonth() + 1 + '/' + date.getDate() + '/' + date.getFullYear()
       return (
         <Table.Row
           className="link"
@@ -181,7 +182,7 @@ class ReportGalleryPage extends React.Component {
     return this.state.pageOfItems.map((report) => {
       let date = new Date(report.created_at)
       let dateWithoutTime =
-        date.getMonth() + 1 + "/" + date.getDate() + "/" + date.getFullYear()
+        date.getMonth() + 1 + '/' + date.getDate() + '/' + date.getFullYear()
       return (
         <Table.Row
           className="link"
@@ -197,10 +198,10 @@ class ReportGalleryPage extends React.Component {
 
   render() {
     const customLabels = {
-      first: "<<",
-      last: ">>",
-      previous: "<",
-      next: ">",
+      first: '<<',
+      last: '>>',
+      previous: '<',
+      next: '>',
     }
 
     return (

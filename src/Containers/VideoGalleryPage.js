@@ -1,14 +1,14 @@
-import JwPagination from "jw-react-pagination"
-import React from "react"
-import { connect } from "react-redux"
-import { Grid, Header } from "semantic-ui-react"
-import image1 from "../assets/images/videoGallery1.jpg"
-import image2 from "../assets/images/videoGallery2.jpg"
-import image3 from "../assets/images/videoGallery3.jpg"
-import image4 from "../assets/images/videoGallery4.jpg"
-import image5 from "../assets/images/videoGallery5.jpg"
-import image6 from "../assets/images/videoGallery6.jpg"
-import VideoCard from "../Components/VideoCard"
+import JwPagination from 'jw-react-pagination'
+import React from 'react'
+import { connect } from 'react-redux'
+import { Grid, Header } from 'semantic-ui-react'
+import image1 from '../assets/images/videoGallery1.jpg'
+import image2 from '../assets/images/videoGallery2.jpg'
+import image3 from '../assets/images/videoGallery3.jpg'
+import image4 from '../assets/images/videoGallery4.jpg'
+import image5 from '../assets/images/videoGallery5.jpg'
+import image6 from '../assets/images/videoGallery6.jpg'
+import VideoCard from '../Components/VideoCard'
 
 class VideoGalleryPage extends React.Component {
   state = {
@@ -51,11 +51,12 @@ class VideoGalleryPage extends React.Component {
     })
   }
   render() {
+    console.log('video gallery props:', this.props)
     const customLabels = {
-      first: "<<",
-      last: ">>",
-      previous: "<",
-      next: ">",
+      first: '<<',
+      last: '>>',
+      previous: '<',
+      next: '>',
     }
     return (
       <>

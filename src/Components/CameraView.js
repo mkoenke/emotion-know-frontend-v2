@@ -1,8 +1,9 @@
 /* global CY */
 
-import emailjs from "emailjs-com"
-import React from "react"
-import { connect } from "react-redux"
+import emailjs from 'emailjs-com'
+import React from 'react'
+import { connect } from 'react-redux'
+import { NavLink } from 'react-router-dom'
 import {
   Button,
   Dimmer,
@@ -11,9 +12,9 @@ import {
   Header,
   Loader,
   Message,
-} from "semantic-ui-react"
-import { addReportToAllReports, addVideoToAllVideos } from "../Redux/actions"
-import Video from "./VideoRecorder"
+} from 'semantic-ui-react'
+import { addReportToAllReports, addVideoToAllVideos } from '../Redux/actions'
+import Video from './VideoRecorder'
 
 let angerData = []
 let disgustData = []
@@ -24,11 +25,11 @@ let surpriseData = []
 
 class RecordView extends React.Component {
   state = {
-    title: "",
-    submittedTitle: "",
+    title: '',
+    submittedTitle: '',
     videoBlob: null,
-    emo: "",
-    emoData: "",
+    emo: '',
+    emoData: '',
     isRecording: false,
     angerArr: [],
     fearArr: [],
@@ -40,7 +41,7 @@ class RecordView extends React.Component {
   }
 
   componentDidMount() {
-    console.log("mounting component", this.props)
+    console.log('mounting component', this.props)
     this.setState({ isLoading: false })
   }
   componentWillUnmount() {
@@ -54,7 +55,7 @@ class RecordView extends React.Component {
   handleTitleSubmit = () => {
     this.setState(
       { submittedTitle: this.state.title },
-      this.setState({ title: "" })
+      this.setState({ title: '' })
     )
   }
 
@@ -64,12 +65,12 @@ class RecordView extends React.Component {
 
   handleVideoUpload = (file) => {
     const journal = new FormData()
-    journal.append("title", this.state.submittedTitle)
-    journal.append("child_id", this.props.child.id)
-    journal.append("video", file, `${this.state.submittedTitle}`)
+    journal.append('title', this.state.submittedTitle)
+    journal.append('child_id', this.props.child.id)
+    journal.append('video', file, `${this.state.submittedTitle}`)
 
-    fetch("http://localhost:3000/video_entries", {
-      method: "POST",
+    fetch('http://localhost:3000/video_entries', {
+      method: 'POST',
       body: journal,
     })
       .then((resp) => resp.json())
@@ -77,7 +78,7 @@ class RecordView extends React.Component {
         this.props.dispatchVideo(returnedVideoJournal)
         this.postReport(returnedVideoJournal)
         this.sendEmail()
-        this.props.history.push("/videos")
+        // this.props.history.push('/videos')
       })
       .catch((error) => {
         console.log(error)
@@ -87,20 +88,20 @@ class RecordView extends React.Component {
   sendEmail = () => {
     emailjs
       .send(
-        "service_b4uxd6p",
-        "template_skc2xnu",
+        'service_b4uxd6p',
+        'template_skc2xnu',
         {
           parentEmail: this.props.child.parent_email,
-          replyEmail: "EmotionKnowTeam@gmail.com",
+          replyEmail: 'EmotionKnowTeam@gmail.com',
         },
-        "user_CN4ma3aQ7rwUtwDJc9mdp"
+        'user_CN4ma3aQ7rwUtwDJc9mdp'
       )
       .then(
         function (response) {
-          console.log("SUCCESS!", response.status, response.text)
+          console.log('SUCCESS!', response.status, response.text)
         },
         function (error) {
-          console.log("FAILED...", error)
+          console.log('FAILED...', error)
         }
       )
   }
@@ -118,19 +119,19 @@ class RecordView extends React.Component {
       sadness: this.state.sadnessArr,
       surprise: this.state.surpriseArr,
     }
-    console.log("reportToPost:", reportToPost)
-    return fetch("http://localhost:3000/video_reports", {
-      method: "POST",
+    console.log('reportToPost:', reportToPost)
+    return fetch('http://localhost:3000/video_reports', {
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
       },
       body: JSON.stringify(reportToPost),
     })
       .then((resp) => resp.json())
       .then((returnedReport) => {
-        // this.props.dispatchReport(returnedReport)
-        console.log("report posted!", returnedReport)
+        this.props.dispatchReport(returnedReport)
+        console.log('report posted!', returnedReport)
         angerData = []
         disgustData = []
         fearData = []
@@ -155,7 +156,7 @@ class RecordView extends React.Component {
       sadnessArr: sadnessData,
     })
     this.props.stopSDK()
-    console.log("angerArr:", this.state.angerArr)
+    console.log('angerArr:', this.state.angerArr)
   }
 
   startListening = () => {
@@ -203,7 +204,7 @@ class RecordView extends React.Component {
     return (
       <>
         <div className="journal videoJournal background">
-          <div style={{ margin: "50px" }}>
+          <div style={{ margin: '50px' }}>
             {this.state.submittedTitle ? (
               <Header as="h1" className="content" textAlign="center">
                 {this.state.submittedTitle}
@@ -213,7 +214,7 @@ class RecordView extends React.Component {
                 <Form onSubmit={this.handleTitleSubmit}>
                   <Form.Group widths="equal">
                     <Form.Input
-                      style={{ width: "300px" }}
+                      style={{ width: '300px' }}
                       fluid
                       placeholder="Create Title"
                       onChange={this.changeHandler}
@@ -235,7 +236,7 @@ class RecordView extends React.Component {
                   </Dimmer>
                 </>
               ) : null}
-              <div style={{ height: "620px", width: "800px" }}>
+              <div style={{ height: '620px', width: '800px' }}>
                 <Video
                   onRecordingComplete={this.onRecordingComplete}
                   onStartRecording={this.onStartRecording}
@@ -245,13 +246,15 @@ class RecordView extends React.Component {
             </Grid>
             <div
               style={{
-                margin: "50px",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
+                margin: '50px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
               }}
             >
-              <Button onClick={this.handleUploadClick}>Upload Video</Button>
+              <NavLink to="/videos">
+                <Button onClick={this.handleUploadClick}>Upload Video</Button>
+              </NavLink>
             </div>
           </div>
         </div>

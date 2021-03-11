@@ -1,25 +1,25 @@
 /* global CY */
 
-import { Bar } from "@reactchartjs/react-chart.js"
-import React from "react"
-import { connect } from "react-redux"
-import Webcam from "react-webcam"
-import { Grid, Header, Loader, Message } from "semantic-ui-react"
+import { Bar } from '@reactchartjs/react-chart.js'
+import React from 'react'
+import { connect } from 'react-redux'
+import Webcam from 'react-webcam'
+import { Grid, Header, Loader, Message } from 'semantic-ui-react'
 
 class FunWithEmotionsPage extends React.Component {
   state = {
-    emo: "",
-    arousal: "",
-    valence: "",
-    mood: "",
-    anger: "",
-    disgust: "",
-    fear: "",
-    joy: "",
-    sadness: "",
-    surprise: "",
-    affects98: "",
-    dominantAffect: "",
+    emo: '',
+    arousal: '',
+    valence: '',
+    mood: '',
+    anger: '',
+    disgust: '',
+    fear: '',
+    joy: '',
+    sadness: '',
+    surprise: '',
+    affects98: '',
+    dominantAffect: '',
   }
   componentDidMount() {
     this.props.startSDK()
@@ -52,7 +52,7 @@ class FunWithEmotionsPage extends React.Component {
 
   componentWillUnmount() {
     this.props.stopSDK()
-    console.log("stopping SDK")
+    console.log('stopping SDK')
   }
 
   findDominantAffect = (affectsObj) => {
@@ -63,12 +63,13 @@ class FunWithEmotionsPage extends React.Component {
   }
 
   render() {
+    console.log('props: ', this.props)
     const videoConstraints = {
-      facingMode: "user",
+      facingMode: 'user',
     }
 
     let data = {
-      labels: ["Anger", "Disgust", "Fear", "Joy", "Sadness", "Surprise"],
+      labels: ['Anger', 'Disgust', 'Fear', 'Joy', 'Sadness', 'Surprise'],
       datasets: [
         {
           label: `What does your face show?`,
@@ -81,27 +82,27 @@ class FunWithEmotionsPage extends React.Component {
             parseFloat(this.state.surprise),
           ],
           backgroundColor: [
-            "rgb(255, 0, 0)",
-            "rgb(255, 128, 0)",
-            "rgb(0, 255, 0)",
-            "rgb(255, 255, 0)",
-            "rgb(0, 0, 255)",
-            "rgb(127, 0, 255)",
+            'rgb(255, 0, 0)',
+            'rgb(255, 128, 0)',
+            'rgb(0, 255, 0)',
+            'rgb(255, 255, 0)',
+            'rgb(0, 0, 255)',
+            'rgb(127, 0, 255)',
           ],
           borderColor: [
-            "rgba(255, 0, 0, 0.2)",
-            "rgba(255, 128, 0, 0.2)",
-            "rgba(0, 255, 0, 0.2)",
-            "rgba(255, 255, 0, 0.2)",
-            "rgba(0, 0, 255, 0.2)",
-            "rgba(127, 0, 255, 0.2)",
+            'rgba(255, 0, 0, 0.2)',
+            'rgba(255, 128, 0, 0.2)',
+            'rgba(0, 255, 0, 0.2)',
+            'rgba(255, 255, 0, 0.2)',
+            'rgba(0, 0, 255, 0.2)',
+            'rgba(127, 0, 255, 0.2)',
           ],
           borderWidth: 1,
         },
       ],
     }
 
-    console.log("Affects98: ", this.state.affects98)
+    console.log('Affects98: ', this.state.affects98)
     return (
       <>
         {!this.props.parent && this.props.child ? (
@@ -136,10 +137,10 @@ class FunWithEmotionsPage extends React.Component {
                     </Grid>
                   </>
                 ) : (
-                    <>
-                      <p>Please wait a moment...</p> <Loader active inline />
-                    </>
-                  )}
+                  <>
+                    <p>Please wait a moment...</p> <Loader active inline />
+                  </>
+                )}
               </Header>
               <div className="footer" />
             </div>

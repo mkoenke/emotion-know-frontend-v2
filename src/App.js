@@ -1,4 +1,5 @@
 /* global CY */
+import { createBrowserHistory } from 'history'
 import React from 'react'
 import { Route, Switch } from 'react-router-dom'
 import 'semantic-ui-css/semantic.min.css'
@@ -14,7 +15,7 @@ import WelcomePageContainer from './Containers/WelcomePageContainer'
 
 class App extends React.Component {
   componentDidMount() {
-    const config = {smoothness: 0.90, enableBalancer : false};
+    const config = { smoothness: 0.9, enableBalancer: false }
     CY.loader()
       .licenseKey(process.env.sdkLicense)
       .addModule(CY.modules().FACE_EMOTION.name, config)
@@ -27,6 +28,9 @@ class App extends React.Component {
   }
 
   render() {
+    let history = createBrowserHistory()
+    console.log('history: ', history)
+    console.log('props in app:', this.props)
     return (
       <>
         <NavBar />
@@ -37,7 +41,11 @@ class App extends React.Component {
             <Route
               path="/webcam"
               component={() => (
-                <CameraPage stopSDK={this.stopSDK} startSDK={this.startSDK} />
+                <CameraPage
+                  history={history}
+                  stopSDK={this.stopSDK}
+                  startSDK={this.startSDK}
+                />
               )}
             />
 
