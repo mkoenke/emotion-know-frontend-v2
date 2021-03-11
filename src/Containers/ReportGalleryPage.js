@@ -1,17 +1,8 @@
 import JwPagination from 'jw-react-pagination'
 import React from 'react'
 import { connect } from 'react-redux'
-import {
-  Card,
-  Container,
-  Grid,
-  Header,
-  Menu,
-  Popup,
-  Table,
-} from 'semantic-ui-react'
+import { Container, Grid, Header, Menu, Popup, Table } from 'semantic-ui-react'
 import { BigPlayButton, ControlBar, LoadingSpinner, Player } from 'video-react'
-import BarGraph from '../Components/BarGraph'
 import IndividualLineGraph from '../Components/IndividualLineGraph'
 import LineGraph from '../Components/LineGraph'
 import { setClickedReport } from '../Redux/actions'
@@ -80,21 +71,12 @@ class ReportGalleryPage extends React.Component {
   }
 
   renderReportGraph = () => {
-    console.log('Clicked report: ', this.state.clickedReport)
-    let date = new Date(this.state.clickedReport.created_at)
-    let dateWithoutTime =
-      date.getMonth() + 1 + '/' + date.getDate() + '/' + date.getFullYear()
     return (
       <Grid centered columns="two">
         <Grid.Row>
           <Grid.Column>
             <div className="bargraph smallGraph pattern smallGraphPadding">
-              {/* <BarGraph
-                report={this.state.clickedReport}
-                date={dateWithoutTime}
-              /> */}
               <IndividualLineGraph />
-              {/* <IndividualLineGraph clickedReport={this.state.clickedReport} /> */}
             </div>
           </Grid.Column>
           <Grid.Column>
@@ -103,26 +85,14 @@ class ReportGalleryPage extends React.Component {
                 {this.state.clickedJournal.title}
               </Header>
 
-              {this.state.clickedJournal.clip ? (
-                <div className="smallAudio">
-                  <audio src={this.state.clickedJournal.url} controls></audio>
-                </div>
-              ) : this.state.clickedJournal.video ? (
+              {this.state.clickedJournal.video ? (
                 <Player>
                   <source src={this.state.clickedJournal.url} />
                   <ControlBar autoHide={false} />
                   <LoadingSpinner />
                   <BigPlayButton position="center" />
                 </Player>
-              ) : (
-                <Card centered>
-                  <Card.Content>
-                    <Card.Description textAlign="center">
-                      {this.state.clickedJournal.content}
-                    </Card.Description>
-                  </Card.Content>
-                </Card>
-              )}
+              ) : null}
             </div>
           </Grid.Column>
         </Grid.Row>
@@ -130,18 +100,12 @@ class ReportGalleryPage extends React.Component {
     )
   }
   renderParentReportGraph = () => {
-    let date = new Date(this.state.clickedReport.created_at)
-    let dateWithoutTime =
-      date.getMonth() + 1 + '/' + date.getDate() + '/' + date.getFullYear()
     return (
       <Grid centered columns="one">
         <Grid.Row>
           <Grid.Column>
             <div className="bargraph smallGraph pattern parentGraphPadding">
-              <BarGraph
-                report={this.state.clickedReport}
-                date={dateWithoutTime}
-              />
+              <IndividualLineGraph />
             </div>
           </Grid.Column>
         </Grid.Row>

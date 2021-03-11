@@ -28,7 +28,7 @@ class IndividualLineGraph extends React.Component {
           index++
         }
 
-        return { key: `${index}`, value: parseInt(value) }
+        return { key: `${index}`, value: parseFloat(value) }
       })
       console.log('anger keys and values: ', angerKeysAndValues)
       index = 0
@@ -38,7 +38,7 @@ class IndividualLineGraph extends React.Component {
             index++
           }
 
-          return { key: `${index}`, value: parseInt(value) }
+          return { key: `${index}`, value: parseFloat(value) }
         }
       )
       index = 0
@@ -47,7 +47,7 @@ class IndividualLineGraph extends React.Component {
           index++
         }
 
-        return { key: `${index}`, value: parseInt(value) }
+        return { key: `${index}`, value: parseFloat(value) }
       })
       index = 0
       let joyKeysAndValues = this.props.clickedReport.joy.map((value) => {
@@ -55,7 +55,7 @@ class IndividualLineGraph extends React.Component {
           index++
         }
 
-        return { key: `${index}`, value: parseInt(value) }
+        return { key: `${index}`, value: parseFloat(value) }
       })
       index = 0
       let sadnessKeysAndValues = this.props.clickedReport.sadness.map(
@@ -64,7 +64,7 @@ class IndividualLineGraph extends React.Component {
             index++
           }
 
-          return { key: `${index}`, value: parseInt(value) }
+          return { key: `${index}`, value: parseFloat(value) }
         }
       )
       index = 0
@@ -74,7 +74,7 @@ class IndividualLineGraph extends React.Component {
             index++
           }
 
-          return { key: `${index}`, value: parseInt(value) }
+          return { key: `${index}`, value: parseFloat(value) }
         }
       )
       index = 0
@@ -129,71 +129,6 @@ class IndividualLineGraph extends React.Component {
         keys: xAxisCategories,
       })
     }
-    // else if (this.props.parentsReports.length) {
-    //   let angerKeysAndValues = this.props.parentsReports.map((report) => {
-    //     return { key: `${date}`, value: report.anger }
-    //   })
-    //   let disgustKeysAndValues = this.props.parentsReports.map((report) => {
-    //     return { key: `${date}`, value: report.disgust }
-    //   })
-    //   let fearKeysAndValues = this.props.parentsReports.map((report) => {
-    //     return { key: `${date}`, value: report.fear }
-    //   })
-    //   let joyKeysAndValues = this.props.parentsReports.map((report) => {
-    //     return { key: `${date}`, value: report.joy }
-    //   })
-    //   let sadnessKeysAndValues = this.props.parentsReports.map((report) => {
-    //     return { key: `${date}`, value: report.sadness }
-    //   })
-    //   let surpriseKeysAndValues = this.props.parentsReports.map((report) => {
-    //     return { key: `${date}`, value: report.surprise }
-    //   })
-    //   let xAxisCategories = this.props.parentsReports.map((report) => {
-    //     return `${date}`
-    //   })
-
-    //   this.setState({
-    //     data: [
-    //       {
-    //         type: 'line',
-    //         title: 'Anger',
-    //         color: 'red',
-    //         points: angerKeysAndValues,
-    //       },
-    //       {
-    //         type: 'line',
-    //         color: 'orange',
-    //         title: 'Disgust',
-    //         points: disgustKeysAndValues,
-    //       },
-    //       {
-    //         type: 'line',
-    //         color: 'green',
-    //         title: 'Fear',
-    //         points: fearKeysAndValues,
-    //       },
-    //       {
-    //         type: 'line',
-    //         color: 'yellow',
-    //         title: 'Joy',
-    //         points: joyKeysAndValues,
-    //       },
-    //       {
-    //         type: 'line',
-    //         color: 'blue',
-    //         title: 'Sadness',
-    //         points: sadnessKeysAndValues,
-    //       },
-    //       {
-    //         type: 'line',
-    //         color: 'purple',
-    //         title: 'Surprise',
-    //         points: surpriseKeysAndValues,
-    //       },
-    //     ],
-    //     keys: xAxisCategories,
-    //   })
-    // }
   }
 
   render() {
