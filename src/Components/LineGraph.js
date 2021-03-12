@@ -5,11 +5,9 @@ import emotionsOverTime from "../HelperFunctions/emotionsOverTime"
 
 class LineGraph extends React.Component {
   componentDidMount() {
-    this.chartData()
     this.setState({
       averagedReports: emotionsOverTime(this.props.allReports)
-    })
-    console.log("this.state", this.state)
+    }, () => this.chartData())
   }
 
   state = {
@@ -19,43 +17,44 @@ class LineGraph extends React.Component {
   }
 
   chartData = () => {
-    if (this.props.allReports.length) {
-      let angerKeysAndValues = this.props.allReports.map((report) => {
+    // console.log("in chart data", this.state)
+    if (this.state.averagedReports.length) {
+      let angerKeysAndValues = this.state.averagedReports.map((report) => {
         let date = new Date(report.created_at)
 
         return { key: `${date}`, value: report.anger }
       })
-      let disgustKeysAndValues = this.props.allReports.map((report) => {
+      let disgustKeysAndValues = this.state.averagedReports.map((report) => {
         let date = new Date(report.created_at)
 
         return { key: `${date}`, value: report.disgust }
       })
-      let fearKeysAndValues = this.props.allReports.map((report) => {
+      let fearKeysAndValues = this.state.averagedReports.map((report) => {
         let date = new Date(report.created_at)
 
         return { key: `${date}`, value: report.fear }
       })
-      let joyKeysAndValues = this.props.allReports.map((report) => {
+      let joyKeysAndValues = this.state.averagedReports.map((report) => {
         let date = new Date(report.created_at)
-
+        
         return { key: `${date}`, value: report.joy }
       })
-      let sadnessKeysAndValues = this.props.allReports.map((report) => {
+      let sadnessKeysAndValues = this.state.averagedReports.map((report) => {
         let date = new Date(report.created_at)
 
         return { key: `${date}`, value: report.sadness }
       })
-      let surpriseKeysAndValues = this.props.allReports.map((report) => {
+      let surpriseKeysAndValues = this.state.averagedReports.map((report) => {
         let date = new Date(report.created_at)
 
         return { key: `${date}`, value: report.surprise }
       })
-      let xAxisCategories = this.props.allReports.map((report) => {
+      let xAxisCategories = this.state.averagedReports.map((report) => {
         let date = new Date(report.created_at)
 
         return `${date}`
       })
-
+      // console.log("angerKeysAndValues Chris", angerKeysAndValues)
       this.setState({
         data: [
           {
@@ -173,6 +172,7 @@ class LineGraph extends React.Component {
   }
 
   render() {
+    // console.log("this.state", this.state)
     return (
       <Chart
         data={this.state.data}
