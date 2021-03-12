@@ -1,7 +1,9 @@
 //returns array of reports with emotions averaged for each report
 function emotionsOverTime (reports){
+  console.log("reports:",reports)
   let averagedReports = []
   for(let report of reports){
+    console.log("report:", report)
     averagedReports.push(averageReportCalculator(report))
   }
   return averagedReports
@@ -16,12 +18,18 @@ function averageReportCalculator(report) {
       averageEmotionReport[key] = computeAverage(report[key])
     } else averageEmotionReport[key] = report[key]
   }
-  return averageEmotionReport
+  console.log("averageEmotionReport:", averageEmotionReport)
+  return averageEmotionReport 
 }
 
 //computes average of each emotion array passed in as an argument
 function computeAverage(emotionArray) {
-  return (emotionArray.reduce((sum, val) => sum + val) / emotionArray.length)
+  let floatArray = []
+  for(let val of emotionArray){
+    floatArray.push(parseFloat(val))
+  }
+  let averageResult = (floatArray.reduce((sum, val) => sum + val) / emotionArray.length)
+  return averageResult
 }
 
 export default emotionsOverTime

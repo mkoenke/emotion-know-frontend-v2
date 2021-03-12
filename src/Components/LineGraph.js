@@ -1,15 +1,21 @@
 import Chart from "r-chart"
 import React from "react"
 import { connect } from "react-redux"
+import emotionsOverTime from "../HelperFunctions/emotionsOverTime"
 
 class LineGraph extends React.Component {
   componentDidMount() {
     this.chartData()
+    this.setState({
+      averagedReports: emotionsOverTime(this.props.allReports)
+    })
+    console.log("this.state", this.state)
   }
 
   state = {
     data: [],
     keys: [],
+    averagedReports: []
   }
 
   chartData = () => {
