@@ -26,7 +26,6 @@ class SignUpModal extends React.Component {
       email: this.state.email,
       password: this.state.parentPassword,
     }
-    console.log("Parent data: ", parentData)
     fetch("http://localhost:3000/parents", {
       method: "POST",
       headers: {

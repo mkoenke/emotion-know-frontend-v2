@@ -17,7 +17,6 @@ class LineGraph extends React.Component {
   }
 
   chartData = () => {
-    // console.log("in chart data", this.state)
     if (this.state.averagedReports.length) {
       let angerKeysAndValues = this.state.averagedReports.map((report) => {
         let date = new Date(report.created_at)
@@ -54,7 +53,6 @@ class LineGraph extends React.Component {
 
         return `${date}`
       })
-      // console.log("angerKeysAndValues Chris", angerKeysAndValues)
       this.setState({
         data: [
           {
@@ -172,7 +170,6 @@ class LineGraph extends React.Component {
   }
 
   render() {
-    // console.log("this.state", this.state)
     return (
       <Chart
         data={this.state.data}

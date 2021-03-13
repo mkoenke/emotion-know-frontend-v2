@@ -51,7 +51,6 @@ class VideoGalleryPage extends React.Component {
     })
   }
   render() {
-    console.log('video gallery props:', this.props)
     const customLabels = {
       first: '<<',
       last: '>>',

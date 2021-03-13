@@ -40,8 +40,6 @@ class BarGraph extends React.Component {
   }
 
   render() {
-    console.log('props in bar graph: ', this.props)
-    console.log('state in bar graph: ', this.state)
     return <Bar data={this.state.data} />
   }
 }

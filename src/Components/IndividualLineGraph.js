@@ -18,10 +18,7 @@ class IndividualLineGraph extends React.Component {
   }
 
   chartData = () => {
-    console.log('In chartData()')
-    console.log(this.props.clickedReport)
-
-    if (this.props.clickedReport) {
+     if (this.props.clickedReport) {
       let index = 0
       let angerKeysAndValues = this.props.clickedReport.anger.map((value) => {
         if (value) {
@@ -30,7 +27,6 @@ class IndividualLineGraph extends React.Component {
 
         return { key: `${index}`, value: parseFloat(value) }
       })
-      console.log('anger keys and values: ', angerKeysAndValues)
       index = 0
       let disgustKeysAndValues = this.props.clickedReport.disgust.map(
         (value) => {
@@ -132,8 +128,6 @@ class IndividualLineGraph extends React.Component {
   }
 
   render() {
-    console.log('state in indiv line graph: ', this.state)
-    console.log('props in indiv line graph: ', this.props)
     return (
       <Chart
         data={this.state.data}

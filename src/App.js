@@ -29,8 +29,6 @@ class App extends React.Component {
 
   render() {
     let history = createBrowserHistory()
-    console.log('history: ', history)
-    console.log('props in app:', this.props)
     return (
       <>
         <NavBar />

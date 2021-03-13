@@ -23,9 +23,7 @@ class FunWithEmotionsPage extends React.Component {
   }
   componentDidMount() {
     this.props.startSDK()
-    console.log('component did mount')
-    console.log('this.props', this.props)
-
+  
     window.addEventListener(CY.modules().FACE_EMOTION.eventName, (evt) => {
       this.setState({
         emo: evt.detail.output.dominantEmotion,
@@ -52,7 +50,6 @@ class FunWithEmotionsPage extends React.Component {
 
   componentWillUnmount() {
     this.props.stopSDK()
-    console.log('stopping SDK')
   }
 
   findDominantAffect = (affectsObj) => {
@@ -63,7 +60,6 @@ class FunWithEmotionsPage extends React.Component {
   }
 
   render() {
-    console.log('props: ', this.props)
     const videoConstraints = {
       facingMode: 'user',
     }
@@ -102,7 +98,6 @@ class FunWithEmotionsPage extends React.Component {
       ],
     }
 
-    console.log('Affects98: ', this.state.affects98)
     return (
       <>
         {!this.props.parent && this.props.child ? (
