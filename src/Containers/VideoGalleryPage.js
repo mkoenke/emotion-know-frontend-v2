@@ -21,7 +21,7 @@ class VideoGalleryPage extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (prevProps.allVideos !== this.state.items) {
+    if (this.state.items !== this.props.allVideos) {
       this.setState({ items: this.props.allVideos })
     }
   }
