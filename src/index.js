@@ -9,6 +9,7 @@ import App from "./App"
 import "./index.css"
 import rootReducer from "./Redux/rootReducer"
 import reportWebVitals from "./reportWebVitals"
+import './fonts/Montserrat/Montserrat-Regular.ttf'
 
 const store = createStore(
   rootReducer,
