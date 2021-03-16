@@ -1,8 +1,9 @@
 import React from 'react'
 import { Card, Grid } from 'semantic-ui-react'
-import videoGalleryImage from '../assets/images/3rainbowStacked.jpg'
+// import videoGalleryImage from '../assets/images/3rainbowStacked.jpg'
 import funWithEmotions from '../assets/images/funWithEmotions.jpg'
 import reportImage from '../assets/images/pencilBar.jpeg'
+import RainbowPyramid from '../assets/images/rainbowBlockPyramid.jpg'
 import videoImage from '../assets/images/rainbowBlocks.jpg'
 import WelcomeCard from './WelcomeCard'
 
@@ -19,7 +20,7 @@ class WelcomePageGrid extends React.Component {
       {
         id: 4,
         header: 'Video Gallery',
-        image: videoGalleryImage,
+        image: RainbowPyramid,
 
         description: 'See all the videos you have recorded in the past!',
         url: './videos',
