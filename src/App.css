@@ -129,11 +129,14 @@
   color: #97909E !important;
   font-size: 20px !important;
 }
+.formButtonContainer{
+  float: right;
+}
 .formButton {
   color: #6b585b !important;
   background-color:  #DAD2D3 !important;
   font-family: "Montserrat", "sans-serif" !important;
-  float: right;
+  
   margin: 10px !important;
 }
 .modal {

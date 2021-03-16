@@ -65,17 +65,19 @@ class LoginModal extends React.Component {
                 placeholder="Password"
               />
             </Form.Field>
-            <Button
-              className="formButton"
-              onClick={this.handleCancel}
-              type="cancel"
-            >
-              Cancel
-            </Button>
 
-            <Button className="formButton" type="submit">
-              Submit
-            </Button>
+            <div className="formButtonContainer">
+              <Button className="formButton" type="submit">
+                Submit
+              </Button>
+              <Button
+                className="formButton"
+                onClick={this.handleCancel}
+                type="cancel"
+              >
+                Cancel
+              </Button>
+            </div>
           </Form>
         </Modal.Content>
       </Modal>
