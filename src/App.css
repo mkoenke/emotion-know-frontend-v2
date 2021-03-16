@@ -37,6 +37,7 @@
 .bannerHeight {
   height: 400px;
 }
+
 .spanMargin {
   margin-top: 40px;
 }
@@ -208,9 +209,15 @@
 }
 
 .homepageText {
-  font-family: 'Montserrat', sans-serif;
-  margin: 20px !important;
+  font-family: 'Montserrat', sans-serif !important;
   line-height: 26px;
+  font-size: 20px;
+  margin-top: 40px;
+  color: rgb(10, 157, 174);
+
+}
+.homepageGrid{
+  padding: 40px !important;
 }
 .homepageContainer {
   color: rgb(10, 157, 174);

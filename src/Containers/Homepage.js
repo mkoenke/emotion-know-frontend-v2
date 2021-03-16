@@ -1,6 +1,6 @@
 import React from 'react'
 import { Parallax, ParallaxBanner } from 'react-scroll-parallax'
-import { Container, Header, Image } from 'semantic-ui-react'
+import { Container, Grid, Header, Image } from 'semantic-ui-react'
 import chooseSmile from '../assets/images/chooseSmile.jpeg'
 import childGif from '../assets/images/emGif2.gif'
 import handWith3Blocks from '../assets/images/handWith3Blocks.jpg'
@@ -57,23 +57,29 @@ class Homepage extends React.Component {
           className="homepageBannerHeight"
         ></ParallaxBanner>
         <div>
-          <Container className="homepageContainer">
-            <Image src={childGif} />
-            <div className="homepageText">
-              Chidren, we are here to support you in your emotional growth. Say
-              goodbye to traditional diaries and journals, and say hello to
-              privacy and emotional feedback. Lighten the load you are carrying
-              by recording a video journal, and then review emotional feedback
-              on the universal emotions of Joy, Surprise, Sadness, Disgust,
-              Anger, and Fear from your entry. See all your entries in your
-              personal, private gallery.
-            </div>
-            <div className="homepageText">
-              And don't forget to play with the Fun With Emotions Page to see
-              what emotions you can express with your face in real time! You are
-              beautifully emotionally intelligent!
-            </div>
-          </Container>
+          <Grid className="homepageGrid">
+            <Grid.Row>
+              <Grid.Column width={8}>
+                <Image src={childGif} />
+              </Grid.Column>
+              <Grid.Column width={8}>
+                <div className="homepageText">
+                  Chidren, we are here to support you in your emotional growth.
+                  Say goodbye to traditional diaries and journals, and say hello
+                  to privacy and emotional feedback. Lighten the load you are
+                  carrying by recording a video journal, and then review
+                  emotional feedback on the universal emotions of Joy, Surprise,
+                  Sadness, Disgust, Anger, and Fear from your entry. See all
+                  your entries in your personal, private gallery.
+                </div>
+                <div className="homepageText">
+                  And don't forget to play with the Fun With Emotions Page to
+                  see what emotions you can express with your face in real time!
+                  You are beautifully emotionally intelligent!
+                </div>
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>
         </div>
         <ParallaxBanner
           layers={[
