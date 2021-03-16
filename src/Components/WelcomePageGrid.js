@@ -54,7 +54,7 @@ class WelcomePageGrid extends React.Component {
   render() {
     return (
       <Card.Group>
-        <Grid centered columns="three" className="background">
+        <Grid centered columns="two" className="background">
           <Grid.Row className="shift">{this.arrayOfCards()}</Grid.Row>
         </Grid>
       </Card.Group>

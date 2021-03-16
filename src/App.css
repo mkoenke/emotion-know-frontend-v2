@@ -125,8 +125,19 @@
 }
 .formLabel {
   font-family: "Montserrat", "sans-serif" !important;
-  color: rgb(10, 157, 174) !important;
+  color: #97909E !important;
   font-size: 20px !important;
+}
+.formButton {
+  color: #6b585b !important;
+  background-color:  #DAD2D3 !important;
+  font-family: "Montserrat", "sans-serif" !important;
+  float: right;
+  margin: 10px !important;
+}
+.modal {
+  width: 50% !important;
+  background-color: rgb(248, 245, 242) !important;
 }
 .cardSize {
   min-height: 400px !important;

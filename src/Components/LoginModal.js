@@ -1,13 +1,13 @@
-import React from "react"
-import { connect } from "react-redux"
-import { Button, Form, Message, Modal } from "semantic-ui-react"
-import { login, setError, setModal } from "../Redux/actions"
+import React from 'react'
+import { connect } from 'react-redux'
+import { Button, Form, Message, Modal } from 'semantic-ui-react'
+import { login, setError, setModal } from '../Redux/actions'
 
 class LoginModal extends React.Component {
   state = {
     isOpen: true,
-    username: "",
-    password: "",
+    username: '',
+    password: '',
   }
   handleCancel = () => {
     this.props.dispatchModal(false)
@@ -65,10 +65,16 @@ class LoginModal extends React.Component {
                 placeholder="Password"
               />
             </Form.Field>
-
-            <Button type="submit">Submit</Button>
-            <Button onClick={this.handleCancel} type="cancel">
+            <Button
+              className="formButton"
+              onClick={this.handleCancel}
+              type="cancel"
+            >
               Cancel
+            </Button>
+
+            <Button className="formButton" type="submit">
+              Submit
             </Button>
           </Form>
         </Modal.Content>
