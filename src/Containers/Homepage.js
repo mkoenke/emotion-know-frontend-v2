@@ -1,11 +1,13 @@
 import React from 'react'
 import { Parallax, ParallaxBanner } from 'react-scroll-parallax'
-import { Container, Header } from 'semantic-ui-react'
+import { Container, Header, Image } from 'semantic-ui-react'
 import chooseSmile from '../assets/images/chooseSmile.jpeg'
+import childGif from '../assets/images/emGif2.gif'
 import handWith3Blocks from '../assets/images/handWith3Blocks.jpg'
 import handWithBlock from '../assets/images/handWithBlock.jpg'
 import handWithBlocks from '../assets/images/handWithBlocks.jpg'
 import handWithVerticalBlocks from '../assets/images/handWithVerticalBlocks.jpg'
+import parentGif from '../assets/images/repgif.gif'
 import SignUpModal from '../Components/SignUpModal'
 
 class Homepage extends React.Component {
@@ -56,6 +58,7 @@ class Homepage extends React.Component {
         ></ParallaxBanner>
         <div>
           <Container className="homepageContainer">
+            <Image src={childGif} />
             <div className="homepageText">
               Chidren, we are here to support you in your emotional growth. Say
               goodbye to traditional diaries and journals, and say hello to
@@ -93,6 +96,7 @@ class Homepage extends React.Component {
               families, and advanced communication during these pivotal stages
               of development.
             </div>
+            <Image src={parentGif} />
           </Container>
         </div>
         <ParallaxBanner

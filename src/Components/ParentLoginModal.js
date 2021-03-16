@@ -1,13 +1,13 @@
-import React from "react"
-import { connect } from "react-redux"
-import { Button, Form, Message, Modal } from "semantic-ui-react"
-import { loginParent, setError, setParentModal } from "../Redux/actions"
+import React from 'react'
+import { connect } from 'react-redux'
+import { Button, Form, Message, Modal } from 'semantic-ui-react'
+import { loginParent, setError, setParentModal } from '../Redux/actions'
 
 class ParentLoginModal extends React.Component {
   state = {
     isOpen: true,
-    email: "",
-    password: "",
+    email: '',
+    password: '',
   }
   handleCancel = () => {
     this.props.dispatchParentModal(false)
@@ -66,9 +66,16 @@ class ParentLoginModal extends React.Component {
               />
             </Form.Field>
 
-            <Button type="submit">Submit</Button>
-            <Button onClick={this.handleCancel} type="cancel">
+            <Button
+              className="formButton"
+              onClick={this.handleCancel}
+              type="cancel"
+            >
+              {' '}
               Cancel
+            </Button>
+            <Button className="formButton" type="submit">
+              Submit
             </Button>
           </Form>
         </Modal.Content>

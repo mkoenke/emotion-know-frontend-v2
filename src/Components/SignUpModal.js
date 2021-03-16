@@ -1,15 +1,15 @@
-import React from "react"
-import { connect } from "react-redux"
-import { Button, Form, Modal } from "semantic-ui-react"
-import { setChild } from "../Redux/actions"
+import React from 'react'
+import { connect } from 'react-redux'
+import { Button, Form, Modal } from 'semantic-ui-react'
+import { setChild } from '../Redux/actions'
 
 class SignUpModal extends React.Component {
   state = {
     isOpen: true,
-    username: "",
-    password: "",
-    email: "",
-    parentPassword: "",
+    username: '',
+    password: '',
+    email: '',
+    parentPassword: '',
   }
   handleCancel = () => {
     this.setState({ isOpen: false })
@@ -26,10 +26,10 @@ class SignUpModal extends React.Component {
       email: this.state.email,
       password: this.state.parentPassword,
     }
-    fetch("http://localhost:3000/parents", {
-      method: "POST",
+    fetch('http://localhost:3000/parents', {
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify(parentData),
     })
@@ -40,28 +40,28 @@ class SignUpModal extends React.Component {
           password: this.state.password,
           parent_id: data.parent.id,
         }
-        
-        fetch("http://localhost:3000/children", {
-          method: "POST",
+
+        fetch('http://localhost:3000/children', {
+          method: 'POST',
           headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
           },
           body: JSON.stringify(childData),
         })
           .then((response) => response.json())
           .then((data) => {
-            localStorage.setItem("token", data.jwt)
+            localStorage.setItem('token', data.jwt)
 
             this.props.dispatchChild(data.child)
             this.props.setViewModalStateToFalse()
           })
           .catch((error) => {
-            console.error("Error:", error)
+            console.error('Error:', error)
           })
       })
       .catch((error) => {
-        console.error("Error:", error)
+        console.error('Error:', error)
       })
   }
 
@@ -106,7 +106,7 @@ class SignUpModal extends React.Component {
                 onChange={this.handleFormChange}
                 placeholder="Parent's Email"
               />
-            </Form.Field>{" "}
+            </Form.Field>{' '}
             <Form.Field required>
               <label className="formLabel">Parent's Password</label>
               <input
@@ -115,11 +115,17 @@ class SignUpModal extends React.Component {
                 value={this.state.parentPassword}
                 onChange={this.handleFormChange}
                 placeholder="Parent's Password"
-              />{" "}
+              />{' '}
             </Form.Field>
-            <Button type="submit">Submit</Button>
-            <Button onClick={this.handleCancel} type="cancel">
+            <Button
+              className="formButton"
+              onClick={this.handleCancel}
+              type="cancel"
+            >
               Cancel
+            </Button>
+            <Button className="formButton" type="submit">
+              Submit
             </Button>
           </Form>
         </Modal.Content>
