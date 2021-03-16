@@ -1,6 +1,6 @@
 import React from 'react'
 import { Parallax, ParallaxBanner } from 'react-scroll-parallax'
-import { Container, Grid, Header, Image } from 'semantic-ui-react'
+import { Grid, Header, Image } from 'semantic-ui-react'
 import chooseSmile from '../assets/images/chooseSmile.jpeg'
 import childGif from '../assets/images/emGif2.gif'
 import handWith3Blocks from '../assets/images/handWith3Blocks.jpg'
@@ -91,19 +91,25 @@ class Homepage extends React.Component {
           className="homepageBannerHeight"
         ></ParallaxBanner>
         <div>
-          <Container className="homepageContainer">
-            <div className="homepageText">
-              Parents, we are committed to helping you stay in the loop with how
-              your child is feeling. When your child uses EmotionKnow to create
-              a journal entry, you will recieve an email to keep you posted. Log
-              in to your portal to see the emotional reports generated from your
-              child's entries. We want to help you stay attuned to your child’s
-              wellbeing, providing an overall sense of connectedness in
-              families, and advanced communication during these pivotal stages
-              of development.
-            </div>
-            <Image src={parentGif} />
-          </Container>
+          <Grid className="homepageGrid">
+            <Grid.Row>
+              <Grid.Column width={8}>
+                <div className="homepageText">
+                  Parents, we are committed to helping you stay in the loop with
+                  how your child is feeling. When your child uses EmotionKnow to
+                  create a journal entry, you will recieve an email to keep you
+                  posted. Log in to your portal to see the emotional reports
+                  generated from your child's entries. We want to help you stay
+                  attuned to your child’s wellbeing, providing an overall sense
+                  of connectedness in families, and advanced communication
+                  during these pivotal stages of development.
+                </div>
+              </Grid.Column>
+              <Grid.Column width={8}>
+                <Image src={parentGif} />
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>
         </div>
         <ParallaxBanner
           layers={[
