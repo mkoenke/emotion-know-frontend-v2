@@ -51,7 +51,7 @@
   color: rgb(248, 245, 242) !important ;
 }
 .navBarBackground {
-  background-color: rgb(8, 126, 139) !important;
+  background-color: #57909E !important;
 }
 .link {
   cursor: pointer;
@@ -206,8 +206,8 @@
   font-size: 20px;
   font-family: "Montserrat";
   object-fit: contain;
-  padding-left: 100px;
-  padding-right: 100px;
+  padding-left: 200px;
+  padding-right: 200px;
   padding: 75px;
 }
 .height {
