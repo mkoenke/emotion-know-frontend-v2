@@ -1,11 +1,11 @@
 import React from 'react'
 import { Parallax, ParallaxBanner } from 'react-scroll-parallax'
 import { Container, Header } from 'semantic-ui-react'
+import chooseSmile from '../assets/images/chooseSmile.jpeg'
 import handWith3Blocks from '../assets/images/handWith3Blocks.jpg'
 import handWithBlock from '../assets/images/handWithBlock.jpg'
 import handWithBlocks from '../assets/images/handWithBlocks.jpg'
 import handWithVerticalBlocks from '../assets/images/handWithVerticalBlocks.jpg'
-import kidsPaperFamily from '../assets/images/kidsPaperFamily.jpg'
 import SignUpModal from '../Components/SignUpModal'
 
 class Homepage extends React.Component {
@@ -119,7 +119,7 @@ class Homepage extends React.Component {
         <ParallaxBanner
           layers={[
             {
-              image: kidsPaperFamily,
+              image: chooseSmile,
               amount: 0.3,
             },
           ]}
