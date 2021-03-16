@@ -60,7 +60,7 @@ class Homepage extends React.Component {
           <Grid className="homepageGrid">
             <Grid.Row>
               <Grid.Column width={8}>
-                <Image src={childGif} />
+                <Image className="homepageImage" src={childGif} />
               </Grid.Column>
               <Grid.Column width={8}>
                 <div className="homepageText">
@@ -106,7 +106,7 @@ class Homepage extends React.Component {
                 </div>
               </Grid.Column>
               <Grid.Column width={8}>
-                <Image src={parentGif} />
+                <Image className="homepageImage" src={parentGif} />
               </Grid.Column>
             </Grid.Row>
           </Grid>

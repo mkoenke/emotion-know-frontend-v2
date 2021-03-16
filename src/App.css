@@ -219,6 +219,9 @@
   color: rgb(10, 157, 174);
 
 }
+.homepageImage {
+  box-shadow: 10px 10px 5px grey !important;
+}
 .homepageGrid{
   padding: 40px !important;
 }
