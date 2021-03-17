@@ -2,12 +2,16 @@ import JwPagination from 'jw-react-pagination'
 import React from 'react'
 import { connect } from 'react-redux'
 import { Grid, Header } from 'semantic-ui-react'
-import image1 from '../assets/images/videoGallery1.jpg'
-import image2 from '../assets/images/videoGallery2.jpg'
-import image3 from '../assets/images/videoGallery3.jpg'
-import image4 from '../assets/images/videoGallery4.jpg'
-import image5 from '../assets/images/videoGallery5.jpg'
-import image6 from '../assets/images/videoGallery6.jpg'
+import raindbowStacked from '../assets/images/3rainbowStacked.jpg'
+import stackedRainbowBlocks from '../assets/images/stackedRainbowBlocks.jpg'
+import rainbowWithHand from '../assets/images/stackedRainbowBlocksWithHand.jpg'
+import threeRainbow from '../assets/images/threeRainbowBlocks.jpg'
+// import image1 from '../assets/images/videoGallery1.jpg'
+// import image2 from '../assets/images/videoGallery2.jpg'
+// import image3 from '../assets/images/videoGallery3.jpg'
+// import image4 from '../assets/images/videoGallery4.jpg'
+// import image5 from '../assets/images/videoGallery5.jpg'
+// import image6 from '../assets/images/videoGallery6.jpg'
 import VideoCard from '../Components/VideoCard'
 
 class VideoGalleryPage extends React.Component {
@@ -30,7 +34,13 @@ class VideoGalleryPage extends React.Component {
     this.setState({ pageOfItems })
   }
   arrayOfJournals = () => {
-    const imageArray = [image1, image2, image3, image4, image5, image6]
+    const imageArray = [
+      raindbowStacked,
+      threeRainbow,
+      stackedRainbowBlocks,
+      rainbowWithHand,
+    ]
+    // const imageArray = [image1, image2, image3, image4, image5, image6]
     let i = 0
     return this.state.pageOfItems.map((card) => {
       if (i < imageArray.length - 1) {
