@@ -57,10 +57,10 @@ class Homepage extends React.Component {
           className="homepageBannerHeight"
         ></ParallaxBanner>
         <div>
-          <Grid className="homepageGrid">
+          <Grid verticalAlign="middle" container className="homepageGrid">
             <Grid.Row>
               <Grid.Column width={8}>
-                <Image src={childGif} />
+                <Image className="homepageImage" src={childGif} />
               </Grid.Column>
               <Grid.Column width={8}>
                 <div className="homepageText">
@@ -72,6 +72,7 @@ class Homepage extends React.Component {
                   Sadness, Disgust, Anger, and Fear from your entry. See all
                   your entries in your personal, private gallery.
                 </div>
+                <br />
                 <div className="homepageText">
                   And don't forget to play with the Fun With Emotions Page to
                   see what emotions you can express with your face in real time!
@@ -91,7 +92,7 @@ class Homepage extends React.Component {
           className="homepageBannerHeight"
         ></ParallaxBanner>
         <div>
-          <Grid className="homepageGrid">
+          <Grid verticalAlign="middle" container className="homepageGrid">
             <Grid.Row>
               <Grid.Column width={8}>
                 <div className="homepageText">
@@ -106,7 +107,7 @@ class Homepage extends React.Component {
                 </div>
               </Grid.Column>
               <Grid.Column width={8}>
-                <Image src={parentGif} />
+                <Image className="homepageImage" src={parentGif} />
               </Grid.Column>
             </Grid.Row>
           </Grid>

@@ -63,7 +63,7 @@
   color: rgb(10, 157, 174) !important;
 }
 .resourceBtmMargin {
-  margin-bottom: 300px !important;
+  margin-bottom: 200px !important;
 }
 .pageHeader {
   font-family: "Montserrat", "sans-serif" !important;
@@ -211,13 +211,17 @@
   text-align: center;
 }
 
+
 .homepageText {
   font-family: 'Montserrat', sans-serif !important;
   line-height: 26px;
   font-size: 20px;
-  margin-top: 40px;
   color: rgb(10, 157, 174);
-
+  text-size-adjust: auto !important;
+}
+.homepageImage {
+  box-shadow: 10px 10px 5px grey !important;
+  vertical-align: middle !important;
 }
 .homepageGrid{
   padding: 40px !important;
@@ -264,7 +268,7 @@
 .pattern {
   background-image: linear-gradient(
     rgb(248, 245, 242),
-    rgb(10, 157, 174)
+    #C8BCBE
   ) !important;
 }
 

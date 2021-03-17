@@ -1,8 +1,8 @@
-import React from "react"
-import { Parallax, ParallaxBanner } from "react-scroll-parallax"
-import { Grid, Header, List } from "semantic-ui-react"
-import resourceImage2 from "../assets/images/kidsPaperFamily.jpg"
-import resourceImage from "../assets/images/paperFamily.jpg"
+import React from 'react'
+import { Parallax, ParallaxBanner } from 'react-scroll-parallax'
+import { Grid, Header, List } from 'semantic-ui-react'
+import resourceImage2 from '../assets/images/kidsPaperFamily.jpg'
+import resourceImage from '../assets/images/paperFamily.jpg'
 
 class ResourcesPage extends React.Component {
   render() {
@@ -11,7 +11,7 @@ class ResourcesPage extends React.Component {
         <ParallaxBanner
           layers={[
             {
-              image: resourceImage,
+              image: resourceImage2,
               amount: 0.3,
             },
           ]}
@@ -39,7 +39,7 @@ class ResourcesPage extends React.Component {
               <Header textAlign="center" size="huge" className="resources">
                 Child Resources
               </Header>
-              <List bulleted>
+              <List divided>
                 <List.Item href="https://childhood101.com/which-emotion-am-i-exploring-emotions-guessing-game/">
                   Which Emotion Am I? Exploring Emotions Guessing Game
                 </List.Item>
@@ -64,13 +64,16 @@ class ResourcesPage extends React.Component {
                 <List.Item href="https://www.thepathway2success.com/free-social-emotional-learning-resources/">
                   The Pathway 2 Success
                 </List.Item>
+                <List.Item href="https://www.sixwordmemoirs.com/teens/">
+                  Six Word Memoirs
+                </List.Item>
               </List>
             </Grid.Column>
             <Grid.Column width={5}>
               <Header textAlign="center" size="huge" className="resources">
                 Parent Resources
               </Header>
-              <List bulleted>
+              <List divided>
                 <List.Item href="https://www.psychologytoday.com/us/blog/compassion-matters/201603/why-we-need-teach-kids-emotional-intelligence">
                   Why We Need to Teach Kids Emotional Intelligence
                 </List.Item>
@@ -105,7 +108,7 @@ class ResourcesPage extends React.Component {
         <ParallaxBanner
           layers={[
             {
-              image: resourceImage2,
+              image: resourceImage,
               amount: 0.3,
             },
           ]}
