@@ -210,14 +210,17 @@
 .center {
   text-align: center;
 }
+.gridRow {
+  height: 450px !important;
+}
 
 .homepageText {
   font-family: 'Montserrat', sans-serif !important;
   line-height: 26px;
   font-size: 20px;
-  margin-top: 40px;
+  margin-top: 20px;
   color: rgb(10, 157, 174);
-
+  text-size-adjust: auto !important;
 }
 .homepageImage {
   box-shadow: 10px 10px 5px grey !important;
