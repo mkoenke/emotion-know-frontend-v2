@@ -105,7 +105,7 @@ class Homepage extends React.Component {
           >
             <Grid.Row>
               <Grid.Column width={8}>
-                <div className="homepageText">
+                <div className="homepageText parallaxText">
                   Parents, we are committed to helping you stay in the loop with
                   how your child is feeling. When your child uses EmotionKnow to
                   create a journal entry, you will recieve an email to keep you

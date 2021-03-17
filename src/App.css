@@ -107,14 +107,14 @@
   display: block;
   height: 300px;
 }
-/* .videoGrid {
-  margin: 50px;
-} */
-.webcam {
-  /* height: 520px;
-  width: 700px; */
-  object-fit: contain;
+.videoGrid {
+  /* margin: 50px; */
+  text-align: center !important;
 }
+/* .webcam {
+  
+  object-fit: contain;
+} */
 .bargraph {
   background-color: white;
   box-shadow: 10px 10px 5px grey !important;
@@ -219,6 +219,9 @@
   font-size: 20px;
   color: rgb(10, 157, 174);
   text-size-adjust: auto !important;
+}
+.parallaxText {
+  text-align: right;
 }
 .homepageImage {
   box-shadow: 10px 10px 5px grey !important;

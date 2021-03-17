@@ -62,8 +62,11 @@ class FunWithEmotionsPage extends React.Component {
   render() {
     const videoConstraints = {
       facingMode: 'user',
-      width: { max: 700 },
-      height: { max: 320 },
+      // width: { max: 700 },
+      // height: { max: 320 },
+      width: { min: 200, max: 480 },
+      height: { min: 400, max: 720 },
+      aspectRatio: 0.6666666667,
     }
 
     let data = {
@@ -113,20 +116,19 @@ class FunWithEmotionsPage extends React.Component {
                 columns={2}
                 centered
                 verticalAlign="middle"
-                // padded
                 container
                 stackable
-                // textAlign="center"
+                textAlign="center"
                 // className="videoGrid"
               >
                 <Grid.Row>
-                  <Grid.Column>
+                  <Grid.Column textAlign="center">
                     <Webcam
                       className="webcam"
                       videoConstraints={videoConstraints}
                     />
                   </Grid.Column>
-                  <Grid.Column>
+                  <Grid.Column textAlign="center">
                     <div className="funGraphDiv">
                       <Bar
                         data={data}
