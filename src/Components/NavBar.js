@@ -56,14 +56,66 @@ class NavBar extends React.Component {
               />
             </NavLink>
           )}
-          <NavLink to="/resources">
+
+          {this.props.child || this.props.parent ? (
+            <>
+              <NavLink to="/resources">
+                <Menu.Item
+                  name="resources"
+                  active={activeItem === "resources"}
+                  onClick={this.handleItemClick}
+                  className="navbar"
+                />
+              </NavLink>
+              <NavLink to="/videos">
+                <Menu.Item
+                  name="videos"
+                  active={activeItem === "videos"}
+                  onClick={this.handleItemClick}
+                  className="navbar"
+                />
+              </NavLink>
+              <NavLink to="/reports">
+                <Menu.Item
+                  name="reports"
+                  active={activeItem === "reports"}
+                  onClick={this.handleItemClick}
+                  className="navbar"
+                />
+              </NavLink>
+              <NavLink to="/fun">
+                <Menu.Item
+                  name="fun with emotions"
+                  active={activeItem === "fun"}
+                  onClick={this.handleItemClick}
+                  className="navbar"
+                />
+              </NavLink>
+            </>
+          )
+            : (
+              <>
+                <NavLink to="/resources">
+                  <Menu.Item
+                    name="resources"
+                    active={activeItem === "resources"}
+                    onClick={this.handleItemClick}
+                    className="navbar"
+                  />
+                </NavLink>
+              </>
+            )
+          }
+
+          {/* <NavLink to="/resources">
             <Menu.Item
               name="resources"
               active={activeItem === "resources"}
               onClick={this.handleItemClick}
               className="navbar"
             />
-          </NavLink>
+          </NavLink> */}
+
 
           <Menu.Menu position="right">
             {!this.props.child ? (
