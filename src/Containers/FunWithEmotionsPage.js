@@ -23,7 +23,7 @@ class FunWithEmotionsPage extends React.Component {
   }
   componentDidMount() {
     this.props.startSDK()
-  
+
     window.addEventListener(CY.modules().FACE_EMOTION.eventName, (evt) => {
       this.setState({
         emo: evt.detail.output.dominantEmotion,
@@ -62,6 +62,8 @@ class FunWithEmotionsPage extends React.Component {
   render() {
     const videoConstraints = {
       facingMode: 'user',
+      width: { max: 700 },
+      height: { max: 320 },
     }
 
     let data = {
@@ -107,20 +109,43 @@ class FunWithEmotionsPage extends React.Component {
                 Let's make some funny faces, {this.props.child.username}!
               </Header>
 
-              <Grid centered className="videoGrid">
-                <Webcam
-                  className="webcam"
-                  videoConstraints={videoConstraints}
-                />
+              <Grid
+                columns={2}
+                centered
+                verticalAlign="middle"
+                // padded
+                container
+                stackable
+                // textAlign="center"
+                // className="videoGrid"
+              >
+                <Grid.Row>
+                  <Grid.Column>
+                    <Webcam
+                      className="webcam"
+                      videoConstraints={videoConstraints}
+                    />
+                  </Grid.Column>
+                  <Grid.Column>
+                    <div className="funGraphDiv">
+                      <Bar
+                        data={data}
+                        // width={700}
+                        // height={320}
+                        options={{ maintainAspectRatio: false }}
+                      />
+                    </div>
+                  </Grid.Column>
+                </Grid.Row>
               </Grid>
 
               <Header className="waitOrDom" size="huge" textAlign="center">
                 {this.state.emo && this.state.dominantAffect ? (
                   <>
-                    Dominant Emotion: {this.state.emo}
+                    Your face says you're feeling {this.state.dominantAffect}!
                     <br />
-                    Dominant Affect: {this.state.dominantAffect}
-                    <Grid centered>
+                    Dominant Emotion: {this.state.emo}
+                    {/* <Grid centered>
                       <div className="funGraphDiv">
                         <Bar
                           data={data}
@@ -129,7 +154,7 @@ class FunWithEmotionsPage extends React.Component {
                           options={{ maintainAspectRatio: false }}
                         />
                       </div>
-                    </Grid>
+                    </Grid> */}
                   </>
                 ) : (
                   <>

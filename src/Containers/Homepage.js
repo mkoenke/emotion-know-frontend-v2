@@ -57,7 +57,12 @@ class Homepage extends React.Component {
           className="homepageBannerHeight"
         ></ParallaxBanner>
         <div>
-          <Grid verticalAlign="middle" container className="homepageGrid">
+          <Grid
+            verticalAlign="middle"
+            container
+            stackable
+            className="homepageGrid"
+          >
             <Grid.Row>
               <Grid.Column width={8}>
                 <Image className="homepageImage" src={childGif} />
@@ -92,7 +97,12 @@ class Homepage extends React.Component {
           className="homepageBannerHeight"
         ></ParallaxBanner>
         <div>
-          <Grid verticalAlign="middle" container className="homepageGrid">
+          <Grid
+            verticalAlign="middle"
+            container
+            stackable
+            className="homepageGrid"
+          >
             <Grid.Row>
               <Grid.Column width={8}>
                 <div className="homepageText">
