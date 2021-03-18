@@ -156,6 +156,9 @@ class ReportGalleryPage extends React.Component {
       previous: '<',
       next: '>',
     }
+    const data = Array.from({ length: 50 }, () =>
+      Math.round(Math.random() * 100)
+    )
 
     return (
       <>
@@ -207,7 +210,7 @@ class ReportGalleryPage extends React.Component {
                 <br />
                 <div className="lineGraph pattern">
                   {/* <LineGraph /> */}
-                  <D3LineGraph />
+                  <D3LineGraph data={data} />
                 </div>
               </Container>
               <div className="footer"></div>
