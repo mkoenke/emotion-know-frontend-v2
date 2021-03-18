@@ -45,7 +45,7 @@ class WelcomePageGrid extends React.Component {
   arrayOfCards = () => {
     return this.cardObjects().map((card) => {
       return (
-        <Grid.Column>
+        <Grid.Column width={5}>
           <WelcomeCard key={card.id} cardObj={card} />
         </Grid.Column>
       )
@@ -54,8 +54,9 @@ class WelcomePageGrid extends React.Component {
   render() {
     return (
       <Card.Group>
-        <Grid centered columns="two" className="background">
-          <Grid.Row className="shift">{this.arrayOfCards()}</Grid.Row>
+        <Grid columns={2} centered className="background">
+          <Grid.Row centered columns={2} className="shift">{this.arrayOfCards().slice(0,2)}</Grid.Row>
+          <Grid.Row centered columns={2} className="shift">{this.arrayOfCards().slice(2)}</Grid.Row>
         </Grid>
       </Card.Group>
     )
