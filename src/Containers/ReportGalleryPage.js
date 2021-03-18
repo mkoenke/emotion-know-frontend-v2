@@ -6,6 +6,7 @@ import { BigPlayButton, ControlBar, LoadingSpinner, Player } from 'video-react'
 import D3LineGraph from '../Components/d3LineChart'
 import IndividualLineGraph from '../Components/IndividualLineGraph'
 import LineGraph from '../Components/LineGraph'
+import emotionsOverTime from '../HelperFunctions/emotionsOverTime'
 import { setClickedReport } from '../Redux/actions'
 
 class ReportGalleryPage extends React.Component {
@@ -160,6 +161,8 @@ class ReportGalleryPage extends React.Component {
       Math.round(Math.random() * 100)
     )
 
+    const avgReport = emotionsOverTime(this.props.allReports)
+
     return (
       <>
         {this.props.child && !this.props.parent ? (
@@ -209,7 +212,7 @@ class ReportGalleryPage extends React.Component {
                 </Header>
                 <br />
                 <div className="lineGraph pattern">
-                  {/* <LineGraph /> */}
+                  <LineGraph />
                   <D3LineGraph data={data} />
                 </div>
               </Container>

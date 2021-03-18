@@ -1,19 +1,22 @@
-import Chart from "r-chart"
-import React from "react"
-import { connect } from "react-redux"
-import emotionsOverTime from "../HelperFunctions/emotionsOverTime"
+import Chart from 'r-chart'
+import React from 'react'
+import { connect } from 'react-redux'
+import emotionsOverTime from '../HelperFunctions/emotionsOverTime'
 
 class LineGraph extends React.Component {
   componentDidMount() {
-    this.setState({
-      averagedReports: emotionsOverTime(this.props.allReports)
-    }, () => this.chartData())
+    this.setState(
+      {
+        averagedReports: emotionsOverTime(this.props.allReports),
+      },
+      () => this.chartData()
+    )
   }
 
   state = {
     data: [],
     keys: [],
-    averagedReports: []
+    averagedReports: [],
   }
 
   chartData = () => {
@@ -35,7 +38,7 @@ class LineGraph extends React.Component {
       })
       let joyKeysAndValues = this.state.averagedReports.map((report) => {
         let date = new Date(report.created_at)
-        
+
         return { key: `${date}`, value: report.joy }
       })
       let sadnessKeysAndValues = this.state.averagedReports.map((report) => {
@@ -56,39 +59,39 @@ class LineGraph extends React.Component {
       this.setState({
         data: [
           {
-            type: "line",
-            title: "Anger",
-            color: "red",
+            type: 'line',
+            title: 'Anger',
+            color: 'red',
             points: angerKeysAndValues,
           },
           {
-            type: "line",
-            color: "orange",
-            title: "Disgust",
+            type: 'line',
+            color: 'orange',
+            title: 'Disgust',
             points: disgustKeysAndValues,
           },
           {
-            type: "line",
-            color: "green",
-            title: "Fear",
+            type: 'line',
+            color: 'green',
+            title: 'Fear',
             points: fearKeysAndValues,
           },
           {
-            type: "line",
-            color: "yellow",
-            title: "Joy",
+            type: 'line',
+            color: 'yellow',
+            title: 'Joy',
             points: joyKeysAndValues,
           },
           {
-            type: "line",
-            color: "blue",
-            title: "Sadness",
+            type: 'line',
+            color: 'blue',
+            title: 'Sadness',
             points: sadnessKeysAndValues,
           },
           {
-            type: "line",
-            color: "purple",
-            title: "Surprise",
+            type: 'line',
+            color: 'purple',
+            title: 'Surprise',
             points: surpriseKeysAndValues,
           },
         ],
@@ -128,39 +131,39 @@ class LineGraph extends React.Component {
       this.setState({
         data: [
           {
-            type: "line",
-            title: "Anger",
-            color: "red",
+            type: 'line',
+            title: 'Anger',
+            color: 'red',
             points: angerKeysAndValues,
           },
           {
-            type: "line",
-            color: "orange",
-            title: "Disgust",
+            type: 'line',
+            color: 'orange',
+            title: 'Disgust',
             points: disgustKeysAndValues,
           },
           {
-            type: "line",
-            color: "green",
-            title: "Fear",
+            type: 'line',
+            color: 'green',
+            title: 'Fear',
             points: fearKeysAndValues,
           },
           {
-            type: "line",
-            color: "yellow",
-            title: "Joy",
+            type: 'line',
+            color: 'yellow',
+            title: 'Joy',
             points: joyKeysAndValues,
           },
           {
-            type: "line",
-            color: "blue",
-            title: "Sadness",
+            type: 'line',
+            color: 'blue',
+            title: 'Sadness',
             points: sadnessKeysAndValues,
           },
           {
-            type: "line",
-            color: "purple",
-            title: "Surprise",
+            type: 'line',
+            color: 'purple',
+            title: 'Surprise',
             points: surpriseKeysAndValues,
           },
         ],
@@ -170,15 +173,16 @@ class LineGraph extends React.Component {
   }
 
   render() {
+    console.log(this.state)
     return (
       <Chart
         data={this.state.data}
         keys={this.state.keys}
         key_zoom={true}
         value_zoom={true}
-        value_gridColor={"#ddd"}
+        value_gridColor={'#ddd'}
         labelRotate={45}
-        key_editLabel={(key) => key.split(" ").slice(0, 3).join(" ")}
+        key_editLabel={(key) => key.split(' ').slice(0, 3).join(' ')}
         axisThickness={{ horizontal: 90, vertical: 50 }}
       />
     )
