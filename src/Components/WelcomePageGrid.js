@@ -21,7 +21,6 @@ class WelcomePageGrid extends React.Component {
         id: 4,
         header: 'Video Gallery',
         image: RainbowPyramid,
-
         description: 'See all the videos you have recorded in the past!',
         url: './videos',
       },
@@ -55,8 +54,12 @@ class WelcomePageGrid extends React.Component {
     return (
       <Card.Group>
         <Grid columns={2} centered className="background">
-          <Grid.Row centered columns={2} className="shift">{this.arrayOfCards().slice(0,2)}</Grid.Row>
-          <Grid.Row centered columns={2} className="shift">{this.arrayOfCards().slice(2)}</Grid.Row>
+          <Grid.Row centered columns={2} className="shift">
+            {this.arrayOfCards().slice(0, 2)}
+          </Grid.Row>
+          <Grid.Row centered columns={2} className="shift">
+            {this.arrayOfCards().slice(2)}
+          </Grid.Row>
         </Grid>
       </Card.Group>
     )

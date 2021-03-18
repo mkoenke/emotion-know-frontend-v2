@@ -1,14 +1,14 @@
-import React from "react"
-import { connect } from "react-redux"
-import { NavLink, Redirect } from "react-router-dom"
-import { Menu } from "semantic-ui-react"
-import { logout, setModal, setParentModal } from "../Redux/actions"
-import LoginModal from "./LoginModal"
-import ParentLoginModal from "./ParentLoginModal"
+import React from 'react'
+import { connect } from 'react-redux'
+import { NavLink, Redirect } from 'react-router-dom'
+import { Menu } from 'semantic-ui-react'
+import { logout, setModal, setParentModal } from '../Redux/actions'
+import LoginModal from './LoginModal'
+import ParentLoginModal from './ParentLoginModal'
 
 class NavBar extends React.Component {
   state = {
-    activeItem: "home",
+    activeItem: 'home',
   }
 
   handleItemClick = (e, { name }) => {
@@ -28,7 +28,7 @@ class NavBar extends React.Component {
   }
 
   handleLogOutClick = () => {
-    localStorage.removeItem("token")
+    localStorage.removeItem('token')
     this.props.logout()
   }
 
@@ -36,13 +36,19 @@ class NavBar extends React.Component {
     const { activeItem } = this.state
     return (
       <div>
-        <Menu pointing secondary fixed="top" className="navBarBackground">
+        <Menu
+          stackable
+          pointing
+          secondary
+          fixed="top"
+          className="navBarBackground"
+        >
           {!this.props.child && !this.props.parent ? (
             <>
               <NavLink to="/">
                 <Menu.Item
                   name="home"
-                  active={activeItem === "home"}
+                  active={activeItem === 'home'}
                   onClick={this.handleItemClick}
                   className="navbar"
                 />
@@ -50,36 +56,35 @@ class NavBar extends React.Component {
               <NavLink to="/resources">
                 <Menu.Item
                   name="resources"
-                  active={activeItem === "resources"}
+                  active={activeItem === 'resources'}
                   onClick={this.handleItemClick}
                   className="navbar"
                 />
               </NavLink>
             </>
-          )
-            : null}
+          ) : null}
           {this.props.child ? (
             <>
               <NavLink to="/welcome">
                 <Menu.Item
                   name="home"
-                  active={activeItem === "home"}
+                  active={activeItem === 'home'}
                   onClick={this.handleItemClick}
                   className="navbar"
                 />
               </NavLink>
               <NavLink to="/webcam">
                 <Menu.Item
-                  name="New Journal Entry"
-                  active={activeItem === "webcam"}
+                  name="record"
+                  active={activeItem === 'webcam'}
                   onClick={this.handleItemClick}
                   className="navbar"
                 />
               </NavLink>
               <NavLink to="/videos">
                 <Menu.Item
-                  name="Journal Entries"
-                  active={activeItem === "videos"}
+                  name="journals"
+                  active={activeItem === 'videos'}
                   onClick={this.handleItemClick}
                   className="navbar"
                 />
@@ -87,7 +92,7 @@ class NavBar extends React.Component {
               <NavLink to="/reports">
                 <Menu.Item
                   name="reports"
-                  active={activeItem === "reports"}
+                  active={activeItem === 'reports'}
                   onClick={this.handleItemClick}
                   className="navbar"
                 />
@@ -95,7 +100,7 @@ class NavBar extends React.Component {
               <NavLink to="/fun">
                 <Menu.Item
                   name="fun with emotions"
-                  active={activeItem === "fun"}
+                  active={activeItem === 'fun'}
                   onClick={this.handleItemClick}
                   className="navbar"
                 />
@@ -103,27 +108,27 @@ class NavBar extends React.Component {
             </>
           ) : null}
 
-          {this.props.parent ? (
-            <>
-              <NavLink to="/reports">
-                <Menu.Item
-                  name="reports"
-                  active={activeItem === "reports"}
-                  onClick={this.handleItemClick}
-                  className="navbar"
-                />
-              </NavLink>
-              <NavLink to="/fun">
-                <Menu.Item
-                  name="fun with emotions"
-                  active={activeItem === "fun"}
-                  onClick={this.handleItemClick}
-                  className="navbar"
-                />
-              </NavLink>
-            </>
-          )
-            : null
+          {
+            this.props.parent ? (
+              <>
+                <NavLink to="/reports">
+                  <Menu.Item
+                    name="reports"
+                    active={activeItem === 'reports'}
+                    onClick={this.handleItemClick}
+                    className="navbar"
+                  />
+                </NavLink>
+                <NavLink to="/fun">
+                  <Menu.Item
+                    name="fun with emotions"
+                    active={activeItem === 'fun'}
+                    onClick={this.handleItemClick}
+                    className="navbar"
+                  />
+                </NavLink>
+              </>
+            ) : null
             // (
             // <>
 
@@ -135,7 +140,7 @@ class NavBar extends React.Component {
               <>
                 <Menu.Item
                   name="childLogin"
-                  active={activeItem === "childLogin"}
+                  active={activeItem === 'childLogin'}
                   onClick={this.handleItemClick}
                   onClick={this.handleLoginClick}
                   className="navbar"
@@ -143,7 +148,7 @@ class NavBar extends React.Component {
                 <Redirect to="/" />
                 <Menu.Item
                   name="parentLogin"
-                  active={activeItem === "parentLogin"}
+                  active={activeItem === 'parentLogin'}
                   onClick={this.handleItemClick}
                   onClick={this.handleParentLoginClick}
                   className="navbar"
@@ -164,14 +169,14 @@ class NavBar extends React.Component {
                 <NavLink to="/resources">
                   <Menu.Item
                     name="resources"
-                    active={activeItem === "resources"}
+                    active={activeItem === 'resources'}
                     onClick={this.handleItemClick}
                     className="navbar"
                   />
                 </NavLink>
                 <Menu.Item
                   name="logout"
-                  active={activeItem === "logout"}
+                  active={activeItem === 'logout'}
                   onClick={this.handleItemClick}
                   onClick={this.handleLogOutClick}
                   className="navbar"

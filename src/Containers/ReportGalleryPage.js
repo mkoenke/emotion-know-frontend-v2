@@ -3,6 +3,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Container, Grid, Header, Menu, Popup, Table } from 'semantic-ui-react'
 import { BigPlayButton, ControlBar, LoadingSpinner, Player } from 'video-react'
+import D3LineGraph from '../Components/d3LineChart'
 import IndividualLineGraph from '../Components/IndividualLineGraph'
 import LineGraph from '../Components/LineGraph'
 import { setClickedReport } from '../Redux/actions'
@@ -205,7 +206,8 @@ class ReportGalleryPage extends React.Component {
                 </Header>
                 <br />
                 <div className="lineGraph pattern">
-                  <LineGraph />
+                  {/* <LineGraph /> */}
+                  <D3LineGraph />
                 </div>
               </Container>
               <div className="footer"></div>
