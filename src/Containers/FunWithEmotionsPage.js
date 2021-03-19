@@ -1,10 +1,11 @@
 /* global CY */
 
-import { Bar } from '@reactchartjs/react-chart.js'
+import { Bar, PolarArea, Radar } from '@reactchartjs/react-chart.js'
 import React from 'react'
 import { connect } from 'react-redux'
 import Webcam from 'react-webcam'
 import { Grid, Header, Loader, Message } from 'semantic-ui-react'
+// import EmoBubbles from '../Components/bubbleChart'
 
 class FunWithEmotionsPage extends React.Component {
   state = {
@@ -65,7 +66,7 @@ class FunWithEmotionsPage extends React.Component {
       // width: { max: 700 },
       // height: { max: 320 },
       width: { min: 200, max: 480 },
-      height: { min: 400, max: 720 },
+      height: { min: 400, max: 620 },
       aspectRatio: 0.6666666667,
     }
 
@@ -83,21 +84,48 @@ class FunWithEmotionsPage extends React.Component {
             parseFloat(this.state.surprise),
           ],
           backgroundColor: [
-            'rgb(255, 0, 0)',
-            'rgb(255, 128, 0)',
-            'rgb(0, 255, 0)',
-            'rgb(255, 255, 0)',
-            'rgb(0, 0, 255)',
-            'rgb(127, 0, 255)',
+            'rgba(255, 99, 132, 0.5)',
+            'rgba(54, 162, 235, 0.5)',
+            'rgba(255, 206, 86, 0.5)',
+            'rgba(75, 192, 192, 0.5)',
+            'rgba(153, 102, 255, 0.5)',
+            'rgba(255, 159, 64, 0.5)',
           ],
-          borderColor: [
-            'rgba(255, 0, 0, 0.2)',
-            'rgba(255, 128, 0, 0.2)',
-            'rgba(0, 255, 0, 0.2)',
-            'rgba(255, 255, 0, 0.2)',
-            'rgba(0, 0, 255, 0.2)',
-            'rgba(127, 0, 255, 0.2)',
+          // backgroundColor: [
+          //   'rgb(255, 0, 0)',
+          //   'rgb(255, 128, 0)',
+          //   'rgb(0, 255, 0)',
+          //   'rgb(255, 255, 0)',
+          //   'rgb(0, 0, 255)',
+          //   'rgb(127, 0, 255)',
+          // ],
+          // borderColor: [
+          //   'rgba(255, 0, 0, 0.2)',
+          //   'rgba(255, 128, 0, 0.2)',
+          //   'rgba(0, 255, 0, 0.2)',
+          //   'rgba(255, 255, 0, 0.2)',
+          //   'rgba(0, 0, 255, 0.2)',
+          //   'rgba(127, 0, 255, 0.2)',
+          // ],
+          borderWidth: 1,
+        },
+      ],
+    }
+    let data2 = {
+      labels: ['Anger', 'Disgust', 'Fear', 'Joy', 'Sadness', 'Surprise'],
+      datasets: [
+        {
+          label: `What does your face show?`,
+          data: [
+            parseFloat(this.state.anger),
+            parseFloat(this.state.disgust),
+            parseFloat(this.state.fear),
+            parseFloat(this.state.joy),
+            parseFloat(this.state.sadness),
+            parseFloat(this.state.surprise),
           ],
+          backgroundColor: ['rgba(255, 99, 132, 0.5)'],
+
           borderWidth: 1,
         },
       ],
@@ -111,9 +139,23 @@ class FunWithEmotionsPage extends React.Component {
               <Header className="pageHeader" size="huge" textAlign="center">
                 Let's make some funny faces, {this.props.child.username}!
               </Header>
-
+              <Header className="waitOrDom" size="huge" textAlign="center">
+                {this.state.emo && this.state.dominantAffect ? (
+                  <>
+                    Your face looks like you're feeling{' '}
+                    {this.state.dominantAffect.toLowerCase()}!
+                    <br />
+                    Biggest Emotion: {this.state.emo}
+                  </>
+                ) : (
+                  <>
+                    <p>Please wait a moment...</p> <Loader active inline />
+                    {/* <EmoBubbles /> */}
+                  </>
+                )}
+              </Header>
               <Grid
-                columns={2}
+                columns={3}
                 centered
                 verticalAlign="middle"
                 container
@@ -122,6 +164,11 @@ class FunWithEmotionsPage extends React.Component {
                 // className="videoGrid"
               >
                 <Grid.Row>
+                  <Grid.Column textAlign="center">
+                    <div className="funGraphDiv">
+                      <PolarArea data={data} />
+                    </div>
+                  </Grid.Column>
                   <Grid.Column textAlign="center">
                     <Webcam
                       className="webcam"
@@ -138,32 +185,14 @@ class FunWithEmotionsPage extends React.Component {
                       />
                     </div>
                   </Grid.Column>
+                  <Grid.Column textAlign="center">
+                    <div className="funGraphDiv">
+                      <Radar data={data2} />
+                    </div>
+                  </Grid.Column>
                 </Grid.Row>
               </Grid>
 
-              <Header className="waitOrDom" size="huge" textAlign="center">
-                {this.state.emo && this.state.dominantAffect ? (
-                  <>
-                    Your face says you're feeling {this.state.dominantAffect}!
-                    <br />
-                    Dominant Emotion: {this.state.emo}
-                    {/* <Grid centered>
-                      <div className="funGraphDiv">
-                        <Bar
-                          data={data}
-                          width={700}
-                          height={320}
-                          options={{ maintainAspectRatio: false }}
-                        />
-                      </div>
-                    </Grid> */}
-                  </>
-                ) : (
-                  <>
-                    <p>Please wait a moment...</p> <Loader active inline />
-                  </>
-                )}
-              </Header>
               <div className="footer" />
             </div>
           </>

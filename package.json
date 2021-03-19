@@ -7,6 +7,7 @@
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
+    "@weknow/react-bubble-chart-d3": "^1.0.12",
     "chart.js": "^2.9.4",
     "emailjs-com": "^2.6.4",
     "history": "^5.0.0",
@@ -16,6 +17,7 @@
     "react": "^17.0.1",
     "react-animista": "^1.0.2",
     "react-browser-router": "^2.1.2",
+    "react-bubble-chart": "^0.4.0",
     "react-dom": "^17.0.1",
     "react-flippy": "^0.1.5",
     "react-redux": "^7.2.2",
@@ -55,5 +57,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "devDependencies": {}
 }
