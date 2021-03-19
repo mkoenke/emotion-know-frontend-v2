@@ -157,6 +157,17 @@ class ReportGalleryPage extends React.Component {
       previous: '<',
       next: '>',
     }
+    //this is where i was playing around with the data
+    console.log("this state", this.state.clickedReport)
+    let anger, disgust, joy, fear, sadness, surprise
+
+    if (this.state.clickedReport) {
+      //i think we can use a destructuring method to assign these variables
+      // {anger, disgust, joy, fear, sadness, surprise} = this.state.clickedReport
+      anger = this.state.clickedReport.anger
+    }
+    
+    console.log("anger", anger)
     const data = Array.from({ length: 50 }, () =>
       Math.round(Math.random() * 100)
     )
@@ -213,7 +224,7 @@ class ReportGalleryPage extends React.Component {
                 <br />
                 <div className="lineGraph pattern">
                   <LineGraph />
-                  <D3LineGraph data={data} />
+                  <D3LineGraph data={anger} />
                 </div>
               </Container>
               <div className="footer"></div>
