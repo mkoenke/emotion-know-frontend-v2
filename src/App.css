@@ -361,3 +361,7 @@ canvas {
   font-size: 30px !important;
   padding: 30px;
 }
+/* d3 bubble */
+svg {
+  background: #eee;
+}

@@ -9,6 +9,7 @@
     "@testing-library/user-event": "^12.1.10",
     "@weknow/react-bubble-chart-d3": "^1.0.12",
     "chart.js": "^2.9.4",
+    "d3": "^6.6.0",
     "emailjs-com": "^2.6.4",
     "history": "^5.0.0",
     "jw-react-pagination": "^1.1.0",

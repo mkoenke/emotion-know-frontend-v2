@@ -5,7 +5,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import Webcam from 'react-webcam'
 import { Grid, Header, Loader, Message } from 'semantic-ui-react'
-// import EmoBubbles from '../Components/bubbleChart'
+import BubbleChart from '../Components/bubbleChart'
 
 class FunWithEmotionsPage extends React.Component {
   state = {
@@ -150,10 +150,10 @@ class FunWithEmotionsPage extends React.Component {
                 ) : (
                   <>
                     <p>Please wait a moment...</p> <Loader active inline />
-                    {/* <EmoBubbles /> */}
                   </>
                 )}
               </Header>
+              <BubbleChart />
               <Grid
                 columns={3}
                 centered
