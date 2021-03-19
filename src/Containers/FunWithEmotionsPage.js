@@ -13,12 +13,12 @@ class FunWithEmotionsPage extends React.Component {
     arousal: '',
     valence: '',
     mood: '',
-    anger: '',
-    disgust: '',
-    fear: '',
-    joy: '',
-    sadness: '',
-    surprise: '',
+    anger: 0,
+    disgust: 0,
+    fear: 0,
+    joy: 0,
+    sadness: 0,
+    surprise: 0,
     affects98: '',
     dominantAffect: '',
   }
@@ -133,6 +133,7 @@ class FunWithEmotionsPage extends React.Component {
 
     return (
       <>
+        <BubbleChart data={data.datasets[0].data} />
         {!this.props.parent && this.props.child ? (
           <>
             <div className="pattern">
@@ -153,7 +154,7 @@ class FunWithEmotionsPage extends React.Component {
                   </>
                 )}
               </Header>
-              <BubbleChart />
+              {/* <BubbleChart /> */}
               <Grid
                 columns={3}
                 centered
