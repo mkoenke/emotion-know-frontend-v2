@@ -40,6 +40,15 @@ function D3LineChart({ data, id = 'myD3LineChart' }) {
     const { width, height } =
       dimensions || wrapperRef.current.getBoundingClientRect()
 
+    const length = data.anger.length
+    const anger = data.anger
+    const fear = data.fear
+    const joy = data.joy
+    const disgust = data.disgust
+    const sadness = data.sadness
+    const surprise = data.surprise
+
+
     const xScale = scaleLinear()
       .domain([0, data.length - 1])
       .range([10, width - 10])
@@ -50,7 +59,8 @@ function D3LineChart({ data, id = 'myD3LineChart' }) {
     }
 
     const yScale = scaleLinear()
-      .domain([0, max(data)])
+      .domain([0, 1])
+      // .domain([0, max(data)])
       .range([height - 10, 10])
 
     const lineGenerator = line()
