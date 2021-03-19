@@ -363,6 +363,6 @@ canvas {
 }
 /* d3 bubble */
 svg {
-  background: #eee;
+  /* background: #eee; */
   overflow: visible !important;
 }
