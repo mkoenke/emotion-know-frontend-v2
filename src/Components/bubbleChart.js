@@ -2,15 +2,8 @@ import { select } from 'd3'
 import React, { useEffect, useRef } from 'react'
 
 function BubbleChart(props) {
-  // const [data, setData] = useState(props.data.map((value) => value * 1000))
   const svgRef = useRef()
 
-  // const color = d3
-  //   .scaleOrdinal(
-  //     props.data.map((d) => d),
-  //     d3.schemeCategory10
-  //   )
-  //   .unknown('black')
   const emotions = ['Anger', 'Disgust', 'Fear', 'Joy', 'Sadness', 'Surprise']
   const colors = [
     'rgba(255, 99, 132, 0.5)',
@@ -20,6 +13,7 @@ function BubbleChart(props) {
     'rgba(153, 102, 255, 0.5)',
     'rgba(255, 159, 64, 0.5)',
   ]
+  const data = props.data.map((value) => value * 1000)
   useEffect(() => {
     const svg = select(svgRef.current)
     svg
@@ -39,14 +33,6 @@ function BubbleChart(props) {
       .style('fill', function (d, i) {
         return colors[i]
       })
-      ///random color
-      // .style('fill', function () {
-      //   return 'hsl(' + Math.random() * 360 + ',100%,50%)'
-      // })
-
-      //all colors teal
-      // .attr('stroke', 'rgb(10, 157, 174)')
-      // .attr('fill', '#57909e')
 
       .transition()
       .duration(1000)
@@ -56,6 +42,26 @@ function BubbleChart(props) {
       .attr('r', function (d) {
         return Math.sqrt(d * 100)
       })
+
+    // let g = svg
+    //   .selectAll(null)
+    //   .data(data)
+    //   .enter()
+    //   .append('g')
+
+    //   .attr('transform', (value, index) => 'translate(' + index * 200 + ')')
+    // g.append('circle')
+    //   .attr('r', (value) => value)
+    //   // .attr('cx', 200)
+    //   // .attr('cy', (value, i) => i * 200)
+    //   ///assign colors
+    //   .style('fill', function (d, i) {
+    //     return colors[i]
+    //   })
+    // g.append('text')
+    //   .text((v, i) => emotions[i])
+    //   .attr('cx', 200)
+    //   .attr('cy', (value, i) => i * 200)
   }, [props.data.map((value) => value * 1000)])
   return (
     <React.Fragment>

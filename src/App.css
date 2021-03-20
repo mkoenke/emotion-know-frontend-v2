@@ -1,5 +1,6 @@
 .body {
   background-color: rgb(248, 245, 242);
+  transition-timing-function: ease-in-out;
 }
 
 .App {
@@ -365,4 +366,5 @@ canvas {
 svg {
   /* background: #eee; */
   overflow: visible !important;
+  transition-timing-function: ease-in-out;
 }
