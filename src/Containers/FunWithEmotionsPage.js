@@ -65,7 +65,6 @@ class FunWithEmotionsPage extends React.Component {
 
       height: { min: 200, max: 600 },
       width: { min: 400, max: 700 },
-      // aspectRatio: 0.6666666667,
     }
 
     let data = [
@@ -90,9 +89,12 @@ class FunWithEmotionsPage extends React.Component {
                 {this.state.emo && this.state.dominantAffect ? (
                   <>
                     Your face looks like you're feeling{' '}
-                    {this.state.dominantAffect.toLowerCase()}!
+                    <span className="emphasize">
+                      {this.state.dominantAffect.toLowerCase()}!
+                    </span>
                     <br />
-                    Biggest Emotion: {this.state.emo}
+                    Biggest Emotion:{' '}
+                    <span className="emphasize">{this.state.emo}</span>
                   </>
                 ) : (
                   <>

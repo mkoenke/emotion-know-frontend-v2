@@ -69,7 +69,6 @@
 .pageHeader {
   font-family: 'Montserrat', 'sans-serif' !important;
   color: #97909e !important;
-  /* color: rgb(10, 157, 174) !important; */
   font-size: 42px !important;
   margin: 0 !important;
   padding: 30px !important;
@@ -81,6 +80,10 @@
   margin: 0 !important;
   padding: 30px !important;
   font-weight: 900 !important;
+  line-height: 50px !important;
+}
+.emphasize {
+  font-style: italic !important;
 }
 .background {
   background-color: rgb(248, 245, 242) !important;

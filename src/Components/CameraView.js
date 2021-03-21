@@ -174,16 +174,19 @@ class RecordView extends React.Component {
   }
   onRecordingComplete = (videoBlob) => {
     this.props.stopSDK()
-    this.setState({
-      videoBlob,
-      isRecording: false,
-      angerArr: timedAngerData.splice(5),
-      fearArr: timedFearData.splice(5),
-      joyArr: timedJoyData.splice(5),
-      surpriseArr: timedSurpriseData.splice(5),
-      disgustArr: timedDisgustData.splice(5),
-      sadnessArr: timedSadnessData.splice(5),
-    }, () => this.stopTimedDataCollector())
+    this.setState(
+      {
+        videoBlob,
+        isRecording: false,
+        angerArr: timedAngerData.splice(5),
+        fearArr: timedFearData.splice(5),
+        joyArr: timedJoyData.splice(5),
+        surpriseArr: timedSurpriseData.splice(5),
+        disgustArr: timedDisgustData.splice(5),
+        sadnessArr: timedSadnessData.splice(5),
+      },
+      () => this.stopTimedDataCollector()
+    )
   }
 
   startListening = () => {
@@ -230,7 +233,7 @@ class RecordView extends React.Component {
                       value={this.state.title}
                     />
                   </Form.Group>
-                  <Form.Button>Set Title</Form.Button>
+                  <Button className="formButton">Set Title</Button>
                 </Form>
               </Grid>
             )}
@@ -261,7 +264,9 @@ class RecordView extends React.Component {
               }}
             >
               <NavLink to="/videos">
-                <Button onClick={this.handleUploadClick}>Upload Video</Button>
+                <Button className="formButton" onClick={this.handleUploadClick}>
+                  Upload Video
+                </Button>
               </NavLink>
             </div>
           </div>
