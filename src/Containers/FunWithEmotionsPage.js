@@ -1,6 +1,5 @@
 /* global CY */
 
-import { Bar, PolarArea, Radar } from '@reactchartjs/react-chart.js'
 import React from 'react'
 import { connect } from 'react-redux'
 import Webcam from 'react-webcam'
@@ -166,9 +165,9 @@ class FunWithEmotionsPage extends React.Component {
               >
                 <Grid.Row>
                   <Grid.Column textAlign="center">
-                    <div className="funGraphDiv">
+                    {/* <div className="funGraphDiv">
                       <PolarArea data={data} />
-                    </div>
+                    </div> */}
                   </Grid.Column>
                   <Grid.Column textAlign="center">
                     <Webcam
@@ -177,19 +176,19 @@ class FunWithEmotionsPage extends React.Component {
                     />
                   </Grid.Column>
                   <Grid.Column textAlign="center">
-                    <div className="funGraphDiv">
+                    {/* <div className="funGraphDiv">
                       <Bar
                         data={data}
                         // width={700}
                         // height={320}
                         options={{ maintainAspectRatio: false }}
                       />
-                    </div>
+                    </div> */}
                   </Grid.Column>
                   <Grid.Column textAlign="center">
-                    <div className="funGraphDiv">
+                    {/* <div className="funGraphDiv">
                       <Radar data={data2} />
-                    </div>
+                    </div> */}
                   </Grid.Column>
                 </Grid.Row>
               </Grid>

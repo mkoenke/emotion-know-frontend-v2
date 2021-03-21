@@ -18,7 +18,7 @@ function BubbleChart(props) {
     const svg = select(svgRef.current)
     svg
       .selectAll('circle')
-      .data(props.data.map((value) => value * 1000))
+      .data(data)
       // .enter()
       // .append('p')
       // .text(function (d, i) {
@@ -42,15 +42,31 @@ function BubbleChart(props) {
       .attr('r', function (d) {
         return Math.sqrt(d * 100)
       })
-
-    // let g = svg
-    //   .selectAll(null)
+    svg
+      .selectAll('text')
+      .data(emotions)
+      .enter()
+      .append('text')
+      .text((d) => d)
+      .attr('x', 200)
+      .attr('y', (d, i) => i * 200)
+    // const leaf = svg
+    //   .selectAll('g')
     //   .data(data)
-    //   .enter()
-    //   .append('g')
+    //   .join('g')
+    //   .attr('transform', (d, i) => `translate(${i * 200})`)
 
-    //   .attr('transform', (value, index) => 'translate(' + index * 200 + ')')
-    // g.append('circle')
+    // // let g = svg
+
+    // //   .selectAll(null)
+    // //   .data(data)
+    // //   .enter()
+    // //   .append('g')
+
+    // //   .attr('transform', (value, index) => 'translate(' + index * 200 + ')')
+
+    // leaf
+    //   .append('circle')
     //   .attr('r', (value) => value)
     //   // .attr('cx', 200)
     //   // .attr('cy', (value, i) => i * 200)
@@ -58,10 +74,14 @@ function BubbleChart(props) {
     //   .style('fill', function (d, i) {
     //     return colors[i]
     //   })
-    // g.append('text')
+    // leaf
+    //   .append('text')
+
     //   .text((v, i) => emotions[i])
-    //   .attr('cx', 200)
-    //   .attr('cy', (value, i) => i * 200)
+    //   // .attr('cx', 200)
+    //   .attr('x', 200)
+    //   // .attr('cy', (value, i) => i * 200)
+    //   .attr('y', (d, i) => i * 200)
   }, [props.data.map((value) => value * 1000)])
   return (
     <React.Fragment>
