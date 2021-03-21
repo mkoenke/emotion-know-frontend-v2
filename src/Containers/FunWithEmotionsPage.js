@@ -62,11 +62,10 @@ class FunWithEmotionsPage extends React.Component {
   render() {
     const videoConstraints = {
       facingMode: 'user',
-      // width: { max: 700 },
-      // height: { max: 320 },
-      width: { min: 200, max: 480 },
-      height: { min: 400, max: 620 },
-      aspectRatio: 0.6666666667,
+
+      height: { min: 200, max: 480 },
+      width: { min: 400, max: 620 },
+      // aspectRatio: 0.6666666667,
     }
 
     let data = {
