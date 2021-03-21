@@ -63,75 +63,23 @@ class FunWithEmotionsPage extends React.Component {
     const videoConstraints = {
       facingMode: 'user',
 
-      height: { min: 200, max: 480 },
-      width: { min: 400, max: 620 },
+      height: { min: 200, max: 600 },
+      width: { min: 400, max: 700 },
       // aspectRatio: 0.6666666667,
     }
 
-    let data = {
-      labels: ['Anger', 'Disgust', 'Fear', 'Joy', 'Sadness', 'Surprise'],
-      datasets: [
-        {
-          label: `What does your face show?`,
-          data: [
-            parseFloat(this.state.anger),
-            parseFloat(this.state.disgust),
-            parseFloat(this.state.fear),
-            parseFloat(this.state.joy),
-            parseFloat(this.state.sadness),
-            parseFloat(this.state.surprise),
-          ],
-          backgroundColor: [
-            'rgba(255, 99, 132, 0.5)',
-            'rgba(54, 162, 235, 0.5)',
-            'rgba(255, 206, 86, 0.5)',
-            'rgba(75, 192, 192, 0.5)',
-            'rgba(153, 102, 255, 0.5)',
-            'rgba(255, 159, 64, 0.5)',
-          ],
-          // backgroundColor: [
-          //   'rgb(255, 0, 0)',
-          //   'rgb(255, 128, 0)',
-          //   'rgb(0, 255, 0)',
-          //   'rgb(255, 255, 0)',
-          //   'rgb(0, 0, 255)',
-          //   'rgb(127, 0, 255)',
-          // ],
-          // borderColor: [
-          //   'rgba(255, 0, 0, 0.2)',
-          //   'rgba(255, 128, 0, 0.2)',
-          //   'rgba(0, 255, 0, 0.2)',
-          //   'rgba(255, 255, 0, 0.2)',
-          //   'rgba(0, 0, 255, 0.2)',
-          //   'rgba(127, 0, 255, 0.2)',
-          // ],
-          borderWidth: 1,
-        },
-      ],
-    }
-    let data2 = {
-      labels: ['Anger', 'Disgust', 'Fear', 'Joy', 'Sadness', 'Surprise'],
-      datasets: [
-        {
-          label: `What does your face show?`,
-          data: [
-            parseFloat(this.state.anger),
-            parseFloat(this.state.disgust),
-            parseFloat(this.state.fear),
-            parseFloat(this.state.joy),
-            parseFloat(this.state.sadness),
-            parseFloat(this.state.surprise),
-          ],
-          backgroundColor: ['rgba(255, 99, 132, 0.5)'],
-
-          borderWidth: 1,
-        },
-      ],
-    }
+    let data = [
+      parseFloat(this.state.anger),
+      parseFloat(this.state.disgust),
+      parseFloat(this.state.fear),
+      parseFloat(this.state.joy),
+      parseFloat(this.state.sadness),
+      parseFloat(this.state.surprise),
+    ]
 
     return (
       <>
-        <BubbleChart data={data.datasets[0].data} />
+        <BubbleChart data={data} />
         {!this.props.parent && this.props.child ? (
           <>
             <div className="pattern">
@@ -152,7 +100,6 @@ class FunWithEmotionsPage extends React.Component {
                   </>
                 )}
               </Header>
-              {/* <BubbleChart /> */}
               <Grid
                 columns={3}
                 centered
@@ -163,32 +110,14 @@ class FunWithEmotionsPage extends React.Component {
                 // className="videoGrid"
               >
                 <Grid.Row>
-                  <Grid.Column textAlign="center">
-                    {/* <div className="funGraphDiv">
-                      <PolarArea data={data} />
-                    </div> */}
-                  </Grid.Column>
+                  <Grid.Column></Grid.Column>
                   <Grid.Column textAlign="center">
                     <Webcam
                       className="webcam"
                       videoConstraints={videoConstraints}
                     />
                   </Grid.Column>
-                  <Grid.Column textAlign="center">
-                    {/* <div className="funGraphDiv">
-                      <Bar
-                        data={data}
-                        // width={700}
-                        // height={320}
-                        options={{ maintainAspectRatio: false }}
-                      />
-                    </div> */}
-                  </Grid.Column>
-                  <Grid.Column textAlign="center">
-                    {/* <div className="funGraphDiv">
-                      <Radar data={data2} />
-                    </div> */}
-                  </Grid.Column>
+                  <Grid.Column></Grid.Column>
                 </Grid.Row>
               </Grid>
 
