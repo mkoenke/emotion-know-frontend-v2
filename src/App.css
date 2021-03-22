@@ -102,7 +102,6 @@
   object-fit: cover;
 }
 .journalCardImage {
-  /* margin-left: 10px; */
   width: 100% !important;
 }
 .content {
@@ -117,13 +116,9 @@
   height: 300px;
 }
 .videoGrid {
-  /* margin: 50px; */
   text-align: center !important;
 }
-/* .webcam {
-  
-  object-fit: contain;
-} */
+
 .bargraph {
   background-color: white;
   box-shadow: 10px 10px 5px grey !important;
@@ -174,9 +169,19 @@
   padding-left: 50px;
   padding-right: 50px;
   padding-bottom: 20px;
-  margin-top: 100px;
+  margin-top: 30px;
 }
-
+.hvEHqT {
+  color: #6b585b !important;
+  background-color: #dad2d3 !important;
+  font-family: 'Montserrat', 'sans-serif' !important;
+}
+.kHmnKJ {
+  border-radius: 5px;
+}
+.webcam {
+  border-radius: 5px;
+}
 .videoJournal {
   margin-left: 200px;
   margin-right: 200px;
@@ -289,7 +294,7 @@
 }
 .reportHeader {
   font-family: 'Montserrat', 'sans-serif' !important;
-  color: rgb(10, 157, 174) !important;
+  color: #6b585b !important;
   padding-top: 15px !important;
   margin-bottom: 30px !important;
 }
@@ -375,7 +380,6 @@ canvas {
 }
 /* d3 bubble */
 svg {
-  /* background: #eee; */
   overflow: visible !important;
   transition-timing-function: ease-in-out;
 }
