@@ -27,7 +27,7 @@ const useResizeObserver = (ref) => {
   return dimensions
 }
 
-function D3LineChart({ data, id = 'myD3LineChart' }) {
+function D3OverTimeLineGraph({ data, id = 'd3OverTimeLineGraph' }) {
   const svgRef = useRef()
   const wrapperRef = useRef()
   const dimensions = useResizeObserver(wrapperRef)
@@ -44,10 +44,7 @@ function D3LineChart({ data, id = 'myD3LineChart' }) {
     const svgContent = svg.select('.content')
     const { width, height } =
       dimensions || wrapperRef.current.getBoundingClientRect()
-      
-      
-      const length = data.anger.length
-      
+            
       const xScale = scaleLinear()
       .domain([0, length - 1])
       .range([10, width - 10])
@@ -122,4 +119,4 @@ function D3LineChart({ data, id = 'myD3LineChart' }) {
   )
 }
 
-export default D3LineChart
+export default D3OverTimeLineGraph
