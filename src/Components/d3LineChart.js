@@ -33,6 +33,12 @@ function D3LineChart({ data, id = 'myD3LineChart' }) {
   const wrapperRef = useRef()
   const dimensions = useResizeObserver(wrapperRef)
   const [currentZoomState, setCurrentZoomState] = useState()
+  const [anger, setAngerState] = useState(data.anger)
+  const [disgust, setDisgustState] = useState(data.disgust)
+  const [fear, setFearState] = useState(data.fear)
+  const [joy, setJoyState] = useState(data.joy)
+  const [sadness, setSadnessState] = useState(data.sadness)
+  const [surprise, setSurpriseState] = useState(data.surprise)
 
   useEffect(() => {
     const svg = select(svgRef.current)
@@ -41,16 +47,10 @@ function D3LineChart({ data, id = 'myD3LineChart' }) {
       dimensions || wrapperRef.current.getBoundingClientRect()
 
     const length = data.anger.length
-    const anger = data.anger
-    const fear = data.fear
-    const joy = data.joy
-    const disgust = data.disgust
-    const sadness = data.sadness
-    const surprise = data.surprise
-
 
     const xScale = scaleLinear()
-      .domain([0, data.length - 1])
+      // .domain([0, data.length - 1])
+      .domain([0, length - 1])
       .range([10, width - 10])
 
     if (currentZoomState) {
@@ -67,26 +67,27 @@ function D3LineChart({ data, id = 'myD3LineChart' }) {
       .x((d, index) => xScale(index))
       .y((d) => yScale(d))
       .curve(curveCardinal)
-
+    
     svgContent
-      .selectAll('.myLine')
-      .data([data])
+      .selectAll('.emotionLine')
+      .data([anger,fear,joy,sadness,surprise,disgust])
       .join('path')
-      .attr('class', 'myLine')
-      .attr('stroke', 'black')
+      .attr('class', 'emotionLine')
       .attr('fill', 'none')
+      .attr('stroke', 'red')
       .attr('d', lineGenerator)
+    
 
-    svgContent
-      .selectAll('.myDot')
-      .data(data)
-      .join('circle')
-      .attr('class', 'myDot')
-      .attr('stroke', 'black')
-      .attr('r', 4)
-      .attr('fill', 'rgb(10, 157, 174)')
-      .attr('cx', (value, index) => xScale(index))
-      .attr('cy', yScale)
+    // svgContent
+    //   .selectAll('.myDot')
+    //   .data(anger)
+    //   .join('circle')
+    //   .attr('class', 'myDot')
+    //   .attr('stroke', 'black')
+    //   .attr('r', 4)
+    //   .attr('fill', 'rgb(10, 157, 174)')
+    //   .attr('cx', (value, index) => xScale(index))
+    //   .attr('cy', yScale)
 
     const xAxis = axisBottom(xScale)
     svg

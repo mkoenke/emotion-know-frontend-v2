@@ -163,7 +163,6 @@ class ReportGalleryPage extends React.Component {
 
     if(this.state.clickedReport) anger = this.state.clickedReport.anger
     
-    console.log("anger", anger)
     const data = Array.from({ length: 50 }, () =>
       Math.round(Math.random() * 100)
     )
