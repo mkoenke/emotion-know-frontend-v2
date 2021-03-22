@@ -126,6 +126,17 @@
 .table {
   box-shadow: 10px 10px 5px grey !important;
 }
+.ui.celled.table.table.content {
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+  width: 70% !important;
+  text-align: center !important;
+}
+th {
+  font-family: 'Montserrat', 'sans-serif' !important;
+  color: #97909e !important;
+  font-size: 18px !important;
+}
 .reportHeader {
   font-weight: 100 !important;
 }

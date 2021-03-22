@@ -172,29 +172,31 @@ class ReportGalleryPage extends React.Component {
                 <Header as="h2" className="content tableHeaderMargin">
                   Individual Journal Emotional Reports
                 </Header>
-                <Table celled className="table content">
-                  <Table.Header>
-                    <Table.Row>
-                      <Table.HeaderCell>Title</Table.HeaderCell>
-                      <Table.HeaderCell>Date</Table.HeaderCell>
-                    </Table.Row>
-                  </Table.Header>
-                  <Table.Body>{this.listOfReports()}</Table.Body>
+                <Grid centered className="tableGrid">
+                  <Table celled className="table content">
+                    <Table.Header>
+                      <Table.Row>
+                        <Table.HeaderCell>Title</Table.HeaderCell>
+                        <Table.HeaderCell>Date</Table.HeaderCell>
+                      </Table.Row>
+                    </Table.Header>
+                    <Table.Body>{this.listOfReports()}</Table.Body>
 
-                  <Table.Footer>
-                    <Table.Row>
-                      <Table.HeaderCell colSpan="3">
-                        <Menu floated="right">
-                          <JwPagination
-                            items={this.state.items}
-                            onChangePage={this.onChangePage}
-                            labels={customLabels}
-                          />
-                        </Menu>
-                      </Table.HeaderCell>
-                    </Table.Row>
-                  </Table.Footer>
-                </Table>
+                    <Table.Footer>
+                      <Table.Row>
+                        <Table.HeaderCell colSpan="3">
+                          <Menu floated="right">
+                            <JwPagination
+                              items={this.state.items}
+                              onChangePage={this.onChangePage}
+                              labels={customLabels}
+                            />
+                          </Menu>
+                        </Table.HeaderCell>
+                      </Table.Row>
+                    </Table.Footer>
+                  </Table>
+                </Grid>
 
                 <br />
                 {this.state.beenClicked ? this.renderReportGraph() : null}
