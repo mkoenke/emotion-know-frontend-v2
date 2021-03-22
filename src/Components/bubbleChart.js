@@ -1,8 +1,14 @@
 import { select } from 'd3'
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
+
+const getWidth = () =>
+  window.innerWidth * 0.2 ||
+  document.documentElement.clientWidth * 0.2 ||
+  document.body.clientWidth * 0.2
 
 function BubbleChart(props) {
   const svgRef = useRef()
+  let [width, setWidth] = useState(getWidth())
 
   const emotions = ['Anger', 'Disgust', 'Fear', 'Joy', 'Sadness', 'Surprise']
   const colors = [
@@ -14,14 +20,16 @@ function BubbleChart(props) {
     'rgba(153, 102, 255, 0.5)',
   ]
   const data = props.data.map((value) => value * 1000)
+
   useEffect(() => {
     const svg = select(svgRef.current)
+
     svg
       .selectAll('circle')
       .data(data)
       .join('circle')
       .attr('r', (value) => value)
-      .attr('cx', 200)
+      .attr('cx', width)
       .attr('cy', (value, i) => i * 200 + 100)
       .style('fill', function (d, i) {
         return colors[i]
@@ -34,15 +42,24 @@ function BubbleChart(props) {
     svg
       .selectAll('text')
       .data(emotions)
-      .enter()
-      .append('text')
+      .join('text')
       .attr('class', 'bubbleText')
       .text((d) => d)
-      .attr('x', 200)
+      .attr('x', width)
       .attr('y', (d, i) => i * 200 + 100)
       .attr('text-anchor', 'middle')
       .style('fill', '#97909e')
-  }, [props.data.map((value) => value * 1000)])
+
+    let timeoutId = null
+    const resizeListener = () => {
+      clearTimeout(timeoutId)
+      timeoutId = setTimeout(() => setWidth(getWidth()), 150)
+    }
+    window.addEventListener('resize', resizeListener)
+    return () => {
+      window.removeEventListener('resize', resizeListener)
+    }
+  }, [data, width])
   return (
     <React.Fragment>
       <svg ref={svgRef}></svg>
