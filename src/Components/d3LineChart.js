@@ -109,7 +109,7 @@ function D3LineChart({ data, id = 'myD3LineChart' }) {
           <g className="content" clipPath={`url(#${id})`} fill="none" strokeWidth="2px">
             <path d={anger} stroke="red" ></path>
             <path d={disgust} stroke="purple"></path>
-            <path d={fear} stroke="black"></path>
+            <path d={fear} stroke="green"></path>
             <path d={joy} stroke="yellow"></path>
             <path d={sadness} stroke="blue"></path>
             <path d={surprise} stroke="orange"></path>

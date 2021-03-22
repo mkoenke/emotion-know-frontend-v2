@@ -78,7 +78,8 @@ class ReportGalleryPage extends React.Component {
         <Grid.Row>
           <Grid.Column>
             <div className="bargraph smallGraph pattern smallGraphPadding">
-              <IndividualLineGraph />
+              {/* <IndividualLineGraph /> */}
+              <D3LineGraph data={this.state.clickedReport}/>
             </div>
           </Grid.Column>
           <Grid.Column>
@@ -157,15 +158,15 @@ class ReportGalleryPage extends React.Component {
       previous: '<',
       next: '>',
     }
-    //this is where i was playing around with the data
-    console.log("this state", this.state.clickedReport)
-    let anger, disgust, joy, fear, sadness, surprise
+    // //this is where i was playing around with the data
+    // console.log("this state", this.state.clickedReport)
+    // let anger, disgust, joy, fear, sadness, surprise
 
-    if(this.state.clickedReport) anger = this.state.clickedReport.anger
+    // if(this.state.clickedReport) anger = this.state.clickedReport.anger
     
-    const data = Array.from({ length: 50 }, () =>
-      Math.round(Math.random() * 100)
-    )
+    // const data = Array.from({ length: 50 }, () =>
+    //   Math.round(Math.random() * 100)
+    // )
 
     const avgReport = emotionsOverTime(this.props.allReports)
 
@@ -219,7 +220,7 @@ class ReportGalleryPage extends React.Component {
                 <br />
                 <div className="lineGraph pattern">
                   <LineGraph />
-                  {this.state.clickedReport ? <D3LineGraph data={this.state.clickedReport} /> : null }
+                  {/* {this.state.clickedReport ? <D3LineGraph data={this.state.clickedReport} /> : null } */}
                   {/* <D3LineGraph data={this.state.clickedReport} /> */}
                 </div>
               </Container>
