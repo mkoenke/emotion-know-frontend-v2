@@ -1,10 +1,10 @@
-import React from "react"
-import Animista, { AnimistaTypes } from "react-animista"
-import Flippy, { BackSide, FrontSide } from "react-flippy"
-import { connect } from "react-redux"
-import { Button, Card, Image, Popup } from "semantic-ui-react"
-import { BigPlayButton, ControlBar, LoadingSpinner, Player } from "video-react"
-import { deleteVideo } from "../Redux/actions"
+import React from 'react'
+import Animista, { AnimistaTypes } from 'react-animista'
+import Flippy, { BackSide, FrontSide } from 'react-flippy'
+import { connect } from 'react-redux'
+import { Button, Card, Image, Popup } from 'semantic-ui-react'
+import { BigPlayButton, ControlBar, LoadingSpinner, Player } from 'video-react'
+import { deleteVideo } from '../Redux/actions'
 
 class VideoCard extends React.Component {
   handleDeleteClick = () => {
@@ -37,7 +37,7 @@ class VideoCard extends React.Component {
                 </Card.Content>
               </Card>
             </FrontSide>
-            <BackSide>
+            <BackSide className="cardSize">
               <div className="background">
                 <div className="videoCardDiv">
                   <Player>

@@ -98,7 +98,8 @@
   object-fit: cover;
 }
 .journalCardImage {
-  margin-left: 10px;
+  /* margin-left: 10px; */
+  width: 100% !important;
 }
 .content {
   font-family: 'Montserrat', 'sans-serif' !important;
@@ -149,8 +150,15 @@
   background-color: rgb(248, 245, 242) !important;
 }
 .cardSize {
+  height: 100% !important;
+  width: 100% !important;
   min-height: 400px !important;
   min-width: 350px !important;
+  margin: 0px !important;
+  box-shadow: 10px 10px 5px grey !important;
+}
+.flippy-card {
+  padding: 0px !important;
 }
 .videoCardDiv {
   padding-top: 40px;
