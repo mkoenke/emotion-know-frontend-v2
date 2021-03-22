@@ -90,7 +90,11 @@
 }
 .welcomeCard {
   box-shadow: 10px 10px 5px grey !important;
-  margin: 40px !important;
+  max-width: 500px !important;
+  max-height: 400px !important;
+}
+.rotate-scale-down {
+  margin: 10px 20px !important;
 }
 .cardImage {
   height: 300px !important;
@@ -103,7 +107,7 @@
 }
 .content {
   font-family: 'Montserrat', 'sans-serif' !important;
-  color: rgb(10, 157, 174) !important;
+  color: #97909e !important;
 }
 .extraLarge {
   font-size: 80px !important;
@@ -212,7 +216,7 @@
 .journalTitle {
   margin: 30px;
   font-family: 'Montserrat', 'sans-serif' !important;
-  color: rgb(10, 157, 174) !important;
+  color: #97909e !important;
   text-align: center !important;
   font-size: 26px !important;
   padding: 20px;
@@ -263,7 +267,7 @@
   position: absolute;
 }
 .cardbutton {
-  background-color: rgb(10, 157, 174) !important;
+  background-color: #97909e !important;
   border-radius: 50% !important;
 }
 .buttonDiv {
@@ -282,10 +286,6 @@
 }
 .pattern {
   background-image: linear-gradient(rgb(248, 245, 242), #c8bcbe) !important;
-}
-
-.shift {
-  margin-right: 100px !important;
 }
 .reportHeader {
   font-family: 'Montserrat', 'sans-serif' !important;
