@@ -21,7 +21,6 @@ class WelcomePageGrid extends React.Component {
         id: 4,
         header: 'Video Gallery',
         image: RainbowPyramid,
-
         description: 'See all the videos you have recorded in the past!',
         url: './videos',
       },

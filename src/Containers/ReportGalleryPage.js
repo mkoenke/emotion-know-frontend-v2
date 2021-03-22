@@ -3,8 +3,10 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Container, Grid, Header, Menu, Popup, Table } from 'semantic-ui-react'
 import { BigPlayButton, ControlBar, LoadingSpinner, Player } from 'video-react'
+import D3LineGraph from '../Components/d3LineChart'
 import IndividualLineGraph from '../Components/IndividualLineGraph'
 import LineGraph from '../Components/LineGraph'
+import emotionsOverTime from '../HelperFunctions/emotionsOverTime'
 import { setClickedReport } from '../Redux/actions'
 
 class ReportGalleryPage extends React.Component {
@@ -76,7 +78,8 @@ class ReportGalleryPage extends React.Component {
         <Grid.Row>
           <Grid.Column>
             <div className="bargraph smallGraph pattern smallGraphPadding">
-              <IndividualLineGraph />
+              {/* <IndividualLineGraph /> */}
+              <D3LineGraph data={this.state.clickedReport}/>
             </div>
           </Grid.Column>
           <Grid.Column>
@@ -155,6 +158,17 @@ class ReportGalleryPage extends React.Component {
       previous: '<',
       next: '>',
     }
+    // //this is where i was playing around with the data
+    // console.log("this state", this.state.clickedReport)
+    // let anger, disgust, joy, fear, sadness, surprise
+
+    // if(this.state.clickedReport) anger = this.state.clickedReport.anger
+    
+    // const data = Array.from({ length: 50 }, () =>
+    //   Math.round(Math.random() * 100)
+    // )
+
+    const avgReport = emotionsOverTime(this.props.allReports)
 
     return (
       <>
@@ -208,6 +222,8 @@ class ReportGalleryPage extends React.Component {
                 <br />
                 <div className="lineGraph pattern">
                   <LineGraph />
+                  {/* {this.state.clickedReport ? <D3LineGraph data={this.state.clickedReport} /> : null } */}
+                  {/* <D3LineGraph data={this.state.clickedReport} /> */}
                 </div>
               </Container>
               <div className="footer"></div>
