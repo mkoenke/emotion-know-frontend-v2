@@ -5,7 +5,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import Webcam from 'react-webcam'
 import { Grid, Header, Loader, Message } from 'semantic-ui-react'
-import FunWithEmotionsBarGraph from '../Components/d3BarGraph'
+// import FunWithEmotionsBarGraph from '../Components/d3BarGraph'
 
 class FunWithEmotionsPage extends React.Component {
   state = {
@@ -137,7 +137,7 @@ class FunWithEmotionsPage extends React.Component {
                         // height={320}
                         options={{ maintainAspectRatio: false }}
                       /> */}
-                      <FunWithEmotionsBarGraph emotions={this.state}/>
+                      {/* <FunWithEmotionsBarGraph emotions={this.state}/> */}
                     </div>
                   </Grid.Column>
                 </Grid.Row>
