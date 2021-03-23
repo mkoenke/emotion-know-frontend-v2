@@ -400,6 +400,7 @@ canvas {
 svg {
   overflow: visible !important;
   transition-timing-function: ease-in-out;
+  margin-left: 20px;
 }
 .bubbleText {
   font-family: 'Montserrat', 'sans-serif' !important;
