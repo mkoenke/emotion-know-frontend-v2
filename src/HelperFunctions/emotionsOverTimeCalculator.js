@@ -1,5 +1,6 @@
 //Calculates the return for the emotion over time graph
 function emotionsOverTimeCalculator(emotionReports) {
+  console.log(emotionReports)
   const countedEmotionReports = emotionReports.map(report =>
     singleReportFrequencyCounter(report)
   )
@@ -11,6 +12,15 @@ function emotionsOverTimeCalculator(emotionReports) {
 
 //Calculates the amount of times an emotion is the peak value
 function singleReportFrequencyCounter(report) {
+  //There may be a better way to destructure this, but it's already 11:09pm
+  const newReportObj = {
+    anger: report.anger,
+    disgust: report.disgust,
+    fear: report.fear,
+    joy: report.joy,
+    sadness: report.sadness,
+    surprise: report.surprise,
+  }
   const emotionFrequencyCounter = {
     anger: 0,
     disgust: 0,
@@ -19,8 +29,9 @@ function singleReportFrequencyCounter(report) {
     sadness: 0,
     surprise: 0
   }
-  for (let i = 0; i < report.anger.length; i++) {
-    const sorted = Object.entries(report).sort((a, b) => {
+
+  for (let i = 0; i < newReportObj.anger.length; i++) {
+    const sorted = Object.entries(newReportObj).sort((a, b) => {
       return b[1][i] - a[1][i]
     })
     emotionFrequencyCounter[`${sorted[0][0]}`]++
