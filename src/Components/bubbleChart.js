@@ -62,7 +62,7 @@ function BubbleChart(props) {
   }, [data, width])
   return (
     <React.Fragment>
-      <svg ref={svgRef}></svg>
+      <svg className="bubbleSvg" ref={svgRef}></svg>
     </React.Fragment>
   )
 }

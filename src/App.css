@@ -23,8 +23,8 @@ svg {
   align-items: space-around;
   justify-content: center;
   align-items: center;
-  background-color: rgb(248, 245, 242);
-  padding: 50px;
+  /* background-color: rgb(248, 245, 242); */
+  /* padding: 50px; */
 }
 
 .copy {
@@ -49,6 +49,13 @@ svg {
 .spanMargin {
   margin-top: 40px;
 }
+.bubbleSvg {
+  width: 10px;
+  height: 10px;
+  overflow: visible !important;
+  transition-timing-function: ease-in-out;
+}
+
 .subHeader {
   color: rgb(171, 218, 225) !important;
   font-family: 'Montserrat', 'sans-serif' !important;

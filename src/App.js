@@ -50,16 +50,22 @@ class App extends React.Component {
 
             <Route path="/videos" component={VideoGalleryPage} />
             <Route path="/reports" component={ReportGalleryPage} />
+            {/* <Route path="/fun" component={FunWithEmotionsPage} /> */}
             <Route
-              path="/"
+              path="/fun"
               component={() => (
                 <FunWithEmotionsPage
-                  stopSDK={this.props.stopSDK}
-                  startSDK={this.props.startSDK}
+                  stopSDK={this.stopSDK}
+                  startSDK={this.startSDK}
                 />
               )}
             />
-            <Route path="/fun" component={Homepage} />
+            <Route
+              path="/"
+              component={() => (
+                <Homepage stopSDK={this.stopSDK} startSDK={this.startSDK} />
+              )}
+            />
           </Switch>
         </div>
       </>

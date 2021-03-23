@@ -1,160 +1,171 @@
+/* global CY */
 import React from 'react'
-import { Parallax, ParallaxBanner } from 'react-scroll-parallax'
-import { Grid, Header, Image } from 'semantic-ui-react'
-import chooseSmile from '../assets/images/chooseSmile.jpeg'
-import childGif from '../assets/images/emGif2.gif'
-import handWith3Blocks from '../assets/images/handWith3Blocks.jpg'
-import handWithBlock from '../assets/images/handWithBlock.jpg'
-import handWithBlocks from '../assets/images/handWithBlocks.jpg'
-import handWithVerticalBlocks from '../assets/images/handWithVerticalBlocks.jpg'
-import parentGif from '../assets/images/repgif.gif'
-import SignUpModal from '../Components/SignUpModal'
+import { connect } from 'react-redux'
+import { Parallax } from 'react-scroll-parallax'
+import Webcam from 'react-webcam'
+import { Grid, Header, Loader, Message } from 'semantic-ui-react'
+import BubbleChart from '../Components/bubbleChart'
 
-class Homepage extends React.Component {
+class FunWithEmotionsPage extends React.Component {
   state = {
-    modalView: false,
+    emo: '',
+    arousal: '',
+    valence: '',
+    mood: '',
+    anger: 0,
+    disgust: 0,
+    fear: 0,
+    joy: 0,
+    sadness: 0,
+    surprise: 0,
+    affects98: '',
+    dominantAffect: '',
   }
-  handleSignUpClick = () => {
-    this.setState({ modalView: !this.state.modalView })
-  }
-  setViewModalStateToFalse = () => {
-    if (this.state.modalView) {
-      this.setState({ modalView: false })
-    }
-  }
-  render() {
-    return (
-      <div className="background">
-        <ParallaxBanner
-          layers={[
-            {
-              image: handWithBlock,
-              amount: 0.3,
-            },
-          ]}
-          className="homepageBannerHeight"
-        ></ParallaxBanner>
+  componentDidMount() {
+    const config = { smoothness: 0.9, enableBalancer: false }
+    CY.loader()
+      .licenseKey(process.env.sdkLicense)
+      .addModule(CY.modules().FACE_EMOTION.name, config)
+      .addModule(CY.modules().FACE_AROUSAL_VALENCE.name)
+      .load()
+      .then(({ start, stop }) => {
+        this.stopSDK = stop
+        this.startSDK = start
+      })
 
-        <div>
-          <div className="root height">
-            <span className={`copy h1`}>
-              <Parallax x={[-80, 80]} className="letter">
-                EmotionKnow
-              </Parallax>
-            </span>
-            <Header className="subHeader" size="large">
-              Building Emotional Intelligence in Children
+    window.addEventListener(CY.modules().FACE_EMOTION.eventName, (evt) => {
+      this.setState({
+        emo: evt.detail.output.dominantEmotion,
+        anger: evt.detail.output.rawEmotion.Angry,
+        disgust: evt.detail.output.rawEmotion.Disgust,
+        fear: evt.detail.output.rawEmotion.Fear,
+        joy: evt.detail.output.rawEmotion.Happy,
+        sadness: evt.detail.output.rawEmotion.Sad,
+        surprise: evt.detail.output.rawEmotion.Surprise,
+      })
+    })
+    window.addEventListener(
+      CY.modules().FACE_AROUSAL_VALENCE.eventName,
+      (evt) => {
+        this.setState(
+          {
+            affects98: evt.detail.output.affects98,
+          },
+          this.findDominantAffect(evt.detail.output.affects98)
+        )
+      }
+    )
+  }
+
+  componentWillUnmount() {
+    this.stopSDK()
+  }
+
+  findDominantAffect = (affectsObj) => {
+    let affect = Object.keys(affectsObj).reduce(function (a, b) {
+      return affectsObj[a] > affectsObj[b] ? a : b
+    })
+    this.setState({ dominantAffect: affect })
+  }
+
+  render() {
+    console.log(this.props)
+    const videoConstraints = {
+      facingMode: 'user',
+
+      height: { min: 200, max: 600 },
+      width: { min: 400, max: 700 },
+    }
+
+    let data = [
+      parseFloat(this.state.anger),
+      parseFloat(this.state.disgust),
+      parseFloat(this.state.fear),
+      parseFloat(this.state.joy),
+      parseFloat(this.state.sadness),
+      parseFloat(this.state.surprise),
+    ]
+
+    return (
+      <>
+        <BubbleChart data={data} />
+
+        <>
+          <div className="pattern">
+            <div>
+              <div className="root height">
+                <span className={`copy h1`}>
+                  <Parallax x={[-60, 60]} className="letter">
+                    EmotionKnow
+                  </Parallax>
+                </span>
+                <Header className="subHeader" size="large">
+                  Building Emotional Intelligence in Children
+                </Header>
+              </div>
+            </div>
+            <Header className="waitOrDom" size="huge" textAlign="center">
+              {this.state.emo && this.state.dominantAffect ? (
+                <>
+                  Your face looks like you're feeling{' '}
+                  <span className="emphasize">
+                    {this.state.dominantAffect.toLowerCase()}!
+                  </span>
+                  <br />
+                  Biggest Emotion:{' '}
+                  <span className="emphasize">{this.state.emo}</span>
+                </>
+              ) : (
+                <>
+                  <p>Please wait a moment...</p> <Loader active inline />
+                </>
+              )}
             </Header>
+            <Grid
+              columns={3}
+              centered
+              verticalAlign="middle"
+              container
+              stackable
+              textAlign="center"
+              // className="videoGrid"
+            >
+              <Grid.Row>
+                <Grid.Column></Grid.Column>
+                <Grid.Column textAlign="center">
+                  <Webcam
+                    className="webcam"
+                    videoConstraints={videoConstraints}
+                  />
+                </Grid.Column>
+                <Grid.Column></Grid.Column>
+              </Grid.Row>
+            </Grid>
+
+            <div className="footer" />
           </div>
-        </div>
-        <ParallaxBanner
-          layers={[
-            {
-              image: handWithBlocks,
-              amount: 0.3,
-            },
-          ]}
-          className="homepageBannerHeight"
-        ></ParallaxBanner>
-        <div>
-          <Grid
-            verticalAlign="middle"
-            container
-            stackable
-            className="homepageGrid"
-          >
-            <Grid.Row>
-              <Grid.Column width={8}>
-                <Image className="homepageImage" src={childGif} />
-              </Grid.Column>
-              <Grid.Column width={8}>
-                <div className="homepageText">
-                  Chidren, we are here to support you in your emotional growth.
-                  Say goodbye to traditional diaries and journals, and say hello
-                  to privacy and emotional feedback. Lighten the load you are
-                  carrying by recording a video journal, and then review
-                  emotional feedback on the universal emotions of Joy, Surprise,
-                  Sadness, Disgust, Anger, and Fear from your entry. See all
-                  your entries in your personal, private gallery.
-                </div>
-                <br />
-                <div className="homepageText">
-                  And don't forget to play with the Fun With Emotions Page to
-                  see what emotions you can express with your face in real time!
-                  You are beautifully emotionally intelligent!
-                </div>
-              </Grid.Column>
-            </Grid.Row>
-          </Grid>
-        </div>
-        <ParallaxBanner
-          layers={[
-            {
-              image: handWithVerticalBlocks,
-              amount: 0.3,
-            },
-          ]}
-          className="homepageBannerHeight"
-        ></ParallaxBanner>
-        <div>
-          <Grid
-            verticalAlign="middle"
-            container
-            stackable
-            className="homepageGrid"
-          >
-            <Grid.Row>
-              <Grid.Column width={8}>
-                <div className="homepageText parallaxText">
-                  Parents, we are committed to helping you stay in the loop with
-                  how your child is feeling. When your child uses EmotionKnow to
-                  create a journal entry, you will recieve an email to keep you
-                  posted. Log in to your portal to see the emotional reports
-                  generated from your child's entries. We want to help you stay
-                  attuned to your child’s wellbeing, providing an overall sense
-                  of connectedness in families, and advanced communication
-                  during these pivotal stages of development.
-                </div>
-              </Grid.Column>
-              <Grid.Column width={8}>
-                <Image className="homepageImage" src={parentGif} />
-              </Grid.Column>
-            </Grid.Row>
-          </Grid>
-        </div>
-        <ParallaxBanner
-          layers={[
-            {
-              image: handWith3Blocks,
-              amount: 0.3,
-            },
-          ]}
-          className="homepageBannerHeight"
-        ></ParallaxBanner>
-        <div className="root height">
-          <span className={`copy h1`} onClick={this.handleSignUpClick}>
-            <Parallax x={[80, -80]} className="letter link">
-              Sign Up!
-            </Parallax>
-          </span>
-        </div>
-        {this.state.modalView && (
-          <SignUpModal
-            setViewModalStateToFalse={this.setViewModalStateToFalse}
-          />
-        )}
-        <ParallaxBanner
-          layers={[
-            {
-              image: chooseSmile,
-              amount: 0.3,
-            },
-          ]}
-          className="homepageBannerHeight"
-        ></ParallaxBanner>
-      </div>
+        </>
+
+        <Message positive className="removeMargin">
+          <Message.Header>Your privacy is important to us!</Message.Header>
+          <p>
+            MorphCast is a patented technology using facial analysis to adapt
+            content to the viewer in real-time whilst protecting their privacy.
+            The software runs directly in your browser and emotions are found
+            based on Deep Neural Network AI, able to analyse facial expressions.
+            The only data that is stored, is what you choose to store when you
+            upload!
+          </p>
+        </Message>
+      </>
     )
   }
 }
+function mapStateToProps(state) {
+  return {
+    child: state.child,
+    parent: state.parent,
+  }
+}
 
-export default Homepage
+export default connect(mapStateToProps)(FunWithEmotionsPage)
