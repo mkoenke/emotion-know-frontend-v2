@@ -12,6 +12,7 @@ import {
   SET_CHILD,
   SET_ERROR,
   SET_PARENT,
+  SIGN_UP_MODAL_OPEN,
 } from './actionTypes'
 
 ///login/logout actions
@@ -94,6 +95,10 @@ export function setModal(value) {
 
 export function setParentModal(value) {
   return { type: PARENT_MODAL_OPEN, payload: value }
+}
+
+export function setSignUpModal(value) {
+  return { type: SIGN_UP_MODAL_OPEN, payload: value }
 }
 
 //error action

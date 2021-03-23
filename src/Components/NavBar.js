@@ -2,9 +2,16 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { NavLink, Redirect } from 'react-router-dom'
 import { Menu } from 'semantic-ui-react'
-import { logout, setModal, setParentModal } from '../Redux/actions'
+import {
+  logout,
+  setModal,
+  setParentModal,
+  setSignUpModal,
+} from '../Redux/actions'
 import LoginModal from './LoginModal'
 import ParentLoginModal from './ParentLoginModal'
+import SignUpModal from './SignUpModal'
+// import SignUpModal from "./SignUpModal"
 
 class NavBar extends React.Component {
   state = {
@@ -13,6 +20,11 @@ class NavBar extends React.Component {
 
   handleItemClick = (e, { name }) => {
     this.setState({ activeItem: name })
+  }
+  handleSignUpClick = () => {
+    if (!this.props.child && !this.props.parent) {
+      this.props.dispatchSignUpModal(true)
+    }
   }
 
   handleLoginClick = () => {
@@ -154,8 +166,19 @@ class NavBar extends React.Component {
                   className="navbar"
                 />
                 <Redirect to="/" />
+                <Menu.Item
+                  name="signUp"
+                  active={activeItem === 'signUp'}
+                  onClick={this.handleItemClick}
+                  onClick={this.handleSignUpClick}
+                  className="navbar"
+                />
+                <Redirect to="/" />
               </>
             ) : null}
+            {this.props.signUpModalOpen && (
+              <SignUpModal handleSignUpClick={this.handleSignUpClick} />
+            )}
             {this.props.parentModalOpen && (
               <ParentLoginModal
                 handleParentLoginClick={this.handleParentLoginClick}
@@ -197,6 +220,7 @@ function mapStateToProps(state) {
     parent: state.parent,
     modalOpen: state.modalOpen,
     parentModalOpen: state.parentModalOpen,
+    signUpModalOpen: state.signUpModalOpen,
   }
 }
 
@@ -205,6 +229,7 @@ function mapDispatchToProps(dispatch) {
     logout: () => dispatch(logout()),
     dispatchModal: (value) => dispatch(setModal(value)),
     dispatchParentModal: (value) => dispatch(setParentModal(value)),
+    dispatchSignUpModal: (value) => dispatch(setSignUpModal(value)),
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(NavBar)

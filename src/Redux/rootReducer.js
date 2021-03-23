@@ -13,6 +13,7 @@ import {
   SET_CHILD,
   SET_ERROR,
   SET_PARENT,
+  SIGN_UP_MODAL_OPEN,
 } from './actionTypes'
 
 const defaultState = {
@@ -24,7 +25,17 @@ const defaultState = {
   parentsReports: [],
   modalOpen: false,
   parentModalOpen: false,
+  signUpModalOpen: false,
   clickedReport: null,
+}
+
+function signUpModalReducer(prevState = defaultState.signUpModalOpen, action) {
+  switch (action.type) {
+    case SIGN_UP_MODAL_OPEN:
+      return action.payload
+    default:
+      return prevState
+  }
 }
 
 function modalReducer(prevState = defaultState.modalOpen, action) {
@@ -131,6 +142,7 @@ const rootReducer = combineReducers({
   error: errorReducer,
   modalOpen: modalReducer,
   parentModalOpen: parentModalReducer,
+  signUpModalOpen: signUpModalReducer,
   clickedReport: clickedReportReducer,
 })
 

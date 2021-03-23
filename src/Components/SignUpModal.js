@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Button, Form, Modal } from 'semantic-ui-react'
-import { setChild } from '../Redux/actions'
+import { setChild, setError, setSignUpModal } from '../Redux/actions'
 
 class SignUpModal extends React.Component {
   state = {
@@ -11,9 +11,13 @@ class SignUpModal extends React.Component {
     email: '',
     parentPassword: '',
   }
+  // handleCancel = () => {
+  //   this.setState({ isOpen: false })
+  //   this.props.setViewModalStateToFalse()
+  // }
   handleCancel = () => {
-    this.setState({ isOpen: false })
-    this.props.setViewModalStateToFalse()
+    this.props.dispatchSignUpModal(false)
+    this.props.dispatchError(null)
   }
   handleFormChange = (e) => {
     this.setState({ [e.target.name]: e.target.value })
@@ -54,7 +58,7 @@ class SignUpModal extends React.Component {
             localStorage.setItem('token', data.jwt)
 
             this.props.dispatchChild(data.child)
-            this.props.setViewModalStateToFalse()
+            this.props.handleSignUpClick()
           })
           .catch((error) => {
             console.error('Error:', error)
@@ -140,6 +144,8 @@ class SignUpModal extends React.Component {
 function mapDispatchToProps(dispatch) {
   return {
     dispatchChild: (child) => dispatch(setChild(child)),
+    dispatchSignUpModal: (value) => dispatch(setSignUpModal(value)),
+    dispatchError: (value) => dispatch(setError(value)),
   }
 }
 
