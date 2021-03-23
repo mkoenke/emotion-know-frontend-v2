@@ -7,10 +7,14 @@ function emotionsOverTimeCalculator(emotionReports) {
     return percentOfCounts(report)
   })
   //this solution needs refactoring, but adds date back to array
-  for(let i = 0; i < emotionReports.length; i++){
-    emotionPercentOfEntryArray[i].created_at = emotionReports[i].created_at
-  }
-  return emotionPercentOfEntryArray
+
+  // for(let i = 0; i < emotionReports.length; i++){
+  //   emotionPercentOfEntryArray[i].created_at = emotionReports[i].created_at
+  // }
+
+  const finalEmotionPercentObj = convertToFinalReportObj(emotionPercentOfEntryArray)
+
+  return finalEmotionPercentObj
 }
 
 //Calculates the amount of times an emotion is the peak value
@@ -63,6 +67,27 @@ function percentOfCounts(countedReport) {
     emotionalPercentCounter[`${emotion}`] = percent
   }
   return emotionalPercentCounter
+}
+
+function convertToFinalReportObj(reports){
+  const finalObj = {
+    anger: [],
+    disgust: [],
+    fear: [],
+    joy: [],
+    sadness: [],
+    surprise: []
+  }
+  reports.forEach(report => {
+    for(const [emotion, percent] of Object.entries(report)){
+      finalObj[`${emotion}`].push(percent)
+    }
+  })
+  return finalObj
+  // const finalArray = reports.map(report => {
+  //   return Object.values(report).slice(0,6)
+  // })
+  // return finalArray
 }
 
 
