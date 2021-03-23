@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Button, Form, Modal } from 'semantic-ui-react'
+import { Button, Form, Message, Modal } from 'semantic-ui-react'
 import { setChild, setError, setSignUpModal } from '../Redux/actions'
 
 class SignUpModal extends React.Component {
@@ -11,10 +11,6 @@ class SignUpModal extends React.Component {
     email: '',
     parentPassword: '',
   }
-  // handleCancel = () => {
-  //   this.setState({ isOpen: false })
-  //   this.props.setViewModalStateToFalse()
-  // }
   handleCancel = () => {
     this.props.dispatchSignUpModal(false)
     this.props.dispatchError(null)
@@ -56,16 +52,17 @@ class SignUpModal extends React.Component {
           .then((response) => response.json())
           .then((data) => {
             localStorage.setItem('token', data.jwt)
-
+            this.props.dispatchError(null)
             this.props.dispatchChild(data.child)
             this.props.handleSignUpClick()
+            this.setState({ isOpen: false })
           })
           .catch((error) => {
-            console.error('Error:', error)
+            this.props.dispatchError(error)
           })
       })
       .catch((error) => {
-        console.error('Error:', error)
+        this.props.dispatchError(error)
       })
   }
 
@@ -82,6 +79,11 @@ class SignUpModal extends React.Component {
           Welcome to EmotionKnow!
         </Modal.Header>
         <Modal.Content className="background">
+          {this.props.error ? (
+            <Message negative>
+              <Message.Header>{this.props.error}</Message.Header>
+            </Message>
+          ) : null}
           <Form onSubmit={this.handleFormSubmit}>
             <Form.Field required>
               <label className="formLabel">Username</label>
@@ -106,6 +108,7 @@ class SignUpModal extends React.Component {
               <label className="formLabel">Parent's email</label>
               <input
                 name="email"
+                type="email"
                 value={this.state.email}
                 onChange={this.handleFormChange}
                 placeholder="Parent's Email"
