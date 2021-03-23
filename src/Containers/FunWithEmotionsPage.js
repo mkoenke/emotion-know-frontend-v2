@@ -1,7 +1,7 @@
 /* global CY */
-
 import React from 'react'
 import { connect } from 'react-redux'
+import { Parallax } from 'react-scroll-parallax'
 import Webcam from 'react-webcam'
 import { Grid, Header, Loader, Message } from 'semantic-ui-react'
 import BubbleChart from '../Components/bubbleChart'
@@ -22,8 +22,6 @@ class FunWithEmotionsPage extends React.Component {
     dominantAffect: '',
   }
   componentDidMount() {
-    this.props.startSDK()
-
     window.addEventListener(CY.modules().FACE_EMOTION.eventName, (evt) => {
       this.setState({
         emo: evt.detail.output.dominantEmotion,
@@ -79,54 +77,67 @@ class FunWithEmotionsPage extends React.Component {
     return (
       <>
         <BubbleChart data={data} />
-        {!this.props.parent && this.props.child ? (
-          <>
-            <div className="pattern">
-              <Header className="pageHeader" size="huge" textAlign="center">
-                Let's make some funny faces, {this.props.child.username}!
-              </Header>
-              <Header className="waitOrDom" size="huge" textAlign="center">
-                {this.state.emo && this.state.dominantAffect ? (
-                  <>
-                    Your face looks like you're feeling{' '}
-                    <span className="emphasize">
-                      {this.state.dominantAffect.toLowerCase()}!
-                    </span>
-                    <br />
-                    Biggest Emotion:{' '}
-                    <span className="emphasize">{this.state.emo}</span>
-                  </>
-                ) : (
-                  <>
-                    <p>Please wait a moment...</p> <Loader active inline />
-                  </>
-                )}
-              </Header>
-              <Grid
-                columns={3}
-                centered
-                verticalAlign="middle"
-                container
-                stackable
-                textAlign="center"
-                // className="videoGrid"
-              >
-                <Grid.Row>
-                  <Grid.Column></Grid.Column>
-                  <Grid.Column textAlign="center">
-                    <Webcam
-                      className="webcam"
-                      videoConstraints={videoConstraints}
-                    />
-                  </Grid.Column>
-                  <Grid.Column></Grid.Column>
-                </Grid.Row>
-              </Grid>
+        {/* {!this.props.parent && this.props.child ? ( */}
+        <>
+          <div className="pattern">
+            {/* <Header className="pageHeader" size="huge" textAlign="center">
+              Let's make some funny faces, {this.props.child.username}!
+            </Header> */}
 
-              <div className="footer" />
+            <div>
+              <div className="root height">
+                <span className={`copy h1`}>
+                  <Parallax x={[-80, 80]} className="letter">
+                    EmotionKnow
+                  </Parallax>
+                </span>
+                <Header className="subHeader" size="large">
+                  Building Emotional Intelligence in Children
+                </Header>
+              </div>
             </div>
-          </>
-        ) : null}
+            <Header className="waitOrDom" size="huge" textAlign="center">
+              {this.state.emo && this.state.dominantAffect ? (
+                <>
+                  Your face looks like you're feeling{' '}
+                  <span className="emphasize">
+                    {this.state.dominantAffect.toLowerCase()}!
+                  </span>
+                  <br />
+                  Biggest Emotion:{' '}
+                  <span className="emphasize">{this.state.emo}</span>
+                </>
+              ) : (
+                <>
+                  <p>Please wait a moment...</p> <Loader active inline />
+                </>
+              )}
+            </Header>
+            <Grid
+              columns={3}
+              centered
+              verticalAlign="middle"
+              container
+              stackable
+              textAlign="center"
+              // className="videoGrid"
+            >
+              <Grid.Row>
+                <Grid.Column></Grid.Column>
+                <Grid.Column textAlign="center">
+                  <Webcam
+                    className="webcam"
+                    videoConstraints={videoConstraints}
+                  />
+                </Grid.Column>
+                <Grid.Column></Grid.Column>
+              </Grid.Row>
+            </Grid>
+
+            <div className="footer" />
+          </div>
+        </>
+        {/* ) : null} */}
         <Message positive className="removeMargin">
           <Message.Header>Your privacy is important to us!</Message.Header>
           <p>

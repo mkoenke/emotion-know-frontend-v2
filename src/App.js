@@ -24,6 +24,7 @@ class App extends React.Component {
       .then(({ start, stop }) => {
         this.stopSDK = stop
         this.startSDK = start
+        this.startSDK()
       })
   }
 
@@ -50,15 +51,15 @@ class App extends React.Component {
             <Route path="/videos" component={VideoGalleryPage} />
             <Route path="/reports" component={ReportGalleryPage} />
             <Route
-              path="/fun"
+              path="/"
               component={() => (
                 <FunWithEmotionsPage
-                  stopSDK={this.stopSDK}
-                  startSDK={this.startSDK}
+                  stopSDK={this.props.stopSDK}
+                  startSDK={this.props.startSDK}
                 />
               )}
             />
-            <Route path="/" component={Homepage} />
+            <Route path="/fun" component={Homepage} />
           </Switch>
         </div>
       </>
