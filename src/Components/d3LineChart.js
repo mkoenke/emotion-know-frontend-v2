@@ -100,7 +100,7 @@ function D3LineChart({ data, id = 'myD3LineChart' }) {
     return (
       <React.Fragment>
       <div ref={wrapperRef} style={{ marginBottom: '2rem' }}>
-        <svg ref={svgRef}>
+        <svg ref={svgRef} style={{marginLeft: "20px"}}>
           <defs>
             <clipPath id={id}>
               <rect x="0" y="0" width="100%" height="100%" />
