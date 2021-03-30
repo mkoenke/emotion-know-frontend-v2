@@ -45,7 +45,6 @@ function D3LineChart({ data, id = 'myD3LineChart' }) {
     const { width, height } =
       dimensions || wrapperRef.current.getBoundingClientRect()
       
-      
       const length = data.anger.length
       
       const xScale = scaleLinear()

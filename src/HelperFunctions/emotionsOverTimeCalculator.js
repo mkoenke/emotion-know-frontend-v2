@@ -16,8 +16,7 @@ function emotionsOverTimeCalculator(emotionReports) {
 //Calculates the amount of times an emotion is the peak value
 function singleReportFrequencyCounter(report) {
 
-  //There may be a better way to destructure this for the newReportObj, 
-  //but it's already 11:09pm
+  //This may need refactoring
   const newReportObj = {
     anger: report.anger,
     disgust: report.disgust,
@@ -65,53 +64,4 @@ function percentOfCounts(countedReport) {
   return emotionalPercentCounter
 }
 
-
-
-//TEST VALUES
-// const test = {
-//   anger: 1,
-//   disgust: 8,
-//   fear: 2,
-//   joy: 3,
-//   sadness: 10,
-//   surprise: 5
-// }
-// const eR = {
-//   anger: [1, 2, 3, 4, 5, 6, 7, 8, 9, 0],
-//   disgust: [2, 3, 4, 5, 6, 7, 8, 9, 0, 1],
-//   fear: [3, 4, 5, 6, 7, 8, 9, 0, 1, 2],
-//   joy: [4, 5, 6, 7, 8, 9, 0, 1, 2, 3],
-//   sadness: [5, 6, 7, 8, 9, 0, 1, 2, 3, 4],
-//   surprise: [6, 7, 8, 9, 0, 1, 2, 3, 4, 5],
-// }
-
-// const combo = [
-//   {
-//     anger: [1, 2, 3, 4, 5, 6, 7, 8, 9, 0],
-//     disgust: [2, 3, 4, 5, 6, 7, 8, 9, 0, 1],
-//     fear: [3, 4, 5, 6, 7, 8, 9, 0, 1, 2],
-//     joy: [4, 5, 6, 7, 8, 9, 0, 1, 2, 3],
-//     sadness: [5, 6, 7, 8, 9, 0, 1, 2, 3, 4],
-//     surprise: [6, 7, 8, 9, 0, 1, 2, 3, 4, 5],
-//   },
-//   {
-//     anger: [1, 2, 3, 4, 5, 6, 7, 8, 9, 0],
-//     disgust: [2, 3, 4, 5, 6, 7, 8, 9, 0, 1],
-//     fear: [3, 4, 5, 6, 7, 8, 9, 0, 1, 2],
-//     joy: [4, 5, 6, 7, 8, 9, 0, 1, 2, 3],
-//     sadness: [5, 6, 7, 8, 9, 0, 1, 2, 3, 4],
-//     surprise: [6, 7, 8, 9, 0, 1, 2, 3, 4, 5],
-//   },
-//   {
-//     anger: [1, 2, 3, 4, 5, 6, 7, 8, 9, 0],
-//     disgust: [2, 3, 4, 5, 6, 7, 8, 9, 0, 1],
-//     fear: [3, 4, 5, 6, 7, 8, 9, 0, 1, 2],
-//     joy: [4, 5, 6, 7, 8, 9, 0, 1, 2, 3],
-//     sadness: [5, 6, 7, 8, 9, 0, 1, 2, 3, 4],
-//     surprise: [6, 7, 8, 9, 0, 1, 2, 3, 4, 5],
-//   }
-// ]
-
-
-// console.log(emotionsOverTimeCalculator(combo))
 export default emotionsOverTimeCalculator
