@@ -67,7 +67,8 @@ svg {
   color: rgb(248, 245, 242) !important ;
 }
 .navBarBackground {
-  background-color: #57909e !important;
+  /* background-color: #57909e !important; */
+  background-color: rgb(10, 157, 174) !important;
 }
 .link {
   cursor: pointer;
@@ -127,6 +128,9 @@ svg {
 .content {
   font-family: 'Overpass', sans-serif !important;
   color: #97909e !important;
+}
+.date {
+  margin: 10px !important;
 }
 .extraLarge {
   font-size: 80px !important;

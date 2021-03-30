@@ -35,7 +35,7 @@ class App extends React.Component {
         <NavBar />
         <div className="containerPad">
           <Switch>
-            <Route path="/resources" component={ResourcesPage} />
+            <Route path="/about" component={ResourcesPage} />
             <Route path="/welcome" component={WelcomePageContainer} />
             <Route
               path="/webcam"

@@ -22,18 +22,18 @@ class VideoCard extends React.Component {
                 className="pattern cardSize"
               >
                 <Card.Content>
-                  <Card.Header className="content">
+                  <Image
+                    src={this.props.image}
+                    size="medium"
+                    // circular
+                    className="journalCardImage"
+                  />
+                  <Card.Header className="content date">
                     {this.props.cardObj.date}
                   </Card.Header>
                   <Card.Header className="journalTitle">
                     {this.props.cardObj.title}
                   </Card.Header>
-                  <Image
-                    src={this.props.image}
-                    size="medium"
-                    circular
-                    className="journalCardImage"
-                  />
                 </Card.Content>
               </Card>
             </FrontSide>

@@ -65,10 +65,10 @@ class NavBar extends React.Component {
                   className="navbar"
                 />
               </NavLink>
-              <NavLink to="/resources">
+              <NavLink to="/about">
                 <Menu.Item
-                  name="resources"
-                  active={activeItem === 'resources'}
+                  name="about"
+                  active={activeItem === 'about'}
                   onClick={this.handleItemClick}
                   className="navbar"
                 />
@@ -189,10 +189,10 @@ class NavBar extends React.Component {
             )}
             {this.props.child || this.props.parent ? (
               <>
-                <NavLink to="/resources">
+                <NavLink to="/about">
                   <Menu.Item
-                    name="resources"
-                    active={activeItem === 'resources'}
+                    name="about"
+                    active={activeItem === 'about'}
                     onClick={this.handleItemClick}
                     className="navbar"
                   />
