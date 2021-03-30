@@ -34,10 +34,10 @@ svg {
 
 .letter {
   display: inline-block;
-  font-family: 'Montserrat', 'sans-serif';
+  font-family: 'Overpass', sans-serif;
 }
 .h1 {
-  font-size: 5em;
+  font-size: 7em;
   font-weight: 700;
   letter-spacing: 0.3em;
   color: rgb(10, 157, 174);
@@ -58,12 +58,12 @@ svg {
 
 .subHeader {
   color: rgb(171, 218, 225) !important;
-  font-family: 'Montserrat', 'sans-serif' !important;
+  font-family: 'Overpass', sans-serif !important;
 }
 
 .navbar {
   font-size: 24px;
-  font-family: 'Montserrat', 'sans-serif';
+  font-family: 'Overpass', sans-serif;
   color: rgb(248, 245, 242) !important ;
 }
 .navBarBackground {
@@ -74,7 +74,7 @@ svg {
 }
 .resources {
   background-color: rgb(248, 245, 242);
-  font-family: 'Montserrat', 'sans-serif' !important;
+  font-family: 'Overpass', sans-serif !important;
   color: rgb(10, 157, 174) !important;
 }
 .resourcesList {
@@ -84,7 +84,7 @@ svg {
   margin-bottom: 200px !important;
 }
 .pageHeader {
-  font-family: 'Montserrat', 'sans-serif' !important;
+  font-family: 'Overpass', sans-serif !important;
   color: #97909e !important;
   font-size: 42px !important;
   margin: 0 !important;
@@ -92,7 +92,7 @@ svg {
   font-weight: 900 !important;
 }
 .waitOrDom {
-  font-family: 'Montserrat', 'sans-serif' !important;
+  font-family: 'Overpass', sans-serif !important;
   color: rgb(10, 157, 174) !important;
   margin: 0 !important;
   padding: 30px !important;
@@ -122,7 +122,7 @@ svg {
   width: 100% !important;
 }
 .content {
-  font-family: 'Montserrat', 'sans-serif' !important;
+  font-family: 'Overpass', sans-serif !important;
   color: #97909e !important;
 }
 .extraLarge {
@@ -150,7 +150,7 @@ svg {
   text-align: center !important;
 }
 th {
-  font-family: 'Montserrat', 'sans-serif' !important;
+  font-family: 'Overpass', sans-serif !important;
   color: #97909e !important;
   font-size: 18px !important;
 }
@@ -158,7 +158,7 @@ th {
   font-weight: 100 !important;
 }
 .formLabel {
-  font-family: 'Montserrat', 'sans-serif' !important;
+  font-family: 'Overpass', sans-serif !important;
   color: #97909e !important;
   font-size: 20px !important;
 }
@@ -168,7 +168,7 @@ th {
 .formButton {
   color: #6b585b !important;
   background-color: #dad2d3 !important;
-  font-family: 'Montserrat', 'sans-serif' !important;
+  font-family: 'Overpass', sans-serif !important;
 
   margin: 10px !important;
 }
@@ -202,7 +202,7 @@ th {
 .hvEHqT {
   color: #6b585b !important;
   background-color: #dad2d3 !important;
-  font-family: 'Montserrat', 'sans-serif' !important;
+  font-family: 'Overpass', sans-serif !important;
 }
 .kHmnKJ {
   border-radius: 5px;
@@ -248,7 +248,7 @@ th {
 
 .journalTitle {
   margin: 30px;
-  font-family: 'Montserrat', 'sans-serif' !important;
+  font-family: 'Overpass', sans-serif !important;
   color: #97909e !important;
   text-align: center !important;
   font-size: 26px !important;
@@ -262,7 +262,7 @@ th {
 }
 
 .homepageText {
-  font-family: 'Montserrat', sans-serif !important;
+  font-family: 'Overpass', sans-serif !important;
   line-height: 26px;
   font-size: 20px;
   color: rgb(10, 157, 174);
@@ -281,7 +281,7 @@ th {
 .homepageContainer {
   color: rgb(10, 157, 174);
   font-size: 20px;
-  font-family: 'Montserrat';
+  font-family: 'Overpass', sans-serif;
   object-fit: contain;
   padding-left: 200px;
   padding-right: 200px;
@@ -321,7 +321,7 @@ th {
   background-image: linear-gradient(rgb(248, 245, 242), #c8bcbe) !important;
 }
 .reportHeader {
-  font-family: 'Montserrat', 'sans-serif' !important;
+  font-family: 'Overpass', sans-serif !important;
   color: #6b585b !important;
   padding-top: 15px !important;
   margin-bottom: 30px !important;
@@ -386,7 +386,7 @@ canvas {
   width: 300px !important;
 }
 /* .pagination {
-  font-family: "Monserrat", "sans-serif" !important;
+  font-family:'Overpass', sans-serif !important;
 } */
 .replayContainer {
   background-color: white;
@@ -399,7 +399,7 @@ canvas {
   padding: 20px;
 }
 .pagination li a {
-  font-family: 'Montserrat', 'sans-serif' !important;
+  font-family: 'Overpass', sans-serif !important;
   color: rgb(10, 157, 174);
 }
 .paginateLarge {
@@ -412,7 +412,7 @@ svg {
   transition-timing-function: ease-in-out;
 }
 .bubbleText {
-  font-family: 'Montserrat', 'sans-serif' !important;
+  font-family: 'Overpass', sans-serif !important;
   color: rgb(10, 157, 174) !important;
   font-size: 20px;
 }
