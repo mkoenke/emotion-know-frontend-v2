@@ -113,6 +113,9 @@ svg {
 .rotate-scale-down {
   margin: 10px 20px !important;
 }
+.scale-up-center {
+  margin: 15px !important;
+}
 .cardImage {
   height: 300px !important;
   width: 100% !important;

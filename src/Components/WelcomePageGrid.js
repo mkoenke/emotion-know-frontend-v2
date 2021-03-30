@@ -1,10 +1,14 @@
 import React from 'react'
 import { Card, Grid } from 'semantic-ui-react'
+import pastelblue from '../assets/images/pastelblue.jpeg'
+import pastelgreen from '../assets/images/pastelgreen.jpeg'
+import pastelindigo from '../assets/images/pastelindigo.jpeg'
+import pastelyellow from '../assets/images/pastelyellow.jpeg'
 // import videoGalleryImage from '../assets/images/3rainbowStacked.jpg'
-import funWithEmotions from '../assets/images/funWithEmotions.jpg'
-import reportImage from '../assets/images/pencilBar.jpeg'
-import RainbowPyramid from '../assets/images/rainbowBlockPyramid.jpg'
-import videoImage from '../assets/images/rainbowBlocks.jpg'
+// import funWithEmotions from '../assets/images/funWithEmotions.jpg'
+// import reportImage from '../assets/images/pencilBar.jpeg'
+// import RainbowPyramid from '../assets/images/rainbowBlockPyramid.jpg'
+// import videoImage from '../assets/images/rainbowBlocks.jpg'
 import WelcomeCard from './WelcomeCard'
 
 class WelcomePageGrid extends React.Component {
@@ -13,14 +17,14 @@ class WelcomePageGrid extends React.Component {
       {
         id: 1,
         header: 'Record a Video Journal',
-        image: videoImage,
+        image: pastelgreen,
         description: 'Express Yourself!  Record a Video Journal!',
         url: './webcam',
       },
       {
         id: 4,
         header: 'Video Gallery',
-        image: RainbowPyramid,
+        image: pastelblue,
         description: 'See all the videos you have recorded in the past!',
         url: './videos',
       },
@@ -28,14 +32,14 @@ class WelcomePageGrid extends React.Component {
       {
         id: 7,
         header: 'Report Gallery',
-        image: reportImage,
+        image: pastelindigo,
         description: 'Check out how you have been feeling lately!',
         url: './reports',
       },
       {
         id: 8,
         header: 'Fun with Emotions',
-        image: funWithEmotions,
+        image: pastelyellow,
         description: 'Lets see what emotions your face can express!',
         url: './fun',
       },
