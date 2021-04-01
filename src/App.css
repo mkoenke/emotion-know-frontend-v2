@@ -81,7 +81,7 @@ svg {
   font-size: 24px;
   font-family: 'Overpass', sans-serif;
   color: rgb(248, 245, 242) !important ;
-  background-color: rgb(10, 157, 174) !important;
+  background-color: rgba(10, 157, 174, 0.55) !important;
 }
 .link {
   cursor: pointer;

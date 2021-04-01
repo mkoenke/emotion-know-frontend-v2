@@ -3,7 +3,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Parallax } from 'react-scroll-parallax'
 import Webcam from 'react-webcam'
-import { Grid, Header, Loader, Message } from 'semantic-ui-react'
+import { Dimmer, Grid, Header, Loader, Message } from 'semantic-ui-react'
 import BubbleChart from '../Components/bubbleChart'
 
 class FunWithEmotionsPage extends React.Component {
@@ -116,7 +116,22 @@ class FunWithEmotionsPage extends React.Component {
                 </>
               ) : (
                 <>
-                  <p>Please wait a moment...</p> <Loader active inline />
+                  <Dimmer active blurring page>
+                    <div className="root height">
+                      <span className={`copy h1`}>
+                        <Parallax x={[0, 0]} className="letter">
+                          EmotionKnow
+                        </Parallax>
+                      </span>
+                      <Header className="subHeader" size="large">
+                        Building Emotional Intelligence in Children
+                      </Header>
+                    </div>
+                    <Header as="h2" inverted>
+                      Please wait a moment...
+                    </Header>{' '}
+                    <Loader active inline massive />
+                  </Dimmer>
                 </>
               )}
             </Header>

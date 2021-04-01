@@ -11,7 +11,6 @@ import {
 import LoginModal from './LoginModal'
 import ParentLoginModal from './ParentLoginModal'
 import SignUpModal from './SignUpModal'
-// import SignUpModal from "./SignUpModal"
 
 class NavBar extends React.Component {
   state = {
