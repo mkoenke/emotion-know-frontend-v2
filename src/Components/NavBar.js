@@ -191,9 +191,6 @@ class NavBar extends React.Component {
             {this.props.modalOpen && (
               <LoginModal handleLoginClick={this.handleLoginClick} />
             )}
-            {/* {this.props.profileModalOpen && (
-              <ProfileModal handleProfileClick={this.handleProfileClick} />
-            )} */}
             {this.props.child || this.props.parent ? (
               <>
                 <NavLink to="/about">
@@ -207,7 +204,7 @@ class NavBar extends React.Component {
                 <Dropdown floating item icon="user outline">
                   <Dropdown.Menu>
                     <Dropdown.Item onClick={this.handleProfileClick}>
-                      Profile
+                      Change Profile
                     </Dropdown.Item>
                     <Dropdown.Item
                       name="logout"
@@ -238,6 +235,7 @@ function mapStateToProps(state) {
     modalOpen: state.modalOpen,
     parentModalOpen: state.parentModalOpen,
     signUpModalOpen: state.signUpModalOpen,
+    profileModalOpen: state.profileModalOpen,
   }
 }
 

@@ -1,15 +1,19 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Button, Form, Message, Modal } from 'semantic-ui-react'
+import { Button, Form, Input, Message, Modal } from 'semantic-ui-react'
 import { setChild, setError, setProfileModal } from '../Redux/actions'
 
 class ProfileModal extends React.Component {
   state = {
     isOpen: true,
     username: '',
+    confirmUsername: '',
     password: '',
-    email: '',
-    parentPassword: '',
+    confirmPassword: '',
+    usernameError: false,
+    usernameMatchError: false,
+    passwordError: false,
+    passwordMatchError: false,
   }
   handleCancel = () => {
     this.props.dispatchProfileModal(false)
@@ -17,53 +21,55 @@ class ProfileModal extends React.Component {
   }
   handleFormChange = (e) => {
     this.setState({ [e.target.name]: e.target.value })
+    if (this.state.username !== this.state.confirmUsername) {
+      this.setState({ usernameError: true, usernameMatchError: true })
+    }
+    if (this.state.username === this.state.confirmUsername) {
+      this.setState({ usernameError: false, usernameMatchError: false })
+    }
+    if (this.state.password !== this.state.confirmPassword) {
+      this.setState({ passwordError: true, passwordMatchError: true })
+    }
+    if (this.state.password === this.state.confirmPassword) {
+      this.setState({ passwordError: false, passwordMatchError: false })
+    }
   }
 
   handleFormSubmit = (event) => {
     event.preventDefault()
-
-    let parentData = {
-      email: this.state.email,
-      password: this.state.parentPassword,
+    if (
+      this.state.username === this.state.confirmUsername &&
+      this.state.password === this.state.confirmPassword
+    ) {
+      let data = {
+        username: this.state.username,
+        password: this.state.password,
+      }
+      console.log(data)
+    } else {
+      console.log('THEY DONT MATCH')
     }
-    fetch('http://localhost:3000/parents', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(parentData),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        let childData = {
-          username: this.state.username,
-          password: this.state.password,
-          parent_id: data.parent.id,
-        }
 
-        fetch('http://localhost:3000/children', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            Accept: 'application/json',
-          },
-          body: JSON.stringify(childData),
-        })
-          .then((response) => response.json())
-          .then((data) => {
-            localStorage.setItem('token', data.jwt)
-            this.props.dispatchError(null)
-            this.props.dispatchChild(data.child)
-            this.props.handleProfileClick()
-            this.setState({ isOpen: false })
-          })
-          .catch((error) => {
-            this.props.dispatchError(error)
-          })
-      })
-      .catch((error) => {
-        this.props.dispatchError(error)
-      })
+    //     fetch(`http://localhost:3000/children/${id}`, {
+    //       method: 'PATCH',
+    //       headers: {
+    //         'Content-Type': 'application/json',
+    //         Accept: 'application/json',
+    //       },
+    //       body: JSON.stringify(data),
+    //     })
+    //       .then((response) => response.json())
+    //       .then((data) => {
+    //         localStorage.setItem('token', data.jwt)
+    //         this.props.dispatchError(null)
+    //         this.props.dispatchChild(data.child)
+    //         this.props.handleProfileClick()
+    //         this.setState({ isOpen: false })
+    //       })
+    //       .catch((error) => {
+    //         this.props.dispatchError(error)
+    //       })
+    //   })
   }
 
   render() {
@@ -73,10 +79,10 @@ class ProfileModal extends React.Component {
         onOpen={() => this.setState({ isOpen: true })}
         open={this.state.isOpen}
         closeOnDimmerClick={false}
-        dimmer="blurring"
+        dimmer="inverted"
       >
         <Modal.Header className="background pageHeader">
-          Welcome to EmotionKnow!
+          Edit Profile
         </Modal.Header>
         <Modal.Content className="background">
           {this.props.error ? (
@@ -84,45 +90,58 @@ class ProfileModal extends React.Component {
               <Message.Header>{this.props.error}</Message.Header>
             </Message>
           ) : null}
+          {this.state.usernameError ? (
+            <Message negative>
+              <Message.Header>Usernames do not match!</Message.Header>
+            </Message>
+          ) : null}
+          {this.state.passwordError ? (
+            <Message negative>
+              <Message.Header>Passwords do not match!</Message.Header>
+            </Message>
+          ) : null}
           <Form onSubmit={this.handleFormSubmit}>
             <Form.Field required>
-              <label className="formLabel">Username</label>
-              <input
+              <label className="formLabel">New Username</label>
+              <Input
                 name="username"
                 value={this.state.username}
                 onChange={this.handleFormChange}
-                placeholder="Username"
+                placeholder="New Username"
+                error={this.state.usernameError}
               />
             </Form.Field>
             <Form.Field required>
-              <label className="formLabel">Password</label>
-              <input
+              <label className="formLabel">Confirm New Username</label>
+              <Input
+                name="confirmUsername"
+                value={this.state.confirmUsername}
+                onChange={this.handleFormChange}
+                placeholder="Confirm New Username"
+                error={this.state.usernameMatchError}
+              />
+            </Form.Field>
+            <Form.Field required>
+              <label className="formLabel">New Password</label>
+              <Input
                 name="password"
                 type="password"
-                value={this.state.password}
+                value={this.state.email}
                 onChange={this.handleFormChange}
-                placeholder="Password"
+                placeholder="New Password"
+                error={this.state.passwordError}
               />
             </Form.Field>
             <Form.Field required>
-              <label className="formLabel">Parent's email</label>
-              <input
-                name="email"
-                type="email"
-                value={this.state.email}
-                onChange={this.handleFormChange}
-                placeholder="Parent's Email"
-              />
-            </Form.Field>{' '}
-            <Form.Field required>
-              <label className="formLabel">Parent's Password</label>
-              <input
-                name="parentPassword"
+              <label className="formLabel">Confirm New Password</label>
+              <Input
+                name="confirmPassword"
                 type="password"
                 value={this.state.parentPassword}
                 onChange={this.handleFormChange}
-                placeholder="Parent's Password"
-              />{' '}
+                placeholder="Confirm New Password"
+                error={this.state.passwordMatchError}
+              />
             </Form.Field>
             <div className="formButtonContainer">
               <Button className="formButton" type="submit">
