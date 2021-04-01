@@ -134,6 +134,11 @@ i.icon.user.outline {
   max-width: 500px !important;
   max-height: 400px !important;
 }
+.cardDesc {
+  font-family: 'Overpass', sans-serif !important;
+
+  color: #97909e !important;
+}
 .rotate-scale-down {
   margin: 10px 20px !important;
 }

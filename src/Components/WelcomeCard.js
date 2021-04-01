@@ -1,7 +1,7 @@
-import React from "react"
-import Animista, { AnimistaTypes } from "react-animista"
-import { NavLink } from "react-router-dom"
-import { Card, Image } from "semantic-ui-react"
+import React from 'react'
+import Animista, { AnimistaTypes } from 'react-animista'
+import { NavLink } from 'react-router-dom'
+import { Card, Image } from 'semantic-ui-react'
 
 class CardClass extends React.Component {
   render() {
@@ -21,7 +21,7 @@ class CardClass extends React.Component {
                   {this.props.cardObj.header}
                 </Card.Header>
 
-                <Card.Description textAlign="center">
+                <Card.Description textAlign="center" className="cardDesc">
                   {this.props.cardObj.description}
                 </Card.Description>
               </Card.Content>
