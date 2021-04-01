@@ -19,15 +19,16 @@ class VideoCard extends React.Component {
               <Card
                 id={this.props.cardObj.id}
                 centered
-                className="pattern cardSize"
+                className="welcomeCard cardSize"
               >
+                <Image
+                  src={this.props.image}
+                  // size="medium"
+                  // // circular
+                  // className="journalCardImage"
+                  className="cardImage"
+                />
                 <Card.Content>
-                  <Image
-                    src={this.props.image}
-                    size="medium"
-                    // circular
-                    className="journalCardImage"
-                  />
                   <Card.Header className="content date">
                     {this.props.cardObj.date}
                   </Card.Header>

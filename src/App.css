@@ -152,9 +152,6 @@ i.icon.user.outline {
   font-family: 'Overpass', sans-serif !important;
   color: #97909e !important;
 }
-.date {
-  margin: 10px !important;
-}
 .extraLarge {
   font-size: 80px !important;
 }
@@ -220,6 +217,14 @@ th {
 .videoCardDiv {
   padding-top: 40px;
 }
+/* .ui.card > .content {
+  padding: 0;
+} */
+.date {
+  font-weight: unset !important;
+  font-size: unset !important;
+  line-height: unset !important;
+}
 
 .journal {
   background-color: white;
@@ -238,7 +243,10 @@ th {
   border-radius: 5px;
 }
 .webcam {
-  border-radius: 5px;
+  border-radius: 15px;
+}
+video {
+  opacity: 0.75;
 }
 .videoJournal {
   margin-left: 200px;
@@ -277,7 +285,7 @@ th {
 }
 
 .journalTitle {
-  margin: 30px;
+  margin-top: -0.41425em !important;
   font-family: 'Overpass', sans-serif !important;
   color: #97909e !important;
   text-align: center !important;
