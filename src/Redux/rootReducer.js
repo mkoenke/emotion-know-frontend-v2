@@ -10,6 +10,7 @@ import {
   MODAL_OPEN,
   PARENTS_REPORTS,
   PARENT_MODAL_OPEN,
+  PROFILE_MODAL_OPEN,
   SET_CHILD,
   SET_ERROR,
   SET_PARENT,
@@ -26,6 +27,7 @@ const defaultState = {
   modalOpen: false,
   parentModalOpen: false,
   signUpModalOpen: false,
+  profileModalOpen: false,
   clickedReport: null,
 }
 
@@ -50,6 +52,18 @@ function modalReducer(prevState = defaultState.modalOpen, action) {
 function parentModalReducer(prevState = defaultState.parentModalOpen, action) {
   switch (action.type) {
     case PARENT_MODAL_OPEN:
+      return action.payload
+    default:
+      return prevState
+  }
+}
+
+function profileModalReducer(
+  prevState = defaultState.profileModalOpen,
+  action
+) {
+  switch (action.type) {
+    case PROFILE_MODAL_OPEN:
       return action.payload
     default:
       return prevState
@@ -143,6 +157,7 @@ const rootReducer = combineReducers({
   modalOpen: modalReducer,
   parentModalOpen: parentModalReducer,
   signUpModalOpen: signUpModalReducer,
+  profileModalOpen: profileModalReducer,
   clickedReport: clickedReportReducer,
 })
 

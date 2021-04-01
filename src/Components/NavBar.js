@@ -6,10 +6,12 @@ import {
   logout,
   setModal,
   setParentModal,
+  setProfileModal,
   setSignUpModal,
 } from '../Redux/actions'
 import LoginModal from './LoginModal'
 import ParentLoginModal from './ParentLoginModal'
+import ProfileModal from './ProfileModal'
 import SignUpModal from './SignUpModal'
 
 class NavBar extends React.Component {
@@ -38,7 +40,10 @@ class NavBar extends React.Component {
     }
   }
   handleProfileClick = () => {
-    console.log('Clicked')
+    if (this.props.child || this.props.parent) {
+      console.log('Clicked')
+      this.props.dispatchProfileModal(true)
+    }
   }
 
   handleLogOutClick = () => {
@@ -122,33 +127,26 @@ class NavBar extends React.Component {
             </>
           ) : null}
 
-          {
-            this.props.parent ? (
-              <>
-                <NavLink to="/reports">
-                  <Menu.Item
-                    name="reports"
-                    active={activeItem === 'reports'}
-                    onClick={this.handleItemClick}
-                    className="navbar"
-                  />
-                </NavLink>
-                <NavLink to="/fun">
-                  <Menu.Item
-                    name="fun with emotions"
-                    active={activeItem === 'fun'}
-                    onClick={this.handleItemClick}
-                    className="navbar"
-                  />
-                </NavLink>
-              </>
-            ) : null
-            // (
-            // <>
-
-            // </>
-            // )
-          }
+          {this.props.parent ? (
+            <>
+              <NavLink to="/reports">
+                <Menu.Item
+                  name="reports"
+                  active={activeItem === 'reports'}
+                  onClick={this.handleItemClick}
+                  className="navbar"
+                />
+              </NavLink>
+              <NavLink to="/fun">
+                <Menu.Item
+                  name="fun with emotions"
+                  active={activeItem === 'fun'}
+                  onClick={this.handleItemClick}
+                  className="navbar"
+                />
+              </NavLink>
+            </>
+          ) : null}
           <Menu.Menu position="right">
             {!this.props.child && !this.props.parent ? (
               <>
@@ -156,8 +154,6 @@ class NavBar extends React.Component {
                   <Dropdown.Menu>
                     <Dropdown.Item
                       name="childLogin"
-                      // active={activeItem === 'childLogin'}
-                      // onClick={this.handleItemClick}
                       onClick={this.handleLoginClick}
                       className="navbar"
                     >
@@ -166,8 +162,6 @@ class NavBar extends React.Component {
                     <Redirect to="/" />
                     <Dropdown.Item
                       name="parentLogin"
-                      // active={activeItem === 'parentLogin'}
-                      // onClick={this.handleItemClick}
                       onClick={this.handleParentLoginClick}
                       className="navbar"
                     >
@@ -176,8 +170,6 @@ class NavBar extends React.Component {
                     <Redirect to="/" />
                     <Dropdown.Item
                       name="signUp"
-                      // active={activeItem === 'signUp'}
-                      // onClick={this.handleItemClick}
                       onClick={this.handleSignUpClick}
                       className="navbar"
                     >
@@ -199,6 +191,9 @@ class NavBar extends React.Component {
             {this.props.modalOpen && (
               <LoginModal handleLoginClick={this.handleLoginClick} />
             )}
+            {/* {this.props.profileModalOpen && (
+              <ProfileModal handleProfileClick={this.handleProfileClick} />
+            )} */}
             {this.props.child || this.props.parent ? (
               <>
                 <NavLink to="/about">
@@ -216,8 +211,6 @@ class NavBar extends React.Component {
                     </Dropdown.Item>
                     <Dropdown.Item
                       name="logout"
-                      // active={activeItem === 'logout'}
-                      // onClick={this.handleItemClick}
                       onClick={this.handleLogOutClick}
                       className="navbar"
                     >
@@ -228,6 +221,9 @@ class NavBar extends React.Component {
                 </Dropdown>
               </>
             ) : null}
+            {this.props.profileModalOpen && (
+              <ProfileModal handleProfileClick={this.handleProfileClick} />
+            )}
           </Menu.Menu>
         </Menu>
       </div>
@@ -251,6 +247,7 @@ function mapDispatchToProps(dispatch) {
     dispatchModal: (value) => dispatch(setModal(value)),
     dispatchParentModal: (value) => dispatch(setParentModal(value)),
     dispatchSignUpModal: (value) => dispatch(setSignUpModal(value)),
+    dispatchProfileModal: (value) => dispatch(setProfileModal(value)),
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(NavBar)
