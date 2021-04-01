@@ -149,7 +149,7 @@ class NavBar extends React.Component {
           <Menu.Menu position="right">
             {!this.props.child && !this.props.parent ? (
               <>
-                <Dropdown item text="Login">
+                <Dropdown floating item text="Login">
                   <Dropdown.Menu>
                     <Dropdown.Item
                       name="childLogin"
@@ -206,14 +206,21 @@ class NavBar extends React.Component {
                     className="navbar"
                   />
                 </NavLink>
-                <Menu.Item
-                  name="logout"
-                  active={activeItem === 'logout'}
-                  onClick={this.handleItemClick}
-                  onClick={this.handleLogOutClick}
-                  className="navbar"
-                />
-                <Redirect to="/welcome" />
+                <Dropdown floating item icon="user outline">
+                  <Dropdown.Menu>
+                    <Dropdown.Item>Profile</Dropdown.Item>
+                    <Dropdown.Item
+                      name="logout"
+                      active={activeItem === 'logout'}
+                      onClick={this.handleItemClick}
+                      onClick={this.handleLogOutClick}
+                      className="navbar"
+                    >
+                      Log Out
+                    </Dropdown.Item>
+                    <Redirect to="/welcome" />
+                  </Dropdown.Menu>
+                </Dropdown>
               </>
             ) : null}
           </Menu.Menu>
