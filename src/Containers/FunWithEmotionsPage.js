@@ -79,12 +79,20 @@ class FunWithEmotionsPage extends React.Component {
     return (
       <>
         <BubbleChart data={data} />
-        {!this.props.parent && this.props.child ? (
+        {this.props.parent || this.props.child ? (
           <>
             <div className="pattern">
-              <Header className="pageHeader" size="huge" textAlign="center">
-                Let's make some funny faces, {this.props.child.username}!
-              </Header>
+              {this.props.child && !this.props.parent ? (
+                <Header className="pageHeader" size="huge" textAlign="center">
+                  Let's make some funny faces, {this.props.child.username}!
+                </Header>
+              ) : null}
+              {this.props.parent && (
+                <Header className="pageHeader" size="huge" textAlign="center">
+                  Let's make some funny faces!
+                </Header>
+              )}
+
               <Header className="waitOrDom" size="huge" textAlign="center">
                 {this.state.emo && this.state.dominantAffect ? (
                   <>

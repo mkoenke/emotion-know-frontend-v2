@@ -82,7 +82,7 @@ class NavBar extends React.Component {
               </NavLink>
             </>
           ) : null}
-          {this.props.child ? (
+          {this.props.child && !this.props.parent ? (
             <>
               <NavLink to="/welcome">
                 <Menu.Item
