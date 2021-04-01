@@ -170,10 +170,10 @@ i.icon.user.outline {
 
 .bargraph {
   background-color: white;
-  box-shadow: 10px 10px 5px grey !important;
+  /* box-shadow: 10px 10px 5px grey !important; */
 }
 .table {
-  box-shadow: 10px 10px 5px grey !important;
+  /* box-shadow: 10px 10px 5px grey !important; */
 }
 .ui.celled.table.table.content {
   padding-left: 0px !important;
@@ -384,7 +384,7 @@ video {
 }
 .lineGraph {
   background-color: white;
-  box-shadow: 10px 10px 5px grey !important;
+  /* box-shadow: 10px 10px 5px grey !important; */
   padding: 50px;
 }
 .overflow {

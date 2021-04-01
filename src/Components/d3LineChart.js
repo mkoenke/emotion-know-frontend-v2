@@ -39,6 +39,7 @@ function D3LineChart({ data, id = 'myD3LineChart' }) {
   const [sadness, setSadnessState] = useState()
   const [surprise, setSurpriseState] = useState()
 
+  console.log(surprise)
   useEffect(() => {
     const svg = select(svgRef.current)
     const svgContent = svg.select('.content')

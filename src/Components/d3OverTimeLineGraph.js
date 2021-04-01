@@ -34,7 +34,18 @@ function D3OverTimeLineGraph({ data, id = 'd3OverTimeLineGraph' }) {
   const dimensions = useResizeObserver(wrapperRef)
   const [currentZoomState, setCurrentZoomState] = useState()
 
+  const [anger, setAngerState] = useState()
+  const [disgust, setDisgustState] = useState()
+  const [fear, setFearState] = useState()
+  const [joy, setJoyState] = useState()
+  const [sadness, setSadnessState] = useState()
+  const [surprise, setSurpriseState] = useState()
+
   const emotionsOverTimeData = emotionsOverTimeCalculator(data)
+
+  // console.log("EOT DATA", emotionsOverTimeData)
+  // console.log("DATA", data)
+  // console.log("ANGER", anger)
 
   useEffect(() => {
     const svg = select(svgRef.current)
@@ -56,7 +67,7 @@ function D3OverTimeLineGraph({ data, id = 'd3OverTimeLineGraph' }) {
       .range([height - 10, 10])
 
     const lineGenerator = line()
-      .x((d,index) => xScale(d.created_at))
+      .x((d, index) => xScale(index))
       .y((d) => yScale(d))
       .curve(curveCardinal)
 
@@ -79,8 +90,8 @@ function D3OverTimeLineGraph({ data, id = 'd3OverTimeLineGraph' }) {
         const zoomState = event.transform
         setCurrentZoomState(zoomState)
       })
-      
-     svgContent
+
+    svgContent
       .selectAll('overTimeLine')
       .data([emotionsOverTimeData])
       .join('path')
@@ -90,6 +101,20 @@ function D3OverTimeLineGraph({ data, id = 'd3OverTimeLineGraph' }) {
       .attr('d', lineGenerator)
 
     svg.call(zoomBehavior)
+
+    const arrayEmotionsOverTimeData = (emotionsOverTimeData, emotion) => {
+      return emotionsOverTimeData.map(report => report[emotion])
+    }
+
+    // console.log("AEOTD Return",arrayEmotionsOverTimeData(emotionsOverTimeData, anger))
+
+    setAngerState(lineGenerator(arrayEmotionsOverTimeData(emotionsOverTimeData, "anger")))
+    setDisgustState(lineGenerator(arrayEmotionsOverTimeData(emotionsOverTimeData, "disgust")))
+    setFearState(lineGenerator(arrayEmotionsOverTimeData(emotionsOverTimeData, "fear")))
+    setJoyState(lineGenerator(arrayEmotionsOverTimeData(emotionsOverTimeData, "joy")))
+    setSadnessState(lineGenerator(arrayEmotionsOverTimeData(emotionsOverTimeData, "sadness")))
+    setSurpriseState(lineGenerator(arrayEmotionsOverTimeData(emotionsOverTimeData, "surprise")))
+
   }, [currentZoomState, data, dimensions])
 
 
@@ -97,12 +122,19 @@ function D3OverTimeLineGraph({ data, id = 'd3OverTimeLineGraph' }) {
     <React.Fragment>
       <div ref={wrapperRef} style={{ marginBottom: '2rem' }}>
         <svg ref={svgRef}>
-          {/* <defs>
+          <defs>
             <clipPath id={id}>
               <rect x="0" y="0" width="100%" height="100%" />
             </clipPath>
-          </defs> */}
-          <g className="content" clipPath={`url(#${id})`} fill="none" strokeWidth="2px"></g>
+          </defs>
+          <g className="content" clipPath={`url(#${id})`} fill="none" strokeWidth="2px">
+            <path d={anger} stroke="rgba(255, 99, 132, 1)" ></path>
+            <path d={disgust} stroke="rgba(255, 159, 64, 1)"></path>
+            <path d={fear} stroke="rgba(75, 192, 192, 1)"></path>
+            <path d={joy} stroke="rgba(255, 206, 86, 1)"></path>
+            <path d={sadness} stroke="rgba(54, 162, 235, 1)"></path>
+            <path d={surprise} stroke="rgba(153, 102, 255, 1)"></path>
+          </g>
           <g className="x-axis" />
           <g className="y-axis" />
         </svg>
