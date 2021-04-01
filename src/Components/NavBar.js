@@ -37,6 +37,9 @@ class NavBar extends React.Component {
       this.props.dispatchParentModal(true)
     }
   }
+  handleProfileClick = () => {
+    console.log('Clicked')
+  }
 
   handleLogOutClick = () => {
     localStorage.removeItem('token')
@@ -153,8 +156,8 @@ class NavBar extends React.Component {
                   <Dropdown.Menu>
                     <Dropdown.Item
                       name="childLogin"
-                      active={activeItem === 'childLogin'}
-                      onClick={this.handleItemClick}
+                      // active={activeItem === 'childLogin'}
+                      // onClick={this.handleItemClick}
                       onClick={this.handleLoginClick}
                       className="navbar"
                     >
@@ -163,8 +166,8 @@ class NavBar extends React.Component {
                     <Redirect to="/" />
                     <Dropdown.Item
                       name="parentLogin"
-                      active={activeItem === 'parentLogin'}
-                      onClick={this.handleItemClick}
+                      // active={activeItem === 'parentLogin'}
+                      // onClick={this.handleItemClick}
                       onClick={this.handleParentLoginClick}
                       className="navbar"
                     >
@@ -173,8 +176,8 @@ class NavBar extends React.Component {
                     <Redirect to="/" />
                     <Dropdown.Item
                       name="signUp"
-                      active={activeItem === 'signUp'}
-                      onClick={this.handleItemClick}
+                      // active={activeItem === 'signUp'}
+                      // onClick={this.handleItemClick}
                       onClick={this.handleSignUpClick}
                       className="navbar"
                     >
@@ -208,11 +211,13 @@ class NavBar extends React.Component {
                 </NavLink>
                 <Dropdown floating item icon="user outline">
                   <Dropdown.Menu>
-                    <Dropdown.Item>Profile</Dropdown.Item>
+                    <Dropdown.Item onClick={this.handleProfileClick}>
+                      Profile
+                    </Dropdown.Item>
                     <Dropdown.Item
                       name="logout"
-                      active={activeItem === 'logout'}
-                      onClick={this.handleItemClick}
+                      // active={activeItem === 'logout'}
+                      // onClick={this.handleItemClick}
                       onClick={this.handleLogOutClick}
                       className="navbar"
                     >
