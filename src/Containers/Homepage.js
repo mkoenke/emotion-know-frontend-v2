@@ -20,6 +20,7 @@ class FunWithEmotionsPage extends React.Component {
     surprise: 0,
     affects98: '',
     dominantAffect: '',
+    loading: true,
   }
   componentDidMount() {
     const config = { smoothness: 0.9, enableBalancer: false }
@@ -31,6 +32,7 @@ class FunWithEmotionsPage extends React.Component {
       .then(({ start, stop }) => {
         this.stopSDK = stop
         this.startSDK = start
+        this.setState({ loading: false })
       })
 
     window.addEventListener(CY.modules().FACE_EMOTION.eventName, (evt) => {
@@ -116,7 +118,14 @@ class FunWithEmotionsPage extends React.Component {
                 </>
               ) : (
                 <>
-                  <Dimmer active blurring page>
+                  <p>Please wait a moment...</p> <Loader active inline />
+                </>
+              )}
+              {!this.state.emo &&
+              !this.state.dominantAffect &&
+              this.state.loading ? (
+                <>
+                  <Dimmer active page>
                     <div className="root height">
                       <span className={`copy h1`}>
                         <Parallax x={[0, 0]} className="letter">
@@ -130,10 +139,10 @@ class FunWithEmotionsPage extends React.Component {
                     <Header as="h2" inverted>
                       Please wait a moment...
                     </Header>{' '}
-                    <Loader active inline massive />
+                    <Loader active inline />
                   </Dimmer>
                 </>
-              )}
+              ) : null}
             </Header>
             <Grid
               columns={3}
