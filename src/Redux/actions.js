@@ -9,6 +9,7 @@ import {
   MODAL_OPEN,
   PARENTS_REPORTS,
   PARENT_MODAL_OPEN,
+  PARENT_PROFILE_MODAL_OPEN,
   PROFILE_MODAL_OPEN,
   SET_CHILD,
   SET_ERROR,
@@ -104,6 +105,10 @@ export function setSignUpModal(value) {
 
 export function setProfileModal(value) {
   return { type: PROFILE_MODAL_OPEN, payload: value }
+}
+
+export function setParentProfileModal(value) {
+  return { type: PARENT_PROFILE_MODAL_OPEN, payload: value }
 }
 
 //error action

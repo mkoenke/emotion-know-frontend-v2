@@ -6,11 +6,13 @@ import {
   logout,
   setModal,
   setParentModal,
+  setParentProfileModal,
   setProfileModal,
   setSignUpModal,
 } from '../Redux/actions'
 import LoginModal from './LoginModal'
 import ParentLoginModal from './ParentLoginModal'
+import ParentProfileModal from './ParentProfileModal'
 import ProfileModal from './ProfileModal'
 import SignUpModal from './SignUpModal'
 
@@ -40,9 +42,15 @@ class NavBar extends React.Component {
     }
   }
   handleProfileClick = () => {
-    if (this.props.child || this.props.parent) {
+    if (this.props.child) {
       console.log('Clicked')
       this.props.dispatchProfileModal(true)
+    }
+  }
+  handleParentProfileClick = () => {
+    if (this.props.parent) {
+      console.log('Clicked')
+      this.props.dispatchParentProfileModal(true)
     }
   }
 
@@ -191,7 +199,7 @@ class NavBar extends React.Component {
             {this.props.modalOpen && (
               <LoginModal handleLoginClick={this.handleLoginClick} />
             )}
-            {this.props.child || this.props.parent ? (
+            {this.props.child && !this.props.parent ? (
               <>
                 <NavLink to="/about">
                   <Menu.Item
@@ -218,8 +226,40 @@ class NavBar extends React.Component {
                 </Dropdown>
               </>
             ) : null}
+            {this.props.parent ? (
+              <>
+                <NavLink to="/about">
+                  <Menu.Item
+                    name="about"
+                    active={activeItem === 'about'}
+                    onClick={this.handleItemClick}
+                    className="navbar"
+                  />
+                </NavLink>
+                <Dropdown floating item icon="user outline">
+                  <Dropdown.Menu>
+                    <Dropdown.Item onClick={this.handleParentProfileClick}>
+                      Change Profile
+                    </Dropdown.Item>
+                    <Dropdown.Item
+                      name="logout"
+                      onClick={this.handleLogOutClick}
+                      className="navbar"
+                    >
+                      Log Out
+                    </Dropdown.Item>
+                    <Redirect to="/welcome" />
+                  </Dropdown.Menu>
+                </Dropdown>
+              </>
+            ) : null}
             {this.props.profileModalOpen && (
               <ProfileModal handleProfileClick={this.handleProfileClick} />
+            )}
+            {this.props.parentProfileModalOpen && (
+              <ParentProfileModal
+                handleProfileClick={this.handleProfileClick}
+              />
             )}
           </Menu.Menu>
         </Menu>
@@ -236,6 +276,7 @@ function mapStateToProps(state) {
     parentModalOpen: state.parentModalOpen,
     signUpModalOpen: state.signUpModalOpen,
     profileModalOpen: state.profileModalOpen,
+    parentProfileModalOpen: state.parentProfileModalOpen,
   }
 }
 
@@ -246,6 +287,8 @@ function mapDispatchToProps(dispatch) {
     dispatchParentModal: (value) => dispatch(setParentModal(value)),
     dispatchSignUpModal: (value) => dispatch(setSignUpModal(value)),
     dispatchProfileModal: (value) => dispatch(setProfileModal(value)),
+    dispatchParentProfileModal: (value) =>
+      dispatch(setParentProfileModal(value)),
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(NavBar)
