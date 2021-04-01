@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { NavLink, Redirect } from 'react-router-dom'
-import { Menu } from 'semantic-ui-react'
+import { Dropdown, Menu } from 'semantic-ui-react'
 import {
   logout,
   setModal,
@@ -150,30 +150,40 @@ class NavBar extends React.Component {
           <Menu.Menu position="right">
             {!this.props.child && !this.props.parent ? (
               <>
-                <Menu.Item
-                  name="childLogin"
-                  active={activeItem === 'childLogin'}
-                  onClick={this.handleItemClick}
-                  onClick={this.handleLoginClick}
-                  className="navbar"
-                />
-                <Redirect to="/" />
-                <Menu.Item
-                  name="parentLogin"
-                  active={activeItem === 'parentLogin'}
-                  onClick={this.handleItemClick}
-                  onClick={this.handleParentLoginClick}
-                  className="navbar"
-                />
-                <Redirect to="/" />
-                <Menu.Item
-                  name="signUp"
-                  active={activeItem === 'signUp'}
-                  onClick={this.handleItemClick}
-                  onClick={this.handleSignUpClick}
-                  className="navbar"
-                />
-                <Redirect to="/" />
+                <Dropdown item text="Login">
+                  <Dropdown.Menu>
+                    <Dropdown.Item
+                      name="childLogin"
+                      active={activeItem === 'childLogin'}
+                      onClick={this.handleItemClick}
+                      onClick={this.handleLoginClick}
+                      className="navbar"
+                    >
+                      Child Login
+                    </Dropdown.Item>
+                    <Redirect to="/" />
+                    <Dropdown.Item
+                      name="parentLogin"
+                      active={activeItem === 'parentLogin'}
+                      onClick={this.handleItemClick}
+                      onClick={this.handleParentLoginClick}
+                      className="navbar"
+                    >
+                      Parent Login
+                    </Dropdown.Item>
+                    <Redirect to="/" />
+                    <Dropdown.Item
+                      name="signUp"
+                      active={activeItem === 'signUp'}
+                      onClick={this.handleItemClick}
+                      onClick={this.handleSignUpClick}
+                      className="navbar"
+                    >
+                      Sign Up
+                    </Dropdown.Item>
+                    <Redirect to="/" />
+                  </Dropdown.Menu>
+                </Dropdown>
               </>
             ) : null}
             {this.props.signUpModalOpen && (

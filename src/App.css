@@ -65,9 +65,22 @@ svg {
   font-size: 24px;
   font-family: 'Overpass', sans-serif;
   color: rgb(248, 245, 242) !important ;
+  background-color: rgb(10, 157, 174) !important;
 }
 .navBarBackground {
   /* background-color: #57909e !important; */
+  background-color: rgb(10, 157, 174) !important;
+}
+.ui.dropdown > .text {
+  font-size: 24px !important;
+  font-family: 'Overpass', sans-serif !important;
+  color: rgb(248, 245, 242) !important ;
+  background-color: rgb(10, 157, 174) !important;
+}
+.ui.menu .ui.dropdown.item .menu .item:not(.filtered) {
+  font-size: 24px;
+  font-family: 'Overpass', sans-serif;
+  color: rgb(248, 245, 242) !important ;
   background-color: rgb(10, 157, 174) !important;
 }
 .link {

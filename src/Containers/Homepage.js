@@ -94,7 +94,7 @@ class FunWithEmotionsPage extends React.Component {
             <div>
               <div className="root height">
                 <span className={`copy h1`}>
-                  <Parallax x={[-60, 60]} className="letter">
+                  <Parallax x={[-300, 100]} className="letter">
                     EmotionKnow
                   </Parallax>
                 </span>
