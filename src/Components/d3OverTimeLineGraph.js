@@ -57,7 +57,7 @@ function D3OverTimeLineGraph({ data, id = 'd3OverTimeLineGraph' }) {
     svg.select('.y-axis').call(yAxis)
 
     const zoomBehavior = zoom()
-      .scaleExtent([0.5, 5])
+      .scaleExtent([1, 5])
       .translateExtent([
         [0, 0],
         [width, height],

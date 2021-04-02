@@ -75,7 +75,7 @@ function D3LineChart({ data, id = 'myD3LineChart' }) {
       svg.select('.y-axis').call(yAxis)
       
       const zoomBehavior = zoom()
-      .scaleExtent([0.5, 5])
+      .scaleExtent([1, 5])
       .translateExtent([
         [0, 0],
         [width, height],
@@ -99,7 +99,7 @@ function D3LineChart({ data, id = 'myD3LineChart' }) {
     return (
       <React.Fragment>
       <div ref={wrapperRef} style={{ marginBottom: '2rem' }}>
-        <svg ref={svgRef} style={{marginLeft: "20px"}}>
+        <svg ref={svgRef} style={{marginLeft: "20px", marginTop: "3px"}}>
           <defs>
             <clipPath id={id}>
               <rect x="0" y="0" width="96%" height="100%" />
