@@ -53,6 +53,7 @@ function D3LineChart({ data, id = 'myD3LineChart' }) {
       
       if (currentZoomState) {
         const newXScale = currentZoomState.rescaleX(xScale)
+        console.log(newXScale)
         xScale.domain([Math.max(0,newXScale.domain()[0]), newXScale.domain()[1]])
       }
       
