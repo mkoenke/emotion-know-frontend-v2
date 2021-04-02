@@ -6,6 +6,7 @@ import {
   ALL_VIDEOS,
   CLICKED_REPORT,
   DELETE_VIDEO,
+  EMPTY_GALLERY_MODAL_OPEN,
   LOGOUT,
   MODAL_OPEN,
   PARENTS_REPORTS,
@@ -30,6 +31,7 @@ const defaultState = {
   signUpModalOpen: false,
   profileModalOpen: false,
   parentProfileModalOpen: false,
+  emptyGalleryModalOpen: false,
   clickedReport: null,
 }
 
@@ -78,6 +80,18 @@ function parentProfileModalReducer(
 ) {
   switch (action.type) {
     case PARENT_PROFILE_MODAL_OPEN:
+      return action.payload
+    default:
+      return prevState
+  }
+}
+
+function emptyGalleryModalReducer(
+  prevState = defaultState.emptyGalleryModalOpen,
+  action
+) {
+  switch (action.type) {
+    case EMPTY_GALLERY_MODAL_OPEN:
       return action.payload
     default:
       return prevState
@@ -173,6 +187,7 @@ const rootReducer = combineReducers({
   signUpModalOpen: signUpModalReducer,
   profileModalOpen: profileModalReducer,
   parentProfileModalOpen: parentProfileModalReducer,
+  emptyGalleryModalOpen: emptyGalleryModalReducer,
   clickedReport: clickedReportReducer,
 })
 

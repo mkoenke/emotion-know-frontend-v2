@@ -5,6 +5,7 @@ import {
   ALL_VIDEOS,
   CLICKED_REPORT,
   DELETE_VIDEO,
+  EMPTY_GALLERY_MODAL_OPEN,
   LOGOUT,
   MODAL_OPEN,
   PARENTS_REPORTS,
@@ -110,6 +111,10 @@ export function setProfileModal(value) {
 
 export function setParentProfileModal(value) {
   return { type: PARENT_PROFILE_MODAL_OPEN, payload: value }
+}
+
+export function setEmptyGalleryModal(value) {
+  return { type: EMPTY_GALLERY_MODAL_OPEN, payload: value }
 }
 
 //error action

@@ -50,7 +50,7 @@ class App extends React.Component {
 
             <Route path="/videos" component={VideoGalleryPage} />
             <Route path="/reports" component={ReportGalleryPage} />
-            {/* <Route path="/fun" component={FunWithEmotionsPage} /> */}
+
             <Route
               path="/fun"
               component={() => (
