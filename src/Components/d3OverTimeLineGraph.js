@@ -35,7 +35,7 @@ function D3OverTimeLineGraph({ data, id = 'd3OverTimeLineGraph' }) {
 
     if (currentZoomState) {
       const newXScale = currentZoomState.rescaleX(xScale)
-      xScale.domain([Math.max(0,newXScale.domain()[0]), newXScale.domain()[1]])
+      xScale.domain([Math.max(0, newXScale.domain()[0]), newXScale.domain()[1]])
     }
 
     const yScale = scaleLinear()
@@ -48,6 +48,7 @@ function D3OverTimeLineGraph({ data, id = 'd3OverTimeLineGraph' }) {
       .curve(curveCardinal)
 
     const xAxis = axisBottom(xScale)
+      
     svg
       .select('.x-axis')
       .attr('transform', `translate(0, ${height})`)

@@ -77,6 +77,7 @@ class ReportGalleryPage extends React.Component {
         <Grid.Row>
           <Grid.Column>
             <div className="bargraph smallGraph pattern smallGraphPadding">
+              <h2>{this.state.clickedReport.title}</h2>
               <D3LineGraph data={this.state.clickedReport} />
             </div>
           </Grid.Column>
@@ -175,7 +176,7 @@ class ReportGalleryPage extends React.Component {
                 </Header>
                 <Grid centered className="tableGrid">
                   <Table celled className="content">
-                  {/* <Table celled className="table content"> */}
+                    {/* <Table celled className="table content"> */}
                     <Table.Header>
                       <Table.Row>
                         <Table.HeaderCell>Title</Table.HeaderCell>
@@ -209,7 +210,7 @@ class ReportGalleryPage extends React.Component {
                 </Header>
                 <br />
                 <div className="lineGraph pattern">
-                  <D3OverTimeLineGraph data={this.state.items}/>
+                  <D3OverTimeLineGraph data={this.state.items} />
                 </div>
               </Container>
               <div className="footer"></div>

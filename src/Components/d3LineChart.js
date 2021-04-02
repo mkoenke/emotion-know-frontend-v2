@@ -8,29 +8,10 @@ import {
   zoom,
 } from 'd3'
 import React, { useEffect, useRef, useState } from 'react'
-import ResizeObserver from 'resize-observer-polyfill'
-
-const useResizeObserver = (ref) => {
-  const [dimensions, setDimensions] = useState(null)
-  useEffect(() => {
-    const observeTarget = ref.current
-    const resizeObserver = new ResizeObserver((entries) => {
-      entries.forEach((entry) => {
-        setDimensions(entry.contentRect)
-      })
-    })
-    resizeObserver.observe(observeTarget)
-    return () => {
-      resizeObserver.unobserve(observeTarget)
-    }
-  }, [ref])
-  return dimensions
-}
 
 function D3LineChart({ data, id = 'myD3LineChart' }) {
   const svgRef = useRef()
   const wrapperRef = useRef()
-  const dimensions = useResizeObserver(wrapperRef)
   const [currentZoomState, setCurrentZoomState] = useState()
   const [anger, setAngerState] = useState()
   const [disgust, setDisgustState] = useState()
@@ -42,8 +23,7 @@ function D3LineChart({ data, id = 'myD3LineChart' }) {
   useEffect(() => {
     const svg = select(svgRef.current)
     const svgContent = svg.select('.content')
-    const { width, height } =
-      dimensions || wrapperRef.current.getBoundingClientRect()
+    const { width, height } = wrapperRef.current.getBoundingClientRect()
       
       const length = data.anger.length
       
@@ -57,7 +37,7 @@ function D3LineChart({ data, id = 'myD3LineChart' }) {
       }
       
       const yScale = scaleLinear()
-      .domain([0, 1])
+      .domain([0, 1.1])
       .range([height, 1])
       
       const lineGenerator = line()
@@ -93,7 +73,7 @@ function D3LineChart({ data, id = 'myD3LineChart' }) {
       setSurpriseState(lineGenerator(data.surprise))
       
       svg.call(zoomBehavior)
-    }, [currentZoomState, data, dimensions])
+    }, [currentZoomState, data])
     
 
     return (
