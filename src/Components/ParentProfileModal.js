@@ -1,26 +1,38 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Button, Form, Input, Message, Modal } from 'semantic-ui-react'
+import {
+  Button,
+  Divider,
+  Form,
+  Input,
+  Message,
+  Modal,
+  Segment,
+} from 'semantic-ui-react'
 import { setChild, setError, setParentProfileModal } from '../Redux/actions'
 
 class ParentProfileModal extends React.Component {
   state = {
     isOpen: true,
-    email: '',
-    confirmEmail: '',
-    password: '',
-    confirmPassword: '',
+    email: null,
+    confirmEmail: null,
+    password: null,
+    confirmPassword: null,
     emailError: false,
     emailMatchError: false,
     passwordError: false,
     passwordMatchError: false,
+    changeEmail: false,
+    changePassword: false,
   }
   handleCancel = () => {
     this.props.dispatchParentProfileModal(false)
     this.props.dispatchError(null)
   }
   handleFormChange = (e) => {
-    this.setState({ [e.target.name]: e.target.value })
+    this.setState({ [e.target.name]: e.target.value }, this.checkMatching)
+  }
+  checkMatching = () => {
     if (this.state.email !== this.state.confirmEmail) {
       this.setState({ emailError: true, emailMatchError: true })
     }
@@ -37,39 +49,52 @@ class ParentProfileModal extends React.Component {
 
   handleFormSubmit = (event) => {
     event.preventDefault()
+    let data = null
     if (
       this.state.email === this.state.confirmEmail &&
-      this.state.password === this.state.confirmPassword
+      this.state.changeEmail &&
+      this.state.email
     ) {
-      let data = {
+      data = {
         email: this.state.email,
+      }
+      console.log(data)
+    }
+    if (
+      this.state.password === this.state.confirmPassword &&
+      this.state.changePassword &&
+      this.state.password
+    ) {
+      data = {
         password: this.state.password,
       }
       console.log(data)
-    } else {
-      console.log('THEY DONT MATCH')
     }
+    const id = this.props.child.id
 
-    //     fetch(`http://localhost:3000/parents/${id}`, {
-    //       method: 'PATCH',
-    //       headers: {
-    //         'Content-Type': 'application/json',
-    //         Accept: 'application/json',
-    //       },
-    //       body: JSON.stringify(data),
-    //     })
-    //       .then((response) => response.json())
-    //       .then((data) => {
-    //         localStorage.setItem('token', data.jwt)
-    //         this.props.dispatchError(null)
-    //         this.props.dispatchChild(data.child)
-    //         this.props.handleProfileClick()
-    //         this.setState({ isOpen: false })
-    //       })
-    //       .catch((error) => {
-    //         this.props.dispatchError(error)
-    //       })
-    //   })
+    if (data) {
+      fetch(`http://localhost:3000/parents/${id}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify(data),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data)
+          // localStorage.setItem('token', data.jwt)
+          this.props.dispatchError(null)
+          // this.props.dispatchChild(data.child)
+          this.props.handleProfileClick()
+          this.setState({ isOpen: false })
+        })
+        .catch((error) => {
+          console.log(error)
+          this.props.dispatchError('Something went wrong, please try again.')
+        })
+    }
   }
 
   render() {
@@ -100,68 +125,103 @@ class ParentProfileModal extends React.Component {
               <Message.Header>Passwords do not match!</Message.Header>
             </Message>
           ) : null}
-          <Form onSubmit={this.handleFormSubmit}>
-            <Form.Field required>
-              <label className="formLabel">New Email</label>
-              <Input
-                name="email"
-                type="email"
-                value={this.state.email}
-                onChange={this.handleFormChange}
-                placeholder="New Email"
-                error={this.state.emailError}
+          {!this.state.changeEmail && !this.state.changePassword ? (
+            <Segment basic textAlign="center">
+              <Button
+                className="formButton"
+                content="Change Email"
+                onClick={() => this.setState({ changeEmail: true })}
               />
-            </Form.Field>
-            <Form.Field required>
-              <label className="formLabel">Confirm New Email</label>
-              <Input
-                name="confirmEmail"
-                type="email"
-                value={this.state.confirmEmail}
-                onChange={this.handleFormChange}
-                placeholder="Confirm New Email"
-                error={this.state.emailMatchError}
-              />
-            </Form.Field>
-            <Form.Field required>
-              <label className="formLabel">New Password</label>
-              <Input
-                name="password"
-                type="password"
-                value={this.state.password}
-                onChange={this.handleFormChange}
-                placeholder="New Password"
-                error={this.state.passwordError}
-              />
-            </Form.Field>
-            <Form.Field required>
-              <label className="formLabel">Confirm New Password</label>
-              <Input
-                name="confirmPassword"
-                type="password"
-                value={this.state.confirmPassword}
-                onChange={this.handleFormChange}
-                placeholder="Confirm New Password"
-                error={this.state.passwordMatchError}
-              />
-            </Form.Field>
-            <div className="formButtonContainer">
-              <Button className="formButton" type="submit">
-                Submit
-              </Button>
+
+              <Divider horizontal>Or</Divider>
 
               <Button
                 className="formButton"
-                onClick={this.handleCancel}
-                type="cancel"
-              >
-                Cancel
-              </Button>
-            </div>
-          </Form>
+                content="Change Password"
+                onClick={() => this.setState({ changePassword: true })}
+              />
+            </Segment>
+          ) : null}
+
+          {this.state.changePassword || this.state.changeEmail ? (
+            <Form onSubmit={this.handleFormSubmit}>
+              {this.state.changeEmail ? (
+                <>
+                  <Form.Field>
+                    <label className="formLabel">New Email</label>
+                    <Input
+                      name="email"
+                      type="email"
+                      value={this.state.email}
+                      onChange={this.handleFormChange}
+                      placeholder="New Email"
+                      error={this.state.emailError}
+                    />
+                  </Form.Field>
+                  <Form.Field>
+                    <label className="formLabel">Confirm New Email</label>
+                    <Input
+                      name="confirmEmail"
+                      type="email"
+                      value={this.state.confirmEmail}
+                      onChange={this.handleFormChange}
+                      placeholder="Confirm New Email"
+                      error={this.state.emailMatchError}
+                    />
+                  </Form.Field>
+                </>
+              ) : null}
+              {this.state.changePassword ? (
+                <>
+                  <Form.Field>
+                    <label className="formLabel">New Password</label>
+                    <Input
+                      name="password"
+                      type="password"
+                      value={this.state.password}
+                      onChange={this.handleFormChange}
+                      placeholder="New Password"
+                      error={this.state.passwordError}
+                    />
+                  </Form.Field>
+                  <Form.Field>
+                    <label className="formLabel">Confirm New Password</label>
+                    <Input
+                      name="confirmPassword"
+                      type="password"
+                      value={this.state.confirmPassword}
+                      onChange={this.handleFormChange}
+                      placeholder="Confirm New Password"
+                      error={this.state.passwordMatchError}
+                    />
+                  </Form.Field>
+                </>
+              ) : null}
+              <div className="formButtonContainer">
+                <Button className="formButton" type="submit">
+                  Submit
+                </Button>
+
+                <Button
+                  className="formButton"
+                  onClick={this.handleCancel}
+                  type="cancel"
+                >
+                  Cancel
+                </Button>
+              </div>
+            </Form>
+          ) : null}
         </Modal.Content>
       </Modal>
     )
+  }
+}
+
+function mapStateToProps(state) {
+  return {
+    parent: state.parent,
+    error: state.error,
   }
 }
 
@@ -174,4 +234,4 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(null, mapDispatchToProps)(ParentProfileModal)
+export default connect(mapStateToProps, mapDispatchToProps)(ParentProfileModal)

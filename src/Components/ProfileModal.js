@@ -16,8 +16,8 @@ class ProfileModal extends React.Component {
     isOpen: true,
     username: null,
     confirmUsername: null,
-    password: '',
-    confirmPassword: '',
+    password: null,
+    confirmPassword: null,
     usernameError: false,
     usernameMatchError: false,
     passwordError: false,
@@ -33,7 +33,6 @@ class ProfileModal extends React.Component {
     this.setState({ [e.target.name]: e.target.value }, this.checkMatching)
   }
   checkMatching = () => {
-    console.log(this.state.username, this.state.confirmUsername)
     if (this.state.username !== this.state.confirmUsername) {
       this.setState({ usernameError: true, usernameMatchError: true })
     }
@@ -50,45 +49,50 @@ class ProfileModal extends React.Component {
 
   handleFormSubmit = (event) => {
     event.preventDefault()
+    let data = null
     if (
       this.state.username === this.state.confirmUsername &&
-      this.state.changeUsername
+      this.state.changeUsername &&
+      this.state.username
     ) {
-      let data = {
+      data = {
         username: this.state.username,
       }
       console.log(data)
     }
     if (
       this.state.password === this.state.confirmPassword &&
-      this.state.changePassword
+      this.state.changePassword &&
+      this.state.password
     ) {
-      let data = {
+      data = {
         password: this.state.password,
       }
       console.log(data)
     }
+    const id = this.props.child.id
 
-    //     fetch(`http://localhost:3000/children/${id}`, {
-    //       method: 'PATCH',
-    //       headers: {
-    //         'Content-Type': 'application/json',
-    //         Accept: 'application/json',
-    //       },
-    //       body: JSON.stringify(data),
-    //     })
-    //       .then((response) => response.json())
-    //       .then((data) => {
-    //         localStorage.setItem('token', data.jwt)
-    //         this.props.dispatchError(null)
-    //         this.props.dispatchChild(data.child)
-    //         this.props.handleProfileClick()
-    //         this.setState({ isOpen: false })
-    //       })
-    //       .catch((error) => {
-    //         this.props.dispatchError(error)
-    //       })
-    //   })
+    if (data) {
+      fetch(`http://localhost:3000/children/${id}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify(data),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data)
+          this.props.dispatchError(null)
+          this.props.handleProfileClick()
+          this.setState({ isOpen: false })
+        })
+        .catch((error) => {
+          console.log(error)
+          this.props.dispatchError('Something went wrong, please try again.')
+        })
+    }
   }
 
   render() {
@@ -209,6 +213,13 @@ class ProfileModal extends React.Component {
   }
 }
 
+function mapStateToProps(state) {
+  return {
+    child: state.child,
+    error: state.error,
+  }
+}
+
 function mapDispatchToProps(dispatch) {
   return {
     dispatchChild: (child) => dispatch(setChild(child)),
@@ -217,4 +228,4 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(null, mapDispatchToProps)(ProfileModal)
+export default connect(mapStateToProps, mapDispatchToProps)(ProfileModal)
