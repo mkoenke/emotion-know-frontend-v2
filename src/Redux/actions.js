@@ -61,6 +61,7 @@ export function loginParent(parent) {
       .then((resp) => resp.json())
       .then((data) => {
         if (!data.error) {
+          console.log(data)
           localStorage.setItem('token', data.jwt)
 
           dispatch(setParent(data.parent))
@@ -76,7 +77,16 @@ export function loginParent(parent) {
 }
 
 export function logout() {
-  return { type: LOGOUT }
+  return (dispatch) => {
+    localStorage.removeItem('token')
+    dispatch(setParent(null))
+    dispatch(setChild(null))
+    dispatch(allVideos([]))
+    dispatch(allReports([]))
+    dispatch(setError(null))
+    dispatch(parentsReports([]))
+    return { type: LOGOUT }
+  }
 }
 
 //child actions
