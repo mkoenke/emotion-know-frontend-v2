@@ -14,8 +14,8 @@ import { setChild, setError, setProfileModal } from '../Redux/actions'
 class ProfileModal extends React.Component {
   state = {
     isOpen: true,
-    username: '',
-    confirmUsername: '',
+    username: null,
+    confirmUsername: null,
     password: '',
     confirmPassword: '',
     usernameError: false,
@@ -30,7 +30,10 @@ class ProfileModal extends React.Component {
     this.props.dispatchError(null)
   }
   handleFormChange = (e) => {
-    this.setState({ [e.target.name]: e.target.value })
+    this.setState({ [e.target.name]: e.target.value }, this.checkMatching)
+  }
+  checkMatching = () => {
+    console.log(this.state.username, this.state.confirmUsername)
     if (this.state.username !== this.state.confirmUsername) {
       this.setState({ usernameError: true, usernameMatchError: true })
     }
@@ -49,15 +52,21 @@ class ProfileModal extends React.Component {
     event.preventDefault()
     if (
       this.state.username === this.state.confirmUsername &&
-      this.state.password === this.state.confirmPassword
+      this.state.changeUsername
     ) {
       let data = {
         username: this.state.username,
+      }
+      console.log(data)
+    }
+    if (
+      this.state.password === this.state.confirmPassword &&
+      this.state.changePassword
+    ) {
+      let data = {
         password: this.state.password,
       }
       console.log(data)
-    } else {
-      console.log('THEY DONT MATCH')
     }
 
     //     fetch(`http://localhost:3000/children/${id}`, {
