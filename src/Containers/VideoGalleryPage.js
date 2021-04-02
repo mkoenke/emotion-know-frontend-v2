@@ -6,6 +6,7 @@ import pastelblue from '../assets/images/pastelblue.jpeg'
 import pastelgreen from '../assets/images/pastelgreen.jpeg'
 import pastelindigo from '../assets/images/pastelindigo.jpeg'
 import pastelyellow from '../assets/images/pastelyellow.jpeg'
+import EmptyGalleryModal from '../Components/EmptyGalleryModal'
 // import raindbowStacked from '../assets/images/3rainbowStackedOriginal.jpg'
 // import stackedRainbowBlocks from '../assets/images/stackedRainbowBlocksOriginal.jpg'
 // import rainbowWithHand from '../assets/images/stackedRainbowBlocksWithHandOriginal.jpg'
@@ -73,18 +74,21 @@ class VideoGalleryPage extends React.Component {
               {this.props.child.username}'s Video Journals
             </Header>
           ) : null}
-
-          <Grid centered columns="three">
-            <Grid.Row>{this.arrayOfJournals()}</Grid.Row>
-            <div className="paginateLarge">
-              <JwPagination
-                items={this.state.items}
-                onChangePage={this.onChangePage}
-                labels={customLabels}
-                pageSize={9}
-              />
-            </div>
-          </Grid>
+          {this.props.child.video_entries.length ? (
+            <Grid centered columns="three">
+              <Grid.Row>{this.arrayOfJournals()}</Grid.Row>
+              <div className="paginateLarge">
+                <JwPagination
+                  items={this.state.items}
+                  onChangePage={this.onChangePage}
+                  labels={customLabels}
+                  pageSize={9}
+                />
+              </div>
+            </Grid>
+          ) : (
+            <EmptyGalleryModal />
+          )}
         </div>
       </>
     )

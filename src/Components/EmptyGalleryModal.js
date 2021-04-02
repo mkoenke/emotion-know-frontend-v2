@@ -1,19 +1,19 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { NavLink } from 'react-router-dom'
-import { Button, Modal, Segment } from 'semantic-ui-react'
+import { Button, Modal } from 'semantic-ui-react'
 import { setEmptyGalleryModal } from '../Redux/actions'
 
 class EmptyGalleryModal extends React.Component {
   state = {
     isOpen: true,
   }
-  handleCancel = () => {
-    this.setState({
-      isOpen: false,
-    })
-    this.props.dispatchEmptyGalleryModal(false)
-  }
+  // handleCancel = () => {
+  //   this.setState({
+  //     isOpen: false,
+  //   })
+  //   this.props.dispatchEmptyGalleryModal(false)
+  // }
 
   render() {
     return (
@@ -25,14 +25,21 @@ class EmptyGalleryModal extends React.Component {
         dimmer="inverted"
       >
         <Modal.Header className="background pageHeader">
-          Check back here after recording!
+          You're so close!
         </Modal.Header>
         <Modal.Content className="background">
-          <Segment basic textAlign="center">
+          <Modal.Description
+            textAlign="center"
+            style={{ fontSize: '24px', textAlign: 'center' }}
+          >
+            Your gallery of video journals will appear here, but you have to
+            record one first! Let's get started!
+          </Modal.Description>
+          <Modal.Actions className="actionsDiv">
             <NavLink to="/webcam">
               <Button className="formButton" content="Record a Video Journal" />
             </NavLink>
-          </Segment>
+          </Modal.Actions>
         </Modal.Content>
       </Modal>
     )
