@@ -26,6 +26,11 @@ class ProfileModal extends React.Component {
     changePassword: false,
   }
   handleCancel = () => {
+    this.setState({
+      isOpen: false,
+      changePassword: false,
+      changeUsername: false,
+    })
     this.props.dispatchProfileModal(false)
     this.props.dispatchError(null)
   }
@@ -86,7 +91,11 @@ class ProfileModal extends React.Component {
           console.log(data)
           this.props.dispatchError(null)
           this.props.handleProfileClick()
-          this.setState({ isOpen: false })
+          this.setState({
+            isOpen: false,
+            changePassword: false,
+            changeUsername: false,
+          })
         })
         .catch((error) => {
           console.log(error)

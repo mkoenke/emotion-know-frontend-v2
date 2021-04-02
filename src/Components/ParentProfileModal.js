@@ -26,6 +26,11 @@ class ParentProfileModal extends React.Component {
     changePassword: false,
   }
   handleCancel = () => {
+    this.setState({
+      isOpen: false,
+      changePassword: false,
+      changeEmail: false,
+    })
     this.props.dispatchParentProfileModal(false)
     this.props.dispatchError(null)
   }
@@ -70,7 +75,7 @@ class ParentProfileModal extends React.Component {
       }
       console.log(data)
     }
-    const id = this.props.child.id
+    const id = this.props.parent.id
 
     if (data) {
       fetch(`http://localhost:3000/parents/${id}`, {
@@ -88,7 +93,11 @@ class ParentProfileModal extends React.Component {
           this.props.dispatchError(null)
           // this.props.dispatchChild(data.child)
           this.props.handleProfileClick()
-          this.setState({ isOpen: false })
+          this.setState({
+            isOpen: false,
+            changePassword: false,
+            changeEmail: false,
+          })
         })
         .catch((error) => {
           console.log(error)
