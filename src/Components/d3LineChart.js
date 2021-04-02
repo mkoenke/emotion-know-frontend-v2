@@ -49,11 +49,10 @@ function D3LineChart({ data, id = 'myD3LineChart' }) {
       
       const xScale = scaleLinear()
       .domain([0, length])
-      .range([0, width - 10])
+      .range([0, width])
       
       if (currentZoomState) {
         const newXScale = currentZoomState.rescaleX(xScale)
-        console.log(newXScale)
         xScale.domain([Math.max(0,newXScale.domain()[0]), newXScale.domain()[1]])
       }
       
@@ -100,7 +99,7 @@ function D3LineChart({ data, id = 'myD3LineChart' }) {
     return (
       <React.Fragment>
       <div ref={wrapperRef} style={{ marginBottom: '2rem' }}>
-        <svg ref={svgRef} style={{marginLeft: "20px"}}>
+        <svg ref={svgRef} style={{marginLeft: "20px", border: "2px solid black"}}>
           <defs>
             <clipPath id={id}>
               <rect x="0" y="0" width="100%" height="100%" />
