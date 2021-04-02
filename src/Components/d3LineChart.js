@@ -39,7 +39,6 @@ function D3LineChart({ data, id = 'myD3LineChart' }) {
   const [sadness, setSadnessState] = useState()
   const [surprise, setSurpriseState] = useState()
 
-  console.log(surprise)
   useEffect(() => {
     const svg = select(svgRef.current)
     const svgContent = svg.select('.content')
@@ -49,17 +48,17 @@ function D3LineChart({ data, id = 'myD3LineChart' }) {
       const length = data.anger.length
       
       const xScale = scaleLinear()
-      .domain([0, length - 1])
-      .range([10, width - 10])
+      .domain([0, length])
+      .range([0, width - 10])
       
       if (currentZoomState) {
         const newXScale = currentZoomState.rescaleX(xScale)
-        xScale.domain(newXScale.domain())
+        xScale.domain([Math.max(0,newXScale.domain()[0]), newXScale.domain()[1]])
       }
       
       const yScale = scaleLinear()
       .domain([0, 1])
-      .range([height - 10, 10])
+      .range([height, 1])
       
       const lineGenerator = line()
       .x((d, index) => xScale(index))
@@ -106,7 +105,7 @@ function D3LineChart({ data, id = 'myD3LineChart' }) {
               <rect x="0" y="0" width="100%" height="100%" />
             </clipPath>
           </defs>
-          <g className="content" clipPath={`url(#${id})`} fill="none" strokeWidth="2px">
+          <g className="content" clipPath={`url(#${id})`} fill="none" strokeWidth="3px">
             <path d={anger} stroke="rgba(255, 99, 132, 1)" ></path>
             <path d={disgust} stroke="rgba(255, 159, 64, 1)"></path>
             <path d={fear} stroke="rgba(75, 192, 192, 1)"></path>

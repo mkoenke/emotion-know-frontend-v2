@@ -55,7 +55,7 @@ function D3OverTimeLineGraph({ data, id = 'd3OverTimeLineGraph' }) {
 
     const xScale = scaleLinear()
       .domain([0, data.length - 1])
-      .range([10, width - 10])
+      .range([0, width - 10])
 
     if (currentZoomState) {
       const newXScale = currentZoomState.rescaleX(xScale)
@@ -64,7 +64,7 @@ function D3OverTimeLineGraph({ data, id = 'd3OverTimeLineGraph' }) {
 
     const yScale = scaleLinear()
       .domain([0, 1])
-      .range([height - 10, 10])
+      .range([height, 10])
 
     const lineGenerator = line()
       .x((d, index) => xScale(index))
@@ -127,7 +127,7 @@ function D3OverTimeLineGraph({ data, id = 'd3OverTimeLineGraph' }) {
               <rect x="0" y="0" width="100%" height="100%" />
             </clipPath>
           </defs>
-          <g className="content" clipPath={`url(#${id})`} fill="none" strokeWidth="2px">
+          <g className="content" clipPath={`url(#${id})`} fill="none" strokeWidth="3px">
             <path d={anger} stroke="rgba(255, 99, 132, 1)" ></path>
             <path d={disgust} stroke="rgba(255, 159, 64, 1)"></path>
             <path d={fear} stroke="rgba(75, 192, 192, 1)"></path>
