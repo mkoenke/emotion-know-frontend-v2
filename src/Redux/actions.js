@@ -33,6 +33,7 @@ export function login(child) {
       .then((data) => {
         if (!data.error) {
           localStorage.setItem('token', data.jwt)
+          console.log(data)
 
           dispatch(setChild(data.child))
           dispatch(setModal(false))
