@@ -92,7 +92,7 @@ class ParentProfileModal extends React.Component {
           // localStorage.setItem('token', data.jwt)
           this.props.dispatchError(null)
           // this.props.dispatchChild(data.child)
-          this.props.handleProfileClick()
+          this.props.handleParentProfileClick(false)
           this.setState({
             isOpen: false,
             changePassword: false,

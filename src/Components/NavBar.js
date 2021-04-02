@@ -41,16 +41,14 @@ class NavBar extends React.Component {
       this.props.dispatchParentModal(true)
     }
   }
-  handleProfileClick = () => {
+  handleProfileClick = (value) => {
     if (this.props.child) {
-      console.log('Clicked')
-      this.props.dispatchProfileModal(true)
+      this.props.dispatchProfileModal(value)
     }
   }
-  handleParentProfileClick = () => {
+  handleParentProfileClick = (value) => {
     if (this.props.parent) {
-      console.log('Clicked')
-      this.props.dispatchParentProfileModal(true)
+      this.props.dispatchParentProfileModal(value)
     }
   }
 
@@ -211,7 +209,9 @@ class NavBar extends React.Component {
                 </NavLink>
                 <Dropdown floating item icon="user outline">
                   <Dropdown.Menu>
-                    <Dropdown.Item onClick={this.handleProfileClick}>
+                    <Dropdown.Item
+                      onClick={() => this.handleProfileClick(true)}
+                    >
                       Change Profile
                     </Dropdown.Item>
                     <Dropdown.Item
@@ -238,7 +238,9 @@ class NavBar extends React.Component {
                 </NavLink>
                 <Dropdown floating item icon="user outline">
                   <Dropdown.Menu>
-                    <Dropdown.Item onClick={this.handleParentProfileClick}>
+                    <Dropdown.Item
+                      onClick={() => this.handleParentProfileClick(true)}
+                    >
                       Change Profile
                     </Dropdown.Item>
                     <Dropdown.Item
@@ -258,7 +260,7 @@ class NavBar extends React.Component {
             )}
             {this.props.parentProfileModalOpen && (
               <ParentProfileModal
-                handleProfileClick={this.handleProfileClick}
+                handleParentProfileClick={this.handleParentProfileClick}
               />
             )}
           </Menu.Menu>

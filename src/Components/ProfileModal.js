@@ -90,7 +90,7 @@ class ProfileModal extends React.Component {
         .then((data) => {
           console.log(data)
           this.props.dispatchError(null)
-          this.props.handleProfileClick()
+          this.props.handleProfileClick(false)
           this.setState({
             isOpen: false,
             changePassword: false,

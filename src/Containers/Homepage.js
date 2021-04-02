@@ -32,7 +32,6 @@ class FunWithEmotionsPage extends React.Component {
       .then(({ start, stop }) => {
         this.stopSDK = stop
         this.startSDK = start
-        this.setState({ loading: false })
       })
 
     window.addEventListener(CY.modules().FACE_EMOTION.eventName, (evt) => {
@@ -67,7 +66,7 @@ class FunWithEmotionsPage extends React.Component {
     let affect = Object.keys(affectsObj).reduce(function (a, b) {
       return affectsObj[a] > affectsObj[b] ? a : b
     })
-    this.setState({ dominantAffect: affect })
+    this.setState({ dominantAffect: affect, loading: false })
   }
 
   render() {
