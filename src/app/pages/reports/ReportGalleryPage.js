@@ -7,6 +7,8 @@ import D3LineGraph from './components/single_report_emotions_graph/d3LineChart'
 import D3OverTimeLineGraph from './components/emotions_over_time_graph/d3OverTimeLineGraph'
 // import LineGraph from './LineGraph'
 import { setClickedReport } from '../../../Redux/actions'
+import ReportsGalleryHeader from './components/header/ReportsGalleryHeader'
+import ReportsGalleryReportList from './components/journal_list/ReportsGalleryReportList'
 
 class ReportGalleryPage extends React.Component {
   state = {
@@ -25,34 +27,34 @@ class ReportGalleryPage extends React.Component {
     }
   }
 
-  handleReportClick = (event) => {
-    if (this.state.beenClicked) {
-      this.setState({ beenClicked: false })
-    }
-    let clickedReport = this.props.allReports.find(
-      (report) => report.created_at === event.target.closest('tr').id
-    )
-    this.props.dispatchClickedReport(clickedReport)
-    this.setState(
-      {
-        clickedReport: clickedReport,
-      },
-      this.findJournal
-    )
-  }
+  // handleReportClick = (event) => {
+  //   if (this.state.beenClicked) {
+  //     this.setState({ beenClicked: false })
+  //   }
+  //   let clickedReport = this.props.allReports.find(
+  //     (report) => report.created_at === event.target.closest('tr').id
+  //   )
+  //   this.props.dispatchClickedReport(clickedReport)
+  //   this.setState(
+  //     {
+  //       clickedReport: clickedReport,
+  //     },
+  //     this.findJournal
+  //   )
+  // }
 
-  handleParentReportClick = (event) => {
-    let clickedReport = this.props.parentsReports.find(
-      (report) => report.created_at === event.target.closest('tr').id
-    )
-    this.props.dispatchClickedReport(clickedReport)
-    this.setState(
-      {
-        clickedReport: clickedReport,
-      },
-      this.findJournal
-    )
-  }
+  // handleParentReportClick = (event) => {
+  //   let clickedReport = this.props.parentsReports.find(
+  //     (report) => report.created_at === event.target.closest('tr').id
+  //   )
+  //   this.props.dispatchClickedReport(clickedReport)
+  //   this.setState(
+  //     {
+  //       clickedReport: clickedReport,
+  //     },
+  //     this.findJournal
+  //   )
+  // }
 
   findJournal = () => {
     if (this.state.clickedReport.video_entry_id) {
@@ -67,9 +69,9 @@ class ReportGalleryPage extends React.Component {
     }
   }
 
-  onChangePage = (pageOfItems) => {
-    this.setState({ pageOfItems })
-  }
+  // onChangePage = (pageOfItems) => {
+  //   this.setState({ pageOfItems })
+  // }
 
   renderReportGraph = () => {
     return (
@@ -157,7 +159,7 @@ class ReportGalleryPage extends React.Component {
       previous: '<',
       next: '>',
     }
-
+    console.log("GALLERY", this.state.pageOfItems)
     return (
       <>
         {this.props.child && !this.props.parent ? (
@@ -165,18 +167,17 @@ class ReportGalleryPage extends React.Component {
             <div className="background">
               <Container>
                 {this.props.child ? (
-                  <Header className="pageHeader" size="huge" textAlign="center">
-                    {this.props.child.username}'s Reports
-                  </Header>
+                  <ReportsGalleryHeader />
                 ) : null}
               </Container>
               <Container textAlign="center">
                 <Header as="h2" className="content tableHeaderMargin">
                   Individual Journal Emotional Reports
                 </Header>
-                <Grid centered className="tableGrid">
+                <ReportsGalleryReportList items={this.state.items} pageOfItems={this.state.pageOfItems} />
+                {/* <Grid centered className="tableGrid">
                   <Table celled className="content">
-                    {/* <Table celled className="table content"> */}
+                    <Table celled className="table content">
                     <Table.Header>
                       <Table.Row>
                         <Table.HeaderCell>Title</Table.HeaderCell>
@@ -199,7 +200,7 @@ class ReportGalleryPage extends React.Component {
                       </Table.Row>
                     </Table.Footer>
                   </Table>
-                </Grid>
+                </Grid> */}
 
                 <br />
                 {this.state.beenClicked ? this.renderReportGraph() : null}
