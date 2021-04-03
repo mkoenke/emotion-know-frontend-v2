@@ -4,7 +4,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import Webcam from 'react-webcam'
 import { Grid, Header, Loader, Message } from 'semantic-ui-react'
-import BubbleChart from '../Components/bubbleChart'
+import BubbleChart from '../../../Components/bubbleChart'
 
 class FunWithEmotionsPage extends React.Component {
   state = {

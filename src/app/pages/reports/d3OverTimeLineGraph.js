@@ -8,7 +8,7 @@ import {
   zoom,
 } from 'd3'
 import React, { useEffect, useRef, useState } from 'react'
-import emotionsOverTimeCalculator from '../HelperFunctions/emotionsOverTimeCalculator'
+import emotionsOverTimeCalculator from './emotionsOverTimeCalculator'
 
 function D3OverTimeLineGraph({ data, id = 'd3OverTimeLineGraph' }) {
   const svgRef = useRef()

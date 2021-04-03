@@ -2,7 +2,7 @@ import React from "react"
 import { connect } from "react-redux"
 import { Header } from "semantic-ui-react"
 import WelcomePageGrid from "../Components/WelcomePageGrid"
-import ReportGalleryPage from "./ReportGalleryPage"
+import ReportGalleryPage from "../app/pages/reports/ReportGalleryPage"
 
 class WelcomePageContainer extends React.Component {
   render() {

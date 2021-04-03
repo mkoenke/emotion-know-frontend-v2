@@ -3,10 +3,10 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Container, Grid, Header, Menu, Popup, Table } from 'semantic-ui-react'
 import { BigPlayButton, ControlBar, LoadingSpinner, Player } from 'video-react'
-import D3LineGraph from '../Components/d3LineChart'
-import D3OverTimeLineGraph from '../Components/d3OverTimeLineGraph'
-import LineGraph from '../Components/LineGraph'
-import { setClickedReport } from '../Redux/actions'
+import D3LineGraph from './d3LineChart'
+import D3OverTimeLineGraph from './d3OverTimeLineGraph'
+import LineGraph from './LineGraph'
+import { setClickedReport } from '../../../Redux/actions'
 
 class ReportGalleryPage extends React.Component {
   state = {

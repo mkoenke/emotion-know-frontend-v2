@@ -1,7 +1,7 @@
 import Chart from 'r-chart'
 import React from 'react'
 import { connect } from 'react-redux'
-import emotionsOverTime from '../HelperFunctions/emotionsOverTime'
+import emotionsOverTime from './emotionsOverTime'
 
 class LineGraph extends React.Component {
   componentDidMount() {

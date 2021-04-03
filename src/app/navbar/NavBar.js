@@ -9,12 +9,12 @@ import {
   setParentProfileModal,
   setProfileModal,
   setSignUpModal,
-} from '../Redux/actions'
-import LoginModal from './LoginModal'
-import ParentLoginModal from './ParentLoginModal'
-import ParentProfileModal from './ParentProfileModal'
-import ProfileModal from './ProfileModal'
-import SignUpModal from './SignUpModal'
+} from '../../Redux/actions'
+import LoginModal from '../../Components/LoginModal'
+import ParentLoginModal from '../../Components/ParentLoginModal'
+import ParentProfileModal from '../../Components/ParentProfileModal'
+import ProfileModal from '../../Components/ProfileModal'
+import SignUpModal from '../../Components/SignUpModal'
 
 class NavBar extends React.Component {
   state = {

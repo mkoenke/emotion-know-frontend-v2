@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Header } from 'semantic-ui-react'
-import CameraView from '../Components/CameraView'
+import CameraView from '../app/video/CameraView.js'
 
 class CameraPage extends React.Component {
   render() {

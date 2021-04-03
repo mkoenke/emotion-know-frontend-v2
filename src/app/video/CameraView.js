@@ -13,8 +13,8 @@ import {
   Loader,
   Message,
 } from 'semantic-ui-react'
-import { addReportToAllReports, addVideoToAllVideos } from '../Redux/actions'
-import Video from './VideoRecorder'
+import { addReportToAllReports, addVideoToAllVideos } from '../../Redux/actions'
+import Video from '../../Components/VideoRecorder'
 
 let angerData = []
 let disgustData = []
