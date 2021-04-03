@@ -3,9 +3,9 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Container, Grid, Header, Menu, Popup, Table } from 'semantic-ui-react'
 import { BigPlayButton, ControlBar, LoadingSpinner, Player } from 'video-react'
-import D3LineGraph from './d3LineChart'
-import D3OverTimeLineGraph from './d3OverTimeLineGraph'
-import LineGraph from './LineGraph'
+import D3LineGraph from './components/d3LineChart'
+import D3OverTimeLineGraph from './components/d3OverTimeLineGraph'
+// import LineGraph from './LineGraph'
 import { setClickedReport } from '../../../Redux/actions'
 
 class ReportGalleryPage extends React.Component {
@@ -305,7 +305,7 @@ class ReportGalleryPage extends React.Component {
                       Emotional Reports over Time
                     </Header>
                     <div className="lineGraph pattern">
-                      <LineGraph />
+                      {/* <LineGraph /> */}
                     </div>
                   </Container>
                 )}
