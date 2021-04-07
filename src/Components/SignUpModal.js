@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Button, Form, Message, Modal } from 'semantic-ui-react'
+import { Button, Form, Input, Message, Modal } from 'semantic-ui-react'
 import { setChild, setError, setSignUpModal } from '../Redux/actions'
 
 class SignUpModal extends React.Component {
@@ -91,7 +91,6 @@ class SignUpModal extends React.Component {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data)
         childData = {
           username: this.state.username,
           password: this.state.password,
@@ -236,12 +235,12 @@ class SignUpModal extends React.Component {
             <Form.Field>
               <label className="formLabel">Confirm Parent's Password</label>
               <Input
-                name="confirmPassword"
+                name="confirmParentPassword"
                 type="password"
-                value={this.state.confirmPassword}
+                value={this.state.confirmParentPassword}
                 onChange={this.handleFormChange}
                 placeholder="Confirm Parent's Password"
-                error={this.state.passwordMatchError}
+                error={this.state.parentPasswordMatchError}
               />
             </Form.Field>
             <div className="formButtonContainer">
