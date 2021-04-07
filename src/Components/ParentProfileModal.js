@@ -10,7 +10,12 @@ import {
   Modal,
   Segment,
 } from 'semantic-ui-react'
-import { setChild, setError, setParentProfileModal } from '../Redux/actions'
+import {
+  logout,
+  setChild,
+  setError,
+  setParentProfileModal,
+} from '../Redux/actions'
 
 class ParentProfileModal extends React.Component {
   state = {
@@ -26,6 +31,7 @@ class ParentProfileModal extends React.Component {
     passwordMatchError: false,
     changeEmail: false,
     changePassword: false,
+    deleteAccount: false,
   }
   handleCancel = () => {
     this.setState({
@@ -90,7 +96,6 @@ class ParentProfileModal extends React.Component {
         .then((data) => {
           console.log(data)
           // localStorage.setItem('token', data.jwt)
-          this.props.dispatchError(null)
           // this.props.dispatchChild(data.child)
 
           this.setState({
@@ -98,6 +103,7 @@ class ParentProfileModal extends React.Component {
             changePassword: false,
             changeEmail: false,
           })
+          this.props.dispatchError(null)
         })
         .catch((error) => {
           console.log(error)
@@ -107,9 +113,42 @@ class ParentProfileModal extends React.Component {
   }
 
   handleConfirm = () => {
-    console.log('in handle confirm')
     this.setState({ openConfirm: false, isOpen: false })
     this.props.handleParentProfileClick(false)
+  }
+  handleDelete = () => {
+    this.setState({ deleteAccount: true })
+  }
+
+  deleteFetch = () => {
+    const id = this.props.parent.id
+    fetch(`http://localhost:3000/parents/${id}`, {
+      method: 'DELETE',
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data)
+        if (!data.error) {
+          this.setState({
+            deleteAccount: false,
+            isOpen: false,
+          })
+
+          localStorage.removeItem('token')
+          this.props.logout()
+          console.log('DELETED:', data)
+        } else if (data.error) {
+          console.log(data.error)
+          this.setState({
+            deleteAccount: false,
+          })
+          this.props.dispatchError('Something went wrong, please try again.')
+        }
+      })
+      .catch((error) => {
+        console.log(error)
+        this.props.dispatchError('Something went wrong, please try again.')
+      })
   }
 
   render() {
@@ -123,6 +162,21 @@ class ParentProfileModal extends React.Component {
             onCancel={this.handleConfirm}
             dimmer="inverted"
           />
+        ) : null}
+        {this.state.deleteAccount ? (
+          <>
+            {/* {this.props.error ? (
+              <Message negative>
+                <Message.Header>{this.props.error}</Message.Header>
+              </Message>
+            ) : null} */}
+            <Confirm
+              open={this.state.deleteAccount}
+              content="Are you sure you want to delete your account? This action can not be reversed."
+              onConfirm={this.deleteFetch}
+              onCancel={() => this.setState({ deleteAccount: false })}
+            />
+          </>
         ) : null}
 
         <Modal
@@ -156,7 +210,10 @@ class ParentProfileModal extends React.Component {
                 <Button
                   className="formButton"
                   content="Change Email"
-                  onClick={() => this.setState({ changeEmail: true })}
+                  onClick={() => {
+                    this.props.dispatchError(null)
+                    this.setState({ changeEmail: true })
+                  }}
                 />
 
                 <Divider horizontal>Or</Divider>
@@ -164,7 +221,16 @@ class ParentProfileModal extends React.Component {
                 <Button
                   className="formButton"
                   content="Change Password"
-                  onClick={() => this.setState({ changePassword: true })}
+                  onClick={() => {
+                    this.props.dispatchError(null)
+                    this.setState({ changePassword: true })
+                  }}
+                />
+                <Divider horizontal>Or</Divider>
+                <Button
+                  className="formButton"
+                  content="Delete Account"
+                  onClick={this.handleDelete}
                 />
               </Segment>
             ) : null}
@@ -258,6 +324,7 @@ function mapDispatchToProps(dispatch) {
     dispatchParentProfileModal: (value) =>
       dispatch(setParentProfileModal(value)),
     dispatchError: (value) => dispatch(setError(value)),
+    logout: () => dispatch(logout()),
   }
 }
 

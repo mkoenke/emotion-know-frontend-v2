@@ -106,7 +106,6 @@ class ProfileModal extends React.Component {
   }
 
   handleConfirm = () => {
-    console.log('in handle confirm')
     this.setState({ openConfirm: false, isOpen: false })
     this.props.handleProfileClick(false)
   }
@@ -146,8 +145,6 @@ class ProfileModal extends React.Component {
   }
 
   render() {
-    console.log(this.props)
-    console.log(this.state)
     return (
       <>
         {this.state.openConfirm ? (
