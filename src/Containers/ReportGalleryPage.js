@@ -7,6 +7,7 @@ import D3LineGraph from '../Components/d3LineChart'
 import D3OverTimeLineGraph from '../Components/d3OverTimeLineGraph'
 import LineGraph from '../Components/LineGraph'
 import { setClickedReport } from '../Redux/actions'
+import ReportGallerySingleGraph from '../Components/ReportGallerySingleGraph'
 
 class ReportGalleryPage extends React.Component {
   state = {
@@ -71,36 +72,38 @@ class ReportGalleryPage extends React.Component {
     this.setState({ pageOfItems })
   }
 
-  renderReportGraph = () => {
-    return (
-      <Grid centered columns="two">
-        <Grid.Row>
-          <Grid.Column>
-            <div className="bargraph smallGraph pattern smallGraphPadding">
-              <h2>{this.state.clickedReport.title}</h2>
-              <D3LineGraph data={this.state.clickedReport} />
-            </div>
-          </Grid.Column>
-          <Grid.Column>
-            <div className="bargraph smallGraph pattern">
-              <Header textAlign="center" className="reportHeader">
-                {this.state.clickedJournal.title}
-              </Header>
+  // renderReportGraph = () => {
+  //   console.log("Render Report Graph", this.state)
+  //   return (
+  //     <Grid centered columns="two">
+  //       <Grid.Row>
+  //         <Grid.Column>
+  //           <div className="bargraph smallGraph pattern smallGraphPadding">
+  //             <h2>{this.state.clickedReport.title}</h2>
+  //             <D3LineGraph data={this.state.clickedReport} />
+  //           </div>
+  //         </Grid.Column>
+  //         <Grid.Column>
+  //           <div className="bargraph smallGraph pattern">
+  //             <Header textAlign="center" className="reportHeader">
+  //               {this.state.clickedJournal.title}
+  //             </Header>
 
-              {this.state.clickedJournal.video ? (
-                <Player>
-                  <source src={this.state.clickedJournal.url} />
-                  <ControlBar autoHide={false} />
-                  <LoadingSpinner />
-                  <BigPlayButton position="center" />
-                </Player>
-              ) : null}
-            </div>
-          </Grid.Column>
-        </Grid.Row>
-      </Grid>
-    )
-  }
+  //             {this.state.clickedJournal.video ? (
+  //               <Player>
+  //                 <source src={this.state.clickedJournal.url} />
+  //                 <ControlBar autoHide={false} />
+  //                 <LoadingSpinner />
+  //                 <BigPlayButton position="center" />
+  //               </Player>
+  //             ) : null}
+  //           </div>
+  //         </Grid.Column>
+  //       </Grid.Row>
+  //     </Grid>
+  //   )
+  // }
+  
   renderParentReportGraph = () => {
     return (
       <Grid centered columns="one">
@@ -202,7 +205,8 @@ class ReportGalleryPage extends React.Component {
                 </Grid>
 
                 <br />
-                {this.state.beenClicked ? this.renderReportGraph() : null}
+                {this.state.beenClicked ? ReportGallerySingleGraph(this.state) : null}
+                {/* {this.state.beenClicked ? this.renderReportGraph() : null} */}
               </Container>
               <Container textAlign="center">
                 <Header as="h2" className="content tableHeaderMargin">
