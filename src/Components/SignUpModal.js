@@ -65,10 +65,22 @@ class SignUpModal extends React.Component {
 
   handleFormSubmit = (event) => {
     event.preventDefault()
-
-    let parentData = {
-      email: this.state.email,
-      password: this.state.parentPassword,
+    let parentData = null
+    let childData = null
+    if (
+      this.state.username === this.state.confirmUsername &&
+      this.state.username &&
+      this.state.password === this.state.confirmPassword &&
+      this.state.password &&
+      this.state.email === this.state.confirmEmail &&
+      this.state.email &&
+      this.state.parentPassword === this.state.confirmParentPassword &&
+      this.state.parentPassword
+    ) {
+      parentData = {
+        email: this.state.email,
+        password: this.state.parentPassword,
+      }
     }
     fetch('http://localhost:3000/parents', {
       method: 'POST',
@@ -80,7 +92,7 @@ class SignUpModal extends React.Component {
       .then((response) => response.json())
       .then((data) => {
         console.log(data)
-        let childData = {
+        childData = {
           username: this.state.username,
           password: this.state.password,
           parent_id: data.parent.id,
@@ -129,6 +141,26 @@ class SignUpModal extends React.Component {
               <Message.Header>{this.props.error}</Message.Header>
             </Message>
           ) : null}
+          {this.state.usernameError ? (
+            <Message negative>
+              <Message.Header>Usernames do not match!</Message.Header>
+            </Message>
+          ) : null}
+          {this.state.passwordError ? (
+            <Message negative>
+              <Message.Header>Passwords do not match!</Message.Header>
+            </Message>
+          ) : null}
+          {this.state.emailError ? (
+            <Message negative>
+              <Message.Header>Emails do not match!</Message.Header>
+            </Message>
+          ) : null}
+          {this.state.parentPasswordError ? (
+            <Message negative>
+              <Message.Header>Parent Passwords do not match!</Message.Header>
+            </Message>
+          ) : null}
           <Form onSubmit={this.handleFormSubmit}>
             <Form.Field required>
               <label className="formLabel">Username</label>
@@ -137,6 +169,16 @@ class SignUpModal extends React.Component {
                 value={this.state.username}
                 onChange={this.handleFormChange}
                 placeholder="Username"
+              />
+            </Form.Field>
+            <Form.Field>
+              <label className="formLabel">Confirm Username</label>
+              <Input
+                name="confirmUsername"
+                value={this.state.confirmUsername}
+                onChange={this.handleFormChange}
+                placeholder="Confirm Username"
+                error={this.state.usernameMatchError}
               />
             </Form.Field>
             <Form.Field required>
@@ -149,6 +191,17 @@ class SignUpModal extends React.Component {
                 placeholder="Password"
               />
             </Form.Field>
+            <Form.Field>
+              <label className="formLabel">Confirm Password</label>
+              <Input
+                name="confirmPassword"
+                type="password"
+                value={this.state.confirmPassword}
+                onChange={this.handleFormChange}
+                placeholder="Confirm Password"
+                error={this.state.passwordMatchError}
+              />
+            </Form.Field>
             <Form.Field required>
               <label className="formLabel">Parent's email</label>
               <input
@@ -158,7 +211,18 @@ class SignUpModal extends React.Component {
                 onChange={this.handleFormChange}
                 placeholder="Parent's Email"
               />
-            </Form.Field>{' '}
+            </Form.Field>
+            <Form.Field>
+              <label className="formLabel">Confirm Email</label>
+              <Input
+                name="confirmEmail"
+                type="email"
+                value={this.state.confirmEmail}
+                onChange={this.handleFormChange}
+                placeholder="Confirm Email"
+                error={this.state.emailMatchError}
+              />
+            </Form.Field>
             <Form.Field required>
               <label className="formLabel">Parent's Password</label>
               <input
@@ -167,7 +231,18 @@ class SignUpModal extends React.Component {
                 value={this.state.parentPassword}
                 onChange={this.handleFormChange}
                 placeholder="Parent's Password"
-              />{' '}
+              />
+            </Form.Field>
+            <Form.Field>
+              <label className="formLabel">Confirm Parent's Password</label>
+              <Input
+                name="confirmPassword"
+                type="password"
+                value={this.state.confirmPassword}
+                onChange={this.handleFormChange}
+                placeholder="Confirm Parent's Password"
+                error={this.state.passwordMatchError}
+              />
             </Form.Field>
             <div className="formButtonContainer">
               <Button className="formButton" type="submit">
