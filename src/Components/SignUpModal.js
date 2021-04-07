@@ -170,7 +170,7 @@ class SignUpModal extends React.Component {
                 placeholder="Username"
               />
             </Form.Field>
-            <Form.Field>
+            <Form.Field required>
               <label className="formLabel">Confirm Username</label>
               <Input
                 name="confirmUsername"
@@ -190,7 +190,7 @@ class SignUpModal extends React.Component {
                 placeholder="Password"
               />
             </Form.Field>
-            <Form.Field>
+            <Form.Field required>
               <label className="formLabel">Confirm Password</label>
               <Input
                 name="confirmPassword"
@@ -211,7 +211,7 @@ class SignUpModal extends React.Component {
                 placeholder="Parent's Email"
               />
             </Form.Field>
-            <Form.Field>
+            <Form.Field required>
               <label className="formLabel">Confirm Email</label>
               <Input
                 name="confirmEmail"
@@ -232,7 +232,7 @@ class SignUpModal extends React.Component {
                 placeholder="Parent's Password"
               />
             </Form.Field>
-            <Form.Field>
+            <Form.Field required>
               <label className="formLabel">Confirm Parent's Password</label>
               <Input
                 name="confirmParentPassword"
