@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import {
   Button,
+  Confirm,
   Divider,
   Form,
   Input,
@@ -14,6 +15,7 @@ import { setChild, setError, setProfileModal } from '../Redux/actions'
 class ProfileModal extends React.Component {
   state = {
     isOpen: true,
+    openConfirm: false,
     username: null,
     confirmUsername: null,
     password: null,
@@ -89,13 +91,13 @@ class ProfileModal extends React.Component {
         .then((response) => response.json())
         .then((data) => {
           console.log(data)
-          this.props.dispatchError(null)
-          this.props.handleProfileClick(false)
           this.setState({
-            isOpen: false,
+            openConfirm: true,
             changePassword: false,
             changeUsername: false,
           })
+          this.props.dispatchError(null)
+          /// reset child in state to change visible username
         })
         .catch((error) => {
           console.log(error)
@@ -104,120 +106,142 @@ class ProfileModal extends React.Component {
     }
   }
 
+  handleConfirm = () => {
+    console.log('in handle confirm')
+    this.setState({ openConfirm: false, isOpen: false })
+    this.props.handleProfileClick(false)
+  }
+
   render() {
+    console.log(this.state)
     return (
-      <Modal
-        onClose={() => this.setState({ isOpen: false })}
-        onOpen={() => this.setState({ isOpen: true })}
-        open={this.state.isOpen}
-        closeOnDimmerClick={false}
-        dimmer="inverted"
-      >
-        <Modal.Header className="background pageHeader">
-          Edit Profile
-        </Modal.Header>
-        <Modal.Content className="background">
-          {this.props.error ? (
-            <Message negative>
-              <Message.Header>{this.props.error}</Message.Header>
-            </Message>
-          ) : null}
-          {this.state.usernameError ? (
-            <Message negative>
-              <Message.Header>Usernames do not match!</Message.Header>
-            </Message>
-          ) : null}
-          {this.state.passwordError ? (
-            <Message negative>
-              <Message.Header>Passwords do not match!</Message.Header>
-            </Message>
-          ) : null}
-          {!this.state.changeUsername && !this.state.changePassword ? (
-            <Segment basic textAlign="center">
-              <Button
-                className="formButton"
-                content="Change Username"
-                onClick={() => this.setState({ changeUsername: true })}
-              />
+      <>
+        {this.state.openConfirm ? (
+          <Confirm
+            open={this.state.openConfirm}
+            content="You successfully changed your username or password!"
+            onConfirm={this.handleConfirm}
+            onCancel={this.handleConfirm}
+            dimmer="inverted"
+          />
+        ) : null}
 
-              <Divider horizontal>Or</Divider>
+        <Modal
+          onClose={() => this.setState({ isOpen: false })}
+          onOpen={() => this.setState({ isOpen: true })}
+          open={this.state.isOpen}
+          closeOnDimmerClick={false}
+          dimmer="inverted"
+        >
+          <Modal.Header className="background pageHeader">
+            Edit Profile
+          </Modal.Header>
+          <Modal.Content className="background">
+            {this.props.error ? (
+              <Message negative>
+                <Message.Header>{this.props.error}</Message.Header>
+              </Message>
+            ) : null}
+            {this.state.usernameError ? (
+              <Message negative>
+                <Message.Header>Usernames do not match!</Message.Header>
+              </Message>
+            ) : null}
+            {this.state.passwordError ? (
+              <Message negative>
+                <Message.Header>Passwords do not match!</Message.Header>
+              </Message>
+            ) : null}
+            {!this.state.changeUsername && !this.state.changePassword ? (
+              <Segment basic textAlign="center">
+                <Button
+                  className="formButton"
+                  content="Change Username"
+                  onClick={() => this.setState({ changeUsername: true })}
+                />
 
-              <Button
-                className="formButton"
-                content="Change Password"
-                onClick={() => this.setState({ changePassword: true })}
-              />
-            </Segment>
-          ) : null}
-          {this.state.changePassword || this.state.changeUsername ? (
-            <Form onSubmit={this.handleFormSubmit}>
-              {this.state.changeUsername ? (
-                <>
-                  <Form.Field>
-                    <label className="formLabel">New Username</label>
-                    <Input
-                      name="username"
-                      value={this.state.username}
-                      onChange={this.handleFormChange}
-                      placeholder="New Username"
-                      error={this.state.usernameError}
-                    />
-                  </Form.Field>
-                  <Form.Field>
-                    <label className="formLabel">Confirm New Username</label>
-                    <Input
-                      name="confirmUsername"
-                      value={this.state.confirmUsername}
-                      onChange={this.handleFormChange}
-                      placeholder="Confirm New Username"
-                      error={this.state.usernameMatchError}
-                    />
-                  </Form.Field>
-                </>
-              ) : null}
-              {this.state.changePassword ? (
-                <>
-                  <Form.Field>
-                    <label className="formLabel">New Password</label>
-                    <Input
-                      name="password"
-                      type="password"
-                      value={this.state.password}
-                      onChange={this.handleFormChange}
-                      placeholder="New Password"
-                      error={this.state.passwordError}
-                    />
-                  </Form.Field>
-                  <Form.Field>
-                    <label className="formLabel">Confirm New Password</label>
-                    <Input
-                      name="confirmPassword"
-                      type="password"
-                      value={this.state.confirmPassword}
-                      onChange={this.handleFormChange}
-                      placeholder="Confirm New Password"
-                      error={this.state.passwordMatchError}
-                    />
-                  </Form.Field>
-                </>
-              ) : null}
-              <div className="formButtonContainer">
-                <Button className="formButton" type="submit">
-                  Submit
-                </Button>
+                <Divider horizontal>Or</Divider>
 
                 <Button
                   className="formButton"
-                  onClick={this.handleCancel}
-                  type="cancel"
-                >
-                  Cancel
-                </Button>
-              </div>
-            </Form>
-          ) : null}
-        </Modal.Content>
-      </Modal>
+                  content="Change Password"
+                  onClick={() => this.setState({ changePassword: true })}
+                />
+              </Segment>
+            ) : null}
+            {this.state.changePassword || this.state.changeUsername ? (
+              <Form>
+                {this.state.changeUsername ? (
+                  <>
+                    <Form.Field>
+                      <label className="formLabel">New Username</label>
+                      <Input
+                        name="username"
+                        value={this.state.username}
+                        onChange={this.handleFormChange}
+                        placeholder="New Username"
+                        error={this.state.usernameError}
+                      />
+                    </Form.Field>
+                    <Form.Field>
+                      <label className="formLabel">Confirm New Username</label>
+                      <Input
+                        name="confirmUsername"
+                        value={this.state.confirmUsername}
+                        onChange={this.handleFormChange}
+                        placeholder="Confirm New Username"
+                        error={this.state.usernameMatchError}
+                      />
+                    </Form.Field>
+                  </>
+                ) : null}
+                {this.state.changePassword ? (
+                  <>
+                    <Form.Field>
+                      <label className="formLabel">New Password</label>
+                      <Input
+                        name="password"
+                        type="password"
+                        value={this.state.password}
+                        onChange={this.handleFormChange}
+                        placeholder="New Password"
+                        error={this.state.passwordError}
+                      />
+                    </Form.Field>
+                    <Form.Field>
+                      <label className="formLabel">Confirm New Password</label>
+                      <Input
+                        name="confirmPassword"
+                        type="password"
+                        value={this.state.confirmPassword}
+                        onChange={this.handleFormChange}
+                        placeholder="Confirm New Password"
+                        error={this.state.passwordMatchError}
+                      />
+                    </Form.Field>
+                  </>
+                ) : null}
+                <div className="formButtonContainer">
+                  <Button
+                    className="formButton"
+                    onClick={this.handleFormSubmit}
+                  >
+                    Submit
+                  </Button>
+
+                  <Button
+                    className="formButton"
+                    onClick={this.handleCancel}
+                    type="cancel"
+                  >
+                    Cancel
+                  </Button>
+                </div>
+              </Form>
+            ) : null}
+          </Modal.Content>
+        </Modal>
+      </>
     )
   }
 }
