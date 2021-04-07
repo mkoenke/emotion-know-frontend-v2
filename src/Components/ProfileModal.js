@@ -130,6 +130,7 @@ class ProfileModal extends React.Component {
 
           localStorage.removeItem('token')
           this.props.logout()
+          console.log('DELETED:', data)
         } else if (data.error) {
           console.log(data.error)
           this.setState({
@@ -146,6 +147,7 @@ class ProfileModal extends React.Component {
 
   render() {
     console.log(this.props)
+    console.log(this.state)
     return (
       <>
         {this.state.openConfirm ? (
