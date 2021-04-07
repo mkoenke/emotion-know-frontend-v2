@@ -65,7 +65,6 @@ class ProfileModal extends React.Component {
       data = {
         username: this.state.username,
       }
-      console.log(data)
     }
     if (
       this.state.password === this.state.confirmPassword &&
@@ -75,7 +74,6 @@ class ProfileModal extends React.Component {
       data = {
         password: this.state.password,
       }
-      console.log(data)
     }
     const id = this.props.child.id
 
@@ -170,7 +168,7 @@ class ProfileModal extends React.Component {
               </Segment>
             ) : null}
             {this.state.changePassword || this.state.changeUsername ? (
-              <Form>
+              <Form onSubmit={this.handleFormSubmit}>
                 {this.state.changeUsername ? (
                   <>
                     <Form.Field>
@@ -222,10 +220,7 @@ class ProfileModal extends React.Component {
                   </>
                 ) : null}
                 <div className="formButtonContainer">
-                  <Button
-                    className="formButton"
-                    onClick={this.handleFormSubmit}
-                  >
+                  <Button className="formButton" type="submit">
                     Submit
                   </Button>
 

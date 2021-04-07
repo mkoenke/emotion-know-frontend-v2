@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import {
   Button,
+  Confirm,
   Divider,
   Form,
   Input,
@@ -14,6 +15,7 @@ import { setChild, setError, setParentProfileModal } from '../Redux/actions'
 class ParentProfileModal extends React.Component {
   state = {
     isOpen: true,
+    openConfirm: false,
     email: null,
     confirmEmail: null,
     password: null,
@@ -63,7 +65,6 @@ class ParentProfileModal extends React.Component {
       data = {
         email: this.state.email,
       }
-      console.log(data)
     }
     if (
       this.state.password === this.state.confirmPassword &&
@@ -73,7 +74,6 @@ class ParentProfileModal extends React.Component {
       data = {
         password: this.state.password,
       }
-      console.log(data)
     }
     const id = this.props.parent.id
 
@@ -92,9 +92,9 @@ class ParentProfileModal extends React.Component {
           // localStorage.setItem('token', data.jwt)
           this.props.dispatchError(null)
           // this.props.dispatchChild(data.child)
-          this.props.handleParentProfileClick(false)
+
           this.setState({
-            isOpen: false,
+            openConfirm: true,
             changePassword: false,
             changeEmail: false,
           })
@@ -106,123 +106,141 @@ class ParentProfileModal extends React.Component {
     }
   }
 
+  handleConfirm = () => {
+    console.log('in handle confirm')
+    this.setState({ openConfirm: false, isOpen: false })
+    this.props.handleParentProfileClick(false)
+  }
+
   render() {
     return (
-      <Modal
-        onClose={() => this.setState({ isOpen: false })}
-        onOpen={() => this.setState({ isOpen: true })}
-        open={this.state.isOpen}
-        closeOnDimmerClick={false}
-        dimmer="inverted"
-      >
-        <Modal.Header className="background pageHeader">
-          Edit Profile
-        </Modal.Header>
-        <Modal.Content className="background">
-          {this.props.error ? (
-            <Message negative>
-              <Message.Header>{this.props.error}</Message.Header>
-            </Message>
-          ) : null}
-          {this.state.emailError ? (
-            <Message negative>
-              <Message.Header>Emails do not match!</Message.Header>
-            </Message>
-          ) : null}
-          {this.state.passwordError ? (
-            <Message negative>
-              <Message.Header>Passwords do not match!</Message.Header>
-            </Message>
-          ) : null}
-          {!this.state.changeEmail && !this.state.changePassword ? (
-            <Segment basic textAlign="center">
-              <Button
-                className="formButton"
-                content="Change Email"
-                onClick={() => this.setState({ changeEmail: true })}
-              />
+      <>
+        {this.state.openConfirm ? (
+          <Confirm
+            open={this.state.openConfirm}
+            content="You successfully changed your username or password!"
+            onConfirm={this.handleConfirm}
+            onCancel={this.handleConfirm}
+            dimmer="inverted"
+          />
+        ) : null}
 
-              <Divider horizontal>Or</Divider>
+        <Modal
+          onClose={() => this.setState({ isOpen: false })}
+          onOpen={() => this.setState({ isOpen: true })}
+          open={this.state.isOpen}
+          closeOnDimmerClick={false}
+          dimmer="inverted"
+        >
+          <Modal.Header className="background pageHeader">
+            Edit Profile
+          </Modal.Header>
+          <Modal.Content className="background">
+            {this.props.error ? (
+              <Message negative>
+                <Message.Header>{this.props.error}</Message.Header>
+              </Message>
+            ) : null}
+            {this.state.emailError ? (
+              <Message negative>
+                <Message.Header>Emails do not match!</Message.Header>
+              </Message>
+            ) : null}
+            {this.state.passwordError ? (
+              <Message negative>
+                <Message.Header>Passwords do not match!</Message.Header>
+              </Message>
+            ) : null}
+            {!this.state.changeEmail && !this.state.changePassword ? (
+              <Segment basic textAlign="center">
+                <Button
+                  className="formButton"
+                  content="Change Email"
+                  onClick={() => this.setState({ changeEmail: true })}
+                />
 
-              <Button
-                className="formButton"
-                content="Change Password"
-                onClick={() => this.setState({ changePassword: true })}
-              />
-            </Segment>
-          ) : null}
-
-          {this.state.changePassword || this.state.changeEmail ? (
-            <Form onSubmit={this.handleFormSubmit}>
-              {this.state.changeEmail ? (
-                <>
-                  <Form.Field>
-                    <label className="formLabel">New Email</label>
-                    <Input
-                      name="email"
-                      type="email"
-                      value={this.state.email}
-                      onChange={this.handleFormChange}
-                      placeholder="New Email"
-                      error={this.state.emailError}
-                    />
-                  </Form.Field>
-                  <Form.Field>
-                    <label className="formLabel">Confirm New Email</label>
-                    <Input
-                      name="confirmEmail"
-                      type="email"
-                      value={this.state.confirmEmail}
-                      onChange={this.handleFormChange}
-                      placeholder="Confirm New Email"
-                      error={this.state.emailMatchError}
-                    />
-                  </Form.Field>
-                </>
-              ) : null}
-              {this.state.changePassword ? (
-                <>
-                  <Form.Field>
-                    <label className="formLabel">New Password</label>
-                    <Input
-                      name="password"
-                      type="password"
-                      value={this.state.password}
-                      onChange={this.handleFormChange}
-                      placeholder="New Password"
-                      error={this.state.passwordError}
-                    />
-                  </Form.Field>
-                  <Form.Field>
-                    <label className="formLabel">Confirm New Password</label>
-                    <Input
-                      name="confirmPassword"
-                      type="password"
-                      value={this.state.confirmPassword}
-                      onChange={this.handleFormChange}
-                      placeholder="Confirm New Password"
-                      error={this.state.passwordMatchError}
-                    />
-                  </Form.Field>
-                </>
-              ) : null}
-              <div className="formButtonContainer">
-                <Button className="formButton" type="submit">
-                  Submit
-                </Button>
+                <Divider horizontal>Or</Divider>
 
                 <Button
                   className="formButton"
-                  onClick={this.handleCancel}
-                  type="cancel"
-                >
-                  Cancel
-                </Button>
-              </div>
-            </Form>
-          ) : null}
-        </Modal.Content>
-      </Modal>
+                  content="Change Password"
+                  onClick={() => this.setState({ changePassword: true })}
+                />
+              </Segment>
+            ) : null}
+
+            {this.state.changePassword || this.state.changeEmail ? (
+              <Form onSubmit={this.handleFormSubmit}>
+                {this.state.changeEmail ? (
+                  <>
+                    <Form.Field>
+                      <label className="formLabel">New Email</label>
+                      <Input
+                        name="email"
+                        type="email"
+                        value={this.state.email}
+                        onChange={this.handleFormChange}
+                        placeholder="New Email"
+                        error={this.state.emailError}
+                      />
+                    </Form.Field>
+                    <Form.Field>
+                      <label className="formLabel">Confirm New Email</label>
+                      <Input
+                        name="confirmEmail"
+                        type="email"
+                        value={this.state.confirmEmail}
+                        onChange={this.handleFormChange}
+                        placeholder="Confirm New Email"
+                        error={this.state.emailMatchError}
+                      />
+                    </Form.Field>
+                  </>
+                ) : null}
+                {this.state.changePassword ? (
+                  <>
+                    <Form.Field>
+                      <label className="formLabel">New Password</label>
+                      <Input
+                        name="password"
+                        type="password"
+                        value={this.state.password}
+                        onChange={this.handleFormChange}
+                        placeholder="New Password"
+                        error={this.state.passwordError}
+                      />
+                    </Form.Field>
+                    <Form.Field>
+                      <label className="formLabel">Confirm New Password</label>
+                      <Input
+                        name="confirmPassword"
+                        type="password"
+                        value={this.state.confirmPassword}
+                        onChange={this.handleFormChange}
+                        placeholder="Confirm New Password"
+                        error={this.state.passwordMatchError}
+                      />
+                    </Form.Field>
+                  </>
+                ) : null}
+                <div className="formButtonContainer">
+                  <Button className="formButton" type="submit">
+                    Submit
+                  </Button>
+
+                  <Button
+                    className="formButton"
+                    onClick={this.handleCancel}
+                    type="cancel"
+                  >
+                    Cancel
+                  </Button>
+                </div>
+              </Form>
+            ) : null}
+          </Modal.Content>
+        </Modal>
+      </>
     )
   }
 }
