@@ -6,17 +6,61 @@ import { setChild, setError, setSignUpModal } from '../Redux/actions'
 class SignUpModal extends React.Component {
   state = {
     isOpen: true,
-    username: '',
-    password: '',
-    email: '',
-    parentPassword: '',
+    username: null,
+    confirmUsername: null,
+    password: null,
+    confirmPassword: null,
+    usernameError: false,
+    usernameMatchError: false,
+    passwordError: false,
+    passwordMatchError: false,
+    email: null,
+    confirmEmail: null,
+    parentPassword: null,
+    confirmParentPassword: null,
+    emailError: false,
+    emailMatchError: false,
+    parentPasswordError: false,
+    parentPasswordMatchError: false,
   }
   handleCancel = () => {
     this.props.dispatchSignUpModal(false)
     this.props.dispatchError(null)
   }
   handleFormChange = (e) => {
-    this.setState({ [e.target.name]: e.target.value })
+    this.setState({ [e.target.name]: e.target.value }, this.checkMatching)
+  }
+  checkMatching = () => {
+    if (this.state.username !== this.state.confirmUsername) {
+      this.setState({ usernameError: true, usernameMatchError: true })
+    }
+    if (this.state.username === this.state.confirmUsername) {
+      this.setState({ usernameError: false, usernameMatchError: false })
+    }
+    if (this.state.password !== this.state.confirmPassword) {
+      this.setState({ passwordError: true, passwordMatchError: true })
+    }
+    if (this.state.password === this.state.confirmPassword) {
+      this.setState({ passwordError: false, passwordMatchError: false })
+    }
+    if (this.state.email !== this.state.confirmEmail) {
+      this.setState({ emailError: true, emailMatchError: true })
+    }
+    if (this.state.email === this.state.confirmEmail) {
+      this.setState({ emailError: false, emailMatchError: false })
+    }
+    if (this.state.parentPassword !== this.state.confirmParentPassword) {
+      this.setState({
+        parentPasswordError: true,
+        parentPasswordMatchError: true,
+      })
+    }
+    if (this.state.parentPassword === this.state.confirmParentPassword) {
+      this.setState({
+        parentPasswordError: false,
+        parentPasswordMatchError: false,
+      })
+    }
   }
 
   handleFormSubmit = (event) => {
@@ -35,6 +79,7 @@ class SignUpModal extends React.Component {
     })
       .then((response) => response.json())
       .then((data) => {
+        console.log(data)
         let childData = {
           username: this.state.username,
           password: this.state.password,

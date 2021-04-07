@@ -74,7 +74,7 @@ class VideoGalleryPage extends React.Component {
               {this.props.child.username}'s Video Journals
             </Header>
           ) : null}
-          {this.props.child.video_entries.length ? (
+          {this.props.allVideos.length ? (
             <Grid centered columns="three">
               <Grid.Row>{this.arrayOfJournals()}</Grid.Row>
               <div className="paginateLarge">
