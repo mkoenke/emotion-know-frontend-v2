@@ -10,7 +10,7 @@ import {
   Modal,
   Segment,
 } from 'semantic-ui-react'
-import { setChild, setError, setProfileModal } from '../Redux/actions'
+import { logout, setChild, setError, setProfileModal } from '../Redux/actions'
 
 class ProfileModal extends React.Component {
   state = {
@@ -125,9 +125,11 @@ class ProfileModal extends React.Component {
         if (!data.error) {
           this.setState({
             deleteAccount: false,
+            isOpen: false,
           })
 
-          this.props.dispatchError(null)
+          localStorage.removeItem('token')
+          this.props.logout()
         } else if (data.error) {
           console.log(data.error)
           this.setState({
@@ -202,7 +204,10 @@ class ProfileModal extends React.Component {
                 <Button
                   className="formButton"
                   content="Change Username"
-                  onClick={() => this.setState({ changeUsername: true })}
+                  onClick={() => {
+                    this.props.dispatchError(null)
+                    this.setState({ changeUsername: true })
+                  }}
                 />
 
                 <Divider horizontal>Or</Divider>
@@ -210,13 +215,15 @@ class ProfileModal extends React.Component {
                 <Button
                   className="formButton"
                   content="Change Password"
-                  onClick={() => this.setState({ changePassword: true })}
+                  onClick={() => {
+                    this.props.dispatchError(null)
+                    this.setState({ changePassword: true })
+                  }}
                 />
                 <Divider horizontal>Or</Divider>
                 <Button
                   className="formButton"
                   content="Delete Account"
-                  // onClick={() => this.setState({ deleteAccount: true })}
                   onClick={this.handleDelete}
                 />
               </Segment>
@@ -307,6 +314,7 @@ function mapDispatchToProps(dispatch) {
     dispatchChild: (child) => dispatch(setChild(child)),
     dispatchProfileModal: (value) => dispatch(setProfileModal(value)),
     dispatchError: (value) => dispatch(setError(value)),
+    logout: () => dispatch(logout()),
   }
 }
 
