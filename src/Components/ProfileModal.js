@@ -26,6 +26,7 @@ class ProfileModal extends React.Component {
     passwordMatchError: false,
     changeUsername: false,
     changePassword: false,
+    deleteAccount: false,
   }
   handleCancel = () => {
     this.setState({
@@ -109,9 +110,40 @@ class ProfileModal extends React.Component {
     this.setState({ openConfirm: false, isOpen: false })
     this.props.handleProfileClick(false)
   }
+  handleDelete = () => {
+    this.setState({ deleteAccount: true })
+  }
+
+  deleteFetch = () => {
+    const id = this.props.child.id
+    fetch(`http://localhost:3000/children/${id}`, {
+      method: 'DELETE',
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data)
+        if (!data.error) {
+          this.setState({
+            deleteAccount: false,
+          })
+
+          this.props.dispatchError(null)
+        } else if (data.error) {
+          console.log(data.error)
+          this.setState({
+            deleteAccount: false,
+          })
+          this.props.dispatchError('Something went wrong, please try again.')
+        }
+      })
+      .catch((error) => {
+        console.log(error)
+        this.props.dispatchError('Something went wrong, please try again.')
+      })
+  }
 
   render() {
-    console.log(this.state)
+    console.log(this.props)
     return (
       <>
         {this.state.openConfirm ? (
@@ -122,6 +154,21 @@ class ProfileModal extends React.Component {
             onCancel={this.handleConfirm}
             dimmer="inverted"
           />
+        ) : null}
+        {this.state.deleteAccount ? (
+          <>
+            {this.props.error ? (
+              <Message negative>
+                <Message.Header>{this.props.error}</Message.Header>
+              </Message>
+            ) : null}
+            <Confirm
+              open={this.state.deleteAccount}
+              content="Are you sure you want to delete your account? This action can not be reversed."
+              onConfirm={this.deleteFetch}
+              onCancel={() => this.setState({ deleteAccount: false })}
+            />
+          </>
         ) : null}
 
         <Modal
@@ -164,6 +211,13 @@ class ProfileModal extends React.Component {
                   className="formButton"
                   content="Change Password"
                   onClick={() => this.setState({ changePassword: true })}
+                />
+                <Divider horizontal>Or</Divider>
+                <Button
+                  className="formButton"
+                  content="Delete Account"
+                  // onClick={() => this.setState({ deleteAccount: true })}
+                  onClick={this.handleDelete}
                 />
               </Segment>
             ) : null}
