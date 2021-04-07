@@ -94,8 +94,8 @@ class ProfileModal extends React.Component {
             changePassword: false,
             changeUsername: false,
           })
+          this.props.dispatchChild(data)
           this.props.dispatchError(null)
-          /// reset child in state to change visible username
         })
         .catch((error) => {
           console.log(error)
