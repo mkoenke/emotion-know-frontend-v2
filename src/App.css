@@ -463,3 +463,15 @@ svg {
 .actionsDiv {
   text-align: center !important;
 }
+.ui.inverted.dimmer > .ui.modal {
+  width: 50% !important;
+  /* background-color: rgb(248, 245, 242) !important; */
+  color: #6b585b !important;
+  background-color: #dad2d3 !important;
+  font-family: 'Overpass', sans-serif !important;
+}
+.ui.modal .actions > .button {
+  color: #6b585b !important;
+  background-color: #dad2d3 !important;
+  font-family: 'Overpass', sans-serif !important;
+}
