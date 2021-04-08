@@ -5,7 +5,7 @@ import { BigPlayButton, ControlBar, LoadingSpinner, Player } from 'video-react'
 
 export default function ReportGallerySingleGraph(reportGalleryState) {
   // const parent = useSelector((state) => state.parent)
-
+  // console.log("PARENT", parent)
   return (
     <Grid centered columns="two">
       <Grid.Row>
