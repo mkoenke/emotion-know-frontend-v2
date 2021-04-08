@@ -1,5 +1,5 @@
-import React from "react"
-import VideoRecorder from "react-video-recorder"
+import React from 'react'
+import VideoRecorder from 'react-video-recorder'
 
 class Video extends React.Component {
   render() {
@@ -11,6 +11,7 @@ class Video extends React.Component {
           onRecordingComplete={this.props.onRecordingComplete}
           onStartRecording={this.props.onStartRecording}
           onTurnOnCamera={this.props.onTurnOnCamera}
+          timeLimit={300000}
         />
       </>
     )
