@@ -137,7 +137,6 @@ class ProfileModal extends React.Component {
             })
               .then((response) => response.json())
               .then((data) => {
-                console.log(data)
                 if (!data.error) {
                   this.setState({
                     deleteAccount: false,
@@ -188,54 +187,46 @@ class ProfileModal extends React.Component {
         ) : null}
         {this.state.deleteAccount ? (
           <>
-            {/* <Confirm
+            <Modal
+              onClose={() => this.setState({ openConfirm: false })}
               open={this.state.deleteAccount}
-              content="Are you sure you want to delete your account? This action can not be reversed."
-              onConfirm={this.deleteFetch}
-              onCancel={() => this.setState({ deleteAccount: false })}
-            /> */}
-            <div className="warningModal">
-              <Modal
-                onClose={() => this.setState({ openConfirm: false })}
-                open={this.state.deleteAccount}
-                size="small"
-              >
-                <Modal.Header negative className="warning">
-                  Are you sure?
-                </Modal.Header>
-                <Modal.Content>
-                  <h3>
-                    This action <b>CAN NOT</b> be reversed. Please have your
-                    parent enter their password.
-                  </h3>
-                  <Form>
-                    <Form.Field>
-                      <Input
-                        name="parentPassword"
-                        type="password"
-                        value={this.state.parentPassword}
-                        onChange={this.handleParentPasswordChange}
-                        placeholder="Parent's Password"
-                      />
-                    </Form.Field>
-                  </Form>
-                </Modal.Content>
-                <Modal.Actions>
-                  <Button
-                    content="DELETE"
-                    id="warningButton"
-                    onClick={this.deleteFetch}
-                  />
-                  <Button
-                    className="formButton"
-                    onClick={this.handleCancel}
-                    type="cancel"
-                  >
-                    Cancel
-                  </Button>
-                </Modal.Actions>
-              </Modal>
-            </div>
+              size="small"
+            >
+              <Modal.Header negative className="warning">
+                Are you sure?
+              </Modal.Header>
+              <Modal.Content>
+                <h3>
+                  This action <b>CAN NOT</b> be reversed. Please have your
+                  parent enter their password.
+                </h3>
+                <Form>
+                  <Form.Field>
+                    <Input
+                      name="parentPassword"
+                      type="password"
+                      value={this.state.parentPassword}
+                      onChange={this.handleParentPasswordChange}
+                      placeholder="Parent's Password"
+                    />
+                  </Form.Field>
+                </Form>
+              </Modal.Content>
+              <Modal.Actions>
+                <Button
+                  content="DELETE"
+                  id="warningButton"
+                  onClick={this.deleteFetch}
+                />
+                <Button
+                  className="formButton"
+                  onClick={this.handleCancel}
+                  type="cancel"
+                >
+                  Cancel
+                </Button>
+              </Modal.Actions>
+            </Modal>
           </>
         ) : null}
 
