@@ -2,7 +2,6 @@ import JwPagination from 'jw-react-pagination'
 import React from 'react'
 import { connect } from 'react-redux'
 import { Container, Grid, Header, Menu, Popup, Table } from 'semantic-ui-react'
-// import { BigPlayButton, ControlBar, LoadingSpinner, Player } from 'video-react'
 import D3LineGraph from '../Components/d3LineChart'
 import D3OverTimeLineGraph from '../Components/d3OverTimeLineGraph'
 import LineGraph from '../Components/LineGraph'
@@ -73,38 +72,6 @@ class ReportGalleryPage extends React.Component {
     this.setState({ pageOfItems })
   }
 
-  // renderReportGraph = () => {
-  //   console.log("Render Report Graph", this.state)
-  //   return (
-  //     <Grid centered columns="two">
-  //       <Grid.Row>
-  //         <Grid.Column>
-  //           <div className="bargraph smallGraph pattern smallGraphPadding">
-  //             <h2>{this.state.clickedReport.title}</h2>
-  //             <D3LineGraph data={this.state.clickedReport} />
-  //           </div>
-  //         </Grid.Column>
-  //         <Grid.Column>
-  //           <div className="bargraph smallGraph pattern">
-  //             <Header textAlign="center" className="reportHeader">
-  //               {this.state.clickedJournal.title}
-  //             </Header>
-
-  //             {this.state.clickedJournal.video ? (
-  //               <Player>
-  //                 <source src={this.state.clickedJournal.url} />
-  //                 <ControlBar autoHide={false} />
-  //                 <LoadingSpinner />
-  //                 <BigPlayButton position="center" />
-  //               </Player>
-  //             ) : null}
-  //           </div>
-  //         </Grid.Column>
-  //       </Grid.Row>
-  //     </Grid>
-  //   )
-  // }
-
   renderParentReportGraph = () => {
     return (
       <Grid centered columns="one">
@@ -119,23 +86,6 @@ class ReportGalleryPage extends React.Component {
     )
   }
 
-  // listOfReports = () => {
-  //   return this.state.pageOfItems.map((report) => {
-  //     let date = new Date(report.created_at)
-  //     let dateWithoutTime =
-  //       date.getMonth() + 1 + '/' + date.getDate() + '/' + date.getFullYear()
-  //     return (
-  //       <Table.Row
-  //         className="link"
-  //         id={report.created_at}
-  //         onClick={this.handleReportClick}
-  //       >
-  //         <Table.Cell>{report.title}</Table.Cell>
-  //         <Table.Cell>{dateWithoutTime}</Table.Cell>
-  //       </Table.Row>
-  //     )
-  //   })
-  // }
   listOfParentsReports = () => {
     return this.state.pageOfItems.map((report) => {
       let date = new Date(report.created_at)
@@ -179,35 +129,9 @@ class ReportGalleryPage extends React.Component {
                   Individual Journal Emotional Reports
                 </Header>
                 {ReportGalleryReportsTable(this.state.items, this.handleReportClick, this.onChangePage)}
-                {/* <Grid centered className="tableGrid">
-                  <Table celled className="content">
-                    <Table.Header>
-                      <Table.Row>
-                        <Table.HeaderCell>Title</Table.HeaderCell>
-                        <Table.HeaderCell>Date</Table.HeaderCell>
-                      </Table.Row>
-                    </Table.Header>
-                    <Table.Body>{this.listOfReports()}</Table.Body>
-
-                    <Table.Footer>
-                      <Table.Row>
-                        <Table.HeaderCell colSpan="3">
-                          <Menu floated="right">
-                            <JwPagination
-                              items={this.state.items}
-                              onChangePage={this.onChangePage}
-                              labels={customLabels}
-                            />
-                          </Menu>
-                        </Table.HeaderCell>
-                      </Table.Row>
-                    </Table.Footer>
-                  </Table>
-                </Grid> */}
 
                 <br />
                 {this.state.beenClicked ? ReportGallerySingleGraph(this.state) : null}
-                {/* {this.state.beenClicked ? this.renderReportGraph() : null} */}
               </Container>
               <Container textAlign="center">
                 <Header as="h2" className="content tableHeaderMargin">
