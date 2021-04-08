@@ -178,7 +178,7 @@ class ReportGalleryPage extends React.Component {
                 <Header as="h2" className="content tableHeaderMargin">
                   Individual Journal Emotional Reports
                 </Header>
-                {ReportGalleryReportsTable(this.state.items)}
+                {ReportGalleryReportsTable(this.state.items, this.handleReportClick, this.onChangePage)}
                 {/* <Grid centered className="tableGrid">
                   <Table celled className="content">
                     <Table.Header>

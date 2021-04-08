@@ -1,6 +1,7 @@
 import { Table } from 'semantic-ui-react'
 
-export default function ReportGalleryListOfReports(reports) {
+export default function ReportGalleryListOfReports(reports, handleReportClick) {
+
   return reports.map((report) => {
     const date = new Date(report.created_at)
     const dateWithoutTime =
@@ -9,7 +10,7 @@ export default function ReportGalleryListOfReports(reports) {
       <Table.Row
         className="link"
         id={report.created_at}
-        onClick={this.handleReportClick}
+        onClick={handleReportClick}
       >
         <Table.Cell>{report.title}</Table.Cell>
         <Table.Cell>{dateWithoutTime}</Table.Cell>
