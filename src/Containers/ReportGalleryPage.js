@@ -118,11 +118,14 @@ class ReportGalleryPage extends React.Component {
           <>
             <div className="background">
               <Container>
-                {this.props.child ? (
                   <Header className="pageHeader" size="huge" textAlign="center">
                     {this.props.child.username}'s Reports
                   </Header>
-                ) : null}
+                {/* {this.props.child ? (
+                  <Header className="pageHeader" size="huge" textAlign="center">
+                    {this.props.child.username}'s Reports
+                  </Header>
+                ) : null} */}
               </Container>
               <Container textAlign="center">
                 <Header as="h2" className="content tableHeaderMargin">
