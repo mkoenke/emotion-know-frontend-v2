@@ -2,12 +2,13 @@ import JwPagination from 'jw-react-pagination'
 import React from 'react'
 import { connect } from 'react-redux'
 import { Container, Grid, Header, Menu, Popup, Table } from 'semantic-ui-react'
-import { BigPlayButton, ControlBar, LoadingSpinner, Player } from 'video-react'
+// import { BigPlayButton, ControlBar, LoadingSpinner, Player } from 'video-react'
 import D3LineGraph from '../Components/d3LineChart'
 import D3OverTimeLineGraph from '../Components/d3OverTimeLineGraph'
 import LineGraph from '../Components/LineGraph'
 import { setClickedReport } from '../Redux/actions'
 import ReportGallerySingleGraph from '../Components/ReportGallerySingleGraph'
+import ReportGalleryReportsTable from '../Components/ReportGalleryReportsTable'
 
 class ReportGalleryPage extends React.Component {
   state = {
@@ -103,7 +104,7 @@ class ReportGalleryPage extends React.Component {
   //     </Grid>
   //   )
   // }
-  
+
   renderParentReportGraph = () => {
     return (
       <Grid centered columns="one">
@@ -118,23 +119,23 @@ class ReportGalleryPage extends React.Component {
     )
   }
 
-  listOfReports = () => {
-    return this.state.pageOfItems.map((report) => {
-      let date = new Date(report.created_at)
-      let dateWithoutTime =
-        date.getMonth() + 1 + '/' + date.getDate() + '/' + date.getFullYear()
-      return (
-        <Table.Row
-          className="link"
-          id={report.created_at}
-          onClick={this.handleReportClick}
-        >
-          <Table.Cell>{report.title}</Table.Cell>
-          <Table.Cell>{dateWithoutTime}</Table.Cell>
-        </Table.Row>
-      )
-    })
-  }
+  // listOfReports = () => {
+  //   return this.state.pageOfItems.map((report) => {
+  //     let date = new Date(report.created_at)
+  //     let dateWithoutTime =
+  //       date.getMonth() + 1 + '/' + date.getDate() + '/' + date.getFullYear()
+  //     return (
+  //       <Table.Row
+  //         className="link"
+  //         id={report.created_at}
+  //         onClick={this.handleReportClick}
+  //       >
+  //         <Table.Cell>{report.title}</Table.Cell>
+  //         <Table.Cell>{dateWithoutTime}</Table.Cell>
+  //       </Table.Row>
+  //     )
+  //   })
+  // }
   listOfParentsReports = () => {
     return this.state.pageOfItems.map((report) => {
       let date = new Date(report.created_at)
@@ -177,9 +178,9 @@ class ReportGalleryPage extends React.Component {
                 <Header as="h2" className="content tableHeaderMargin">
                   Individual Journal Emotional Reports
                 </Header>
-                <Grid centered className="tableGrid">
+                {ReportGalleryReportsTable(this.state.items)}
+                {/* <Grid centered className="tableGrid">
                   <Table celled className="content">
-                    {/* <Table celled className="table content"> */}
                     <Table.Header>
                       <Table.Row>
                         <Table.HeaderCell>Title</Table.HeaderCell>
@@ -202,7 +203,7 @@ class ReportGalleryPage extends React.Component {
                       </Table.Row>
                     </Table.Footer>
                   </Table>
-                </Grid>
+                </Grid> */}
 
                 <br />
                 {this.state.beenClicked ? ReportGallerySingleGraph(this.state) : null}
