@@ -194,12 +194,6 @@ class ParentProfileModal extends React.Component {
         ) : null}
         {this.state.deleteAccount ? (
           <>
-            {/* <Confirm
-              open={this.state.deleteAccount}
-              content="Are you sure you want to delete your account? This action can not be reversed."
-              onConfirm={this.deleteFetch}
-              onCancel={() => this.setState({ deleteAccount: false })}
-            /> */}
             <Modal
               onClose={() => this.setState({ openConfirm: false })}
               open={this.state.deleteAccount}
@@ -210,8 +204,8 @@ class ParentProfileModal extends React.Component {
               </Modal.Header>
               <Modal.Content>
                 <h3>
-                  This action <b>CAN NOT</b> be reversed. Please enter your
-                  password.
+                  This action <b>CAN NOT</b> be reversed. Both parent and child
+                  accounts will be deleted. Please enter your password.
                 </h3>
                 <Form>
                   <Form.Field>

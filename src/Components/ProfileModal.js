@@ -197,8 +197,9 @@ class ProfileModal extends React.Component {
               </Modal.Header>
               <Modal.Content>
                 <h3>
-                  This action <b>CAN NOT</b> be reversed. Please have your
-                  parent enter their password.
+                  This action <b>CAN NOT</b> be reversed. Both parent and child
+                  accounts will be deleted. Please have your parent enter their
+                  password.
                 </h3>
                 <Form>
                   <Form.Field>
