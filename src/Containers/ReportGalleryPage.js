@@ -2,7 +2,7 @@ import JwPagination from 'jw-react-pagination'
 import React from 'react'
 import { connect } from 'react-redux'
 import { Container, Grid, Header, Menu, Popup, Table } from 'semantic-ui-react'
-import D3LineGraph from '../Components/d3LineChart'
+import D3LineGraph from '../Components/D3LineGraph'
 import D3OverTimeLineGraph from '../Components/d3OverTimeLineGraph'
 import LineGraph from '../Components/LineGraph'
 import { setClickedReport } from '../Redux/actions'
@@ -118,14 +118,9 @@ class ReportGalleryPage extends React.Component {
           <>
             <div className="background">
               <Container>
-                  <Header className="pageHeader" size="huge" textAlign="center">
-                    {this.props.child.username}'s Reports
-                  </Header>
-                {/* {this.props.child ? (
-                  <Header className="pageHeader" size="huge" textAlign="center">
-                    {this.props.child.username}'s Reports
-                  </Header>
-                ) : null} */}
+                <Header className="pageHeader" size="huge" textAlign="center">
+                  {this.props.child.username}'s Reports
+                </Header>
               </Container>
               <Container textAlign="center">
                 <Header as="h2" className="content tableHeaderMargin">
@@ -185,8 +180,8 @@ class ReportGalleryPage extends React.Component {
                     <Header as="h2" className="content tableHeaderMargin">
                       Individual Journal Emotional Reports
                     </Header>
-
-                    <Table celled className="table content">
+                    {ReportGalleryReportsTable(this.state.items, this.handleReportClick, this.onChangePage)}
+                    {/* <Table celled className="table content">
                       <Table.Header>
                         <Table.Row>
                           <Table.HeaderCell>Title</Table.HeaderCell>
@@ -209,7 +204,7 @@ class ReportGalleryPage extends React.Component {
                           </Table.HeaderCell>
                         </Table.Row>
                       </Table.Footer>
-                    </Table>
+                    </Table> */}
                     <br />
                     {this.state.beenClicked
                       ? this.renderParentReportGraph()
@@ -236,7 +231,11 @@ class ReportGalleryPage extends React.Component {
                       Emotional Reports over Time
                     </Header>
                     <div className="lineGraph pattern">
-                      <LineGraph />
+                      {this.state.clickedReport
+                        ? <D3LineGraph data={this.state.clickedReport} />
+                        : null
+                      }
+
                     </div>
                   </Container>
                 )}
