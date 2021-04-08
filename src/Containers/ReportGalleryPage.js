@@ -30,7 +30,7 @@ class ReportGalleryPage extends React.Component {
     if (this.state.beenClicked) {
       this.setState({ beenClicked: false })
     }
-    let clickedReport = this.props.allReports.find(
+    const clickedReport = this.props.allReports.find(
       (report) => report.created_at === event.target.closest('tr').id
     )
     this.props.dispatchClickedReport(clickedReport)
@@ -43,7 +43,7 @@ class ReportGalleryPage extends React.Component {
   }
 
   handleParentReportClick = (event) => {
-    let clickedReport = this.props.parentsReports.find(
+    const clickedReport = this.props.parentsReports.find(
       (report) => report.created_at === event.target.closest('tr').id
     )
     this.props.dispatchClickedReport(clickedReport)
@@ -57,7 +57,7 @@ class ReportGalleryPage extends React.Component {
 
   findJournal = () => {
     if (this.state.clickedReport.video_entry_id) {
-      let journal = this.props.allVideos.find(
+      const journal = this.props.allVideos.find(
         (journal) => journal.id === this.state.clickedReport.video_entry_id
       )
 
@@ -88,8 +88,8 @@ class ReportGalleryPage extends React.Component {
 
   listOfParentsReports = () => {
     return this.state.pageOfItems.map((report) => {
-      let date = new Date(report.created_at)
-      let dateWithoutTime =
+      const date = new Date(report.created_at)
+      const dateWithoutTime =
         date.getMonth() + 1 + '/' + date.getDate() + '/' + date.getFullYear()
       return (
         <Table.Row
@@ -129,7 +129,6 @@ class ReportGalleryPage extends React.Component {
                   Individual Journal Emotional Reports
                 </Header>
                 {ReportGalleryReportsTable(this.state.items, this.handleReportClick, this.onChangePage)}
-
                 <br />
                 {this.state.beenClicked ? ReportGallerySingleGraph(this.state) : null}
               </Container>
