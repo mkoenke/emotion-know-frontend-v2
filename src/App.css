@@ -475,3 +475,7 @@ svg {
   background-color: #dad2d3 !important;
   font-family: 'Overpass', sans-serif !important;
 }
+.warning {
+  color: red !important;
+  font-family: 'Overpass', sans-serif !important;
+}

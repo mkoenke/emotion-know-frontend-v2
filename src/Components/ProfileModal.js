@@ -119,6 +119,7 @@ class ProfileModal extends React.Component {
       email: this.props.child.parent.email,
       password: this.state.parentPassword,
     }
+    const id = this.props.child.id
     fetch('http://localhost:3000/parentLogin', {
       method: 'POST',
       headers: {
@@ -130,47 +131,43 @@ class ProfileModal extends React.Component {
       .then((resp) => resp.json())
       .then((data) => {
         if (!data.error) {
-          console.log(data)
-          // localStorage.setItem('token', data.jwt)
+          if (data.parent.child.id === id) {
+            fetch(`http://localhost:3000/children/${id}`, {
+              method: 'DELETE',
+            })
+              .then((response) => response.json())
+              .then((data) => {
+                console.log(data)
+                if (!data.error) {
+                  this.setState({
+                    deleteAccount: false,
+                    isOpen: false,
+                  })
 
-          // dispatch(setParent(data.parent))
-          // dispatch(setChild(data.parent.child))
-          // dispatch(setParentModal(false))
-          // dispatch(setError(null))
-          // dispatch(parentsReports(data.parent.video_reports))
+                  localStorage.removeItem('token')
+                  this.props.logout()
+                  console.log('DELETED:', data)
+                } else if (data.error) {
+                  console.log(data.error)
+                  this.setState({
+                    deleteAccount: false,
+                  })
+                  this.props.dispatchError(
+                    'Something went wrong, please try again.'
+                  )
+                }
+              })
+              .catch((error) => {
+                console.log(error)
+                this.props.dispatchError(
+                  'Something went wrong, please try again.'
+                )
+              })
+          }
         } else {
-          // dispatch(setError(data.error))
+          this.props.dispatchError('Something went wrong, please try again.')
         }
       })
-
-    const id = this.props.child.id
-    // fetch(`http://localhost:3000/children/${id}`, {
-    //   method: 'DELETE',
-    // })
-    //   .then((response) => response.json())
-    //   .then((data) => {
-    //     console.log(data)
-    //     if (!data.error) {
-    //       this.setState({
-    //         deleteAccount: false,
-    //         isOpen: false,
-    //       })
-
-    //       localStorage.removeItem('token')
-    //       this.props.logout()
-    //       console.log('DELETED:', data)
-    //     } else if (data.error) {
-    //       console.log(data.error)
-    //       this.setState({
-    //         deleteAccount: false,
-    //       })
-    //       this.props.dispatchError('Something went wrong, please try again.')
-    //     }
-    //   })
-    //   .catch((error) => {
-    //     console.log(error)
-    //     this.props.dispatchError('Something went wrong, please try again.')
-    //   })
   }
 
   handleParentPasswordChange = (e) => {
@@ -207,11 +204,13 @@ class ProfileModal extends React.Component {
               open={this.state.deleteAccount}
               size="small"
             >
-              <Modal.Header>Are you sure?</Modal.Header>
+              <Modal.Header negative className="warning">
+                Are you sure?
+              </Modal.Header>
               <Modal.Content>
                 <p>
-                  Are you sure you want to delete your account? This action can
-                  not be reversed. Please have your parent enter their password.
+                  This action can not be reversed. Please have your parent enter
+                  their password.
                 </p>
                 <Form>
                   <Form.Field>
@@ -226,11 +225,7 @@ class ProfileModal extends React.Component {
                 </Form>
               </Modal.Content>
               <Modal.Actions>
-                <Button
-                  icon="check"
-                  content="All Done"
-                  onClick={this.deleteFetch}
-                />
+                <Button content="Delete" onClick={this.deleteFetch} />
                 <Button
                   className="formButton"
                   onClick={this.handleCancel}
