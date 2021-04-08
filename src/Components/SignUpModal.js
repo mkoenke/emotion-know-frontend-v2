@@ -108,10 +108,10 @@ class SignUpModal extends React.Component {
           .then((response) => response.json())
           .then((data) => {
             localStorage.setItem('token', data.jwt)
+            this.setState({ isOpen: false })
             this.props.dispatchError(null)
             this.props.dispatchChild(data.child)
             this.props.handleSignUpClick()
-            this.setState({ isOpen: false })
           })
           .catch((error) => {
             this.props.dispatchError(error)

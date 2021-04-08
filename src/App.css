@@ -476,6 +476,12 @@ svg {
   font-family: 'Overpass', sans-serif !important;
 }
 .warning {
-  color: red !important;
+  color: rgb(172, 5, 5) !important;
   font-family: 'Overpass', sans-serif !important;
+  font-size: 34px !important;
+}
+#warningButton {
+  color: rgb(172, 5, 5) !important;
+  background-color: #f7d2d6 !important;
+  /* font-family: 'Overpass', sans-serif !important; */
 }
