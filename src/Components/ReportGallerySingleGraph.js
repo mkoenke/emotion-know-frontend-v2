@@ -3,7 +3,6 @@ import D3LineGraph from './D3LineGraph'
 import { BigPlayButton, ControlBar, LoadingSpinner, Player } from 'video-react'
 
 export default function ReportGallerySingleGraph(reportGalleryState, parent) {
-  console.log("SINGLE GRAPH", reportGalleryState)
   return (
     <>
       { reportGalleryState.clickedReport

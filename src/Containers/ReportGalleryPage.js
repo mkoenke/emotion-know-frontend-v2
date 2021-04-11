@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Container, Header } from 'semantic-ui-react'
-import D3OverTimeLineGraph from '../Components/d3OverTimeLineGraph'
+import D3OverTimeLineGraph from '../Components/D3OverTimeLineGraph'
 import { setClickedReport } from '../Redux/actions'
 import ReportGallerySingleGraph from '../Components/ReportGallerySingleGraph'
 import ReportGalleryReportsTable from '../Components/ReportGalleryReportsTable'
@@ -81,7 +81,6 @@ class ReportGalleryPage extends React.Component {
       next: '>',
     }
 
-    console.log("RENDER REPORTS LIST", this.state)
     return (
       <>
         {this.props.child ? (
