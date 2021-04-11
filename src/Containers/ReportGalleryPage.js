@@ -116,6 +116,7 @@ class ReportGalleryPage extends React.Component {
       next: '>',
     }
 
+    console.log("RENDER REPORTS LIST", this.state)
     return (
       <>
         {this.props.child ? (
@@ -159,7 +160,7 @@ class ReportGalleryPage extends React.Component {
                 </Header>
               {ReportGalleryReportsTable(this.state.items, this.handleReportClick, this.onChangePage)}
               <br />
-              {this.state.beenClicked ? ReportGallerySingleGraph(this.state) : null}
+              {this.state.beenClicked ? ReportGallerySingleGraph(this.state, this.props.parent) : null}
             </Container>
             <Container textAlign="center">
               <Header as="h2" className="content tableHeaderMargin">
@@ -380,7 +381,6 @@ function mapStateToProps(state) {
     allReports: state.allReports,
     parentsReports: state.parentsReports,
     allJournals: state.allJournals,
-    // allAudios: state.allAudios,
     allVideos: state.allVideos,
   }
 }
