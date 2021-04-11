@@ -76,38 +76,6 @@ class ReportGalleryPage extends React.Component {
     this.setState({ pageOfItems })
   }
 
-  // renderParentReportGraph = () => {
-  //   return (
-  //     <Grid centered columns="one">
-  //       <Grid.Row>
-  //         <Grid.Column>
-  //           <div className="bargraph smallGraph pattern parentGraphPadding">
-  //             <D3LineGraph data={this.state.clickedReport} />
-  //           </div>
-  //         </Grid.Column>
-  //       </Grid.Row>
-  //     </Grid>
-  //   )
-  // }
-
-  // listOfParentsReports = () => {
-  //   return this.state.pageOfItems.map((report) => {
-  //     const date = new Date(report.created_at)
-  //     const dateWithoutTime =
-  //       date.getMonth() + 1 + '/' + date.getDate() + '/' + date.getFullYear()
-  //     return (
-  //       <Table.Row
-  //         className="link"
-  //         id={report.created_at}
-  //         onClick={this.handleParentReportClick}
-  //       >
-  //         <Table.Cell>{report.title}</Table.Cell>
-  //         <Table.Cell>{dateWithoutTime}</Table.Cell>
-  //       </Table.Row>
-  //     )
-  //   })
-  // }
-
   render() {
     const customLabels = {
       first: '<<',
@@ -174,6 +142,7 @@ class ReportGalleryPage extends React.Component {
             <div className="footer"></div>
           </div>
 
+          // POPUP RENDERING LOGIC
           //   {!this.props.parentsReports.length ? (
           //     <Popup
           //       open

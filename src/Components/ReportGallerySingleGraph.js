@@ -22,15 +22,14 @@ export default function ReportGallerySingleGraph(reportGalleryState, parent) {
                 {reportGalleryState.clickedReport.title}
               </Header>
               <div className="bargraph smallGraph pattern">
-                {!reportGalleryState.clickedReport.video ? null
-                  : parent
-                    ? null
-                    : <Player>
-                      <source src={reportGalleryState.clickedReport.url} />
-                      <ControlBar autoHide={false} />
-                      <LoadingSpinner />
-                      <BigPlayButton position="center" />
-                    </Player>
+                {!reportGalleryState.clickedReport.video || parent
+                  ? null
+                  : <Player>
+                    <source src={reportGalleryState.clickedReport.url} />
+                    <ControlBar autoHide={false} />
+                    <LoadingSpinner />
+                    <BigPlayButton position="center" />
+                  </Player>
                 }
               </div>
             </Grid.Column>
