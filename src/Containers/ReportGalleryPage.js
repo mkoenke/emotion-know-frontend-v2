@@ -80,7 +80,7 @@ class ReportGalleryPage extends React.Component {
       previous: '<',
       next: '>',
     }
-
+    console.log("THIS STATE", this.state)
     return (
       <>
         {this.props.child ? (
@@ -137,69 +137,6 @@ class ReportGalleryPage extends React.Component {
             </Container>
             <div className="footer"></div>
           </div>
-
-          // POPUP RENDERING LOGIC
-          //   {!this.props.parentsReports.length ? (
-          //     <Popup
-          //       open
-          //       size="huge"
-          //       trigger={
-          //         <Container textAlign="center">
-          //           <Header as="h2" className="content tableHeaderMargin">
-          //             Individual Journal Emotional Reports
-          //               </Header>
-
-          //           <br />
-          //           {this.state.beenClicked
-          //             ? this.renderParentReportGraph()
-          //             : null}
-          //         </Container>
-          //       }
-          //       content="When your child starts using EmotionKnow and creates a journal entry, their individual journal entry emotional charts will appear here!"
-          //     />
-          //   ) : (
-          //     <Container textAlign="center">
-          //       <Header as="h2" className="content tableHeaderMargin">
-          //         Individual Journal Emotional Reports
-          //           </Header>
-          //       {ReportGalleryReportsTable(this.state.items, this.handleReportClick, this.onChangePage)}
-
-          //       <br />
-          //       {this.state.beenClicked
-          //         ? this.renderParentReportGraph()
-          //         : null}
-          //     </Container>
-          //   )}
-          //   {!this.props.parentsReports.length ? (
-          //     <Popup
-          //       open
-          //       size="huge"
-          //       trigger={
-          //         <Container textAlign="center">
-          //           <Header as="h2" className="content tableHeaderMargin">
-          //             Emotional Reports over Time
-          //               </Header>
-          //           <D3OverTimeLineGraph data={this.state.items} />
-          //         </Container>
-          //       }
-          //       content="Your child's emotions over time will appear here!"
-          //     />
-          //   ) : (
-          //     <Container textAlign="center">
-          //       <Header as="h2" className="content tableHeaderMargin">
-          //         Emotional Reports over Time
-          //           </Header>
-          //       <div className="lineGraph pattern">
-          //         {this.state.clickedReport
-          //           ? <D3LineGraph data={this.state.clickedReport} />
-          //           : null
-          //         }
-
-          //       </div>
-          //     </Container>
-          //   )}
-          //   <div className="footer"></div>
-          // </div>
         )}
       </>
     )
