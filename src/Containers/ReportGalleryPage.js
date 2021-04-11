@@ -1,12 +1,10 @@
-import JwPagination from 'jw-react-pagination'
 import React from 'react'
 import { connect } from 'react-redux'
-import { Container, Grid, Header, Menu, Popup, Table } from 'semantic-ui-react'
-import { BigPlayButton, ControlBar, LoadingSpinner, Player } from 'video-react'
-import D3LineGraph from '../Components/d3LineChart'
-import D3OverTimeLineGraph from '../Components/d3OverTimeLineGraph'
-import LineGraph from '../Components/LineGraph'
+import { Container, Header } from 'semantic-ui-react'
+import D3OverTimeLineGraph from '../Components/D3OverTimeLineGraph'
 import { setClickedReport } from '../Redux/actions'
+import ReportGallerySingleGraph from '../Components/ReportGallerySingleGraph'
+import ReportGalleryReportsTable from '../Components/ReportGalleryReportsTable'
 
 class ReportGalleryPage extends React.Component {
   state = {
@@ -29,7 +27,11 @@ class ReportGalleryPage extends React.Component {
     if (this.state.beenClicked) {
       this.setState({ beenClicked: false })
     }
-    let clickedReport = this.props.allReports.find(
+    let currentReports = []
+    if(!this.props.allReports.length) currentReports = [...this.props.parentsReports]
+    else currentReports = [...this.props.allReports]
+
+    const clickedReport = currentReports.find(
       (report) => report.created_at === event.target.closest('tr').id
     )
     this.props.dispatchClickedReport(clickedReport)
@@ -42,7 +44,7 @@ class ReportGalleryPage extends React.Component {
   }
 
   handleParentReportClick = (event) => {
-    let clickedReport = this.props.parentsReports.find(
+    const clickedReport = this.props.parentsReports.find(
       (report) => report.created_at === event.target.closest('tr').id
     )
     this.props.dispatchClickedReport(clickedReport)
@@ -56,7 +58,7 @@ class ReportGalleryPage extends React.Component {
 
   findJournal = () => {
     if (this.state.clickedReport.video_entry_id) {
-      let journal = this.props.allVideos.find(
+      const journal = this.props.allVideos.find(
         (journal) => journal.id === this.state.clickedReport.video_entry_id
       )
 
@@ -71,85 +73,6 @@ class ReportGalleryPage extends React.Component {
     this.setState({ pageOfItems })
   }
 
-  renderReportGraph = () => {
-    return (
-      <Grid centered columns="two">
-        <Grid.Row>
-          <Grid.Column>
-            <div className="bargraph smallGraph pattern smallGraphPadding">
-              <h2>{this.state.clickedReport.title}</h2>
-              <D3LineGraph data={this.state.clickedReport} />
-            </div>
-          </Grid.Column>
-          <Grid.Column>
-            <div className="bargraph smallGraph pattern">
-              <Header textAlign="center" className="reportHeader">
-                {this.state.clickedJournal.title}
-              </Header>
-
-              {this.state.clickedJournal.video ? (
-                <Player>
-                  <source src={this.state.clickedJournal.url} />
-                  <ControlBar autoHide={false} />
-                  <LoadingSpinner />
-                  <BigPlayButton position="center" />
-                </Player>
-              ) : null}
-            </div>
-          </Grid.Column>
-        </Grid.Row>
-      </Grid>
-    )
-  }
-  renderParentReportGraph = () => {
-    return (
-      <Grid centered columns="one">
-        <Grid.Row>
-          <Grid.Column>
-            <div className="bargraph smallGraph pattern parentGraphPadding">
-              <D3LineGraph data={this.state.clickedReport} />
-            </div>
-          </Grid.Column>
-        </Grid.Row>
-      </Grid>
-    )
-  }
-
-  listOfReports = () => {
-    return this.state.pageOfItems.map((report) => {
-      let date = new Date(report.created_at)
-      let dateWithoutTime =
-        date.getMonth() + 1 + '/' + date.getDate() + '/' + date.getFullYear()
-      return (
-        <Table.Row
-          className="link"
-          id={report.created_at}
-          onClick={this.handleReportClick}
-        >
-          <Table.Cell>{report.title}</Table.Cell>
-          <Table.Cell>{dateWithoutTime}</Table.Cell>
-        </Table.Row>
-      )
-    })
-  }
-  listOfParentsReports = () => {
-    return this.state.pageOfItems.map((report) => {
-      let date = new Date(report.created_at)
-      let dateWithoutTime =
-        date.getMonth() + 1 + '/' + date.getDate() + '/' + date.getFullYear()
-      return (
-        <Table.Row
-          className="link"
-          id={report.created_at}
-          onClick={this.handleParentReportClick}
-        >
-          <Table.Cell>{report.title}</Table.Cell>
-          <Table.Cell>{dateWithoutTime}</Table.Cell>
-        </Table.Row>
-      )
-    })
-  }
-
   render() {
     const customLabels = {
       first: '<<',
@@ -157,52 +80,24 @@ class ReportGalleryPage extends React.Component {
       previous: '<',
       next: '>',
     }
-
+    console.log("THIS STATE", this.state)
     return (
       <>
-        {this.props.child && !this.props.parent ? (
+        {this.props.child ? (
           <>
             <div className="background">
               <Container>
-                {this.props.child ? (
-                  <Header className="pageHeader" size="huge" textAlign="center">
-                    {this.props.child.username}'s Reports
-                  </Header>
-                ) : null}
+                <Header className="pageHeader" size="huge" textAlign="center">
+                  {this.props.child.username}'s Reports
+                </Header>
               </Container>
               <Container textAlign="center">
                 <Header as="h2" className="content tableHeaderMargin">
                   Individual Journal Emotional Reports
                 </Header>
-                <Grid centered className="tableGrid">
-                  <Table celled className="content">
-                    {/* <Table celled className="table content"> */}
-                    <Table.Header>
-                      <Table.Row>
-                        <Table.HeaderCell>Title</Table.HeaderCell>
-                        <Table.HeaderCell>Date</Table.HeaderCell>
-                      </Table.Row>
-                    </Table.Header>
-                    <Table.Body>{this.listOfReports()}</Table.Body>
-
-                    <Table.Footer>
-                      <Table.Row>
-                        <Table.HeaderCell colSpan="3">
-                          <Menu floated="right">
-                            <JwPagination
-                              items={this.state.items}
-                              onChangePage={this.onChangePage}
-                              labels={customLabels}
-                            />
-                          </Menu>
-                        </Table.HeaderCell>
-                      </Table.Row>
-                    </Table.Footer>
-                  </Table>
-                </Grid>
-
+                {ReportGalleryReportsTable(this.state.items, this.handleReportClick, this.onChangePage)}
                 <br />
-                {this.state.beenClicked ? this.renderReportGraph() : null}
+                {this.state.beenClicked ? ReportGallerySingleGraph(this.state, this.props.parent) : null}
               </Container>
               <Container textAlign="center">
                 <Header as="h2" className="content tableHeaderMargin">
@@ -217,102 +112,31 @@ class ReportGalleryPage extends React.Component {
             </div>
           </>
         ) : (
-          this.props.parent && (
-            <>
-              <div className="background">
-                <Container>
-                  {this.props.child ? (
-                    <Header
-                      className="pageHeader"
-                      size="huge"
-                      textAlign="center"
-                    >
-                      {this.props.child.username}'s Reports
-                    </Header>
-                  ) : null}
-                </Container>
-                {!this.props.parentsReports.length ? (
-                  <Popup
-                    open
-                    size="huge"
-                    trigger={
-                      <Container textAlign="center">
-                        <Header as="h2" className="content tableHeaderMargin">
-                          Individual Journal Emotional Reports
-                        </Header>
-
-                        <br />
-                        {this.state.beenClicked
-                          ? this.renderParentReportGraph()
-                          : null}
-                      </Container>
-                    }
-                    content="When your child starts using EmotionKnow and creates a journal entry, their individual journal entry emotional charts will appear here!"
-                  />
-                ) : (
-                  <Container textAlign="center">
-                    <Header as="h2" className="content tableHeaderMargin">
-                      Individual Journal Emotional Reports
-                    </Header>
-
-                    <Table celled className="table content">
-                      <Table.Header>
-                        <Table.Row>
-                          <Table.HeaderCell>Title</Table.HeaderCell>
-                          <Table.HeaderCell>Date</Table.HeaderCell>
-                        </Table.Row>
-                      </Table.Header>
-                      <Table.Body>{this.listOfParentsReports()}</Table.Body>
-
-                      <Table.Footer>
-                        <Table.Row>
-                          <Table.HeaderCell colSpan="3">
-                            <Menu floated="right">
-                              <JwPagination
-                                items={this.state.items}
-                                onChangePage={this.onChangePage}
-                                labels={customLabels}
-                                className="pagination"
-                              />
-                            </Menu>
-                          </Table.HeaderCell>
-                        </Table.Row>
-                      </Table.Footer>
-                    </Table>
-                    <br />
-                    {this.state.beenClicked
-                      ? this.renderParentReportGraph()
-                      : null}
-                  </Container>
-                )}
-                {!this.props.parentsReports.length ? (
-                  <Popup
-                    open
-                    size="huge"
-                    trigger={
-                      <Container textAlign="center">
-                        <Header as="h2" className="content tableHeaderMargin">
-                          Emotional Reports over Time
-                        </Header>
-                        <D3OverTimeLineGraph data={this.state.items} />
-                      </Container>
-                    }
-                    content="Your child's emotions over time will appear here!"
-                  />
-                ) : (
-                  <Container textAlign="center">
-                    <Header as="h2" className="content tableHeaderMargin">
-                      Emotional Reports over Time
-                    </Header>
-                    <div className="lineGraph pattern">
-                      <LineGraph />
-                    </div>
-                  </Container>
-                )}
-                <div className="footer"></div>
+          <div className="background">
+            <Container>
+              <Header className="pageHeader" size="huge" textAlign="center">
+                Your Child {this.props.parent.child.username}'s Reports
+                </Header>
+            </Container>
+            <Container textAlign="center">
+              <Header as="h2" className="content tableHeaderMargin">
+                Individual Journal Emotional Reports
+                </Header>
+              {ReportGalleryReportsTable(this.state.items, this.handleReportClick, this.onChangePage)}
+              <br />
+              {this.state.beenClicked ? ReportGallerySingleGraph(this.state, this.props.parent) : null}
+            </Container>
+            <Container textAlign="center">
+              <Header as="h2" className="content tableHeaderMargin">
+                Emotional Reports over Time
+                </Header>
+              <br />
+              <div className="lineGraph pattern">
+                <D3OverTimeLineGraph data={this.state.items} />
               </div>
-            </>
-          )
+            </Container>
+            <div className="footer"></div>
+          </div>
         )}
       </>
     )
@@ -325,7 +149,6 @@ function mapStateToProps(state) {
     allReports: state.allReports,
     parentsReports: state.parentsReports,
     allJournals: state.allJournals,
-    allAudios: state.allAudios,
     allVideos: state.allVideos,
   }
 }

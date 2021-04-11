@@ -24,7 +24,7 @@ function D3LineChart({ data, id = 'myD3LineChart' }) {
     const svg = select(svgRef.current)
     const svgContent = svg.select('.content')
     const { width, height } = wrapperRef.current.getBoundingClientRect()
-      
+      console.log("DATA", data)
       const length = data.anger.length
       
       const xScale = scaleLinear()
