@@ -24,37 +24,37 @@ function D3LineChart({ data, id = 'myD3LineChart' }) {
     const svg = select(svgRef.current)
     const svgContent = svg.select('.content')
     const { width, height } = wrapperRef.current.getBoundingClientRect()
-      console.log("DATA", data)
-      const length = data.anger.length
-      
-      const xScale = scaleLinear()
+    console.log("DATA", data)
+    const length = data.anger.length
+
+    const xScale = scaleLinear()
       .domain([0, length])
       .range([0, width - 20])
-      
-      if (currentZoomState) {
-        const newXScale = currentZoomState.rescaleX(xScale)
-        xScale.domain([Math.max(0,newXScale.domain()[0]), newXScale.domain()[1]])
-      }
-      
-      const yScale = scaleLinear()
+
+    if (currentZoomState) {
+      const newXScale = currentZoomState.rescaleX(xScale)
+      xScale.domain([Math.max(0, newXScale.domain()[0]), newXScale.domain()[1]])
+    }
+
+    const yScale = scaleLinear()
       .domain([0, 1.1])
       .range([height, 1])
-      
-      const lineGenerator = line()
+
+    const lineGenerator = line()
       .x((d, index) => xScale(index))
       .y((d) => yScale(d))
       .curve(curveCardinal)
-      
-      const xAxis = axisBottom(xScale)
-      svg
+
+    const xAxis = axisBottom(xScale)
+    svg
       .select('.x-axis')
       .attr('transform', `translate(0, ${height})`)
       .call(xAxis)
-      
-      const yAxis = axisLeft(yScale)
-      svg.select('.y-axis').call(yAxis)
-      
-      const zoomBehavior = zoom()
+
+    const yAxis = axisLeft(yScale)
+    svg.select('.y-axis').call(yAxis)
+
+    const zoomBehavior = zoom()
       .scaleExtent([1, 5])
       .translateExtent([
         [0, 0],
@@ -65,21 +65,21 @@ function D3LineChart({ data, id = 'myD3LineChart' }) {
         setCurrentZoomState(zoomState)
       })
 
-      setAngerState(lineGenerator(data.anger))
-      setDisgustState(lineGenerator(data.disgust))
-      setFearState(lineGenerator(data.fear))
-      setJoyState(lineGenerator(data.joy))
-      setSadnessState(lineGenerator(data.sadness))
-      setSurpriseState(lineGenerator(data.surprise))
-      
-      svg.call(zoomBehavior)
-    }, [currentZoomState, data])
-    
+    setAngerState(lineGenerator(data.anger))
+    setDisgustState(lineGenerator(data.disgust))
+    setFearState(lineGenerator(data.fear))
+    setJoyState(lineGenerator(data.joy))
+    setSadnessState(lineGenerator(data.sadness))
+    setSurpriseState(lineGenerator(data.surprise))
 
-    return (
-      <React.Fragment>
+    svg.call(zoomBehavior)
+  }, [currentZoomState, data])
+
+
+  return (
+    <React.Fragment>
       <div ref={wrapperRef} style={{ marginBottom: '2rem' }}>
-        <svg ref={svgRef} style={{marginLeft: "20px", marginTop: "3px"}}>
+        <svg ref={svgRef} style={{ marginLeft: "20px", marginTop: "3px" }}>
           <defs>
             <clipPath id={id}>
               <rect x="0" y="0" width="96%" height="100%" />
