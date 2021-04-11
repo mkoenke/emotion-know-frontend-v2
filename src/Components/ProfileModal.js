@@ -27,6 +27,7 @@ class ProfileModal extends React.Component {
     changeUsername: false,
     changePassword: false,
     deleteAccount: false,
+    parentPassword: null,
   }
   handleCancel = () => {
     this.setState({
@@ -114,34 +115,62 @@ class ProfileModal extends React.Component {
   }
 
   deleteFetch = () => {
+    const parent = {
+      email: this.props.child.parent.email,
+      password: this.state.parentPassword,
+    }
     const id = this.props.child.id
-    fetch(`http://localhost:3000/children/${id}`, {
-      method: 'DELETE',
+    fetch('http://localhost:3000/parentLogin', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify(parent),
     })
-      .then((response) => response.json())
+      .then((resp) => resp.json())
       .then((data) => {
-        console.log(data)
         if (!data.error) {
-          this.setState({
-            deleteAccount: false,
-            isOpen: false,
-          })
+          if (data.parent.child.id === id) {
+            fetch(`http://localhost:3000/children/${id}`, {
+              method: 'DELETE',
+            })
+              .then((response) => response.json())
+              .then((data) => {
+                if (!data.error) {
+                  this.setState({
+                    deleteAccount: false,
+                    isOpen: false,
+                  })
 
-          localStorage.removeItem('token')
-          this.props.logout()
-          console.log('DELETED:', data)
-        } else if (data.error) {
-          console.log(data.error)
-          this.setState({
-            deleteAccount: false,
-          })
+                  localStorage.removeItem('token')
+                  this.props.logout()
+                  console.log('DELETED:', data)
+                } else if (data.error) {
+                  console.log(data.error)
+                  this.setState({
+                    deleteAccount: false,
+                  })
+                  this.props.dispatchError(
+                    'Something went wrong, please try again.'
+                  )
+                }
+              })
+              .catch((error) => {
+                console.log(error)
+                this.props.dispatchError(
+                  'Something went wrong, please try again.'
+                )
+              })
+          }
+        } else {
           this.props.dispatchError('Something went wrong, please try again.')
         }
       })
-      .catch((error) => {
-        console.log(error)
-        this.props.dispatchError('Something went wrong, please try again.')
-      })
+  }
+
+  handleParentPasswordChange = (e) => {
+    this.setState({ [e.target.name]: e.target.value })
   }
 
   render() {
@@ -158,17 +187,47 @@ class ProfileModal extends React.Component {
         ) : null}
         {this.state.deleteAccount ? (
           <>
-            {this.props.error ? (
-              <Message negative>
-                <Message.Header>{this.props.error}</Message.Header>
-              </Message>
-            ) : null}
-            <Confirm
+            <Modal
+              onClose={() => this.setState({ openConfirm: false })}
               open={this.state.deleteAccount}
-              content="Are you sure you want to delete your account? This action can not be reversed."
-              onConfirm={this.deleteFetch}
-              onCancel={() => this.setState({ deleteAccount: false })}
-            />
+              size="small"
+            >
+              <Modal.Header negative className="warning">
+                Are you sure?
+              </Modal.Header>
+              <Modal.Content>
+                <h3>
+                  This action <b>CAN NOT</b> be reversed. Both parent and child
+                  accounts will be deleted. Please have your parent enter their
+                  password.
+                </h3>
+                <Form>
+                  <Form.Field>
+                    <Input
+                      name="parentPassword"
+                      type="password"
+                      value={this.state.parentPassword}
+                      onChange={this.handleParentPasswordChange}
+                      placeholder="Parent's Password"
+                    />
+                  </Form.Field>
+                </Form>
+              </Modal.Content>
+              <Modal.Actions>
+                <Button
+                  content="DELETE"
+                  id="warningButton"
+                  onClick={this.deleteFetch}
+                />
+                <Button
+                  className="formButton"
+                  onClick={this.handleCancel}
+                  type="cancel"
+                >
+                  Cancel
+                </Button>
+              </Modal.Actions>
+            </Modal>
           </>
         ) : null}
 

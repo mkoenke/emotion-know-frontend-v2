@@ -86,6 +86,7 @@ export function logout() {
     dispatch(allReports([]))
     dispatch(setError(null))
     dispatch(parentsReports([]))
+    dispatch(setSignUpModal(false))
     return { type: LOGOUT }
   }
 }
