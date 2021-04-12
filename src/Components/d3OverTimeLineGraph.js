@@ -30,8 +30,20 @@ function D3OverTimeLineGraph({ data, id = 'd3OverTimeLineGraph' }) {
   svg.append("text")
     .attr("x", 515)
     .attr("y", 335)
+    .style("fill", "#5d5d5d")
+    .style("stroke", "#5d5d5d")
     .style("text-anchor", "middle")
     .text("Date")
+  
+  svg.append("text")
+    .attr("transform", "rotate(-90)")
+    .attr("x", -150)
+    .attr("y", -45)
+    .attr("dy", "1em")
+    .style("fill", "#5d5d5d")
+    .style("stroke", "#5d5d5d")
+    .style("text-anchor", "middle")
+    .text("% of Entry Spent On Emotion")
 
   useEffect(() => {
 
