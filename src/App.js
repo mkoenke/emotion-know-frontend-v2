@@ -20,6 +20,7 @@ class App extends React.Component {
       .licenseKey(process.env.sdkLicense)
       .addModule(CY.modules().FACE_EMOTION.name, config)
       .addModule(CY.modules().FACE_AROUSAL_VALENCE.name)
+      .addModule(CY.modules().FACE_DETECTOR.name, {})
       .load()
       .then(({ start, stop }) => {
         this.stopSDK = stop

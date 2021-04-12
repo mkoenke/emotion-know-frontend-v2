@@ -20,10 +20,21 @@ class FunWithEmotionsPage extends React.Component {
     surprise: 0,
     affects98: '',
     dominantAffect: '',
+    faceDetector: null,
   }
   componentDidMount() {
     this.props.startSDK()
-
+    window.addEventListener(CY.modules().FACE_DETECTOR.eventName, (evt) => {
+      if (evt.detail.totalFacesChangedFrom !== undefined) {
+        this.props.stopSDK()
+        console.log(
+          'Number of faces changed. Was: ' +
+            evt.detail.totalFacesChangedFrom +
+            ' . Now is: ' +
+            evt.detail.totalFaces
+        )
+      }
+    })
     window.addEventListener(CY.modules().FACE_EMOTION.eventName, (evt) => {
       this.setState({
         emo: evt.detail.output.dominantEmotion,
@@ -60,6 +71,7 @@ class FunWithEmotionsPage extends React.Component {
   }
 
   render() {
+    console.log(this.state)
     const videoConstraints = {
       facingMode: 'user',
 
