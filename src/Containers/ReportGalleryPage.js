@@ -28,7 +28,7 @@ class ReportGalleryPage extends React.Component {
       this.setState({ beenClicked: false })
     }
     let currentReports = []
-    if(!this.props.allReports.length) currentReports = [...this.props.parentsReports]
+    if (!this.props.allReports.length) currentReports = [...this.props.parentsReports]
     else currentReports = [...this.props.allReports]
 
     const clickedReport = currentReports.find(
@@ -74,13 +74,6 @@ class ReportGalleryPage extends React.Component {
   }
 
   render() {
-    const customLabels = {
-      first: '<<',
-      last: '>>',
-      previous: '<',
-      next: '>',
-    }
-    console.log("THIS STATE", this.state)
     return (
       <>
         {this.props.child ? (
