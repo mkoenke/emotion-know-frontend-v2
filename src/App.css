@@ -188,6 +188,7 @@ th {
 }
 .reportHeader {
   font-weight: 100 !important;
+  text-align: center;
 }
 .formLabel {
   font-family: 'Overpass', sans-serif !important;

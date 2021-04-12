@@ -3,7 +3,6 @@ import {
   axisLeft,
   curveCardinal,
   line,
-  scaleBand,
   scaleLinear,
   select,
   zoom,
