@@ -3,14 +3,13 @@ import D3LineGraph from './D3LineGraph'
 import { BigPlayButton, ControlBar, LoadingSpinner, Player } from 'video-react'
 
 export default function ReportGallerySingleGraph(reportGalleryState, parent) {
-  console.log("CLICKED REPORT", reportGalleryState, "PARENT", parent)
   return (
     <>
       { reportGalleryState.clickedReport
         ? <Grid centered columns="two">
           <Grid.Row>
             <Grid.Column>
-              <Header>
+              <Header className="reportHeader">
                 {reportGalleryState.clickedReport.title}
               </Header>
               <div className="bargraph smallGraph pattern smallGraphPadding">
@@ -18,7 +17,7 @@ export default function ReportGallerySingleGraph(reportGalleryState, parent) {
               </div>
             </Grid.Column>
             <Grid.Column>
-              <Header textAlign="center" className="reportHeader">
+              <Header className="reportHeader">
                 {reportGalleryState.clickedReport.title}
               </Header>
               <div className="bargraph smallGraph pattern">
