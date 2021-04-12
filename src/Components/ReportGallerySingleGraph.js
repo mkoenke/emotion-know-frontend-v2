@@ -10,7 +10,7 @@ export default function ReportGallerySingleGraph(reportGalleryState, parent) {
         ? <Grid centered columns="two">
           <Grid.Row>
             <Grid.Column>
-              <Header>
+              <Header textAlign="center" className="reportHeader">
                 {reportGalleryState.clickedReport.title}
               </Header>
               <div className="bargraph smallGraph pattern smallGraphPadding">
