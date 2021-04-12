@@ -20,16 +20,38 @@ function D3LineChart({ data, id = 'myD3LineChart' }) {
   const [sadness, setSadnessState] = useState()
   const [surprise, setSurpriseState] = useState()
 
+  const margin ={ left: 40, right: 0, top: 0, bottom: 0}
+
+  
   useEffect(() => {
     const svg = select(svgRef.current)
+  
+    svg.append("text")
+      .attr("x", 250)
+      .attr("y", 335)
+      .style("fill", "#5d5d5d")
+      .style("stroke", "#5d5d5d")
+      .style("text-anchor", "middle")
+      .text("Time (s)")
+    
+    svg.append("text")
+      .attr("transform", "rotate(-90)")
+      .attr("x", -150)
+      .attr("y", -45)
+      .attr("dy", "1em")
+      .style("fill", "#5d5d5d")
+      .style("stroke", "#5d5d5d")
+      .style("text-anchor", "middle")
+      .text("Liklihood of Current Emotion")
+
     const svgContent = svg.select('.content')
     const { width, height } = wrapperRef.current.getBoundingClientRect()
     console.log("DATA", data)
     const length = data.anger.length
 
     const xScale = scaleLinear()
-      .domain([0, length])
-      .range([0, width - 20])
+      .domain([0, length - 1])
+      .range([0, width - 50])
 
     if (currentZoomState) {
       const newXScale = currentZoomState.rescaleX(xScale)
@@ -79,7 +101,7 @@ function D3LineChart({ data, id = 'myD3LineChart' }) {
   return (
     <React.Fragment>
       <div ref={wrapperRef} style={{ marginBottom: '2rem' }}>
-        <svg ref={svgRef} style={{ marginLeft: "20px", marginTop: "3px" }}>
+        <svg ref={svgRef} style={{ marginLeft: margin.left, marginTop: "3px", marginRight: margin.right }}>
           <defs>
             <clipPath id={id}>
               <rect x="0" y="0" width="96%" height="100%" />
