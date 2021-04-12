@@ -3,6 +3,7 @@ import {
   axisLeft,
   curveCardinal,
   line,
+  scaleBand,
   scaleLinear,
   select,
   zoom,
@@ -24,8 +25,16 @@ function D3OverTimeLineGraph({ data, id = 'd3OverTimeLineGraph' }) {
 
   const emotionsOverTimeData = emotionsOverTimeCalculator(data)
 
+  const svg = select(svgRef.current)
+
+  svg.append("text")
+    .attr("x", 515)
+    .attr("y", 335)
+    .style("text-anchor", "middle")
+    .text("Date")
+
   useEffect(() => {
-    const svg = select(svgRef.current)
+
     const svgContent = svg.select('.content')
     const { width, height } = wrapperRef.current.getBoundingClientRect()
 
@@ -48,7 +57,7 @@ function D3OverTimeLineGraph({ data, id = 'd3OverTimeLineGraph' }) {
       .curve(curveCardinal)
 
     const xAxis = axisBottom(xScale)
-      
+
     svg
       .select('.x-axis')
       .attr('transform', `translate(0, ${height})`)
