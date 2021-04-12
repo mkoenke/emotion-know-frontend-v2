@@ -104,7 +104,7 @@ function D3LineChart({ data, id = 'myD3LineChart' }) {
         <svg ref={svgRef} style={{ marginLeft: margin.left, marginTop: "3px", marginRight: margin.right }}>
           <defs>
             <clipPath id={id}>
-              <rect x="0" y="0" width="96%" height="100%" />
+              <rect x="0" y="0" width="91%" height="100%" />
             </clipPath>
           </defs>
           <g className="content" clipPath={`url(#${id})`} fill="none" strokeWidth="3px">
