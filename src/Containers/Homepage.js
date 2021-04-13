@@ -3,7 +3,14 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Parallax } from 'react-scroll-parallax'
 import Webcam from 'react-webcam'
-import { Dimmer, Grid, Header, Loader, Message } from 'semantic-ui-react'
+import {
+  Button,
+  Dimmer,
+  Grid,
+  Header,
+  Loader,
+  Message,
+} from 'semantic-ui-react'
 import BubbleChart from '../Components/bubbleChart'
 
 class FunWithEmotionsPage extends React.Component {
@@ -33,6 +40,7 @@ class FunWithEmotionsPage extends React.Component {
         this.stopSDK = stop
         this.startSDK = start
       })
+    this.props.startSDK()
 
     window.addEventListener(CY.modules().FACE_EMOTION.eventName, (evt) => {
       this.setState({
@@ -57,9 +65,13 @@ class FunWithEmotionsPage extends React.Component {
       }
     )
   }
+  stopSDKFunc = () => {
+    console.log('In startTimer')
+    this.stopSDK()
+  }
 
   componentWillUnmount() {
-    this.stopSDK()
+    this.props.stopSDK()
   }
 
   findDominantAffect = (affectsObj) => {
@@ -70,6 +82,7 @@ class FunWithEmotionsPage extends React.Component {
   }
 
   render() {
+    // console.log(this.props)
     const videoConstraints = {
       facingMode: 'user',
 
@@ -114,6 +127,7 @@ class FunWithEmotionsPage extends React.Component {
                   <br />
                   Biggest Emotion:{' '}
                   <span className="emphasize">{this.state.emo}</span>
+                  <Button onClick={this.stopSDKFunc}>Stop</Button>
                 </>
               ) : (
                 <>

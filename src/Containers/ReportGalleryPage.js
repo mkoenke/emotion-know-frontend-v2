@@ -2,9 +2,9 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Container, Header } from 'semantic-ui-react'
 import D3OverTimeLineGraph from '../Components/D3OverTimeLineGraph'
-import { setClickedReport } from '../Redux/actions'
-import ReportGallerySingleGraph from '../Components/ReportGallerySingleGraph'
 import ReportGalleryReportsTable from '../Components/ReportGalleryReportsTable'
+import ReportGallerySingleGraph from '../Components/ReportGallerySingleGraph'
+import { setClickedReport } from '../Redux/actions'
 
 class ReportGalleryPage extends React.Component {
   state = {
@@ -22,13 +22,21 @@ class ReportGalleryPage extends React.Component {
       this.setState({ items: this.props.parentsReports })
     }
   }
+  // componentDidUpdate(prevProps, prevState) {
+  //   if (this.state.items !== this.props.allReports) {
+  //     this.setState({ items: this.props.allReports })
+  //   } else if (this.state.items !== this.props.parentsReports) {
+  //     this.setState({ items: this.props.parentsReports })
+  //   }
+  // }
 
   handleReportClick = (event) => {
     if (this.state.beenClicked) {
       this.setState({ beenClicked: false })
     }
     let currentReports = []
-    if (!this.props.allReports.length) currentReports = [...this.props.parentsReports]
+    if (!this.props.allReports.length)
+      currentReports = [...this.props.parentsReports]
     else currentReports = [...this.props.allReports]
 
     const clickedReport = currentReports.find(
@@ -88,9 +96,15 @@ class ReportGalleryPage extends React.Component {
                 <Header as="h2" className="content tableHeaderMargin">
                   Individual Journal Emotional Reports
                 </Header>
-                {ReportGalleryReportsTable(this.state.items, this.handleReportClick, this.onChangePage)}
+                {ReportGalleryReportsTable(
+                  this.state.items,
+                  this.handleReportClick,
+                  this.onChangePage
+                )}
                 <br />
-                {this.state.beenClicked ? ReportGallerySingleGraph(this.state, this.props.parent) : null}
+                {this.state.beenClicked
+                  ? ReportGallerySingleGraph(this.state, this.props.parent)
+                  : null}
               </Container>
               <Container textAlign="center">
                 <Header as="h2" className="content tableHeaderMargin">
@@ -109,20 +123,26 @@ class ReportGalleryPage extends React.Component {
             <Container>
               <Header className="pageHeader" size="huge" textAlign="center">
                 Your Child {this.props.parent.child.username}'s Reports
-                </Header>
+              </Header>
             </Container>
             <Container textAlign="center">
               <Header as="h2" className="content tableHeaderMargin">
                 Individual Journal Emotional Reports
-                </Header>
-              {ReportGalleryReportsTable(this.state.items, this.handleReportClick, this.onChangePage)}
+              </Header>
+              {ReportGalleryReportsTable(
+                this.state.items,
+                this.handleReportClick,
+                this.onChangePage
+              )}
               <br />
-              {this.state.beenClicked ? ReportGallerySingleGraph(this.state, this.props.parent) : null}
+              {this.state.beenClicked
+                ? ReportGallerySingleGraph(this.state, this.props.parent)
+                : null}
             </Container>
             <Container textAlign="center">
               <Header as="h2" className="content tableHeaderMargin">
                 Emotional Reports over Time
-                </Header>
+              </Header>
               <br />
               <div className="lineGraph pattern">
                 <D3OverTimeLineGraph data={this.state.items} />
