@@ -10,7 +10,8 @@ class ReportGalleryPage extends React.Component {
   state = {
     beenClicked: false,
     clickedReport: null,
-    items: [],
+    items: [], 
+    
     pageOfItems: [],
     clickedJournal: {},
   }

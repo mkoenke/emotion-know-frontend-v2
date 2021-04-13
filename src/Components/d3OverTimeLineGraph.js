@@ -3,7 +3,10 @@ import {
   axisLeft,
   curveCardinal,
   line,
+  scaleBand,
   scaleLinear,
+  scaleOrdinal,
+  scaleTime,
   select,
   zoom,
 } from 'd3'
@@ -33,7 +36,7 @@ function D3OverTimeLineGraph({ data, id = 'd3OverTimeLineGraph' }) {
     .style("stroke", "#5d5d5d")
     .style("text-anchor", "middle")
     .text("Date")
-  
+
   svg.append("text")
     .attr("transform", "rotate(-90)")
     .attr("x", -150)
@@ -49,9 +52,23 @@ function D3OverTimeLineGraph({ data, id = 'd3OverTimeLineGraph' }) {
     const svgContent = svg.select('.content')
     const { width, height } = wrapperRef.current.getBoundingClientRect()
 
-    const xScale = scaleLinear()
-      .domain([0, data.length - 1])
-      .range([0, width])
+    function getXAxisTickDates(data) {
+      const datesWithoutTime = data.map(report => {
+        const date = new Date(report.created_at)
+        return date.getMonth() + 1 + '/' + date.getDate() + '/' + date.getFullYear()
+      })
+      return [datesWithoutTime[0], datesWithoutTime[datesWithoutTime.length - 1]]
+    }
+    const domain = getXAxisTickDates(data)
+    const range = [0, width]
+
+    const xScale = scaleTime()
+      // .domain([0, data.length - 1])
+      .domain(domain)
+      .range(range)
+
+
+    console.log(getXAxisTickDates(data))
 
     if (currentZoomState) {
       const newXScale = currentZoomState.rescaleX(xScale)
