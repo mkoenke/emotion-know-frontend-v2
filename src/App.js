@@ -2,7 +2,9 @@
 import { createBrowserHistory } from 'history'
 import React from 'react'
 import { Route, Switch } from 'react-router-dom'
+import { Parallax } from 'react-scroll-parallax'
 import 'semantic-ui-css/semantic.min.css'
+import { Dimmer, Header, Loader } from 'semantic-ui-react'
 import './App.css'
 import NavBar from './Components/NavBar'
 import FunWithEmotionsPage from './Containers/FunWithEmotionsPage'
@@ -14,6 +16,9 @@ import CameraPage from './Containers/VideoJournalPage'
 import WelcomePageContainer from './Containers/WelcomePageContainer'
 
 class App extends React.Component {
+  state = {
+    isLoading: true,
+  }
   componentDidMount() {
     const config = { smoothness: 0.9, enableBalancer: false }
     CY.loader()
@@ -25,6 +30,7 @@ class App extends React.Component {
         this.stopSDK = stop
         this.startSDK = start
         this.startSDK()
+        this.setState({ isLoading: false })
       })
   }
 
@@ -62,9 +68,30 @@ class App extends React.Component {
             />
             <Route
               path="/"
-              component={() => (
-                <Homepage stopSDK={this.stopSDK} startSDK={this.startSDK} />
-              )}
+              component={() =>
+                !this.state.isLoading ? (
+                  <Homepage stopSDK={this.stopSDK} startSDK={this.startSDK} />
+                ) : (
+                  <>
+                    <Dimmer active page>
+                      <div className="root height">
+                        <span className={`copy h1`}>
+                          <Parallax x={[0, 0]} className="letter">
+                            EmotionKnow
+                          </Parallax>
+                        </span>
+                        <Header className="subHeader" size="large">
+                          Building Emotional Intelligence in Children
+                        </Header>
+                      </div>
+                      <Header as="h2" inverted>
+                        Please wait a moment...
+                      </Header>{' '}
+                      <Loader active inline />
+                    </Dimmer>
+                  </>
+                )
+              }
             />
           </Switch>
         </div>

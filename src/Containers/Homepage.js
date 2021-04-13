@@ -23,17 +23,6 @@ class FunWithEmotionsPage extends React.Component {
     loading: true,
   }
   componentDidMount() {
-    const config = { smoothness: 0.9, enableBalancer: false }
-    CY.loader()
-      .licenseKey(process.env.sdkLicense)
-      .addModule(CY.modules().FACE_EMOTION.name, config)
-      .addModule(CY.modules().FACE_AROUSAL_VALENCE.name)
-      .load()
-      .then(({ start, stop }) => {
-        this.stopSDK = stop
-        this.startSDK = start
-      })
-
     window.addEventListener(CY.modules().FACE_EMOTION.eventName, (evt) => {
       this.setState({
         emo: evt.detail.output.dominantEmotion,
@@ -59,7 +48,7 @@ class FunWithEmotionsPage extends React.Component {
   }
 
   componentWillUnmount() {
-    this.stopSDK()
+    this.props.stopSDK()
   }
 
   findDominantAffect = (affectsObj) => {
