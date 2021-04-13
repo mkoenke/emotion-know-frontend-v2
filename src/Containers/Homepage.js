@@ -3,7 +3,14 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Parallax } from 'react-scroll-parallax'
 import Webcam from 'react-webcam'
-import { Dimmer, Grid, Header, Loader, Message } from 'semantic-ui-react'
+import {
+  Button,
+  Dimmer,
+  Grid,
+  Header,
+  Loader,
+  Message,
+} from 'semantic-ui-react'
 import BubbleChart from '../Components/bubbleChart'
 
 class FunWithEmotionsPage extends React.Component {
@@ -51,6 +58,14 @@ class FunWithEmotionsPage extends React.Component {
     this.props.stopSDK()
   }
 
+  stopBubbles = () => {
+    console.log('Stopping')
+    this.props.stopSDK()
+  }
+  startBubbles = () => {
+    console.log('Starting')
+    this.props.startSDK()
+  }
   findDominantAffect = (affectsObj) => {
     let affect = Object.keys(affectsObj).reduce(function (a, b) {
       return affectsObj[a] > affectsObj[b] ? a : b
@@ -75,6 +90,7 @@ class FunWithEmotionsPage extends React.Component {
       parseFloat(this.state.surprise),
     ]
 
+    console.log(this.props)
     return (
       <>
         <BubbleChart data={data} />
@@ -103,6 +119,8 @@ class FunWithEmotionsPage extends React.Component {
                   <br />
                   Biggest Emotion:{' '}
                   <span className="emphasize">{this.state.emo}</span>
+                  <Button onClick={this.startBubbles}>Start</Button>
+                  <Button onClick={this.stopBubbles}>Stop</Button>
                 </>
               ) : (
                 <>
