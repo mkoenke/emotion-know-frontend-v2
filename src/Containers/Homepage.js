@@ -109,7 +109,22 @@ class FunWithEmotionsPage extends React.Component {
     ]
     const { timerTime, timerStart, timerOn } = this.state
     let seconds = Math.floor(timerTime / 1000)
-    console.log('state in homepage: ', this.state)
+
+    const faceArray = [
+      'happy',
+      'angry',
+      'sad',
+      'fearful',
+      'surprised',
+      'disgusted',
+      'joyful',
+      'shocked',
+      'terrified',
+      'repulsed',
+      'heartbroken',
+      'furious',
+    ]
+    const randomface = faceArray[Math.floor(Math.random() * faceArray.length)]
 
     return (
       <>
@@ -129,13 +144,13 @@ class FunWithEmotionsPage extends React.Component {
                 </Header>
               </div>
             </div>
-            {!this.state.timerOn ? (
-              <Header className="waitOrDom" size="huge" textAlign="center">
-                Can you make a happy face?
+            {!this.state.timerOn && (
+              <Header className="whichFace" size="huge" textAlign="center">
+                Can you make a {randomface} face?
               </Header>
-            ) : null}
+            )}
             <Header className="waitOrDom" size="huge" textAlign="center">
-              {this.state.emo && this.state.dominantAffect ? (
+              {this.state.emo && this.state.dominantAffect && (
                 <>
                   Your face looks like you're feeling{' '}
                   <span className="emphasize">
@@ -144,10 +159,6 @@ class FunWithEmotionsPage extends React.Component {
                   <br />
                   Biggest Emotion:{' '}
                   <span className="emphasize">{this.state.emo}</span>
-                </>
-              ) : (
-                <>
-                  {/* <p>Please wait a moment...</p> <Loader active inline /> */}
                 </>
               )}
               {this.state.loading ? (
@@ -171,26 +182,20 @@ class FunWithEmotionsPage extends React.Component {
                 </>
               ) : (
                 <>
-                  <div className="Countdown-time">{seconds}</div>
-                  {timerOn === false &&
-                    (timerStart === 0 || timerTime === timerStart) && (
-                      <button
-                        className="Button-start"
-                        onClick={this.startTimer}
-                      >
-                        Start
-                      </button>
-                    )}
-                  {(timerOn === false || timerTime < 1000) &&
-                    timerStart !== timerTime &&
-                    timerStart > 0 && (
-                      <button
-                        className="Button-reset"
-                        onClick={this.resetTimer}
-                      >
-                        Reset
-                      </button>
-                    )}
+                  <div className="timerContainer">
+                    {timerOn && <div className="countdownTime">{seconds}</div>}
+                    {timerOn === false &&
+                      (timerStart === 0 || timerTime === timerStart) && (
+                        <button onClick={this.startTimer}>
+                          Of course! Let's go!
+                        </button>
+                      )}
+                    {(timerOn === false || timerTime < 1000) &&
+                      timerStart !== timerTime &&
+                      timerStart > 0 && (
+                        <button onClick={this.resetTimer}>Try it again!</button>
+                      )}
+                  </div>
                 </>
               )}
             </Header>
