@@ -55,30 +55,6 @@ class FunWithEmotionsPage extends React.Component {
   componentWillUnmount() {
     this.props.stopSDK()
   }
-  initialCountdown = () => {
-    this.setState({
-      timerOn: true,
-      timerTime: this.state.timerTime,
-      timerStart: this.state.timerTime,
-    })
-    this.timer = setInterval(() => {
-      const newTime = this.state.timerTime - 20
-      if (newTime >= 0) {
-        this.setState({
-          timerTime: newTime,
-        })
-      } else {
-        clearInterval(this.timer)
-        this.setState({ timerOn: false })
-        this.props.stopSDK()
-      }
-    }, 10)
-    if (this.state.timerOn === false) {
-      this.setState({
-        timerTime: this.state.timerStart,
-      })
-    }
-  }
 
   startTimer = () => {
     this.props.startSDK()
