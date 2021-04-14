@@ -5,6 +5,8 @@ import D3OverTimeLineGraph from '../Components/D3OverTimeLineGraph'
 import { setClickedReport } from '../Redux/actions'
 import ReportGallerySingleGraph from '../Components/ReportGallerySingleGraph'
 import ReportGalleryReportsTable from '../Components/ReportGalleryReportsTable'
+import D3OverTimeBarChart from '../Components/D3OverTimeBarChart'
+
 
 class ReportGalleryPage extends React.Component {
   state = {
@@ -15,6 +17,28 @@ class ReportGalleryPage extends React.Component {
     clickedJournal: {},
   }
 
+  chartData = [
+    {
+      id: 1,
+      name: "name1",
+      emotions: { anger: 0.1, fear: 0.2, disgust: 0.0, joy: 0.5, sadness: 0.0, surprise: 0.2 }
+    },
+    {
+      id: 2,
+      name: "name2",
+      emotions: { anger: 0.1, fear: 0.2, disgust: 0.0, joy: 0.5, sadness: 0.0, surprise: 0.2 }
+    },
+    {
+      id: 3,
+      name: "name3",
+      emotions: { anger: 0.1, fear: 0.2, disgust: 0.0, joy: 0.5, sadness: 0.0, surprise: 0.2 }
+    },
+    {
+      id: 4,
+      name: "name4",
+      emotions: { anger: 0.1, fear: 0.2, disgust: 0.0, joy: 0.5, sadness: 0.0, surprise: 0.2 }
+    },
+  ]
   componentDidMount() {
     if (this.props.allReports.length) {
       this.setState({ items: this.props.allReports })
@@ -131,6 +155,25 @@ class ReportGalleryPage extends React.Component {
             <div className="footer"></div>
           </div>
         )}
+            <Container>
+              <div id="#EOT">
+                <D3OverTimeBarChart data={this.chartData} />
+              </div>
+            </Container>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
       </>
     )
   }
