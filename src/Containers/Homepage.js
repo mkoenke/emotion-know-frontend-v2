@@ -12,12 +12,12 @@ class FunWithEmotionsPage extends React.Component {
     arousal: '',
     valence: '',
     mood: '',
-    anger: 0,
-    disgust: 0,
-    fear: 0,
-    joy: 0,
-    sadness: 0,
-    surprise: 0,
+    anger: 0.25,
+    disgust: 0.67,
+    fear: 0.43,
+    joy: 0.94,
+    sadness: 0.28,
+    surprise: 0.52,
     affects98: '',
     dominantAffect: '',
     loading: true,
@@ -27,6 +27,7 @@ class FunWithEmotionsPage extends React.Component {
   }
 
   componentDidMount() {
+    this.setState({ loading: false })
     window.addEventListener(CY.modules().FACE_EMOTION.eventName, (evt) => {
       this.setState({
         emo: evt.detail.output.dominantEmotion,
@@ -111,7 +112,7 @@ class FunWithEmotionsPage extends React.Component {
     let affect = Object.keys(affectsObj).reduce(function (a, b) {
       return affectsObj[a] > affectsObj[b] ? a : b
     })
-    this.setState({ dominantAffect: affect, loading: false })
+    this.setState({ dominantAffect: affect })
   }
 
   render() {
@@ -132,7 +133,7 @@ class FunWithEmotionsPage extends React.Component {
     ]
     const { timerTime, timerStart, timerOn } = this.state
     let seconds = Math.floor(timerTime / 1000)
-    console.log('props in homepage: ', this.props)
+    console.log('state in homepage: ', this.state)
 
     return (
       <>
@@ -152,6 +153,11 @@ class FunWithEmotionsPage extends React.Component {
                 </Header>
               </div>
             </div>
+            {!this.state.timerOn ? (
+              <Header className="waitOrDom" size="huge" textAlign="center">
+                Can you make a happy face?
+              </Header>
+            ) : null}
             <Header className="waitOrDom" size="huge" textAlign="center">
               {this.state.emo && this.state.dominantAffect ? (
                 <>
@@ -162,6 +168,33 @@ class FunWithEmotionsPage extends React.Component {
                   <br />
                   Biggest Emotion:{' '}
                   <span className="emphasize">{this.state.emo}</span>
+                </>
+              ) : (
+                <>
+                  {/* <p>Please wait a moment...</p> <Loader active inline /> */}
+                </>
+              )}
+              {this.state.loading ? (
+                <>
+                  <Dimmer active page>
+                    <div className="root height">
+                      <span className={`copy h1`}>
+                        <Parallax x={[0, 0]} className="letter">
+                          EmotionKnow
+                        </Parallax>
+                      </span>
+                      <Header className="subHeader" size="large">
+                        Building Emotional Intelligence in Children
+                      </Header>
+                    </div>
+                    <Header as="h2" inverted>
+                      Please wait a moment...
+                    </Header>{' '}
+                    <Loader active inline />
+                  </Dimmer>
+                </>
+              ) : (
+                <>
                   <div className="Countdown-time">{seconds}</div>
                   {timerOn === false &&
                     (timerStart === 0 || timerTime === timerStart) && (
@@ -183,33 +216,7 @@ class FunWithEmotionsPage extends React.Component {
                       </button>
                     )}
                 </>
-              ) : (
-                <>
-                  <p>Please wait a moment...</p> <Loader active inline />
-                </>
               )}
-              {!this.state.emo &&
-              !this.state.dominantAffect &&
-              this.state.loading ? (
-                <>
-                  <Dimmer active page>
-                    <div className="root height">
-                      <span className={`copy h1`}>
-                        <Parallax x={[0, 0]} className="letter">
-                          EmotionKnow
-                        </Parallax>
-                      </span>
-                      <Header className="subHeader" size="large">
-                        Building Emotional Intelligence in Children
-                      </Header>
-                    </div>
-                    <Header as="h2" inverted>
-                      Please wait a moment...
-                    </Header>{' '}
-                    <Loader active inline />
-                  </Dimmer>
-                </>
-              ) : null}
             </Header>
             <Grid
               columns={3}
