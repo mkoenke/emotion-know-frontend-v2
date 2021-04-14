@@ -3,7 +3,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import Webcam from 'react-webcam'
-import { Grid, Header, Loader, Message } from 'semantic-ui-react'
+import { Grid, Header, Message } from 'semantic-ui-react'
 import BubbleChart from '../Components/bubbleChart'
 
 class FunWithEmotionsPage extends React.Component {
@@ -12,18 +12,19 @@ class FunWithEmotionsPage extends React.Component {
     arousal: '',
     valence: '',
     mood: '',
-    anger: 0,
-    disgust: 0,
-    fear: 0,
-    joy: 0,
-    sadness: 0,
-    surprise: 0,
+    anger: 0.25,
+    disgust: 0.67,
+    fear: 0.43,
+    joy: 0.94,
+    sadness: 0.28,
+    surprise: 0.52,
     affects98: '',
     dominantAffect: '',
+    timerOn: false,
+    timerStart: 0,
+    timerTime: 10000,
   }
   componentDidMount() {
-    this.props.startSDK()
-
     window.addEventListener(CY.modules().FACE_EMOTION.eventName, (evt) => {
       this.setState({
         emo: evt.detail.output.dominantEmotion,
@@ -52,6 +53,34 @@ class FunWithEmotionsPage extends React.Component {
     this.props.stopSDK()
   }
 
+  startTimer = () => {
+    this.props.startSDK()
+    this.setState({
+      timerOn: true,
+      timerTime: this.state.timerTime,
+      timerStart: this.state.timerTime,
+    })
+    this.timer = setInterval(() => {
+      const newTime = this.state.timerTime - 20
+      if (newTime >= 0) {
+        this.setState({
+          timerTime: newTime,
+        })
+      } else {
+        clearInterval(this.timer)
+        this.setState({ timerOn: false })
+        this.props.stopSDK()
+      }
+    }, 10)
+  }
+  resetTimer = () => {
+    if (this.state.timerOn === false) {
+      this.setState({
+        timerTime: this.state.timerStart,
+      })
+    }
+  }
+
   findDominantAffect = (affectsObj) => {
     let affect = Object.keys(affectsObj).reduce(function (a, b) {
       return affectsObj[a] > affectsObj[b] ? a : b
@@ -75,6 +104,8 @@ class FunWithEmotionsPage extends React.Component {
       parseFloat(this.state.sadness),
       parseFloat(this.state.surprise),
     ]
+    const { timerTime, timerStart, timerOn } = this.state
+    let seconds = Math.floor(timerTime / 1000)
 
     return (
       <>
@@ -92,6 +123,11 @@ class FunWithEmotionsPage extends React.Component {
                   Let's make some funny faces!
                 </Header>
               )}
+              {!this.state.timerOn ? (
+                <Header className="waitOrDom" size="huge" textAlign="center">
+                  Can you make a happy face?
+                </Header>
+              ) : null}
 
               <Header className="waitOrDom" size="huge" textAlign="center">
                 {this.state.emo && this.state.dominantAffect ? (
@@ -106,9 +142,31 @@ class FunWithEmotionsPage extends React.Component {
                   </>
                 ) : (
                   <>
-                    <p>Please wait a moment...</p> <Loader active inline />
+                    {/* <p>Please wait a moment...</p> <Loader active inline /> */}
                   </>
                 )}
+                <>
+                  <div className="Countdown-time">{seconds}</div>
+                  {timerOn === false &&
+                    (timerStart === 0 || timerTime === timerStart) && (
+                      <button
+                        className="Button-start"
+                        onClick={this.startTimer}
+                      >
+                        Start
+                      </button>
+                    )}
+                  {(timerOn === false || timerTime < 1000) &&
+                    timerStart !== timerTime &&
+                    timerStart > 0 && (
+                      <button
+                        className="Button-reset"
+                        onClick={this.resetTimer}
+                      >
+                        Reset
+                      </button>
+                    )}
+                </>
               </Header>
               <Grid
                 columns={3}
