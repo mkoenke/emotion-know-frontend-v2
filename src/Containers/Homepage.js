@@ -3,14 +3,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Parallax } from 'react-scroll-parallax'
 import Webcam from 'react-webcam'
-import {
-  Button,
-  Dimmer,
-  Grid,
-  Header,
-  Loader,
-  Message,
-} from 'semantic-ui-react'
+import { Dimmer, Grid, Header, Loader, Message } from 'semantic-ui-react'
 import BubbleChart from '../Components/bubbleChart'
 
 class FunWithEmotionsPage extends React.Component {
@@ -28,7 +21,11 @@ class FunWithEmotionsPage extends React.Component {
     affects98: '',
     dominantAffect: '',
     loading: true,
+    timerOn: false,
+    timerStart: 0,
+    timerTime: 10000,
   }
+
   componentDidMount() {
     window.addEventListener(CY.modules().FACE_EMOTION.eventName, (evt) => {
       this.setState({
@@ -58,14 +55,34 @@ class FunWithEmotionsPage extends React.Component {
     this.props.stopSDK()
   }
 
-  stopBubbles = () => {
-    console.log('Stopping')
-    this.props.stopSDK()
-  }
-  startBubbles = () => {
-    console.log('Starting')
+  startTimer = () => {
     this.props.startSDK()
+    this.setState({
+      timerOn: true,
+      timerTime: this.state.timerTime,
+      timerStart: this.state.timerTime,
+    })
+    this.timer = setInterval(() => {
+      const newTime = this.state.timerTime - 20
+      if (newTime >= 0) {
+        this.setState({
+          timerTime: newTime,
+        })
+      } else {
+        clearInterval(this.timer)
+        this.setState({ timerOn: false })
+        this.props.stopSDK()
+      }
+    }, 10)
   }
+  resetTimer = () => {
+    if (this.state.timerOn === false) {
+      this.setState({
+        timerTime: this.state.timerStart,
+      })
+    }
+  }
+
   findDominantAffect = (affectsObj) => {
     let affect = Object.keys(affectsObj).reduce(function (a, b) {
       return affectsObj[a] > affectsObj[b] ? a : b
@@ -89,8 +106,10 @@ class FunWithEmotionsPage extends React.Component {
       parseFloat(this.state.sadness),
       parseFloat(this.state.surprise),
     ]
+    const { timerTime, timerStart, timerOn } = this.state
+    let seconds = Math.floor(timerTime / 1000)
 
-    console.log(this.props)
+    // console.log('seconds: ', Math.floor((timerTime / 1000) % 60) % 60)
     return (
       <>
         <BubbleChart data={data} />
@@ -119,8 +138,26 @@ class FunWithEmotionsPage extends React.Component {
                   <br />
                   Biggest Emotion:{' '}
                   <span className="emphasize">{this.state.emo}</span>
-                  <Button onClick={this.startBubbles}>Start</Button>
-                  <Button onClick={this.stopBubbles}>Stop</Button>
+                  <div className="Countdown-time">{seconds}</div>
+                  {timerOn === false &&
+                    (timerStart === 0 || timerTime === timerStart) && (
+                      <button
+                        className="Button-start"
+                        onClick={this.startTimer}
+                      >
+                        Start
+                      </button>
+                    )}
+                  {(timerOn === false || timerTime < 1000) &&
+                    timerStart !== timerTime &&
+                    timerStart > 0 && (
+                      <button
+                        className="Button-reset"
+                        onClick={this.resetTimer}
+                      >
+                        Reset
+                      </button>
+                    )}
                 </>
               ) : (
                 <>
