@@ -54,6 +54,30 @@ class FunWithEmotionsPage extends React.Component {
   componentWillUnmount() {
     this.props.stopSDK()
   }
+  initialCountdown = () => {
+    this.setState({
+      timerOn: true,
+      timerTime: this.state.timerTime,
+      timerStart: this.state.timerTime,
+    })
+    this.timer = setInterval(() => {
+      const newTime = this.state.timerTime - 20
+      if (newTime >= 0) {
+        this.setState({
+          timerTime: newTime,
+        })
+      } else {
+        clearInterval(this.timer)
+        this.setState({ timerOn: false })
+        this.props.stopSDK()
+      }
+    }, 10)
+    if (this.state.timerOn === false) {
+      this.setState({
+        timerTime: this.state.timerStart,
+      })
+    }
+  }
 
   startTimer = () => {
     this.props.startSDK()
@@ -108,8 +132,8 @@ class FunWithEmotionsPage extends React.Component {
     ]
     const { timerTime, timerStart, timerOn } = this.state
     let seconds = Math.floor(timerTime / 1000)
+    console.log('props in homepage: ', this.props)
 
-    // console.log('seconds: ', Math.floor((timerTime / 1000) % 60) % 60)
     return (
       <>
         <BubbleChart data={data} />

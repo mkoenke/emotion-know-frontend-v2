@@ -18,6 +18,9 @@ import WelcomePageContainer from './Containers/WelcomePageContainer'
 class App extends React.Component {
   state = {
     isLoading: true,
+    timerOn: false,
+    timerStart: 0,
+    timerTime: 10000,
   }
   componentDidMount() {
     const config = { smoothness: 0.9, enableBalancer: false }
@@ -30,11 +33,41 @@ class App extends React.Component {
         this.stopSDK = stop
         this.startSDK = start
         this.startSDK()
-        this.setState({ isLoading: false })
+        console.log('starting in app')
+        this.setState({ isLoading: false }, this.initialCountdown)
       })
   }
 
+  initialCountdown = () => {
+    this.setState({
+      timerOn: true,
+      timerTime: this.state.timerTime,
+      timerStart: this.state.timerTime,
+    })
+    this.timer = setInterval(() => {
+      console.log('TimerTime:', this.state.timerTime)
+      const newTime = this.state.timerTime - 10
+      console.log(newTime)
+      if (newTime >= 0) {
+        this.setState({
+          timerTime: newTime,
+        })
+      } else {
+        clearInterval(this.timer)
+        this.setState({ timerOn: false })
+        this.stopSDK()
+        console.log('stopping in app')
+      }
+    }, 10)
+    if (this.state.timerOn === false) {
+      this.setState({
+        timerTime: this.state.timerStart,
+      })
+    }
+  }
+
   render() {
+    console.log('state in app:', this.state)
     let history = createBrowserHistory()
     return (
       <>
