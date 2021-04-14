@@ -21,19 +21,12 @@ class FunWithEmotionsPage extends React.Component {
     affects98: '',
     dominantAffect: '',
     loading: true,
+    timerOn: false,
+    timerStart: 0,
+    timerTime: 10000,
   }
-  componentDidMount() {
-    const config = { smoothness: 0.9, enableBalancer: false }
-    CY.loader()
-      .licenseKey(process.env.sdkLicense)
-      .addModule(CY.modules().FACE_EMOTION.name, config)
-      .addModule(CY.modules().FACE_AROUSAL_VALENCE.name)
-      .load()
-      .then(({ start, stop }) => {
-        this.stopSDK = stop
-        this.startSDK = start
-      })
 
+  componentDidMount() {
     window.addEventListener(CY.modules().FACE_EMOTION.eventName, (evt) => {
       this.setState({
         emo: evt.detail.output.dominantEmotion,
@@ -59,7 +52,59 @@ class FunWithEmotionsPage extends React.Component {
   }
 
   componentWillUnmount() {
-    this.stopSDK()
+    this.props.stopSDK()
+  }
+  initialCountdown = () => {
+    this.setState({
+      timerOn: true,
+      timerTime: this.state.timerTime,
+      timerStart: this.state.timerTime,
+    })
+    this.timer = setInterval(() => {
+      const newTime = this.state.timerTime - 20
+      if (newTime >= 0) {
+        this.setState({
+          timerTime: newTime,
+        })
+      } else {
+        clearInterval(this.timer)
+        this.setState({ timerOn: false })
+        this.props.stopSDK()
+      }
+    }, 10)
+    if (this.state.timerOn === false) {
+      this.setState({
+        timerTime: this.state.timerStart,
+      })
+    }
+  }
+
+  startTimer = () => {
+    this.props.startSDK()
+    this.setState({
+      timerOn: true,
+      timerTime: this.state.timerTime,
+      timerStart: this.state.timerTime,
+    })
+    this.timer = setInterval(() => {
+      const newTime = this.state.timerTime - 20
+      if (newTime >= 0) {
+        this.setState({
+          timerTime: newTime,
+        })
+      } else {
+        clearInterval(this.timer)
+        this.setState({ timerOn: false })
+        this.props.stopSDK()
+      }
+    }, 10)
+  }
+  resetTimer = () => {
+    if (this.state.timerOn === false) {
+      this.setState({
+        timerTime: this.state.timerStart,
+      })
+    }
   }
 
   findDominantAffect = (affectsObj) => {
@@ -85,6 +130,9 @@ class FunWithEmotionsPage extends React.Component {
       parseFloat(this.state.sadness),
       parseFloat(this.state.surprise),
     ]
+    const { timerTime, timerStart, timerOn } = this.state
+    let seconds = Math.floor(timerTime / 1000)
+    console.log('props in homepage: ', this.props)
 
     return (
       <>
@@ -114,6 +162,26 @@ class FunWithEmotionsPage extends React.Component {
                   <br />
                   Biggest Emotion:{' '}
                   <span className="emphasize">{this.state.emo}</span>
+                  <div className="Countdown-time">{seconds}</div>
+                  {timerOn === false &&
+                    (timerStart === 0 || timerTime === timerStart) && (
+                      <button
+                        className="Button-start"
+                        onClick={this.startTimer}
+                      >
+                        Start
+                      </button>
+                    )}
+                  {(timerOn === false || timerTime < 1000) &&
+                    timerStart !== timerTime &&
+                    timerStart > 0 && (
+                      <button
+                        className="Button-reset"
+                        onClick={this.resetTimer}
+                      >
+                        Reset
+                      </button>
+                    )}
                 </>
               ) : (
                 <>
