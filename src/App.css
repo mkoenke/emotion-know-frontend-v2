@@ -502,7 +502,21 @@ button:hover {
   background-color: rgb(171, 218, 225);
 }
 
-.Countdown-time {
+.countdownTime {
   font-size: 36px;
   margin: 5px 0;
+}
+
+.whichFace {
+  font-family: 'Overpass', sans-serif !important;
+  color: rgb(10, 157, 174) !important;
+  margin: 0 !important;
+  font-size: 50px !important;
+  padding: 30px !important;
+  /* font-weight: 900 !important; */
+  line-height: 50px !important;
+}
+.timerContainer {
+  display: flex;
+  justify-content: center;
 }
