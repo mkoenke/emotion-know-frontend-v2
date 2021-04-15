@@ -24,6 +24,8 @@ class FunWithEmotionsPage extends React.Component {
     timerOn: false,
     timerStart: 0,
     timerTime: 10000,
+    score: null,
+    randomFace: 'happy',
   }
 
   componentDidMount() {
@@ -64,7 +66,7 @@ class FunWithEmotionsPage extends React.Component {
       timerStart: this.state.timerTime,
     })
     this.timer = setInterval(() => {
-      const newTime = this.state.timerTime - 20
+      const newTime = this.state.timerTime - 1000
       if (newTime >= 0) {
         this.setState({
           timerTime: newTime,
@@ -73,14 +75,60 @@ class FunWithEmotionsPage extends React.Component {
         clearInterval(this.timer)
         this.setState({ timerOn: false })
         this.props.stopSDK()
+        this.findScore()
       }
-    }, 10)
+    }, 1000)
   }
   resetTimer = () => {
-    if (this.state.timerOn === false) {
+    if (!this.state.timerOn) {
       this.setState({
         timerTime: this.state.timerStart,
       })
+    }
+    this.randomFace()
+  }
+
+  findScore = () => {
+    switch (this.state.randomFace) {
+      case 'happy':
+        console.log('joy score: ', this.state.joy)
+        return this.state.joy
+      case 'angry':
+        console.log('angry score: ', this.state.anger)
+        return this.state.angry
+      case 'sad':
+        console.log('sad score: ', this.state.sadness)
+        return this.state.sadness
+      case 'fearful':
+        console.log('fear score: ', this.state.fear)
+        return this.state.fear
+      case 'surprised':
+        console.log('surprised score: ', this.state.surprise)
+        return this.state.surprise
+      case 'disgusted':
+        console.log('disgusted score: ', this.state.disgust)
+        return this.state.disgust
+    }
+  }
+
+  randomFace = () => {
+    const faceArray = [
+      'happy',
+      'angry',
+      'sad',
+      'fearful',
+      'surprised',
+      'disgusted',
+      // 'joyful',
+      // 'shocked',
+      // 'terrified',
+      // 'repulsed',
+      // 'heartbroken',
+      // 'furious',
+    ]
+    const randomFace = faceArray[Math.floor(Math.random() * faceArray.length)]
+    if (randomFace !== this.state.randomFace) {
+      this.setState({ randomFace })
     }
   }
 
@@ -92,6 +140,7 @@ class FunWithEmotionsPage extends React.Component {
   }
 
   render() {
+    console.log(this.state)
     const videoConstraints = {
       facingMode: 'user',
 
@@ -110,21 +159,21 @@ class FunWithEmotionsPage extends React.Component {
     const { timerTime, timerStart, timerOn } = this.state
     let seconds = Math.floor(timerTime / 1000)
 
-    const faceArray = [
-      'happy',
-      'angry',
-      'sad',
-      'fearful',
-      'surprised',
-      'disgusted',
-      'joyful',
-      'shocked',
-      'terrified',
-      'repulsed',
-      'heartbroken',
-      'furious',
-    ]
-    const randomface = faceArray[Math.floor(Math.random() * faceArray.length)]
+    // const faceArray = [
+    //   'happy',
+    //   'angry',
+    //   'sad',
+    //   'fearful',
+    //   'surprised',
+    //   'disgusted',
+    //   'joyful',
+    //   'shocked',
+    //   'terrified',
+    //   'repulsed',
+    //   'heartbroken',
+    //   'furious',
+    // ]
+    // const randomface = faceArray[Math.floor(Math.random() * faceArray.length)]
 
     return (
       <>
@@ -146,7 +195,7 @@ class FunWithEmotionsPage extends React.Component {
             </div>
             {!this.state.timerOn && (
               <Header className="whichFace" size="huge" textAlign="center">
-                Can you make a {randomface} face?
+                Can you make a {this.state.randomFace} face?
               </Header>
             )}
             <Header className="waitOrDom" size="huge" textAlign="center">
@@ -195,6 +244,7 @@ class FunWithEmotionsPage extends React.Component {
                       timerStart > 0 && (
                         <button onClick={this.resetTimer}>Try it again!</button>
                       )}
+                    {this.state.score && <h1>{this.state.score}</h1>}
                   </div>
                 </>
               )}

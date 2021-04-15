@@ -61,7 +61,7 @@ class FunWithEmotionsPage extends React.Component {
       timerStart: this.state.timerTime,
     })
     this.timer = setInterval(() => {
-      const newTime = this.state.timerTime - 20
+      const newTime = this.state.timerTime - 1000
       if (newTime >= 0) {
         this.setState({
           timerTime: newTime,
@@ -71,7 +71,7 @@ class FunWithEmotionsPage extends React.Component {
         this.setState({ timerOn: false })
         this.props.stopSDK()
       }
-    }, 10)
+    }, 1000)
   }
   resetTimer = () => {
     if (this.state.timerOn === false) {
