@@ -1,28 +1,39 @@
-import { select, scaleBand, scaleLinear, axisBottom, stack, max, axisLeft } from 'd3'
+import { select, scaleBand, scaleLinear, axisBottom, stack, max, axisLeft, stackOrderAscending } from 'd3'
 import React, { useEffect, useRef } from 'react'
 import useResizeObserver from './useResizeObserver'
+
+const keys = [
+  "anger",
+  "disgust",
+  "fear",
+  "joy",
+  "sadness",
+  "surprise"]
+const colors = {
+  anger: "red",
+  disgust: "orange",
+  sadness: "blue",
+  fear: "green",
+  surprise: "purple",
+  joy: "yellow"
+}
 
 function StackedBarChart({ data }) {
   const svgRef = useRef()
   const wrapperRef = useRef()
   const dimensions = useResizeObserver(wrapperRef)
-  const keys = ["anger", "disgust", "fear", "joy", "sadness", "surprise"]
-  const colors = {
-    anger: "red",
-    disgust: "orange",
-    sadness: "blue",
-    fear: "green",
-    surprise: "purple",
-    joy: "yellow"
-  }
+
 
   useEffect(() => {
     const svg = select(svgRef.current)
     const { width, height } =
       dimensions || wrapperRef.current.getBoundingClientRect()
-    console.log("DATA", data)
+    // console.log("DATA", data)
+
     //Stacks and layers
-    const stackGenerator = stack().keys(keys)
+    const stackGenerator = stack()
+      .keys(keys)
+      .order(stackOrderAscending)
     const layers = stackGenerator(data)
     const extent = [
       0,
