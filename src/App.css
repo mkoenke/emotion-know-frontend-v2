@@ -260,7 +260,7 @@ video {
   margin-bottom: 200px;
   padding-top: 20px;
 }
-
+/* 
 .recorderContainer {
   display: flex;
   flex-direction: column;
@@ -268,8 +268,8 @@ video {
   text-align: center;
   margin: 50px;
   margin-bottom: 0px !important;
-}
-.interim {
+} */
+/* .interim {
   color: grey;
   border: #ccc 1px solid;
   padding: 1em;
@@ -288,7 +288,7 @@ video {
   background-color: white;
   border-radius: 5px;
   border-color: rgb(10, 157, 174);
-}
+} */
 
 .journalTitle {
   margin-top: -0.41425em !important;
@@ -485,4 +485,38 @@ svg {
   color: rgb(172, 5, 5) !important;
   background-color: #f7d2d6 !important;
   /* font-family: 'Overpass', sans-serif !important; */
+}
+/* Timer */
+
+button {
+  background-color: rgb(10, 157, 174);
+  border: solid 1px transparent;
+  border-radius: 4px;
+  padding: 10px 20px;
+  color: #ffffff;
+  font-size: 16px;
+  margin: 0 5px;
+  cursor: pointer;
+}
+button:hover {
+  background-color: rgb(171, 218, 225);
+}
+
+.countdownTime {
+  font-size: 36px;
+  margin: 5px 0;
+}
+
+.whichFace {
+  font-family: 'Overpass', sans-serif !important;
+  color: rgb(10, 157, 174) !important;
+  margin: 0 !important;
+  font-size: 50px !important;
+  padding: 30px !important;
+  /* font-weight: 900 !important; */
+  line-height: 50px !important;
+}
+.timerContainer {
+  display: flex;
+  justify-content: center;
 }
