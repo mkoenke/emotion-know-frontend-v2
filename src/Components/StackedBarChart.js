@@ -23,12 +23,12 @@ function StackedBarChart({ data }) {
   const wrapperRef = useRef()
   const dimensions = useResizeObserver(wrapperRef)
 
+  console.log("DATA", data)
 
   useEffect(() => {
     const svg = select(svgRef.current)
     const { width, height } =
       dimensions || wrapperRef.current.getBoundingClientRect()
-    // console.log("DATA", data)
 
     //Stacks and layers
     const stackGenerator = stack()
@@ -43,7 +43,7 @@ function StackedBarChart({ data }) {
 
     //Scales
     const xScale = scaleBand()
-      .domain(data.map(d => d.created_at))
+      .domain(data.map(d => d.created_at.toDateString()))
       .range([0, width])
       .padding(0.25)
 
@@ -58,15 +58,13 @@ function StackedBarChart({ data }) {
       .join("g")
       .attr("class", "layer")
       .attr("fill", layer => {
-        // console.log("LAYER", layer)
         return colors[layer.key]
       })
       .selectAll("rect")
       .data(layer => layer)
       .join("rect")
       .attr("x", sequence => {
-        // console.log("SEQUENCE", sequence)
-        return xScale(sequence.data.created_at)
+        return xScale(sequence.data.created_at.toDateString())
       })
       .attr("width", xScale.bandwidth())
       .attr("y", sequence => yScale(sequence[1]))
@@ -83,9 +81,6 @@ function StackedBarChart({ data }) {
     svg
       .select(".y-axis")
       .call(yAxis)
-
-
-
 
   }, [colors, data, dimensions, keys])
 

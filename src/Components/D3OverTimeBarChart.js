@@ -20,8 +20,9 @@ function D3OverTimeBarChart({ data }) {
   const svg = select(svgRef.current)
 
   const layerNames = Object.keys(data[0].emotions)
-  const barNames = data.map(report => report.created_at)
+  const barNames = data.map(report => report.created_at.toDateString())
 
+  console.log("BARNAMES", barNames)
   const margin = {
     top: 10,
     right: 30,
