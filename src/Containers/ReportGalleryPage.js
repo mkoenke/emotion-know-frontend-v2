@@ -21,21 +21,25 @@ class ReportGalleryPage extends React.Component {
     {
       id: 1,
       name: "name1",
+      created_at: "2021-04-07T20:34:48.563Z",
       emotions: { anger: 0.1, fear: 0.2, disgust: 0.0, joy: 0.5, sadness: 0.0, surprise: 0.2 }
     },
     {
       id: 2,
       name: "name2",
+      created_at: "2021-04-08T20:34:48.563Z",
       emotions: { anger: 0.1, fear: 0.2, disgust: 0.0, joy: 0.5, sadness: 0.0, surprise: 0.2 }
     },
     {
       id: 3,
       name: "name3",
+      created_at: "2021-04-09T20:34:48.563Z",
       emotions: { anger: 0.1, fear: 0.2, disgust: 0.0, joy: 0.5, sadness: 0.0, surprise: 0.2 }
     },
     {
       id: 4,
       name: "name4",
+      created_at: "2021-04-11T20:34:48.563Z",
       emotions: { anger: 0.1, fear: 0.2, disgust: 0.0, joy: 0.5, sadness: 0.0, surprise: 0.2 }
     },
   ]

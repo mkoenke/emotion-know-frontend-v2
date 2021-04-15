@@ -12,25 +12,23 @@ import {
 import React, { useEffect, useRef, useState } from 'react'
 import emotionsOverTimeCalculator from '../HelperFunctions/emotionsOverTimeCalculator'
 
- 
+
 function D3OverTimeBarChart({ data }) {
   console.log("CHART DATA", data)
 
   const svgRef = useRef()
   const svg = select(svgRef.current)
 
-
-
   const layerNames = Object.keys(data[0].emotions)
-  const barNames = data.map(report => report.name)
+  const barNames = data.map(report => report.created_at)
 
   const margin = {
     top: 10,
     right: 30,
     bottom: 10,
     left: 30
-  // }, width = 1200 - margin.left - margin.right,
-  //   height = 400 - margin.top - margin.bottom
+    // }, width = 1200 - margin.left - margin.right,
+    //   height = 400 - margin.top - margin.bottom
   }, width = 1200,
     height = 400
 
@@ -48,11 +46,8 @@ function D3OverTimeBarChart({ data }) {
   svg
     .attr("class", "bar-chart")
     .attr("width", width)
-    // .attr("width", width + margin.left + margin.right)
     .attr("height", height)
-    // .attr("height", height + margin.top + margin.bottom)
     .append("g")
-    // .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
 
   svg.append("g")
     .attr("class", "x-axis")
@@ -63,10 +58,17 @@ function D3OverTimeBarChart({ data }) {
     .attr("class", "y-axis")
     .call(yAxis)
 
+  const barGroups = svg.append("g")
+    .attr("class", "bars")
+    .selectAll("g")
+    .data(data, d => d.id)
+    .enter()
+    .append("g")
+    .attr("id", d => d.name)
+
   return (
     <React.Fragment>
       <svg ref={svgRef}>
-
       </svg>
     </React.Fragment>
   )
