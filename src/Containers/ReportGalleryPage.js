@@ -30,7 +30,7 @@ class ReportGalleryPage extends React.Component {
       id: 2,
       name: "name2",
       created_at: "2021-04-08T20:34:48.563Z",
-      anger: 0.1, fear: 0.2, disgust: 0.0, joy: 0.5, sadness: 0.0, surprise: 0.2
+      anger: 0.4, fear: 0.1, disgust: 0.0, joy: 0.2, sadness: 0.1, surprise: 0.2
       // emotions: { anger: 0.1, fear: 0.2, disgust: 0.0, joy: 0.5, sadness: 0.0, surprise: 0.2 }
     },
     {

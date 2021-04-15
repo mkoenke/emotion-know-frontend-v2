@@ -10,12 +10,12 @@ const keys = [
   "sadness",
   "surprise"]
 const colors = {
-  anger: "red",
-  disgust: "orange",
-  sadness: "blue",
-  fear: "green",
-  surprise: "purple",
-  joy: "yellow"
+  anger: "rgba(255, 99, 132, 1)",
+  disgust: "rgba(255, 159, 64, 1)",
+  sadness: "rgba(54, 162, 235, 1)",
+  fear: "rgba(75, 192, 192, 1)",
+  surprise: "rgba(153, 102, 255, 1)",
+  joy: "rgba(255, 206, 86, 1)"
 }
 
 function StackedBarChart({ data }) {
