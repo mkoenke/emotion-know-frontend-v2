@@ -6,7 +6,7 @@ function StackedBarChart({ data, colors }) {
   const svgRef = useRef()
   const wrapperRef = useRef()
   const dimensions = useResizeObserver(wrapperRef)
-  const keys = Object.keys(data[0].emotions)
+  const keys = ["anger", "disgust", "fear", "joy", "sadness", "surprise"]
 
   useEffect(() => {
     const svg = select(svgRef.current)
