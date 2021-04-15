@@ -116,7 +116,7 @@ function D3OverTimeLineGraph({ data, id = 'd3OverTimeLineGraph' }) {
   return (
     <React.Fragment>
       <div ref={wrapperRef} >
-        <svg ref={svgRef}>
+        <svg ref={svgRef}>``
           <defs>
             <clipPath id={id}>
               <rect x="0" y="0" width="100%" height="100%" />

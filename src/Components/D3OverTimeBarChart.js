@@ -3,6 +3,7 @@ import {
   axisLeft,
   curveCardinal,
   line,
+  scaleBand,
   scaleLinear,
   scaleOrdinal,
   select,
@@ -11,7 +12,7 @@ import {
 import React, { useEffect, useRef, useState } from 'react'
 import emotionsOverTimeCalculator from '../HelperFunctions/emotionsOverTimeCalculator'
 
-
+ 
 function D3OverTimeBarChart({ data }) {
   console.log("CHART DATA", data)
 
@@ -21,7 +22,7 @@ function D3OverTimeBarChart({ data }) {
 
 
   const layerNames = Object.keys(data[0].emotions)
-  const barNames = []
+  const barNames = data.map(report => report.name)
 
   const margin = {
     top: 10,
@@ -33,7 +34,7 @@ function D3OverTimeBarChart({ data }) {
   }, width = 1200,
     height = 400
 
-  const xScale = scaleOrdinal()
+  const xScale = scaleBand()
     .domain(barNames)
     .range([0, width], 0.25)
 
