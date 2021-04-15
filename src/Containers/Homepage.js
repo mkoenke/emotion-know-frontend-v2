@@ -70,6 +70,7 @@ class FunWithEmotionsPage extends React.Component {
     if (!this.state.timerOn) {
       this.setState({
         timerTime: this.state.timerStart,
+        score: null,
       })
     }
     this.randomFace()
@@ -111,7 +112,8 @@ class FunWithEmotionsPage extends React.Component {
   }
 
   findScore = () => {
-    console.log(Math.max(...targetEmotionValues))
+    const score = Math.max(...targetEmotionValues) * 100
+    this.setState({ score })
   }
   randomFaceText = () => {
     switch (this.state.randomFace) {
@@ -146,7 +148,6 @@ class FunWithEmotionsPage extends React.Component {
   }
 
   render() {
-    console.log(this.state)
     const videoConstraints = {
       facingMode: 'user',
 
@@ -223,18 +224,22 @@ class FunWithEmotionsPage extends React.Component {
                 <>
                   <div className="timerContainer">
                     {timerOn && <div className="countdownTime">{seconds}</div>}
-                    {timerOn === false &&
+                    {!timerOn &&
                       (timerStart === 0 || timerTime === timerStart) && (
                         <button onClick={this.startTimer}>
                           Of course! Let's go!
                         </button>
                       )}
-                    {(timerOn === false || timerTime < 1000) &&
+                    {(!timerOn || timerTime < 1000) &&
                       timerStart !== timerTime &&
                       timerStart > 0 && (
                         <button onClick={this.resetTimer}>Try it again!</button>
                       )}
-                    {this.state.score && <h1>{this.state.score}</h1>}
+                    {this.state.score && !timerOn && (
+                      <h1>
+                        {this.state.score} % {this.state.randomFace}!
+                      </h1>
+                    )}
                   </div>
                 </>
               )}
