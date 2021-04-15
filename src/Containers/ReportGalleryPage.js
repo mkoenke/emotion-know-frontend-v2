@@ -6,6 +6,7 @@ import { setClickedReport } from '../Redux/actions'
 import ReportGallerySingleGraph from '../Components/ReportGallerySingleGraph'
 import ReportGalleryReportsTable from '../Components/ReportGalleryReportsTable'
 import D3OverTimeBarChart from '../Components/D3OverTimeBarChart'
+import StackedBarChart from '../Components/StackedBarChart'
 
 
 class ReportGalleryPage extends React.Component {
@@ -161,7 +162,7 @@ class ReportGalleryPage extends React.Component {
         )}
             <Container>
               <div id="#EOT">
-                <D3OverTimeBarChart data={this.chartData} />
+                <StackedBarChart data={this.chartData}/>
               </div>
             </Container>
             <br/>
