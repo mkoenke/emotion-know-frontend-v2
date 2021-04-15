@@ -2,17 +2,25 @@ import { select, scaleBand, scaleLinear, axisBottom, stack, max, axisLeft } from
 import React, { useEffect, useRef } from 'react'
 import useResizeObserver from './useResizeObserver'
 
-function StackedBarChart({ data, colors }) {
+function StackedBarChart({ data }) {
   const svgRef = useRef()
   const wrapperRef = useRef()
   const dimensions = useResizeObserver(wrapperRef)
   const keys = ["anger", "disgust", "fear", "joy", "sadness", "surprise"]
+  const colors = {
+    anger: "red",
+    disgust: "orange",
+    sadness: "blue",
+    fear: "green",
+    surprise: "purple",
+    joy: "yellow"
+  }
 
   useEffect(() => {
     const svg = select(svgRef.current)
     const { width, height } =
       dimensions || wrapperRef.current.getBoundingClientRect()
-    console.log("DATA",data)
+    console.log("DATA", data)
     //Stacks and layers
     const stackGenerator = stack().keys(keys)
     const layers = stackGenerator(data)
@@ -26,6 +34,7 @@ function StackedBarChart({ data, colors }) {
     const xScale = scaleBand()
       .domain(data.map(d => d.created_at))
       .range([0, width])
+      .padding(0.25)
 
     const yScale = scaleLinear()
       .domain(extent)
@@ -37,11 +46,15 @@ function StackedBarChart({ data, colors }) {
       .data(layers)
       .join("g")
       .attr("class", "layer")
+      .attr("fill", layer => {
+        // console.log("LAYER", layer)
+        return colors[layer.key]
+      })
       .selectAll("rect")
       .data(layer => layer)
       .join("rect")
       .attr("x", sequence => {
-        console.log("SEQUENCE", sequence)
+        // console.log("SEQUENCE", sequence)
         return xScale(sequence.data.created_at)
       })
       .attr("width", xScale.bandwidth())
