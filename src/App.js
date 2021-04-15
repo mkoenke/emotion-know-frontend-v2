@@ -29,7 +29,8 @@ class App extends React.Component {
       .then(({ start, stop }) => {
         this.stopSDK = stop
         this.startSDK = start
-
+        start()
+        stop()
         this.setState({ isLoading: false })
       })
   }

@@ -6,6 +6,8 @@ import Webcam from 'react-webcam'
 import { Dimmer, Grid, Header, Loader, Message } from 'semantic-ui-react'
 import BubbleChart from '../Components/bubbleChart'
 
+let targetEmotionValues = []
+
 class FunWithEmotionsPage extends React.Component {
   state = {
     emo: '',
@@ -25,33 +27,12 @@ class FunWithEmotionsPage extends React.Component {
     timerStart: 0,
     timerTime: 10000,
     score: null,
-    randomFace: 'happy',
+    randomFace: 'Happy',
+    isSDKRunning: false,
   }
 
   componentDidMount() {
     this.setState({ loading: false })
-    window.addEventListener(CY.modules().FACE_EMOTION.eventName, (evt) => {
-      this.setState({
-        emo: evt.detail.output.dominantEmotion,
-        anger: evt.detail.output.rawEmotion.Angry,
-        disgust: evt.detail.output.rawEmotion.Disgust,
-        fear: evt.detail.output.rawEmotion.Fear,
-        joy: evt.detail.output.rawEmotion.Happy,
-        sadness: evt.detail.output.rawEmotion.Sad,
-        surprise: evt.detail.output.rawEmotion.Surprise,
-      })
-    })
-    window.addEventListener(
-      CY.modules().FACE_AROUSAL_VALENCE.eventName,
-      (evt) => {
-        this.setState(
-          {
-            affects98: evt.detail.output.affects98,
-          },
-          this.findDominantAffect(evt.detail.output.affects98)
-        )
-      }
-    )
   }
 
   componentWillUnmount() {
@@ -60,11 +41,17 @@ class FunWithEmotionsPage extends React.Component {
 
   startTimer = () => {
     this.props.startSDK()
-    this.setState({
-      timerOn: true,
-      timerTime: this.state.timerTime,
-      timerStart: this.state.timerTime,
-    })
+    targetEmotionValues = []
+    this.setState(
+      {
+        timerOn: true,
+        timerTime: this.state.timerTime,
+        timerStart: this.state.timerTime,
+        isSDKRunning: true,
+      },
+      this.startCollecting
+    )
+
     this.timer = setInterval(() => {
       const newTime = this.state.timerTime - 1000
       if (newTime >= 0) {
@@ -88,44 +75,63 @@ class FunWithEmotionsPage extends React.Component {
     this.randomFace()
   }
 
+  startCollecting = () => {
+    window.addEventListener(CY.modules().FACE_EMOTION.eventName, (evt) => {
+      this.setState({
+        emo: evt.detail.output.dominantEmotion,
+        anger: evt.detail.output.rawEmotion.Angry,
+        disgust: evt.detail.output.rawEmotion.Disgust,
+        fear: evt.detail.output.rawEmotion.Fear,
+        joy: evt.detail.output.rawEmotion.Happy,
+        sadness: evt.detail.output.rawEmotion.Sad,
+        surprise: evt.detail.output.rawEmotion.Surprise,
+      })
+      if (this.state.isSDKRunning) {
+        this.collectEmotionData(evt.detail.output.rawEmotion)
+      }
+    })
+    window.addEventListener(
+      CY.modules().FACE_AROUSAL_VALENCE.eventName,
+      (evt) => {
+        this.setState(
+          {
+            affects98: evt.detail.output.affects98,
+          },
+          this.findDominantAffect(evt.detail.output.affects98)
+        )
+      }
+    )
+  }
+
+  collectEmotionData = (emotionObj) => {
+    targetEmotionValues = [
+      ...targetEmotionValues,
+      emotionObj[this.state.randomFace],
+    ]
+  }
+
   findScore = () => {
+    console.log(Math.max(...targetEmotionValues))
+  }
+  randomFaceText = () => {
     switch (this.state.randomFace) {
-      case 'happy':
-        console.log('joy score: ', this.state.joy)
-        return this.state.joy
-      case 'angry':
-        console.log('angry score: ', this.state.anger)
-        return this.state.angry
-      case 'sad':
-        console.log('sad score: ', this.state.sadness)
-        return this.state.sadness
-      case 'fearful':
-        console.log('fear score: ', this.state.fear)
-        return this.state.fear
-      case 'surprised':
-        console.log('surprised score: ', this.state.surprise)
-        return this.state.surprise
-      case 'disgusted':
-        console.log('disgusted score: ', this.state.disgust)
-        return this.state.disgust
+      case 'Happy':
+        return 'happy'
+      case 'Angry':
+        return 'angry'
+      case 'Sad':
+        return 'sad'
+      case 'Fear':
+        return 'fearful'
+      case 'Surprised':
+        return 'surprised'
+      case 'Disgust':
+        return 'disgusted'
     }
   }
 
   randomFace = () => {
-    const faceArray = [
-      'happy',
-      'angry',
-      'sad',
-      'fearful',
-      'surprised',
-      'disgusted',
-      // 'joyful',
-      // 'shocked',
-      // 'terrified',
-      // 'repulsed',
-      // 'heartbroken',
-      // 'furious',
-    ]
+    const faceArray = ['Happy', 'Angry', 'Sad', 'Fear', 'Surprise', 'Disgust']
     const randomFace = faceArray[Math.floor(Math.random() * faceArray.length)]
     if (randomFace !== this.state.randomFace) {
       this.setState({ randomFace })
@@ -159,22 +165,6 @@ class FunWithEmotionsPage extends React.Component {
     const { timerTime, timerStart, timerOn } = this.state
     let seconds = Math.floor(timerTime / 1000)
 
-    // const faceArray = [
-    //   'happy',
-    //   'angry',
-    //   'sad',
-    //   'fearful',
-    //   'surprised',
-    //   'disgusted',
-    //   'joyful',
-    //   'shocked',
-    //   'terrified',
-    //   'repulsed',
-    //   'heartbroken',
-    //   'furious',
-    // ]
-    // const randomface = faceArray[Math.floor(Math.random() * faceArray.length)]
-
     return (
       <>
         <BubbleChart data={data} />
@@ -195,7 +185,7 @@ class FunWithEmotionsPage extends React.Component {
             </div>
             {!this.state.timerOn && (
               <Header className="whichFace" size="huge" textAlign="center">
-                Can you make a {this.state.randomFace} face?
+                Can you make a {this.randomFaceText()} face?
               </Header>
             )}
             <Header className="waitOrDom" size="huge" textAlign="center">
