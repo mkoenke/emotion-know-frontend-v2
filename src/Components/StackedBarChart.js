@@ -1,4 +1,4 @@
-import { select, scaleBand, axisBottom, stack } from 'd3'
+import { select, scaleBand, axisBottom, stack, max } from 'd3'
 import React, { useEffect, useRef } from 'react'
 import useResizeObserver from './useResizeObserver'
 
@@ -14,8 +14,15 @@ function StackedBarChart({ data, colors }) {
       dimensions || wrapperRef.current.getBoundingClientRect()
 
     const stackGenerator = stack().keys(keys)
-    console.log(stackGenerator(data))
+    const layers = stackGenerator(data)
 
+    const extent = [
+      0,
+      max(layers, layer =>
+        max(layer, sequence =>
+          sequence[1]))]
+
+    console.log("EXTENT", extent)
     const xScale = scaleBand()
       .domain(data.map(d => d.created_at))
       .range([0, width])
