@@ -29,30 +29,6 @@ class FunWithEmotionsPage extends React.Component {
     randomFace: 'Happy',
     isSDKRunning: false,
   }
-  // componentDidMount() {
-  //   window.addEventListener(CY.modules().FACE_EMOTION.eventName, (evt) => {
-  //     this.setState({
-  //       emo: evt.detail.output.dominantEmotion,
-  //       anger: evt.detail.output.rawEmotion.Angry,
-  //       disgust: evt.detail.output.rawEmotion.Disgust,
-  //       fear: evt.detail.output.rawEmotion.Fear,
-  //       joy: evt.detail.output.rawEmotion.Happy,
-  //       sadness: evt.detail.output.rawEmotion.Sad,
-  //       surprise: evt.detail.output.rawEmotion.Surprise,
-  //     })
-  //   })
-  //   window.addEventListener(
-  //     CY.modules().FACE_AROUSAL_VALENCE.eventName,
-  //     (evt) => {
-  //       this.setState(
-  //         {
-  //           affects98: evt.detail.output.affects98,
-  //         },
-  //         this.findDominantAffect(evt.detail.output.affects98)
-  //       )
-  //     }
-  //   )
-  // }
 
   componentWillUnmount() {
     this.props.stopSDK()
@@ -130,7 +106,9 @@ class FunWithEmotionsPage extends React.Component {
   }
 
   findScore = () => {
-    const score = Math.max(...targetEmotionValues) * 100
+    const score = (Math.max(...targetEmotionValues) * 100)
+      .toString()
+      .slice(0, 5)
     this.setState({ score })
   }
 
@@ -185,22 +163,6 @@ class FunWithEmotionsPage extends React.Component {
     const { timerTime, timerStart, timerOn } = this.state
     let seconds = Math.floor(timerTime / 1000)
 
-    // const faceArray = [
-    //   'happy',
-    //   'angry',
-    //   'sad',
-    //   'fearful',
-    //   'surprised',
-    //   'disgusted',
-    //   'joyful',
-    //   'shocked',
-    //   'terrified',
-    //   'repulsed',
-    //   'heartbroken',
-    //   'furious',
-    // ]
-    // const randomface = faceArray[Math.floor(Math.random() * faceArray.length)]
-
     return (
       <>
         <BubbleChart data={data} />
@@ -217,46 +179,78 @@ class FunWithEmotionsPage extends React.Component {
                   Let's make some funny faces!
                 </Header>
               )}
-              {!this.state.timerOn && (
-                <Header className="whichFace" size="huge" textAlign="center">
-                  Can you make a {this.randomFaceText()} face?
-                </Header>
-              )}
 
-              <Header className="waitOrDom" size="huge" textAlign="center">
-                {this.state.emo && this.state.dominantAffect && (
-                  <>
-                    Your face looks like you're feeling{' '}
-                    <span className="emphasize">
-                      {this.state.dominantAffect.toLowerCase()}!
-                    </span>
-                    <br />
-                    Biggest Emotion:{' '}
-                    <span className="emphasize">{this.state.emo}</span>
-                  </>
-                )}
-                <>
-                  <div className="timerContainer">
-                    {timerOn && <div className="countdownTime">{seconds}</div>}
-                    {timerOn === false &&
+              <Grid centered textAlign="center">
+                <Grid.Row>
+                  <Grid.Column className="gameFaceQuestion">
+                    {!this.state.timerOn && !this.state.score ? (
+                      <Header
+                        className="whichFace"
+                        size="huge"
+                        textAlign="center"
+                      >
+                        Can you make {this.randomFaceText()} face?
+                      </Header>
+                    ) : (
+                      !this.state.loading &&
+                      this.state.score &&
+                      !timerOn && (
+                        <Header
+                          className="whichFace"
+                          size="huge"
+                          textAlign="center"
+                        >
+                          {this.state.score}% {this.state.randomFace}!
+                        </Header>
+                      )
+                    )}
+                  </Grid.Column>
+                </Grid.Row>
+                <Grid.Row>
+                  <Grid.Column textAlign="center" className="timerButtons">
+                    {timerOn && !this.state.loading && (
+                      <Header textAlign="center" className="countdownTime">
+                        {seconds}
+                      </Header>
+                    )}
+                    {!timerOn &&
+                      !this.state.loading &&
                       (timerStart === 0 || timerTime === timerStart) && (
                         <button onClick={this.startTimer}>
                           Of course! Let's go!
                         </button>
                       )}
-                    {(timerOn === false || timerTime < 1000) &&
+                    {!this.state.loading &&
+                      !timerOn &&
                       timerStart !== timerTime &&
                       timerStart > 0 && (
                         <button onClick={this.resetTimer}>Try it again!</button>
                       )}
-                    {this.state.score && !timerOn && (
-                      <h1>
-                        {this.state.score} % {this.state.randomFace}!
-                      </h1>
-                    )}
-                  </div>
-                </>
-              </Header>
+                  </Grid.Column>
+                </Grid.Row>
+                <Grid.Row>
+                  <Grid.Column className="emotionDisplay">
+                    <Header
+                      className="waitOrDom"
+                      size="huge"
+                      textAlign="center"
+                    >
+                      {this.state.emo && this.state.dominantAffect && (
+                        <>
+                          Your face looks like you're feeling{' '}
+                          <span className="emphasize">
+                            {this.state.dominantAffect.toLowerCase()}!
+                          </span>
+                          <br />
+                          Biggest Emotion:{' '}
+                          <span className="emphasize">{this.state.emo}</span>
+                        </>
+                      )}
+                    </Header>
+                  </Grid.Column>
+                </Grid.Row>
+              </Grid>
+
               <Grid
                 columns={3}
                 centered

@@ -171,7 +171,6 @@ class FunWithEmotionsPage extends React.Component {
     return (
       <>
         <BubbleChart data={data} />
-
         <>
           <div className="pattern">
             <div>
@@ -210,15 +209,15 @@ class FunWithEmotionsPage extends React.Component {
                       </Header>
                     )
                   )}
+                </Grid.Column>
+              </Grid.Row>
+              <Grid.Row>
+                <Grid.Column textAlign="center" className="timerButtons">
                   {timerOn && !this.state.loading && (
                     <Header textAlign="center" className="countdownTime">
                       {seconds}
                     </Header>
                   )}
-                </Grid.Column>
-              </Grid.Row>
-              <Grid.Row>
-                <Grid.Column textAlign="center" className="timerButtons">
                   {!timerOn &&
                     !this.state.loading &&
                     (timerStart === 0 || timerTime === timerStart) && (
@@ -227,7 +226,7 @@ class FunWithEmotionsPage extends React.Component {
                       </button>
                     )}
                   {!this.state.loading &&
-                    (!timerOn || timerTime < 1000) &&
+                    !timerOn &&
                     timerStart !== timerTime &&
                     timerStart > 0 && (
                       <button onClick={this.resetTimer}>Try it again!</button>
@@ -251,42 +250,6 @@ class FunWithEmotionsPage extends React.Component {
                   </Header>
                 </Grid.Column>
               </Grid.Row>
-
-              {/* <div className="timerContainer"> */}
-              {/* <Grid.Row>
-                <Grid.Column textAlign="center" className="timerDisplay">
-                  {timerOn && !this.state.loading && (
-                    <Header className="countdownTime">{seconds}</Header>
-                  )}
-                </Grid.Column>
-              </Grid.Row> */}
-              {/* <Grid.Row>
-                <Grid.Column textAlign="center" className="timerButtons">
-                  {!timerOn &&
-                    !this.state.loading &&
-                    (timerStart === 0 || timerTime === timerStart) && (
-                      <button onClick={this.startTimer}>
-                        Of course! Let's go!
-                      </button>
-                    )}
-                  {!this.state.loading &&
-                    (!timerOn || timerTime < 1000) &&
-                    timerStart !== timerTime &&
-                    timerStart > 0 && (
-                      <button onClick={this.resetTimer}>Try it again!</button>
-                    )}
-                </Grid.Column>
-              </Grid.Row> */}
-              {/* <Grid.Row>
-                <Grid.Column textAlign="center" className="gameScore">
-                  {!this.state.loading && this.state.score && !timerOn && (
-                    <h1>
-                      {this.state.score} % {this.state.randomFace}!
-                    </h1>
-                  )}
-                </Grid.Column>
-              </Grid.Row> */}
-              {/* </div> */}
             </Grid>
             {this.state.loading && (
               <>
