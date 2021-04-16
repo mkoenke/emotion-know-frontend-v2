@@ -184,66 +184,94 @@ class FunWithEmotionsPage extends React.Component {
                 </Header>
               </div>
             </div>
-            {!this.state.timerOn && (
-              <Header className="whichFace" size="huge" textAlign="center">
-                Can you make a {this.randomFaceText()} face?
-              </Header>
-            )}
-            <Header className="waitOrDom" size="huge" textAlign="center">
-              {this.state.emo && this.state.dominantAffect && (
-                <>
-                  Your face looks like you're feeling{' '}
-                  <span className="emphasize">
-                    {this.state.dominantAffect.toLowerCase()}!
-                  </span>
-                  <br />
-                  Biggest Emotion:{' '}
-                  <span className="emphasize">{this.state.emo}</span>
-                </>
-              )}
-              {this.state.loading ? (
-                <>
-                  <Dimmer active page>
-                    <div className="root height">
-                      <span className={`copy h1`}>
-                        <Parallax x={[0, 0]} className="letter">
-                          EmotionKnow
-                        </Parallax>
-                      </span>
-                      <Header className="subHeader" size="large">
-                        Building Emotional Intelligence in Children
-                      </Header>
-                    </div>
-                    <Header as="h2" inverted>
-                      Please wait a moment...
-                    </Header>{' '}
-                    <Loader active inline />
-                  </Dimmer>
-                </>
-              ) : (
-                <>
-                  <div className="timerContainer">
-                    {timerOn && <div className="countdownTime">{seconds}</div>}
-                    {!timerOn &&
-                      (timerStart === 0 || timerTime === timerStart) && (
-                        <button onClick={this.startTimer}>
-                          Of course! Let's go!
-                        </button>
-                      )}
-                    {(!timerOn || timerTime < 1000) &&
-                      timerStart !== timerTime &&
-                      timerStart > 0 && (
-                        <button onClick={this.resetTimer}>Try it again!</button>
-                      )}
-                    {this.state.score && !timerOn && (
-                      <h1>
-                        {this.state.score} % {this.state.randomFace}!
-                      </h1>
+            <Grid centered textAlign="center">
+              <Grid.Row>
+                <Grid.Column>
+                  {!this.state.timerOn && (
+                    <Header
+                      className="whichFace"
+                      size="huge"
+                      textAlign="center"
+                    >
+                      Can you make a {this.randomFaceText()} face?
+                    </Header>
+                  )}
+                </Grid.Column>
+              </Grid.Row>
+              <Grid.Row>
+                <Grid.Column>
+                  <Header className="waitOrDom" size="huge" textAlign="center">
+                    {this.state.emo && this.state.dominantAffect && (
+                      <>
+                        Your face looks like you're feeling{' '}
+                        <span className="emphasize">
+                          {this.state.dominantAffect.toLowerCase()}!
+                        </span>
+                        <br />
+                        Biggest Emotion:{' '}
+                        <span className="emphasize">{this.state.emo}</span>
+                      </>
                     )}
+                  </Header>
+                </Grid.Column>
+              </Grid.Row>
+
+              {/* <div className="timerContainer"> */}
+              <Grid.Row>
+                <Grid.Column textAlign="center">
+                  {timerOn && !this.state.loading && (
+                    <div className="countdownTime">{seconds}</div>
+                  )}
+                </Grid.Column>
+              </Grid.Row>
+              <Grid.Row>
+                <Grid.Column textAlign="center">
+                  {!timerOn &&
+                    !this.state.loading &&
+                    (timerStart === 0 || timerTime === timerStart) && (
+                      <button onClick={this.startTimer}>
+                        Of course! Let's go!
+                      </button>
+                    )}
+                  {!this.state.loading &&
+                    (!timerOn || timerTime < 1000) &&
+                    timerStart !== timerTime &&
+                    timerStart > 0 && (
+                      <button onClick={this.resetTimer}>Try it again!</button>
+                    )}
+                </Grid.Column>
+              </Grid.Row>
+              <Grid.Row>
+                <Grid.Column textAlign="center">
+                  {!this.state.loading && this.state.score && !timerOn && (
+                    <h1>
+                      {this.state.score} % {this.state.randomFace}!
+                    </h1>
+                  )}
+                </Grid.Column>
+              </Grid.Row>
+              {/* </div> */}
+            </Grid>
+            {this.state.loading && (
+              <>
+                <Dimmer active page>
+                  <div className="root height">
+                    <span className={`copy h1`}>
+                      <Parallax x={[0, 0]} className="letter">
+                        EmotionKnow
+                      </Parallax>
+                    </span>
+                    <Header className="subHeader" size="large">
+                      Building Emotional Intelligence in Children
+                    </Header>
                   </div>
-                </>
-              )}
-            </Header>
+                  <Header as="h2" inverted>
+                    Please wait a moment...
+                  </Header>{' '}
+                  <Loader active inline />
+                </Dimmer>
+              </>
+            )}
             <Grid
               columns={3}
               centered
