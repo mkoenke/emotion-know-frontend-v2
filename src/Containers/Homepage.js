@@ -210,6 +210,28 @@ class FunWithEmotionsPage extends React.Component {
                       </Header>
                     )
                   )}
+                  {timerOn && !this.state.loading && (
+                    <Header textAlign="center" className="countdownTime">
+                      {seconds}
+                    </Header>
+                  )}
+                </Grid.Column>
+              </Grid.Row>
+              <Grid.Row>
+                <Grid.Column textAlign="center" className="timerButtons">
+                  {!timerOn &&
+                    !this.state.loading &&
+                    (timerStart === 0 || timerTime === timerStart) && (
+                      <button onClick={this.startTimer}>
+                        Of course! Let's go!
+                      </button>
+                    )}
+                  {!this.state.loading &&
+                    (!timerOn || timerTime < 1000) &&
+                    timerStart !== timerTime &&
+                    timerStart > 0 && (
+                      <button onClick={this.resetTimer}>Try it again!</button>
+                    )}
                 </Grid.Column>
               </Grid.Row>
               <Grid.Row>
@@ -231,14 +253,14 @@ class FunWithEmotionsPage extends React.Component {
               </Grid.Row>
 
               {/* <div className="timerContainer"> */}
-              <Grid.Row>
+              {/* <Grid.Row>
                 <Grid.Column textAlign="center" className="timerDisplay">
                   {timerOn && !this.state.loading && (
-                    <div className="countdownTime">{seconds}</div>
+                    <Header className="countdownTime">{seconds}</Header>
                   )}
                 </Grid.Column>
-              </Grid.Row>
-              <Grid.Row>
+              </Grid.Row> */}
+              {/* <Grid.Row>
                 <Grid.Column textAlign="center" className="timerButtons">
                   {!timerOn &&
                     !this.state.loading &&
@@ -254,7 +276,7 @@ class FunWithEmotionsPage extends React.Component {
                       <button onClick={this.resetTimer}>Try it again!</button>
                     )}
                 </Grid.Column>
-              </Grid.Row>
+              </Grid.Row> */}
               {/* <Grid.Row>
                 <Grid.Column textAlign="center" className="gameScore">
                   {!this.state.loading && this.state.score && !timerOn && (

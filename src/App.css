@@ -504,8 +504,10 @@ button:hover {
 }
 
 .countdownTime {
-  font-size: 36px;
+  font-size: 45px !important;
   margin: 5px 0;
+  font-family: 'Overpass', sans-serif !important;
+  color: rgb(10, 157, 174) !important;
 }
 
 .whichFace {
