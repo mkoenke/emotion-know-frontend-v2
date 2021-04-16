@@ -170,7 +170,11 @@ class FunWithEmotionsPage extends React.Component {
           <>
             <div className="pattern">
               {this.props.child && !this.props.parent ? (
-                <Header className="pageHeader" size="huge" textAlign="center">
+                <Header
+                  id="gameHeader"
+                  className="pageHeader"
+                  textAlign="center"
+                >
                   Hey, {this.props.child.username}! Let's make some funny faces!
                 </Header>
               ) : null}

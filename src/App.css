@@ -116,6 +116,11 @@ i.icon.user.outline {
   padding: 30px !important;
   font-weight: 900 !important;
 }
+
+#gameHeader {
+  font-size: 60px !important;
+}
+
 .waitOrDom {
   font-family: 'Overpass', sans-serif !important;
   color: rgb(10, 157, 174) !important;
