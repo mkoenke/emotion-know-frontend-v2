@@ -37,10 +37,11 @@ svg {
   font-family: 'Overpass', sans-serif;
 }
 .h1 {
-  font-size: 7em;
+  font-size: 10em;
   font-weight: 700;
   letter-spacing: 0.3em;
   color: rgb(10, 157, 174);
+  text-shadow: 4px 4px rgb(171, 218, 225);
 }
 .bannerHeight {
   height: 400px;
@@ -519,4 +520,20 @@ button:hover {
 .timerContainer {
   display: flex;
   justify-content: center;
+}
+
+.emotionDisplay {
+  height: 140px;
+}
+.timerDisplay {
+  height: 40px;
+}
+.timerButtons {
+  height: 40px;
+}
+.gameScore {
+  height: 40px;
+}
+.gameFaceQuestion {
+  height: 90px;
 }

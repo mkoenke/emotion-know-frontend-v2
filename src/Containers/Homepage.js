@@ -112,23 +112,25 @@ class FunWithEmotionsPage extends React.Component {
   }
 
   findScore = () => {
-    const score = Math.max(...targetEmotionValues) * 100
+    const score = (Math.max(...targetEmotionValues) * 100)
+      .toString()
+      .slice(0, 5)
     this.setState({ score })
   }
   randomFaceText = () => {
     switch (this.state.randomFace) {
       case 'Happy':
-        return 'happy'
+        return 'a happy'
       case 'Angry':
-        return 'angry'
+        return 'an angry'
       case 'Sad':
-        return 'sad'
+        return 'a sad'
       case 'Fear':
-        return 'fearful'
-      case 'Surprised':
-        return 'surprised'
+        return 'a fearful'
+      case 'Surprise':
+        return 'a surprised'
       case 'Disgust':
-        return 'disgusted'
+        return 'a disgusted'
     }
   }
 
@@ -186,20 +188,32 @@ class FunWithEmotionsPage extends React.Component {
             </div>
             <Grid centered textAlign="center">
               <Grid.Row>
-                <Grid.Column>
-                  {!this.state.timerOn && (
+                <Grid.Column className="gameFaceQuestion">
+                  {!this.state.timerOn && !this.state.score ? (
                     <Header
                       className="whichFace"
                       size="huge"
                       textAlign="center"
                     >
-                      Can you make a {this.randomFaceText()} face?
+                      Can you make {this.randomFaceText()} face?
                     </Header>
+                  ) : (
+                    !this.state.loading &&
+                    this.state.score &&
+                    !timerOn && (
+                      <Header
+                        className="whichFace"
+                        size="huge"
+                        textAlign="center"
+                      >
+                        {this.state.score}% {this.state.randomFace}!
+                      </Header>
+                    )
                   )}
                 </Grid.Column>
               </Grid.Row>
               <Grid.Row>
-                <Grid.Column>
+                <Grid.Column className="emotionDisplay">
                   <Header className="waitOrDom" size="huge" textAlign="center">
                     {this.state.emo && this.state.dominantAffect && (
                       <>
@@ -218,14 +232,14 @@ class FunWithEmotionsPage extends React.Component {
 
               {/* <div className="timerContainer"> */}
               <Grid.Row>
-                <Grid.Column textAlign="center">
+                <Grid.Column textAlign="center" className="timerDisplay">
                   {timerOn && !this.state.loading && (
                     <div className="countdownTime">{seconds}</div>
                   )}
                 </Grid.Column>
               </Grid.Row>
               <Grid.Row>
-                <Grid.Column textAlign="center">
+                <Grid.Column textAlign="center" className="timerButtons">
                   {!timerOn &&
                     !this.state.loading &&
                     (timerStart === 0 || timerTime === timerStart) && (
@@ -241,15 +255,15 @@ class FunWithEmotionsPage extends React.Component {
                     )}
                 </Grid.Column>
               </Grid.Row>
-              <Grid.Row>
-                <Grid.Column textAlign="center">
+              {/* <Grid.Row>
+                <Grid.Column textAlign="center" className="gameScore">
                   {!this.state.loading && this.state.score && !timerOn && (
                     <h1>
                       {this.state.score} % {this.state.randomFace}!
                     </h1>
                   )}
                 </Grid.Column>
-              </Grid.Row>
+              </Grid.Row> */}
               {/* </div> */}
             </Grid>
             {this.state.loading && (

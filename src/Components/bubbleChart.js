@@ -30,7 +30,7 @@ function BubbleChart(props) {
       .join('circle')
       .attr('r', (value) => value)
       .attr('cx', width)
-      .attr('cy', (value, i) => i * 200 + 100)
+      .attr('cy', (value, i) => i * 200 + 450)
       .style('fill', function (d, i) {
         return colors[i]
       })
@@ -46,7 +46,7 @@ function BubbleChart(props) {
       .attr('class', 'bubbleText')
       .text((d) => d)
       .attr('x', width)
-      .attr('y', (d, i) => i * 200 + 100)
+      .attr('y', (d, i) => i * 200 + 450)
       .attr('text-anchor', 'middle')
       .style('fill', '#97909e')
 
