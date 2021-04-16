@@ -35,12 +35,13 @@ class FunWithEmotionsPage extends React.Component {
   }
 
   startTimer = () => {
+    const { timerTime } = this.state
     this.props.startSDK()
     this.setState(
       {
         timerOn: true,
-        timerTime: this.state.timerTime,
-        timerStart: this.state.timerTime,
+        timerTime,
+        timerStart: timerTime,
         isSDKRunning: true,
       },
       this.startCollecting
@@ -61,9 +62,10 @@ class FunWithEmotionsPage extends React.Component {
     }, 1000)
   }
   resetTimer = () => {
-    if (!this.state.timerOn) {
+    const { timerStart, timerOn } = this.state
+    if (!timerOn) {
       this.setState({
-        timerTime: this.state.timerStart,
+        timerTime: timerStart,
         score: null,
       })
     }
@@ -71,6 +73,7 @@ class FunWithEmotionsPage extends React.Component {
   }
 
   startCollecting = () => {
+    const { isSDKRunning } = this.state
     window.addEventListener(CY.modules().FACE_EMOTION.eventName, (evt) => {
       this.setState({
         emo: evt.detail.output.dominantEmotion,
@@ -81,7 +84,7 @@ class FunWithEmotionsPage extends React.Component {
         sadness: evt.detail.output.rawEmotion.Sad,
         surprise: evt.detail.output.rawEmotion.Surprise,
       })
-      if (this.state.isSDKRunning) {
+      if (isSDKRunning) {
         this.collectEmotionData(evt.detail.output.rawEmotion)
       }
     })
@@ -99,10 +102,8 @@ class FunWithEmotionsPage extends React.Component {
   }
 
   collectEmotionData = (emotionObj) => {
-    targetEmotionValues = [
-      ...targetEmotionValues,
-      emotionObj[this.state.randomFace],
-    ]
+    const { randomFace } = this.state
+    targetEmotionValues = [...targetEmotionValues, emotionObj[randomFace]]
   }
 
   findScore = () => {
@@ -113,7 +114,8 @@ class FunWithEmotionsPage extends React.Component {
   }
 
   randomFaceText = () => {
-    switch (this.state.randomFace) {
+    const { randomFace } = this.state
+    switch (randomFace) {
       case 'Happy':
         return 'happy'
       case 'Angry':
@@ -152,15 +154,32 @@ class FunWithEmotionsPage extends React.Component {
       width: { min: 400, max: 700 },
     }
 
+    const {
+      timerTime,
+      timerStart,
+      timerOn,
+      anger,
+      disgust,
+      fear,
+      joy,
+      sadness,
+      surprise,
+      score,
+      randomFace,
+      loading,
+      emo,
+      dominantAffect,
+    } = this.state
+
     let data = [
-      parseFloat(this.state.anger),
-      parseFloat(this.state.disgust),
-      parseFloat(this.state.fear),
-      parseFloat(this.state.joy),
-      parseFloat(this.state.sadness),
-      parseFloat(this.state.surprise),
+      parseFloat(anger),
+      parseFloat(disgust),
+      parseFloat(fear),
+      parseFloat(joy),
+      parseFloat(sadness),
+      parseFloat(surprise),
     ]
-    const { timerTime, timerStart, timerOn } = this.state
+
     let seconds = Math.floor(timerTime / 1000)
 
     return (
@@ -187,7 +206,7 @@ class FunWithEmotionsPage extends React.Component {
               <Grid centered textAlign="center">
                 <Grid.Row>
                   <Grid.Column className="gameFaceQuestion">
-                    {!this.state.timerOn && !this.state.score ? (
+                    {!timerOn && !score ? (
                       <Header
                         className="whichFace"
                         size="huge"
@@ -196,15 +215,15 @@ class FunWithEmotionsPage extends React.Component {
                         Can you make {this.randomFaceText()} face?
                       </Header>
                     ) : (
-                      !this.state.loading &&
-                      this.state.score &&
+                      !loading &&
+                      score &&
                       !timerOn && (
                         <Header
                           className="whichFace"
                           size="huge"
                           textAlign="center"
                         >
-                          {this.state.score}% {this.state.randomFace}!
+                          {score}% {randomFace}!
                         </Header>
                       )
                     )}
@@ -212,19 +231,19 @@ class FunWithEmotionsPage extends React.Component {
                 </Grid.Row>
                 <Grid.Row>
                   <Grid.Column textAlign="center" className="timerButtons">
-                    {timerOn && !this.state.loading && (
+                    {timerOn && !loading && (
                       <Header textAlign="center" className="countdownTime">
                         {seconds}
                       </Header>
                     )}
                     {!timerOn &&
-                      !this.state.loading &&
+                      !loading &&
                       (timerStart === 0 || timerTime === timerStart) && (
                         <button onClick={this.startTimer}>
                           Of course! Let's go!
                         </button>
                       )}
-                    {!this.state.loading &&
+                    {!loading &&
                       !timerOn &&
                       timerStart !== timerTime &&
                       timerStart > 0 && (
@@ -239,15 +258,15 @@ class FunWithEmotionsPage extends React.Component {
                       size="huge"
                       textAlign="center"
                     >
-                      {this.state.emo && this.state.dominantAffect && (
+                      {emo && dominantAffect && (
                         <>
                           Your face looks like you're feeling{' '}
                           <span className="emphasize">
-                            {this.state.dominantAffect.toLowerCase()}!
+                            {dominantAffect.toLowerCase()}!
                           </span>
                           <br />
                           Biggest Emotion:{' '}
-                          <span className="emphasize">{this.state.emo}</span>
+                          <span className="emphasize">{emo}</span>
                         </>
                       )}
                     </Header>
