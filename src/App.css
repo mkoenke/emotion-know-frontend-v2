@@ -60,6 +60,7 @@ svg {
 .subHeader {
   color: rgb(171, 218, 225) !important;
   font-family: 'Overpass', sans-serif !important;
+  margin-top: 40px !important;
 }
 
 .navbar {
