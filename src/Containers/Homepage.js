@@ -170,7 +170,7 @@ class FunWithEmotionsPage extends React.Component {
 
     return (
       <>
-        <BubbleChart data={data} />
+        <BubbleChart data={data} yOffset={430} />
         <>
           <div className="pattern">
             <div>

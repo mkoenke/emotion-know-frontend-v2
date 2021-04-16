@@ -165,13 +165,13 @@ class FunWithEmotionsPage extends React.Component {
 
     return (
       <>
-        <BubbleChart data={data} />
+        <BubbleChart data={data} yOffset={250} />
         {this.props.parent || this.props.child ? (
           <>
             <div className="pattern">
               {this.props.child && !this.props.parent ? (
                 <Header className="pageHeader" size="huge" textAlign="center">
-                  Let's make some funny faces, {this.props.child.username}!
+                  Hey, {this.props.child.username}! Let's make some funny faces!
                 </Header>
               ) : null}
               {this.props.parent && (
