@@ -37,10 +37,11 @@ svg {
   font-family: 'Overpass', sans-serif;
 }
 .h1 {
-  font-size: 7em;
+  font-size: 10em;
   font-weight: 700;
   letter-spacing: 0.3em;
   color: rgb(10, 157, 174);
+  text-shadow: 4px 4px rgb(171, 218, 225);
 }
 .bannerHeight {
   height: 400px;
@@ -59,6 +60,7 @@ svg {
 .subHeader {
   color: rgb(171, 218, 225) !important;
   font-family: 'Overpass', sans-serif !important;
+  margin-top: 40px !important;
 }
 
 .navbar {
@@ -115,9 +117,14 @@ i.icon.user.outline {
   padding: 30px !important;
   font-weight: 900 !important;
 }
+
+#gameHeader {
+  font-size: 60px !important;
+}
+
 .waitOrDom {
   font-family: 'Overpass', sans-serif !important;
-  color: rgb(10, 157, 174) !important;
+  color: rgb(85, 182, 193) !important;
   margin: 0 !important;
   padding: 30px !important;
   font-weight: 900 !important;
@@ -503,8 +510,10 @@ button:hover {
 }
 
 .countdownTime {
-  font-size: 36px;
+  font-size: 45px !important;
   margin: 5px 0;
+  font-family: 'Overpass', sans-serif !important;
+  color: rgb(10, 157, 174) !important;
 }
 
 .whichFace {
@@ -519,4 +528,20 @@ button:hover {
 .timerContainer {
   display: flex;
   justify-content: center;
+}
+
+.emotionDisplay {
+  height: 140px;
+}
+.timerDisplay {
+  height: 40px;
+}
+.timerButtons {
+  height: 40px;
+}
+.gameScore {
+  height: 40px;
+}
+.gameFaceQuestion {
+  height: 90px;
 }
