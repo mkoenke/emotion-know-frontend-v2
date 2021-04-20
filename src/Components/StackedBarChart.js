@@ -26,9 +26,10 @@ function StackedBarChart({ data, id = "zoomable-stacked-bar-chart" }) {
   const dimensions = useResizeObserver(wrapperRef)
   
   useEffect(() => {
+    const svg = select(svgRef.current)
+    const svgContent = svg.select(".content")
     const { width, height } =
       dimensions || wrapperRef.current.getBoundingClientRect()
-    const svg = select(svgRef.current)
 
     //Stacks and layers
     const stackGenerator = stack()
@@ -53,7 +54,7 @@ function StackedBarChart({ data, id = "zoomable-stacked-bar-chart" }) {
 
 
     //Rendering
-    svg
+    svgContent
       .attr("viewBox", [0, 0, width, height])
       .call(chartZoom)
       .selectAll(".layer")
