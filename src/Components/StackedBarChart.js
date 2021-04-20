@@ -58,7 +58,6 @@ function StackedBarChart({ data, id = "zoomable-stacked-bar-chart" }) {
     //Rendering
     svgContent
       .attr("viewBox", [0, 0, width, height])
-      .call(chartZoom)
       .selectAll(".layer")
       .data(layers)
       .join("g")
@@ -89,7 +88,6 @@ function StackedBarChart({ data, id = "zoomable-stacked-bar-chart" }) {
     svg
       .select(".y-axis")
       .call(yAxis)
-
 
     //////////// Zoom behavior ///////////
     function chartZoom(svg) {
@@ -123,7 +121,7 @@ function StackedBarChart({ data, id = "zoomable-stacked-bar-chart" }) {
   return (
     <React.Fragment>
       <div ref={wrapperRef} style={{ marginBottom: '2rem' }}>
-        <svg ref={svgRef}>
+        <svg ref={svgRef} >
           <defs>
             <clipPath id={id}>
               <rect x="0" y="0" width="100%" height="100%" />
