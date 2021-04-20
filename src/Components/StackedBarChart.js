@@ -22,12 +22,12 @@ const margin = ({ top: 10, right: 5, bottom: 0, left: 0 })
 
 
 
-function StackedBarChart({ reportData, id = "zoomable-stacked-bar-chart" }) {
+function StackedBarChart({ data, id = "zoomable-stacked-bar-chart" }) {
   const svgRef = useRef()
   const wrapperRef = useRef()
   const dimensions = useResizeObserver(wrapperRef)
-  const [data, setReportData] = useState(reportData)
-  
+  // const [data, setReportData] = useState(reportData)
+
   useEffect(() => {
     const svg = select(svgRef.current)
     const svgContent = svg.select(".content")
@@ -102,17 +102,19 @@ function StackedBarChart({ reportData, id = "zoomable-stacked-bar-chart" }) {
         xScale.range([margin.left, width - margin.right].map(d => {
           return event.transform.applyX(d)
         }));
-        svg.selectAll(".layer rect").attr("x", d => {
-          console.log("D", d.data.created_at)
-          return xScale(d.data.created_at.toDateString())
-        }).attr("width", xScale.bandwidth());
-        svg.selectAll(".x-axis").call(xAxis);
+        svg
+          .selectAll(".layer rect").attr("x", d => {
+            return xScale(d.data.created_at.toDateString())
+          })
+          .attr("width", xScale.bandwidth());
+        svg
+          .selectAll(".x-axis").call(xAxis);
       }
     }
 
     svg.call(chartZoom)
 
-  }, [colors, reportData, dimensions, keys, data])
+  }, [colors, dimensions, keys, data])
 
   return (
     <React.Fragment>
@@ -128,21 +130,6 @@ function StackedBarChart({ reportData, id = "zoomable-stacked-bar-chart" }) {
           <g className="y-axis" />
         </svg>
       </div>
-      <button onClick={() => {
-        const newReport = {
-          anger: 0.2,
-          disgust: 0.0,
-          fear: 0.3,
-          joy: 0.4,
-          sadness: 0.1,
-          surprise: 0.0
-        }
-        console.log("DATA", data)
-        setReportData(
-          [...data, newReport]
-        )
-      }
-      }>Add Report</button>
     </React.Fragment>
   )
 }
