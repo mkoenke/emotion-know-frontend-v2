@@ -68,6 +68,35 @@ function StackedBarChart({ data, id = "zoomable-stacked-bar-chart" }) {
       .attr("width", xScale.bandwidth())
       .attr("y", sequence => yScale(sequence[1]))
       .attr("height", sequence => yScale(sequence[0]) - yScale(sequence[1]))
+      .on("mouseenter", (mouseObj, data) => {
+        // console.log("MOUSEOBJ", mouseObj)
+        // console.log("DATA", data.data)
+        svg
+          .selectAll(".tooltip")
+          .data([data])
+          .join("rect")
+          .attr("class", "tooltip")
+          .attr("width", "10em")
+          .attr("height", "10em")
+          .attr("fill", "grey")
+          .attr("opacity", "0.7")
+          .attr("stroke", "black")
+          .attr("x", mouseObj.layerX)
+          .attr("y", mouseObj.layerY)
+          .join("text")
+          .attr("class", "tooltip")
+          .text(data => {
+            return `
+            ${data.data.created_at.toDateString()} \n
+            ${Math.round((data[1] - data[0])*100)}%
+            `
+          })
+          .attr("x", mouseObj.layerX)
+          .attr("y", mouseObj.layerY)
+          .transition()
+      })
+      .on("mouseleave", () => svg.select(".tooltip").remove())
+
 
     //Axes
     const xAxis = axisBottom(xScale)
@@ -79,6 +108,7 @@ function StackedBarChart({ data, id = "zoomable-stacked-bar-chart" }) {
       .selectAll("text")
       .attr("transform", "rotate(-75)")
       .attr("dx", "-4.8em")
+      .attr("dy", "0em")
 
     const yAxis = axisLeft(yScale)
     svg
