@@ -1,5 +1,6 @@
-import { select, scaleBand, scaleLinear, axisBottom, stack, max, axisLeft, stackOrderAscending } from 'd3'
-import React, { useEffect, useRef } from 'react'
+import { select, scaleBand, scaleLinear, axisBottom, stack, max, create, axisLeft, stackOrderAscending, zoom } from 'd3'
+import React, { useEffect, useRef, useState } from 'react'
+import { isCompositeComponent } from 'react-dom/test-utils'
 import useResizeObserver from './useResizeObserver'
 
 const keys = [
@@ -17,18 +18,17 @@ const colors = {
   surprise: "rgba(153, 102, 255, 1)",
   joy: "rgba(255, 206, 86, 1)"
 }
+const margin = ({ top: 10, right: 5, bottom: 0, left: 0 })
 
 function StackedBarChart({ data }) {
   const svgRef = useRef()
   const wrapperRef = useRef()
   const dimensions = useResizeObserver(wrapperRef)
-
-  console.log("DATA", data)
-
+  
   useEffect(() => {
-    const svg = select(svgRef.current)
     const { width, height } =
       dimensions || wrapperRef.current.getBoundingClientRect()
+    const svg = select(svgRef.current)
 
     //Stacks and layers
     const stackGenerator = stack()
@@ -44,22 +44,23 @@ function StackedBarChart({ data }) {
     //Scales
     const xScale = scaleBand()
       .domain(data.map(d => d.created_at.toDateString()))
-      .range([0, width])
-      .padding(0.25)
+      .range([margin.left, width - margin.right])
+      .padding(0.15)
 
     const yScale = scaleLinear()
       .domain(extent)
-      .range([height, 0])
+      .range([height - margin.bottom, margin.top])
+
 
     //Rendering
     svg
+      .attr("viewBox", [0, 0, width, height])
+      .call(chartZoom)
       .selectAll(".layer")
       .data(layers)
       .join("g")
       .attr("class", "layer")
-      .attr("fill", layer => {
-        return colors[layer.key]
-      })
+      .attr("fill", layer => colors[layer.key])
       .selectAll("rect")
       .data(layer => layer)
       .join("rect")
@@ -82,12 +83,37 @@ function StackedBarChart({ data }) {
       .select(".y-axis")
       .call(yAxis)
 
+
+    //////////// Zoom behavior ///////////
+    function chartZoom(svg) {
+      const newExtent = [[margin.left, margin.top], [width - margin.right, height - margin.top]]
+
+      svg.call(
+        zoom()
+          .scaleExtent([1, 8])
+          .translateExtent(newExtent)
+          .extent(newExtent)
+          .on("zoom", zoomed));
+
+      function zoomed(event) {
+        xScale.range([margin.left, width - margin.right].map(d => {
+          return event.transform.applyX(d)
+        }));
+        svg.selectAll(".layer rect").attr("x", d => xScale(d.created_at)).attr("width", xScale.bandwidth());
+        svg.selectAll(".x-axis").call(xAxis);
+      }
+    }
+
+    svg.call(chartZoom)
+
   }, [colors, data, dimensions, keys])
+  // }, [colors, data, dimensions, keys, currentZoomState])
 
   return (
     <React.Fragment>
       <div ref={wrapperRef} style={{ marginBottom: '2rem' }}>
         <svg ref={svgRef}>
+
           <g className="x-axis" />
           <g className="y-axis" />
         </svg>

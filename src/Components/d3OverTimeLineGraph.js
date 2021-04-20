@@ -85,6 +85,7 @@ function D3OverTimeLineGraph({ data, id = 'd3OverTimeLineGraph' }) {
       ])
       .on('zoom', (event) => {
         const zoomState = event.transform
+        console.log("ZOOM ST", zoomState)
         setCurrentZoomState(zoomState)
       })
 

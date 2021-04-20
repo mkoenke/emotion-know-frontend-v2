@@ -47,6 +47,41 @@ class ReportGalleryPage extends React.Component {
       anger: 0.1, fear: 0.2, disgust: 0.0, joy: 0.5, sadness: 0.0, surprise: 0.2 
       // emotions: { anger: 0.1, fear: 0.2, disgust: 0.0, joy: 0.5, sadness: 0.0, surprise: 0.2 }
     },
+    {
+      id: 5,
+      name: "name5",
+      created_at: new Date("2021-04-12"),
+      anger: 0.1, fear: 0.2, disgust: 0.0, joy: 0.5, sadness: 0.0, surprise: 0.2 
+      // emotions: { anger: 0.1, fear: 0.2, disgust: 0.0, joy: 0.5, sadness: 0.0, surprise: 0.2 }
+    },
+    {
+      id: 6,
+      name: "name6",
+      created_at: new Date("2021-04-13"),
+      anger: 0.1, fear: 0.2, disgust: 0.0, joy: 0.5, sadness: 0.0, surprise: 0.2 
+      // emotions: { anger: 0.1, fear: 0.2, disgust: 0.0, joy: 0.5, sadness: 0.0, surprise: 0.2 }
+    },
+    {
+      id: 7,
+      name: "name7",
+      created_at: new Date("2021-04-15"),
+      anger: 0.1, fear: 0.2, disgust: 0.0, joy: 0.5, sadness: 0.0, surprise: 0.2 
+      // emotions: { anger: 0.1, fear: 0.2, disgust: 0.0, joy: 0.5, sadness: 0.0, surprise: 0.2 }
+    },
+    {
+      id: 8,
+      name: "name8",
+      created_at: new Date("2021-04-16"),
+      anger: 0.1, fear: 0.2, disgust: 0.0, joy: 0.5, sadness: 0.0, surprise: 0.2 
+      // emotions: { anger: 0.1, fear: 0.2, disgust: 0.0, joy: 0.5, sadness: 0.0, surprise: 0.2 }
+    },
+    {
+      id: 9,
+      name: "name9",
+      created_at: new Date("2021-04-18"),
+      anger: 0.1, fear: 0.1, disgust: 0.3, joy: 0.0, sadness: 0.3, surprise: 0.2 
+      // emotions: { anger: 0.1, fear: 0.2, disgust: 0.0, joy: 0.5, sadness: 0.0, surprise: 0.2 }
+    },
   ]
   componentDidMount() {
     if (this.props.allReports.length) {
