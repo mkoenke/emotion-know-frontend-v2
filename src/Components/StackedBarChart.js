@@ -20,10 +20,13 @@ const colors = {
 }
 const margin = ({ top: 10, right: 5, bottom: 0, left: 0 })
 
-function StackedBarChart({ data, id = "zoomable-stacked-bar-chart" }) {
+
+
+function StackedBarChart({ reportData, id = "zoomable-stacked-bar-chart" }) {
   const svgRef = useRef()
   const wrapperRef = useRef()
   const dimensions = useResizeObserver(wrapperRef)
+  const [data, setReportData] = useState(reportData)
   
   useEffect(() => {
     const svg = select(svgRef.current)
@@ -51,7 +54,6 @@ function StackedBarChart({ data, id = "zoomable-stacked-bar-chart" }) {
     const yScale = scaleLinear()
       .domain(extent)
       .range([height - margin.bottom, margin.top])
-
 
     //Rendering
     svgContent
@@ -100,15 +102,17 @@ function StackedBarChart({ data, id = "zoomable-stacked-bar-chart" }) {
         xScale.range([margin.left, width - margin.right].map(d => {
           return event.transform.applyX(d)
         }));
-        svg.selectAll(".layer rect").attr("x", d => xScale(d.created_at)).attr("width", xScale.bandwidth());
+        svg.selectAll(".layer rect").attr("x", d => {
+          console.log("D", d.data.created_at)
+          return xScale(d.data.created_at.toDateString())
+        }).attr("width", xScale.bandwidth());
         svg.selectAll(".x-axis").call(xAxis);
       }
     }
 
     svg.call(chartZoom)
 
-  }, [colors, data, dimensions, keys])
-  // }, [colors, data, dimensions, keys, currentZoomState])
+  }, [colors, reportData, dimensions, keys, data])
 
   return (
     <React.Fragment>
@@ -116,13 +120,29 @@ function StackedBarChart({ data, id = "zoomable-stacked-bar-chart" }) {
         <svg ref={svgRef}>
           <defs>
             <clipPath id={id}>
-              <rect x="0" y="0" width="100%" height="100%"/>
+              <rect x="0" y="0" width="100%" height="100%" />
             </clipPath>
           </defs>
-          <g className="x-axis" clipPath={`url(#${id})`}/>
+          <g className="content" clipPath={`url(#${id})`} />
+          <g className="x-axis" clipPath={`url(#${id})`} />
           <g className="y-axis" />
         </svg>
       </div>
+      <button onClick={() => {
+        const newReport = {
+          anger: 0.2,
+          disgust: 0.0,
+          fear: 0.3,
+          joy: 0.4,
+          sadness: 0.1,
+          surprise: 0.0
+        }
+        console.log("DATA", data)
+        setReportData(
+          [...data, newReport]
+        )
+      }
+      }>Add Report</button>
     </React.Fragment>
   )
 }
