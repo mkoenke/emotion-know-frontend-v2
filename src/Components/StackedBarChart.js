@@ -1,6 +1,5 @@
 import { select, scaleBand, scaleLinear, axisBottom, stack, max, create, axisLeft, stackOrderAscending, zoom } from 'd3'
 import React, { useEffect, useRef, useState } from 'react'
-import { isCompositeComponent } from 'react-dom/test-utils'
 import useResizeObserver from './useResizeObserver'
 
 const keys = [
@@ -20,13 +19,10 @@ const colors = {
 }
 const margin = ({ top: 10, right: 5, bottom: 0, left: 0 })
 
-
-
 function StackedBarChart({ data, id = "zoomable-stacked-bar-chart" }) {
   const svgRef = useRef()
   const wrapperRef = useRef()
   const dimensions = useResizeObserver(wrapperRef)
-  // const [data, setReportData] = useState(reportData)
 
   useEffect(() => {
     const svg = select(svgRef.current)
