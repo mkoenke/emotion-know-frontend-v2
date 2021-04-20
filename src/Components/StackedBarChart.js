@@ -20,7 +20,7 @@ const colors = {
 }
 const margin = ({ top: 10, right: 5, bottom: 0, left: 0 })
 
-function StackedBarChart({ data }) {
+function StackedBarChart({ data, id = "zoomable-stacked-bar-chart" }) {
   const svgRef = useRef()
   const wrapperRef = useRef()
   const dimensions = useResizeObserver(wrapperRef)
@@ -113,8 +113,12 @@ function StackedBarChart({ data }) {
     <React.Fragment>
       <div ref={wrapperRef} style={{ marginBottom: '2rem' }}>
         <svg ref={svgRef}>
-
-          <g className="x-axis" />
+          <defs>
+            <clipPath id={id}>
+              <rect x="0" y="0" width="100%" height="100%"/>
+            </clipPath>
+          </defs>
+          <g className="x-axis" clipPath={`url(#${id})`}/>
           <g className="y-axis" />
         </svg>
       </div>
