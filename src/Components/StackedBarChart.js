@@ -76,10 +76,14 @@ function StackedBarChart({ data, id = "zoomable-stacked-bar-chart" }) {
 
     //Axes
     const xAxis = axisBottom(xScale)
+
     svg
       .select(".x-axis")
       .attr("transform", `translate(0, ${height})`)
       .call(xAxis)
+      .selectAll("text")
+      .attr("transform", "rotate(-75)")
+      .attr("dx", "-4.8em")
 
     const yAxis = axisLeft(yScale)
     svg
