@@ -2,6 +2,8 @@ import { select, scaleBand, scaleLinear, axisBottom, stack, max, create, axisLef
 import React, { useEffect, useRef, useState } from 'react'
 import useResizeObserver from './useResizeObserver'
 
+//attach keys/colors to the data objects being passed in to use
+//them in the svg rendering
 const keys = [
   "anger",
   "disgust",
@@ -72,28 +74,32 @@ function StackedBarChart({ data, id = "zoomable-stacked-bar-chart" }) {
         // console.log("MOUSEOBJ", mouseObj)
         // console.log("DATA", data.data)
         svg
-          .selectAll(".tooltip")
+          .selectAll(".tooltipBox")
           .data([data])
           .join("rect")
-          .attr("class", "tooltip")
-          .attr("width", "10em")
-          .attr("height", "10em")
-          .attr("fill", "grey")
+          .attr("class", "tooltipBox")
+          .attr("width", "150px")
+          .attr("height", "75px")
+          .attr("fill", "white")
           .attr("opacity", "0.7")
           .attr("stroke", "black")
           .attr("x", mouseObj.layerX)
           .attr("y", mouseObj.layerY)
+
+        svg
+          .selectAll(".tooltipText")
+          .data([data])
           .join("text")
-          .attr("class", "tooltip")
+          .attr("class", "tooltipText")
           .text(data => {
             return `
-            ${data.data.created_at.toDateString()} \n
+            ${data.data.created_at.toDateString()}
             ${Math.round((data[1] - data[0])*100)}%
             `
           })
-          .attr("x", mouseObj.layerX)
-          .attr("y", mouseObj.layerY)
-          .transition()
+          .attr("x", mouseObj.layerX +3)
+          .attr("y", mouseObj.layerY + 25)
+          
       })
       .on("mouseleave", () => svg.select(".tooltip").remove())
 
