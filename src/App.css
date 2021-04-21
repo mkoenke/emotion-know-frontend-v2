@@ -520,3 +520,18 @@ button:hover {
   display: flex;
   justify-content: center;
 }
+
+
+
+/* STACKED BAR CHART */
+
+.layer rect {
+  opacity: 0.75;
+}
+
+.layer rect:hover {
+  opacity: 1;
+  stroke-width: 3px;
+  stroke: greenyellow;
+  z-index: 10;
+}

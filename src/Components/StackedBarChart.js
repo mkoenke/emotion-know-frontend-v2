@@ -55,16 +55,18 @@ function StackedBarChart({ data, id = "zoomable-stacked-bar-chart" }) {
 
     //Rendering
     svgContent
-      .attr("viewBox", [0, 0, width, height])
+      // .attr("viewBox", [0, 0, width, height])
       .selectAll(".layer")
       .data(layers)
       .join("g")
       .attr("class", "layer")
       .attr("fill", layer => colors[layer.key])
+      // .attr("opacity", "0.8")
       .selectAll("rect")
       .data(layer => layer)
       .join("rect")
       .attr("rx", "4px")
+      .attr("stroke", "black")
 
       .attr("x", sequence => {
         return xScale(sequence.data.created_at.toDateString())
@@ -72,9 +74,13 @@ function StackedBarChart({ data, id = "zoomable-stacked-bar-chart" }) {
       .attr("width", xScale.bandwidth())
       .attr("y", sequence => yScale(sequence[1]))
       .attr("height", sequence => yScale(sequence[0]) - yScale(sequence[1]))
-      .on("mouseenter", (mouseObj, data) => {
+      .on("mouseenter", function (mouseObj, data){
         // console.log("MOUSEOBJ", mouseObj)
         // console.log("DATA", data.data)
+        // console.log("THIS",this)
+        const currentRect = select(this)
+
+        console.log(currentRect)
         svg
           .selectAll(".tooltipBox")
           .data([data])
@@ -102,7 +108,6 @@ function StackedBarChart({ data, id = "zoomable-stacked-bar-chart" }) {
           })
           .attr("x", mouseObj.layerX +3)
           .attr("y", mouseObj.layerY + 25)
-          
       })
       .on("mouseleave", () => svg.select(".tooltip").remove())
 
