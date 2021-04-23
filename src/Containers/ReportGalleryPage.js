@@ -19,113 +19,6 @@ class ReportGalleryPage extends React.Component {
     clickedJournal: {},
   }
 
-  // chartData = [
-  //   {
-  //     id: 1,
-  //     name: "name1",
-  //     created_at: new Date("2021-04-07"),
-  //     anger: 0.1, fear: 0.2, disgust: 0.0, joy: 0.5, sadness: 0.0, surprise: 0.2
-  //     // emotions: { anger: 0.1, fear: 0.2, disgust: 0.0, joy: 0.5, sadness: 0.0, surprise: 0.2 }
-  //   },
-  //   {
-  //     id: 2,
-  //     name: "name2",
-  //     created_at: new Date("2021-04-08"),
-  //     anger: 0.4, fear: 0.1, disgust: 0.0, joy: 0.2, sadness: 0.1, surprise: 0.2
-  //     // emotions: { anger: 0.1, fear: 0.2, disgust: 0.0, joy: 0.5, sadness: 0.0, surprise: 0.2 }
-  //   },
-  //   {
-  //     id: 3,
-  //     name: "name3",
-  //     created_at: new Date("2021-04-09"),
-  //     anger: 0.1, fear: 0.2, disgust: 0.0, joy: 0.5, sadness: 0.0, surprise: 0.2
-  //     // emotions: { anger: 0.1, fear: 0.2, disgust: 0.0, joy: 0.5, sadness: 0.0, surprise: 0.2 }
-  //   },
-  //   {
-  //     id: 4,
-  //     name: "name4",
-  //     created_at: new Date("2021-04-11"),
-  //     anger: 0.1, fear: 0.2, disgust: 0.0, joy: 0.5, sadness: 0.0, surprise: 0.2 
-  //     // emotions: { anger: 0.1, fear: 0.2, disgust: 0.0, joy: 0.5, sadness: 0.0, surprise: 0.2 }
-  //   },
-  //   {
-  //     id: 5,
-  //     name: "name5",
-  //     created_at: new Date("2021-04-12"),
-  //     anger: 0.1, fear: 0.2, disgust: 0.0, joy: 0.5, sadness: 0.0, surprise: 0.2 
-  //     // emotions: { anger: 0.1, fear: 0.2, disgust: 0.0, joy: 0.5, sadness: 0.0, surprise: 0.2 }
-  //   },
-  //   {
-  //     id: 6,
-  //     name: "name6",
-  //     created_at: new Date("2021-04-13"),
-  //     anger: 0.1, fear: 0.2, disgust: 0.0, joy: 0.5, sadness: 0.0, surprise: 0.2 
-  //     // emotions: { anger: 0.1, fear: 0.2, disgust: 0.0, joy: 0.5, sadness: 0.0, surprise: 0.2 }
-  //   },
-  //   {
-  //     id: 7,
-  //     name: "name7",
-  //     created_at: new Date("2021-04-15"),
-  //     anger: 0.1, fear: 0.2, disgust: 0.0, joy: 0.5, sadness: 0.0, surprise: 0.2 
-  //     // emotions: { anger: 0.1, fear: 0.2, disgust: 0.0, joy: 0.5, sadness: 0.0, surprise: 0.2 }
-  //   },
-  //   {
-  //     id: 8,
-  //     name: "name8",
-  //     created_at: new Date("2021-04-16"),
-  //     anger: 0.1, fear: 0.2, disgust: 0.0, joy: 0.5, sadness: 0.0, surprise: 0.2 
-  //     // emotions: { anger: 0.1, fear: 0.2, disgust: 0.0, joy: 0.5, sadness: 0.0, surprise: 0.2 }
-  //   },
-  //   {
-  //     id: 9,
-  //     name: "name9",
-  //     created_at: new Date("2021-04-18"),
-  //     anger: 0.1, fear: 0.1, disgust: 0.3, joy: 0.0, sadness: 0.3, surprise: 0.2 
-  //     // emotions: { anger: 0.1, fear: 0.2, disgust: 0.0, joy: 0.5, sadness: 0.0, surprise: 0.2 }
-  //   },
-  //   {
-  //     id: 10,
-  //     name: "name9",
-  //     created_at: new Date("2021-04-19"),
-  //     anger: 0.1, fear: 0.1, disgust: 0.3, joy: 0.0, sadness: 0.3, surprise: 0.2 
-  //     // emotions: { anger: 0.1, fear: 0.2, disgust: 0.0, joy: 0.5, sadness: 0.0, surprise: 0.2 }
-  //   },
-  //   {
-  //     id: 11,
-  //     name: "name9",
-  //     created_at: new Date("2021-04-20"),
-  //     anger: 0.1, fear: 0.1, disgust: 0.3, joy: 0.0, sadness: 0.3, surprise: 0.2 
-  //     // emotions: { anger: 0.1, fear: 0.2, disgust: 0.0, joy: 0.5, sadness: 0.0, surprise: 0.2 }
-  //   },
-  //   {
-  //     id: 12,
-  //     name: "name9",
-  //     created_at: new Date("2021-04-22"),
-  //     anger: 0.1, fear: 0.1, disgust: 0.3, joy: 0.0, sadness: 0.3, surprise: 0.2 
-  //     // emotions: { anger: 0.1, fear: 0.2, disgust: 0.0, joy: 0.5, sadness: 0.0, surprise: 0.2 }
-  //   },
-  //   {
-  //     id: 13,
-  //     name: "name9",
-  //     created_at: new Date("2021-04-24"),
-  //     anger: 0.1, fear: 0.1, disgust: 0.3, joy: 0.0, sadness: 0.3, surprise: 0.2 
-  //     // emotions: { anger: 0.1, fear: 0.2, disgust: 0.0, joy: 0.5, sadness: 0.0, surprise: 0.2 }
-  //   },
-  //   {
-  //     id: 14,
-  //     name: "name9",
-  //     created_at: new Date("2021-04-25"),
-  //     anger: 0.1, fear: 0.1, disgust: 0.3, joy: 0.0, sadness: 0.3, surprise: 0.2 
-  //     // emotions: { anger: 0.1, fear: 0.2, disgust: 0.0, joy: 0.5, sadness: 0.0, surprise: 0.2 }
-  //   },
-  //   {
-  //     id: 15,
-  //     name: "name9",
-  //     created_at: new Date("2021-04-29"),
-  //     anger: 0.1, fear: 0.1, disgust: 0.3, joy: 0.0, sadness: 0.3, surprise: 0.2 
-  //     // emotions: { anger: 0.1, fear: 0.2, disgust: 0.0, joy: 0.5, sadness: 0.0, surprise: 0.2 }
-  //   },
-  // ]
   componentDidMount() {
     if (this.props.allReports.length) {
       this.setState({ items: this.props.allReports })
@@ -212,8 +105,11 @@ class ReportGalleryPage extends React.Component {
                   Emotional Reports over Time
                 </Header>
                 <br />
-                <div className="lineGraph pattern">
+                {/* <div className="lineGraph pattern">
                   <D3OverTimeLineGraph data={this.state.items} />
+                </div> */}
+                <div id="#EOT">
+                  <StackedBarChart data={this.emotionsOverTimeData(this.state.items)} />
                 </div>
               </Container>
               <div className="footer"></div>
@@ -239,32 +135,13 @@ class ReportGalleryPage extends React.Component {
                 Emotional Reports over Time
                 </Header>
               <br />
-              <div className="lineGraph pattern">
+              {/* <div className="lineGraph pattern">
                 <D3OverTimeLineGraph data={this.state.items} />
-              </div>
+              </div> */}
             </Container>
             <div className="footer"></div>
           </div>
         )}
-            <Container>
-              <div id="#EOT">
-                <StackedBarChart data={this.emotionsOverTimeData(this.state.items)}/>
-              </div>
-            </Container>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
       </>
     )
   }
