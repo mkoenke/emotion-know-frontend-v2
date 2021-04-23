@@ -164,7 +164,7 @@ function StackedBarChart({ data, id = "zoomable-stacked-bar-chart" }) {
   return (
     <React.Fragment>
       <div ref={wrapperRef} style={{ marginBottom: '2rem' }}>
-        <svg ref={svgRef} >
+        <svg className="eot-sbc"ref={svgRef} >
           <defs>
             <clipPath id={id}>
               <rect x="0" y="0" width="100%" height="100%" />
