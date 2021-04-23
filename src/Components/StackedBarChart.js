@@ -45,7 +45,7 @@ function StackedBarChart({ data, id = "zoomable-stacked-bar-chart" }) {
 
     //Scales
     const xScale = scaleBand()
-      .domain(data.map(d => d.created_at.toDateString()))
+      .domain(data.map(d => `${d.id} ${d.created_at.toDateString()}`))
       .range([margin.left, width - margin.right])
       .padding(0.15)
 
@@ -69,7 +69,7 @@ function StackedBarChart({ data, id = "zoomable-stacked-bar-chart" }) {
       .attr("stroke", "black")
 
       .attr("x", sequence => {
-        return xScale(sequence.data.created_at.toDateString())
+        return xScale(`${sequence.data.id} ${sequence.data.created_at.toDateString()}`)
       })
       .attr("width", xScale.bandwidth())
       .attr("y", sequence => yScale(sequence[1]))
@@ -149,7 +149,7 @@ function StackedBarChart({ data, id = "zoomable-stacked-bar-chart" }) {
         }));
         svg
           .selectAll(".layer rect").attr("x", d => {
-            return xScale(d.data.created_at.toDateString())
+            return xScale(`${d.data.id} ${d.data.created_at.toDateString()}`)
           })
           .attr("width", xScale.bandwidth());
         svg
