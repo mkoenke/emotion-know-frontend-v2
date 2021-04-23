@@ -29,42 +29,19 @@ class FunWithEmotionsPage extends React.Component {
     randomFace: 'Happy',
     isSDKRunning: false,
   }
-  // componentDidMount() {
-  //   window.addEventListener(CY.modules().FACE_EMOTION.eventName, (evt) => {
-  //     this.setState({
-  //       emo: evt.detail.output.dominantEmotion,
-  //       anger: evt.detail.output.rawEmotion.Angry,
-  //       disgust: evt.detail.output.rawEmotion.Disgust,
-  //       fear: evt.detail.output.rawEmotion.Fear,
-  //       joy: evt.detail.output.rawEmotion.Happy,
-  //       sadness: evt.detail.output.rawEmotion.Sad,
-  //       surprise: evt.detail.output.rawEmotion.Surprise,
-  //     })
-  //   })
-  //   window.addEventListener(
-  //     CY.modules().FACE_AROUSAL_VALENCE.eventName,
-  //     (evt) => {
-  //       this.setState(
-  //         {
-  //           affects98: evt.detail.output.affects98,
-  //         },
-  //         this.findDominantAffect(evt.detail.output.affects98)
-  //       )
-  //     }
-  //   )
-  // }
 
   componentWillUnmount() {
     this.props.stopSDK()
   }
 
   startTimer = () => {
+    const { timerTime } = this.state
     this.props.startSDK()
     this.setState(
       {
         timerOn: true,
-        timerTime: this.state.timerTime,
-        timerStart: this.state.timerTime,
+        timerTime,
+        timerStart: timerTime,
         isSDKRunning: true,
       },
       this.startCollecting
@@ -85,9 +62,10 @@ class FunWithEmotionsPage extends React.Component {
     }, 1000)
   }
   resetTimer = () => {
-    if (!this.state.timerOn) {
+    const { timerStart, timerOn } = this.state
+    if (!timerOn) {
       this.setState({
-        timerTime: this.state.timerStart,
+        timerTime: timerStart,
         score: null,
       })
     }
@@ -95,6 +73,7 @@ class FunWithEmotionsPage extends React.Component {
   }
 
   startCollecting = () => {
+    const { isSDKRunning } = this.state
     window.addEventListener(CY.modules().FACE_EMOTION.eventName, (evt) => {
       this.setState({
         emo: evt.detail.output.dominantEmotion,
@@ -105,7 +84,7 @@ class FunWithEmotionsPage extends React.Component {
         sadness: evt.detail.output.rawEmotion.Sad,
         surprise: evt.detail.output.rawEmotion.Surprise,
       })
-      if (this.state.isSDKRunning) {
+      if (isSDKRunning) {
         this.collectEmotionData(evt.detail.output.rawEmotion)
       }
     })
@@ -123,19 +102,20 @@ class FunWithEmotionsPage extends React.Component {
   }
 
   collectEmotionData = (emotionObj) => {
-    targetEmotionValues = [
-      ...targetEmotionValues,
-      emotionObj[this.state.randomFace],
-    ]
+    const { randomFace } = this.state
+    targetEmotionValues = [...targetEmotionValues, emotionObj[randomFace]]
   }
 
   findScore = () => {
-    const score = Math.max(...targetEmotionValues) * 100
+    const score = (Math.max(...targetEmotionValues) * 100)
+      .toString()
+      .slice(0, 5)
     this.setState({ score })
   }
 
   randomFaceText = () => {
-    switch (this.state.randomFace) {
+    const { randomFace } = this.state
+    switch (randomFace) {
       case 'Happy':
         return 'happy'
       case 'Angry':
@@ -174,42 +154,47 @@ class FunWithEmotionsPage extends React.Component {
       width: { min: 400, max: 700 },
     }
 
-    let data = [
-      parseFloat(this.state.anger),
-      parseFloat(this.state.disgust),
-      parseFloat(this.state.fear),
-      parseFloat(this.state.joy),
-      parseFloat(this.state.sadness),
-      parseFloat(this.state.surprise),
-    ]
-    const { timerTime, timerStart, timerOn } = this.state
-    let seconds = Math.floor(timerTime / 1000)
+    const {
+      timerTime,
+      timerStart,
+      timerOn,
+      anger,
+      disgust,
+      fear,
+      joy,
+      sadness,
+      surprise,
+      score,
+      randomFace,
+      loading,
+      emo,
+      dominantAffect,
+    } = this.state
 
-    // const faceArray = [
-    //   'happy',
-    //   'angry',
-    //   'sad',
-    //   'fearful',
-    //   'surprised',
-    //   'disgusted',
-    //   'joyful',
-    //   'shocked',
-    //   'terrified',
-    //   'repulsed',
-    //   'heartbroken',
-    //   'furious',
-    // ]
-    // const randomface = faceArray[Math.floor(Math.random() * faceArray.length)]
+    let data = [
+      parseFloat(anger),
+      parseFloat(disgust),
+      parseFloat(fear),
+      parseFloat(joy),
+      parseFloat(sadness),
+      parseFloat(surprise),
+    ]
+
+    let seconds = Math.floor(timerTime / 1000)
 
     return (
       <>
-        <BubbleChart data={data} />
+        <BubbleChart data={data} yOffset={250} />
         {this.props.parent || this.props.child ? (
           <>
             <div className="pattern">
               {this.props.child && !this.props.parent ? (
-                <Header className="pageHeader" size="huge" textAlign="center">
-                  Let's make some funny faces, {this.props.child.username}!
+                <Header
+                  id="gameHeader"
+                  className="pageHeader"
+                  textAlign="center"
+                >
+                  Hey, {this.props.child.username}! Let's make some funny faces!
                 </Header>
               ) : null}
               {this.props.parent && (
@@ -217,46 +202,78 @@ class FunWithEmotionsPage extends React.Component {
                   Let's make some funny faces!
                 </Header>
               )}
-              {!this.state.timerOn && (
-                <Header className="whichFace" size="huge" textAlign="center">
-                  Can you make a {this.randomFaceText()} face?
-                </Header>
-              )}
 
-              <Header className="waitOrDom" size="huge" textAlign="center">
-                {this.state.emo && this.state.dominantAffect && (
-                  <>
-                    Your face looks like you're feeling{' '}
-                    <span className="emphasize">
-                      {this.state.dominantAffect.toLowerCase()}!
-                    </span>
-                    <br />
-                    Biggest Emotion:{' '}
-                    <span className="emphasize">{this.state.emo}</span>
-                  </>
-                )}
-                <>
-                  <div className="timerContainer">
-                    {timerOn && <div className="countdownTime">{seconds}</div>}
-                    {timerOn === false &&
+              <Grid centered textAlign="center">
+                <Grid.Row>
+                  <Grid.Column className="gameFaceQuestion">
+                    {!timerOn && !score ? (
+                      <Header
+                        className="whichFace"
+                        size="huge"
+                        textAlign="center"
+                      >
+                        Can you make {this.randomFaceText()} face?
+                      </Header>
+                    ) : (
+                      !loading &&
+                      score &&
+                      !timerOn && (
+                        <Header
+                          className="whichFace"
+                          size="huge"
+                          textAlign="center"
+                        >
+                          {score}% {randomFace}!
+                        </Header>
+                      )
+                    )}
+                  </Grid.Column>
+                </Grid.Row>
+                <Grid.Row>
+                  <Grid.Column textAlign="center" className="timerButtons">
+                    {timerOn && !loading && (
+                      <Header textAlign="center" className="countdownTime">
+                        {seconds}
+                      </Header>
+                    )}
+                    {!timerOn &&
+                      !loading &&
                       (timerStart === 0 || timerTime === timerStart) && (
                         <button onClick={this.startTimer}>
                           Of course! Let's go!
                         </button>
                       )}
-                    {(timerOn === false || timerTime < 1000) &&
+                    {!loading &&
+                      !timerOn &&
                       timerStart !== timerTime &&
                       timerStart > 0 && (
                         <button onClick={this.resetTimer}>Try it again!</button>
                       )}
-                    {this.state.score && !timerOn && (
-                      <h1>
-                        {this.state.score} % {this.state.randomFace}!
-                      </h1>
-                    )}
-                  </div>
-                </>
-              </Header>
+                  </Grid.Column>
+                </Grid.Row>
+                <Grid.Row>
+                  <Grid.Column className="emotionDisplay">
+                    <Header
+                      className="waitOrDom"
+                      size="huge"
+                      textAlign="center"
+                    >
+                      {emo && dominantAffect && (
+                        <>
+                          Your face looks like you're feeling{' '}
+                          <span className="emphasize">
+                            {dominantAffect.toLowerCase()}!
+                          </span>
+                          <br />
+                          Biggest Emotion:{' '}
+                          <span className="emphasize">{emo}</span>
+                        </>
+                      )}
+                    </Header>
+                  </Grid.Column>
+                </Grid.Row>
+              </Grid>
+
               <Grid
                 columns={3}
                 centered
