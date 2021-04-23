@@ -8,6 +8,7 @@ function emotionsOverTimeCalculator(emotionReports) {
   })
   //this solution needs refactoring, but adds date back to array
   for(let i = 0; i < emotionReports.length; i++){
+    emotionPercentOfEntryArray[i].id = i
     emotionPercentOfEntryArray[i].created_at = emotionReports[i].created_at
   }
   return emotionPercentOfEntryArray

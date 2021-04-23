@@ -109,7 +109,10 @@ function StackedBarChart({ data, id = "zoomable-stacked-bar-chart" }) {
           .attr("x", mouseObj.layerX +3)
           .attr("y", mouseObj.layerY + 25)
       })
-      .on("mouseleave", () => svg.select(".tooltip").remove())
+      .on("mouseleave", () => {
+        svg.select(".tooltipBox").remove()
+        svg.select(".tooltipText").remove()
+      })
 
 
     //Axes

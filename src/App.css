@@ -531,7 +531,8 @@ button:hover {
 .layer rect:hover {
   opacity: 1;
   stroke-width: 3px;
-  stroke: greenyellow;
+  /* stroke: greenyellow; */
+  stroke: black;
   position: absolute;
   z-index: -1;
 }
