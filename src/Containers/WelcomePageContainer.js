@@ -19,7 +19,15 @@ class WelcomePageContainer extends React.Component {
             </div>
           </>
         ) : null}
-        {this.props.parent ? <ChooseChildList /> : null}
+        {this.props.parent && (
+          <div className="background">
+            <Header className="pageHeader" textAlign="center">
+              Welcome to EmotionKnow!
+            </Header>
+
+            <ChooseChildList />
+          </div>
+        )}
       </>
     )
   }

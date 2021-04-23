@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { Grid } from 'semantic-ui-react'
 import ChildCard from './ChildCard'
 
 // import ReportGalleryPage from "./ReportGalleryPage"
@@ -7,12 +8,22 @@ import ChildCard from './ChildCard'
 class ChooseChildList extends React.Component {
   listOfChildren = () => {
     return this.props.parent.children.map((child) => (
-      <ChildCard childObj={child} />
+      <ChildCard onClick={this.filterReports} childObj={child} />
     ))
   }
 
+  filterReports = () => {
+    /// filter reports for child matching the clicked card's child's id
+  }
+
   render() {
-    return <>{this.listOfChildren()}</>
+    return (
+      <>
+        <Grid columns={3} centered className="background">
+          <Grid.Row>{this.listOfChildren()}</Grid.Row>
+        </Grid>
+      </>
+    )
   }
 }
 
