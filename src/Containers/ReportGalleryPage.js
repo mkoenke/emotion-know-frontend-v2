@@ -5,6 +5,10 @@ import D3OverTimeLineGraph from '../Components/D3OverTimeLineGraph'
 import { setClickedReport } from '../Redux/actions'
 import ReportGallerySingleGraph from '../Components/ReportGallerySingleGraph'
 import ReportGalleryReportsTable from '../Components/ReportGalleryReportsTable'
+import D3OverTimeBarChart from '../Components/D3OverTimeBarChart'
+import StackedBarChart from '../Components/StackedBarChart'
+import emotionsOverTimeCalculator from '../HelperFunctions/emotionsOverTimeCalculator'
+
 
 class ReportGalleryPage extends React.Component {
   state = {
@@ -73,6 +77,10 @@ class ReportGalleryPage extends React.Component {
     this.setState({ pageOfItems })
   }
 
+  emotionsOverTimeData = (itemsFromState) => {
+    return emotionsOverTimeCalculator(itemsFromState)
+  }
+
   render() {
     return (
       <>
@@ -97,8 +105,11 @@ class ReportGalleryPage extends React.Component {
                   Emotional Reports over Time
                 </Header>
                 <br />
-                <div className="lineGraph pattern">
+                {/* <div className="lineGraph pattern">
                   <D3OverTimeLineGraph data={this.state.items} />
+                </div> */}
+                <div id="#EOT">
+                  <StackedBarChart data={this.emotionsOverTimeData(this.state.items)} />
                 </div>
               </Container>
               <div className="footer"></div>
@@ -124,9 +135,9 @@ class ReportGalleryPage extends React.Component {
                 Emotional Reports over Time
                 </Header>
               <br />
-              <div className="lineGraph pattern">
+              {/* <div className="lineGraph pattern">
                 <D3OverTimeLineGraph data={this.state.items} />
-              </div>
+              </div> */}
             </Container>
             <div className="footer"></div>
           </div>
