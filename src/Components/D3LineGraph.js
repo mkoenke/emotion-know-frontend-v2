@@ -20,29 +20,30 @@ function D3LineChart({ data, id = 'myD3LineChart' }) {
   const [sadness, setSadnessState] = useState()
   const [surprise, setSurpriseState] = useState()
 
-  const margin ={ left: 40, right: 0, top: 0, bottom: 0}
+  const margin = { left: 40, right: 0, top: 0, bottom: 0 }
 
-  
   useEffect(() => {
     const svg = select(svgRef.current)
-  
-    svg.append("text")
-      .attr("x", 250)
-      .attr("y", 335)
-      .style("fill", "#5d5d5d")
-      .style("stroke", "#5d5d5d")
-      .style("text-anchor", "middle")
-      .text("Time (s)")
-    
-    svg.append("text")
-      .attr("transform", "rotate(-90)")
-      .attr("x", -150)
-      .attr("y", -45)
-      .attr("dy", "1em")
-      .style("fill", "#5d5d5d")
-      .style("stroke", "#5d5d5d")
-      .style("text-anchor", "middle")
-      .text("Liklihood of Current Emotion")
+
+    svg
+      .append('text')
+      .attr('x', 250)
+      .attr('y', 335)
+      .style('fill', '#5d5d5d')
+      .style('stroke', '#5d5d5d')
+      .style('text-anchor', 'middle')
+      .text('Time (s)')
+
+    svg
+      .append('text')
+      .attr('transform', 'rotate(-90)')
+      .attr('x', -150)
+      .attr('y', -45)
+      .attr('dy', '1em')
+      .style('fill', '#5d5d5d')
+      .style('stroke', '#5d5d5d')
+      .style('text-anchor', 'middle')
+      .text('Liklihood of Current Emotion')
 
     const svgContent = svg.select('.content')
     const { width, height } = wrapperRef.current.getBoundingClientRect()
@@ -57,9 +58,7 @@ function D3LineChart({ data, id = 'myD3LineChart' }) {
       xScale.domain([Math.max(0, newXScale.domain()[0]), newXScale.domain()[1]])
     }
 
-    const yScale = scaleLinear()
-      .domain([0, 1.1])
-      .range([height, 1])
+    const yScale = scaleLinear().domain([0, 1.1]).range([height, 1])
 
     const lineGenerator = line()
       .x((d, index) => xScale(index))
@@ -96,18 +95,30 @@ function D3LineChart({ data, id = 'myD3LineChart' }) {
     svg.call(zoomBehavior)
   }, [currentZoomState, data])
 
-
   return (
     <React.Fragment>
       <div ref={wrapperRef} style={{ marginBottom: '2rem' }}>
-        <svg ref={svgRef} style={{ marginLeft: margin.left, marginTop: "3px", marginRight: margin.right }}>
+        <svg
+          className="lineSvg"
+          ref={svgRef}
+          style={{
+            marginLeft: margin.left,
+            marginTop: '3px',
+            marginRight: margin.right,
+          }}
+        >
           <defs>
             <clipPath id={id}>
               <rect x="0" y="0" width="91%" height="100%" />
             </clipPath>
           </defs>
-          <g className="content" clipPath={`url(#${id})`} fill="none" strokeWidth="3px">
-            <path d={anger} stroke="rgba(255, 99, 132, 1)" ></path>
+          <g
+            className="content"
+            clipPath={`url(#${id})`}
+            fill="none"
+            strokeWidth="3px"
+          >
+            <path d={anger} stroke="rgba(255, 99, 132, 1)"></path>
             <path d={disgust} stroke="rgba(255, 159, 64, 1)"></path>
             <path d={fear} stroke="rgba(75, 192, 192, 1)"></path>
             <path d={joy} stroke="rgba(255, 206, 86, 1)"></path>
