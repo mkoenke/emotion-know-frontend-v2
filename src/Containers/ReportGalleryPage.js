@@ -1,14 +1,11 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Container, Header } from 'semantic-ui-react'
-import D3OverTimeLineGraph from '../Components/D3OverTimeLineGraph'
-import { setClickedReport } from '../Redux/actions'
-import ReportGallerySingleGraph from '../Components/ReportGallerySingleGraph'
 import ReportGalleryReportsTable from '../Components/ReportGalleryReportsTable'
-import D3OverTimeBarChart from '../Components/D3OverTimeBarChart'
+import ReportGallerySingleGraph from '../Components/ReportGallerySingleGraph'
 import StackedBarChart from '../Components/StackedBarChart'
 import emotionsOverTimeCalculator from '../HelperFunctions/emotionsOverTimeCalculator'
-
+import { setClickedReport } from '../Redux/actions'
 
 class ReportGalleryPage extends React.Component {
   state = {
@@ -32,7 +29,8 @@ class ReportGalleryPage extends React.Component {
       this.setState({ beenClicked: false })
     }
     let currentReports = []
-    if (!this.props.allReports.length) currentReports = [...this.props.parentsReports]
+    if (!this.props.allReports.length)
+      currentReports = [...this.props.parentsReports]
     else currentReports = [...this.props.allReports]
 
     const clickedReport = currentReports.find(
@@ -96,9 +94,15 @@ class ReportGalleryPage extends React.Component {
                 <Header as="h2" className="content tableHeaderMargin">
                   Individual Journal Emotional Reports
                 </Header>
-                {ReportGalleryReportsTable(this.state.items, this.handleReportClick, this.onChangePage)}
+                {ReportGalleryReportsTable(
+                  this.state.items,
+                  this.handleReportClick,
+                  this.onChangePage
+                )}
                 <br />
-                {this.state.beenClicked ? ReportGallerySingleGraph(this.state, this.props.parent) : null}
+                {this.state.beenClicked
+                  ? ReportGallerySingleGraph(this.state, this.props.parent)
+                  : null}
               </Container>
               <Container textAlign="center">
                 <Header as="h2" className="content tableHeaderMargin">
@@ -109,7 +113,9 @@ class ReportGalleryPage extends React.Component {
                   <D3OverTimeLineGraph data={this.state.items} />
                 </div> */}
                 <div id="#EOT">
-                  <StackedBarChart data={this.emotionsOverTimeData(this.state.items)} />
+                  <StackedBarChart
+                    data={this.emotionsOverTimeData(this.state.items)}
+                  />
                 </div>
               </Container>
               <div className="footer"></div>
@@ -119,21 +125,27 @@ class ReportGalleryPage extends React.Component {
           <div className="background">
             <Container>
               <Header className="pageHeader" size="huge" textAlign="center">
-                Your Child {this.props.parent.child.username}'s Reports
-                </Header>
+                {/* Your Child {this.props.parent.child.username}'s Reports */}
+              </Header>
             </Container>
             <Container textAlign="center">
               <Header as="h2" className="content tableHeaderMargin">
                 Individual Journal Emotional Reports
-                </Header>
-              {ReportGalleryReportsTable(this.state.items, this.handleReportClick, this.onChangePage)}
+              </Header>
+              {ReportGalleryReportsTable(
+                this.state.items,
+                this.handleReportClick,
+                this.onChangePage
+              )}
               <br />
-              {this.state.beenClicked ? ReportGallerySingleGraph(this.state, this.props.parent) : null}
+              {this.state.beenClicked
+                ? ReportGallerySingleGraph(this.state, this.props.parent)
+                : null}
             </Container>
             <Container textAlign="center">
               <Header as="h2" className="content tableHeaderMargin">
                 Emotional Reports over Time
-                </Header>
+              </Header>
               <br />
               {/* <div className="lineGraph pattern">
                 <D3OverTimeLineGraph data={this.state.items} />
