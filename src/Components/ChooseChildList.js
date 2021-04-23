@@ -17,8 +17,6 @@ class ChooseChildList extends React.Component {
     const childsReports = this.props.parentsReports.filter(
       (report) => report.child_id === childId
     )
-    console.log(childsReports)
-    console.log(this.props)
     this.props.dispatchFilteredReports(childsReports)
   }
 

@@ -19,8 +19,8 @@ class ReportGalleryPage extends React.Component {
   componentDidMount() {
     if (this.props.allReports.length) {
       this.setState({ items: this.props.allReports })
-    } else if (this.props.parentsReports.length) {
-      this.setState({ items: this.props.parentsReports })
+    } else if (this.props.filteredReports.length) {
+      this.setState({ items: this.props.filteredReports })
     }
   }
 
@@ -46,7 +46,7 @@ class ReportGalleryPage extends React.Component {
   }
 
   handleParentReportClick = (event) => {
-    const clickedReport = this.props.parentsReports.find(
+    const clickedReport = this.props.filteredReports.find(
       (report) => report.created_at === event.target.closest('tr').id
     )
     this.props.dispatchClickedReport(clickedReport)
@@ -77,6 +77,13 @@ class ReportGalleryPage extends React.Component {
 
   emotionsOverTimeData = (itemsFromState) => {
     return emotionsOverTimeCalculator(itemsFromState)
+  }
+
+  filterChildsName = () => {
+    const filteredChild = this.props.parent.children.filter(
+      (child) => child.id === this.props.filteredReports[0].child_id
+    )
+    return filteredChild[0].username
   }
 
   render() {
@@ -125,7 +132,7 @@ class ReportGalleryPage extends React.Component {
           <div className="background">
             <Container>
               <Header className="pageHeader" size="huge" textAlign="center">
-                {/* Your Child {this.props.parent.child.username}'s Reports */}
+                {this.filterChildsName()}'s Reports
               </Header>
             </Container>
             <Container textAlign="center">
@@ -166,6 +173,7 @@ function mapStateToProps(state) {
     parentsReports: state.parentsReports,
     allJournals: state.allJournals,
     allVideos: state.allVideos,
+    filteredReports: state.filteredReports,
   }
 }
 
