@@ -23,7 +23,6 @@ function D3OverTimeLineGraph({ data, id = 'd3OverTimeLineGraph' }) {
   const [surprise, setSurpriseState] = useState()
 
   const emotionsOverTimeData = emotionsOverTimeCalculator(data)
-console.log("EMOTION DATA FOR CHART", emotionsOverTimeData)
   const svg = select(svgRef.current)
 
   svg.append("text")

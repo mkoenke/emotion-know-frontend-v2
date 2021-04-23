@@ -545,6 +545,18 @@ button:hover {
   position: absolute;
   z-index: -1;
 }
+
+.x-axis path{
+  stroke: black;
+  stroke-width: 3px;
+}
+
+.y-axis path{
+  stroke: black;
+  stroke-width: 3px;
+}
+
+/* GAME TIMER */
 .emotionDisplay {
   height: 140px;
 }
