@@ -239,7 +239,7 @@ class FunWithEmotionsPage extends React.Component {
                   {!timerOn &&
                     !loading &&
                     (timerStart === 0 || timerTime === timerStart) && (
-                      <button onClick={this.startTimer}>
+                      <button className="timerButton" onClick={this.startTimer}>
                         Of course! Let's go!
                       </button>
                     )}
@@ -247,7 +247,9 @@ class FunWithEmotionsPage extends React.Component {
                     !timerOn &&
                     timerStart !== timerTime &&
                     timerStart > 0 && (
-                      <button onClick={this.resetTimer}>Try it again!</button>
+                      <button className="timerButton" onClick={this.resetTimer}>
+                        Try it again!
+                      </button>
                     )}
                 </Grid.Column>
               </Grid.Row>

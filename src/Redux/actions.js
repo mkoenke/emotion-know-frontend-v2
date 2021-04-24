@@ -6,6 +6,7 @@ import {
   CLICKED_REPORT,
   DELETE_VIDEO,
   EMPTY_GALLERY_MODAL_OPEN,
+  FILTERED_REPORTS,
   LOGOUT,
   MODAL_OPEN,
   PARENTS_REPORTS,
@@ -184,4 +185,8 @@ export function parentsReports(videoReports) {
     return new Date(a.created_at) - new Date(b.created_at)
   })
   return { type: PARENTS_REPORTS, payload: sortedReports }
+}
+
+export function setFilteredReports(reports) {
+  return { type: FILTERED_REPORTS, payload: reports }
 }
