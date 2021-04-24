@@ -135,10 +135,10 @@ class NavBar extends React.Component {
 
           {this.props.parent ? (
             <>
-              <NavLink to="/reports">
+              <NavLink to="/welcome">
                 <Menu.Item
-                  name="reports"
-                  active={activeItem === 'reports'}
+                  name="home"
+                  active={activeItem === 'home'}
                   onClick={this.handleItemClick}
                   className="navbar"
                 />

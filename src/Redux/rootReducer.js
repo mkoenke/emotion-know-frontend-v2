@@ -7,6 +7,7 @@ import {
   CLICKED_REPORT,
   DELETE_VIDEO,
   EMPTY_GALLERY_MODAL_OPEN,
+  FILTERED_REPORTS,
   LOGOUT,
   MODAL_OPEN,
   PARENTS_REPORTS,
@@ -26,6 +27,7 @@ const defaultState = {
   allVideos: [],
   error: null,
   parentsReports: [],
+  filteredReports: [],
   modalOpen: false,
   parentModalOpen: false,
   signUpModalOpen: false,
@@ -166,6 +168,18 @@ function parentReportReducer(prevState = defaultState.parentsReports, action) {
   }
 }
 
+function filteredReportsReducer(
+  prevState = defaultState.filteredReports,
+  action
+) {
+  switch (action.type) {
+    case FILTERED_REPORTS:
+      return action.payload
+    default:
+      return prevState
+  }
+}
+
 function errorReducer(prevState = defaultState.error, action) {
   switch (action.type) {
     case SET_ERROR:
@@ -189,6 +203,7 @@ const rootReducer = combineReducers({
   parentProfileModalOpen: parentProfileModalReducer,
   emptyGalleryModalOpen: emptyGalleryModalReducer,
   clickedReport: clickedReportReducer,
+  filteredReports: filteredReportsReducer,
 })
 
 export default rootReducer

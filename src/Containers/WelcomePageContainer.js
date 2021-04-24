@@ -1,8 +1,8 @@
-import React from "react"
-import { connect } from "react-redux"
-import { Header } from "semantic-ui-react"
-import WelcomePageGrid from "../Components/WelcomePageGrid"
-import ReportGalleryPage from "./ReportGalleryPage"
+import React from 'react'
+import { connect } from 'react-redux'
+import { Header } from 'semantic-ui-react'
+import ChooseChildList from '../Components/ChooseChildList'
+import WelcomePageGrid from '../Components/WelcomePageGrid'
 
 class WelcomePageContainer extends React.Component {
   render() {
@@ -19,7 +19,15 @@ class WelcomePageContainer extends React.Component {
             </div>
           </>
         ) : null}
-        {this.props.parent ? <ReportGalleryPage /> : null}
+        {this.props.parent && (
+          <div className="background">
+            <Header className="pageHeader" textAlign="center">
+              Welcome to EmotionKnow!
+            </Header>
+
+            <ChooseChildList />
+          </div>
+        )}
       </>
     )
   }
