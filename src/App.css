@@ -2,6 +2,7 @@
   background-color: rgb(248, 245, 242);
   transition-timing-function: ease-in-out;
 }
+
 svg {
   display: block;
   width: 100%;
@@ -9,6 +10,7 @@ svg {
   background: #ffffff;
   overflow: visible !important;
 }
+
 .eot-sbc {
   display: block;
   width: 100%;

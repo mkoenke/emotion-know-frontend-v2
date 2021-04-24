@@ -65,7 +65,7 @@ function StackedBarChart({ data, id = "zoomable-stacked-bar-chart" }) {
       .selectAll("rect")
       .data(layer => layer)
       .join("rect")
-      .attr("rx", "4px")
+      .attr("rx", "2px")
       .attr("stroke", "black")
 
       .attr("x", sequence => {
