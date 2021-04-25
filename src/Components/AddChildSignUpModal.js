@@ -1,11 +1,12 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Button, Form, Input, Message, Modal } from 'semantic-ui-react'
+import { Button, Confirm, Form, Input, Message, Modal } from 'semantic-ui-react'
 import { setChild, setError, setSignUpModal } from '../Redux/actions'
 
 class SignUpModal extends React.Component {
   state = {
     isOpen: true,
+    openConfirm: false,
     username: null,
     confirmUsername: null,
     password: null,
@@ -39,7 +40,6 @@ class SignUpModal extends React.Component {
 
   handleFormSubmit = (event) => {
     event.preventDefault()
-    let parentData = null
     let childData = null
     if (
       this.state.username === this.state.confirmUsername &&
@@ -73,91 +73,108 @@ class SignUpModal extends React.Component {
       })
   }
 
+  handleConfirmCancel = () => {
+    this.setState({ openConfirm: false })
+  }
+  handleConfirm = () => {
+    this.setState({ isOpen: true })
+  }
+
   render() {
     return (
-      <Modal
-        onClose={() => this.setState({ isOpen: false })}
-        onOpen={() => this.setState({ isOpen: true })}
-        open={this.state.isOpen}
-        closeOnDimmerClick={false}
-        dimmer="blurring"
-      >
-        <Modal.Header className="background pageHeader">
-          Welcome to EmotionKnow!
-        </Modal.Header>
-        <Modal.Content className="background">
-          {this.props.error ? (
-            <Message negative>
-              <Message.Header>{this.props.error}</Message.Header>
-            </Message>
-          ) : null}
-          {this.state.usernameError ? (
-            <Message negative>
-              <Message.Header>Usernames do not match!</Message.Header>
-            </Message>
-          ) : null}
-          {this.state.passwordError ? (
-            <Message negative>
-              <Message.Header>Passwords do not match!</Message.Header>
-            </Message>
-          ) : null}
-          <Form onSubmit={this.handleFormSubmit}>
-            <Form.Field required>
-              <label className="formLabel">Username</label>
-              <input
-                name="username"
-                value={this.state.username}
-                onChange={this.handleFormChange}
-                placeholder="Username"
-              />
-            </Form.Field>
-            <Form.Field required>
-              <label className="formLabel">Confirm Username</label>
-              <Input
-                name="confirmUsername"
-                value={this.state.confirmUsername}
-                onChange={this.handleFormChange}
-                placeholder="Confirm Username"
-                error={this.state.usernameMatchError}
-              />
-            </Form.Field>
-            <Form.Field required>
-              <label className="formLabel">Password</label>
-              <input
-                name="password"
-                type="password"
-                value={this.state.password}
-                onChange={this.handleFormChange}
-                placeholder="Password"
-              />
-            </Form.Field>
-            <Form.Field required>
-              <label className="formLabel">Confirm Password</label>
-              <Input
-                name="confirmPassword"
-                type="password"
-                value={this.state.confirmPassword}
-                onChange={this.handleFormChange}
-                placeholder="Confirm Password"
-                error={this.state.passwordMatchError}
-              />
-            </Form.Field>
-            <div className="formButtonContainer">
-              <Button className="formButton" type="submit">
-                Submit
-              </Button>
+      <>
+        {this.state.openConfirm && (
+          <Confirm
+            open={this.state.openConfirm}
+            content="Would you like to add another a child?"
+            onCancel={this.handleConfirmCancel}
+            onConfirm={this.handleConfirm}
+          />
+        )}
+        <Modal
+          onClose={() => this.setState({ isOpen: false })}
+          onOpen={() => this.setState({ isOpen: true })}
+          open={this.state.isOpen}
+          closeOnDimmerClick={false}
+          dimmer="blurring"
+        >
+          <Modal.Header className="background pageHeader">
+            Welcome to EmotionKnow!
+          </Modal.Header>
+          <Modal.Content className="background">
+            {this.props.error ? (
+              <Message negative>
+                <Message.Header>{this.props.error}</Message.Header>
+              </Message>
+            ) : null}
+            {this.state.usernameError ? (
+              <Message negative>
+                <Message.Header>Usernames do not match!</Message.Header>
+              </Message>
+            ) : null}
+            {this.state.passwordError ? (
+              <Message negative>
+                <Message.Header>Passwords do not match!</Message.Header>
+              </Message>
+            ) : null}
+            <Form onSubmit={this.handleFormSubmit}>
+              <Form.Field required>
+                <label className="formLabel">Username</label>
+                <input
+                  name="username"
+                  value={this.state.username}
+                  onChange={this.handleFormChange}
+                  placeholder="Username"
+                />
+              </Form.Field>
+              <Form.Field required>
+                <label className="formLabel">Confirm Username</label>
+                <Input
+                  name="confirmUsername"
+                  value={this.state.confirmUsername}
+                  onChange={this.handleFormChange}
+                  placeholder="Confirm Username"
+                  error={this.state.usernameMatchError}
+                />
+              </Form.Field>
+              <Form.Field required>
+                <label className="formLabel">Password</label>
+                <input
+                  name="password"
+                  type="password"
+                  value={this.state.password}
+                  onChange={this.handleFormChange}
+                  placeholder="Password"
+                />
+              </Form.Field>
+              <Form.Field required>
+                <label className="formLabel">Confirm Password</label>
+                <Input
+                  name="confirmPassword"
+                  type="password"
+                  value={this.state.confirmPassword}
+                  onChange={this.handleFormChange}
+                  placeholder="Confirm Password"
+                  error={this.state.passwordMatchError}
+                />
+              </Form.Field>
+              <div className="formButtonContainer">
+                <Button className="formButton" type="submit">
+                  Submit
+                </Button>
 
-              <Button
-                className="formButton"
-                onClick={this.handleCancel}
-                type="cancel"
-              >
-                Cancel
-              </Button>
-            </div>
-          </Form>
-        </Modal.Content>
-      </Modal>
+                <Button
+                  className="formButton"
+                  onClick={this.handleCancel}
+                  type="cancel"
+                >
+                  Cancel
+                </Button>
+              </div>
+            </Form>
+          </Modal.Content>
+        </Modal>
+      </>
     )
   }
 }
