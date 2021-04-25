@@ -9,14 +9,7 @@ class SignUpModal extends React.Component {
     isOpen: true,
     openConfirm: false,
     openChildModal: false,
-    // username: null,
-    // confirmUsername: null,
-    // password: null,
-    // confirmPassword: null,
-    // usernameError: false,
-    // usernameMatchError: false,
-    // passwordError: false,
-    // passwordMatchError: false,
+    parentId: null,
     email: null,
     confirmEmail: null,
     parentPassword: null,
@@ -94,13 +87,8 @@ class SignUpModal extends React.Component {
     })
       .then((response) => response.json())
       .then((data) => {
-        // childData = {
-        //   username: this.state.username,
-        //   password: this.state.password,
-        //   parent_id: data.parent.id,
-        // }
-        console.log(data)
-        this.setState({ openConfirm: true })
+        console.log('Parent data:', data)
+        this.setState({ openConfirm: true, parentId: data.parent.id })
 
         // fetch('http://localhost:3000/children', {
         //   method: 'POST',
@@ -139,12 +127,14 @@ class SignUpModal extends React.Component {
         {this.state.openConfirm && (
           <Confirm
             open={this.state.openConfirm}
-            header="Would you like to add a child?"
+            content="Would you like to add a child?"
             onCancel={this.handleConfirmCancel}
             onConfirm={this.handleConfirm}
           />
         )}
-        {this.state.openChildModal && <AddChildSignUpModal />}
+        {this.state.openChildModal && (
+          <AddChildSignUpModal parentId={this.state.parentId} />
+        )}
         <Modal
           onClose={() => this.setState({ isOpen: false })}
           onOpen={() => this.setState({ isOpen: true })}

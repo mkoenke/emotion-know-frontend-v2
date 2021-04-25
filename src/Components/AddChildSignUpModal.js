@@ -95,7 +95,7 @@ class SignUpModal extends React.Component {
       childData = {
         username: this.state.username,
         password: this.state.password,
-        parent_id: data.parent.id, /// get parent id from other component
+        parent_id: this.props.parentId, /// get parent id from other component
       }
     }
     fetch('http://localhost:3000/children', {
@@ -108,7 +108,8 @@ class SignUpModal extends React.Component {
     })
       .then((response) => response.json())
       .then((data) => {
-        localStorage.setItem('token', data.jwt)
+        console.log('child data:', data)
+        // localStorage.setItem('token', data.jwt)
         this.setState({ isOpen: false })
         this.props.dispatchError(null)
         // this.props.dispatchChild(data.child)
