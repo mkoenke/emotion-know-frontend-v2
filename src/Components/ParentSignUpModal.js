@@ -1,11 +1,14 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Button, Form, Input, Message, Modal } from 'semantic-ui-react'
+import { Button, Confirm, Form, Input, Message, Modal } from 'semantic-ui-react'
 import { setChild, setError, setSignUpModal } from '../Redux/actions'
+import AddChildSignUpModal from './AddChildSignUpModal'
 
 class SignUpModal extends React.Component {
   state = {
     isOpen: true,
+    openConfirm: false,
+    openChildModal: false,
     // username: null,
     // confirmUsername: null,
     // password: null,
@@ -97,6 +100,7 @@ class SignUpModal extends React.Component {
         //   parent_id: data.parent.id,
         // }
         console.log(data)
+        this.setState({ openConfirm: true })
 
         // fetch('http://localhost:3000/children', {
         //   method: 'POST',
@@ -122,26 +126,42 @@ class SignUpModal extends React.Component {
         this.props.dispatchError(error)
       })
   }
+  handleConfirmCancel = () => {
+    this.setState({ openConfirm: false })
+  }
+  handleConfirm = () => {
+    this.setState({ openChildModal: true })
+  }
 
   render() {
     return (
-      <Modal
-        onClose={() => this.setState({ isOpen: false })}
-        onOpen={() => this.setState({ isOpen: true })}
-        open={this.state.isOpen}
-        closeOnDimmerClick={false}
-        dimmer="blurring"
-      >
-        <Modal.Header className="background pageHeader">
-          Welcome to EmotionKnow!
-        </Modal.Header>
-        <Modal.Content className="background">
-          {this.props.error ? (
-            <Message negative>
-              <Message.Header>{this.props.error}</Message.Header>
-            </Message>
-          ) : null}
-          {/* {this.state.usernameError ? (
+      <>
+        {this.state.openConfirm && (
+          <Confirm
+            open={this.state.openConfirm}
+            header="Would you like to add a child?"
+            onCancel={this.handleConfirmCancel}
+            onConfirm={this.handleConfirm}
+          />
+        )}
+        {this.state.openChildModal && <AddChildSignUpModal />}
+        <Modal
+          onClose={() => this.setState({ isOpen: false })}
+          onOpen={() => this.setState({ isOpen: true })}
+          open={this.state.isOpen}
+          closeOnDimmerClick={false}
+          dimmer="blurring"
+        >
+          <Modal.Header className="background pageHeader">
+            Welcome to EmotionKnow!
+          </Modal.Header>
+          <Modal.Content className="background">
+            {this.props.error ? (
+              <Message negative>
+                <Message.Header>{this.props.error}</Message.Header>
+              </Message>
+            ) : null}
+            {/* {this.state.usernameError ? (
             <Message negative>
               <Message.Header>Usernames do not match!</Message.Header>
             </Message>
@@ -151,18 +171,18 @@ class SignUpModal extends React.Component {
               <Message.Header>Passwords do not match!</Message.Header>
             </Message>
           ) : null} */}
-          {this.state.emailError ? (
-            <Message negative>
-              <Message.Header>Emails do not match!</Message.Header>
-            </Message>
-          ) : null}
-          {this.state.parentPasswordError ? (
-            <Message negative>
-              <Message.Header>Parent Passwords do not match!</Message.Header>
-            </Message>
-          ) : null}
-          <Form onSubmit={this.handleFormSubmit}>
-            {/* <Form.Field required>
+            {this.state.emailError ? (
+              <Message negative>
+                <Message.Header>Emails do not match!</Message.Header>
+              </Message>
+            ) : null}
+            {this.state.parentPasswordError ? (
+              <Message negative>
+                <Message.Header>Parent Passwords do not match!</Message.Header>
+              </Message>
+            ) : null}
+            <Form onSubmit={this.handleFormSubmit}>
+              {/* <Form.Field required>
               <label className="formLabel">Username</label>
               <input
                 name="username"
@@ -171,7 +191,7 @@ class SignUpModal extends React.Component {
                 placeholder="Username"
               />
             </Form.Field> */}
-            {/* <Form.Field required>
+              {/* <Form.Field required>
               <label className="formLabel">Confirm Username</label>
               <Input
                 name="confirmUsername"
@@ -181,7 +201,7 @@ class SignUpModal extends React.Component {
                 error={this.state.usernameMatchError}
               />
             </Form.Field> */}
-            {/* <Form.Field required>
+              {/* <Form.Field required>
               <label className="formLabel">Password</label>
               <input
                 name="password"
@@ -191,7 +211,7 @@ class SignUpModal extends React.Component {
                 placeholder="Password"
               />
             </Form.Field> */}
-            {/* <Form.Field required>
+              {/* <Form.Field required>
               <label className="formLabel">Confirm Password</label>
               <Input
                 name="confirmPassword"
@@ -202,64 +222,65 @@ class SignUpModal extends React.Component {
                 error={this.state.passwordMatchError}
               />
             </Form.Field> */}
-            <Form.Field required>
-              <label className="formLabel">Parent's email</label>
-              <input
-                name="email"
-                type="email"
-                value={this.state.email}
-                onChange={this.handleFormChange}
-                placeholder="Parent's Email"
-              />
-            </Form.Field>
-            <Form.Field required>
-              <label className="formLabel">Confirm Email</label>
-              <Input
-                name="confirmEmail"
-                type="email"
-                value={this.state.confirmEmail}
-                onChange={this.handleFormChange}
-                placeholder="Confirm Email"
-                error={this.state.emailMatchError}
-              />
-            </Form.Field>
-            <Form.Field required>
-              <label className="formLabel">Parent's Password</label>
-              <input
-                name="parentPassword"
-                type="password"
-                value={this.state.parentPassword}
-                onChange={this.handleFormChange}
-                placeholder="Parent's Password"
-              />
-            </Form.Field>
-            <Form.Field required>
-              <label className="formLabel">Confirm Parent's Password</label>
-              <Input
-                name="confirmParentPassword"
-                type="password"
-                value={this.state.confirmParentPassword}
-                onChange={this.handleFormChange}
-                placeholder="Confirm Parent's Password"
-                error={this.state.parentPasswordMatchError}
-              />
-            </Form.Field>
-            <div className="formButtonContainer">
-              <Button className="formButton" type="submit">
-                Submit
-              </Button>
+              <Form.Field required>
+                <label className="formLabel">Parent's email</label>
+                <input
+                  name="email"
+                  type="email"
+                  value={this.state.email}
+                  onChange={this.handleFormChange}
+                  placeholder="Parent's Email"
+                />
+              </Form.Field>
+              <Form.Field required>
+                <label className="formLabel">Confirm Email</label>
+                <Input
+                  name="confirmEmail"
+                  type="email"
+                  value={this.state.confirmEmail}
+                  onChange={this.handleFormChange}
+                  placeholder="Confirm Email"
+                  error={this.state.emailMatchError}
+                />
+              </Form.Field>
+              <Form.Field required>
+                <label className="formLabel">Parent's Password</label>
+                <input
+                  name="parentPassword"
+                  type="password"
+                  value={this.state.parentPassword}
+                  onChange={this.handleFormChange}
+                  placeholder="Parent's Password"
+                />
+              </Form.Field>
+              <Form.Field required>
+                <label className="formLabel">Confirm Parent's Password</label>
+                <Input
+                  name="confirmParentPassword"
+                  type="password"
+                  value={this.state.confirmParentPassword}
+                  onChange={this.handleFormChange}
+                  placeholder="Confirm Parent's Password"
+                  error={this.state.parentPasswordMatchError}
+                />
+              </Form.Field>
+              <div className="formButtonContainer">
+                <Button className="formButton" type="submit">
+                  Submit
+                </Button>
 
-              <Button
-                className="formButton"
-                onClick={this.handleCancel}
-                type="cancel"
-              >
-                Cancel
-              </Button>
-            </div>
-          </Form>
-        </Modal.Content>
-      </Modal>
+                <Button
+                  className="formButton"
+                  onClick={this.handleCancel}
+                  type="cancel"
+                >
+                  Cancel
+                </Button>
+              </div>
+            </Form>
+          </Modal.Content>
+        </Modal>
+      </>
     )
   }
 }
