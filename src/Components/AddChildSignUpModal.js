@@ -14,14 +14,6 @@ class SignUpModal extends React.Component {
     usernameMatchError: false,
     passwordError: false,
     passwordMatchError: false,
-    // email: null,
-    // confirmEmail: null,
-    // parentPassword: null,
-    // confirmParentPassword: null,
-    // emailError: false,
-    // emailMatchError: false,
-    // parentPasswordError: false,
-    // parentPasswordMatchError: false,
   }
   handleCancel = () => {
     this.props.dispatchSignUpModal(false)
@@ -43,24 +35,6 @@ class SignUpModal extends React.Component {
     if (this.state.password === this.state.confirmPassword) {
       this.setState({ passwordError: false, passwordMatchError: false })
     }
-    // if (this.state.email !== this.state.confirmEmail) {
-    //   this.setState({ emailError: true, emailMatchError: true })
-    // }
-    // if (this.state.email === this.state.confirmEmail) {
-    //   this.setState({ emailError: false, emailMatchError: false })
-    // }
-    // if (this.state.parentPassword !== this.state.confirmParentPassword) {
-    //   this.setState({
-    //     parentPasswordError: true,
-    //     parentPasswordMatchError: true,
-    //   })
-    // }
-    // if (this.state.parentPassword === this.state.confirmParentPassword) {
-    //   this.setState({
-    //     parentPasswordError: false,
-    //     parentPasswordMatchError: false,
-    //   })
-    // }
   }
 
   handleFormSubmit = (event) => {
@@ -72,30 +46,11 @@ class SignUpModal extends React.Component {
       this.state.username &&
       this.state.password === this.state.confirmPassword &&
       this.state.password
-      // &&
-      // this.state.email === this.state.confirmEmail &&
-      // this.state.email &&
-      // this.state.parentPassword === this.state.confirmParentPassword &&
-      // this.state.parentPassword
     ) {
-      // parentData = {
-      //   email: this.state.email,
-      //   password: this.state.parentPassword,
-      // }
-
-      // fetch('http://localhost:3000/parents', {
-      //   method: 'POST',
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //   },
-      //   body: JSON.stringify(parentData),
-      // })
-      //   .then((response) => response.json())
-      //   .then((data) => {
       childData = {
         username: this.state.username,
         password: this.state.password,
-        parent_id: this.props.parentId, /// get parent id from other component
+        parent_id: this.props.parentId,
       }
     }
     fetch('http://localhost:3000/children', {
@@ -109,19 +64,13 @@ class SignUpModal extends React.Component {
       .then((response) => response.json())
       .then((data) => {
         console.log('child data:', data)
-        // localStorage.setItem('token', data.jwt)
         this.setState({ isOpen: false })
         this.props.dispatchError(null)
-        // this.props.dispatchChild(data.child)
         this.props.handleSignUpClick()
       })
       .catch((error) => {
         this.props.dispatchError(error)
       })
-    // })
-    // .catch((error) => {
-    //   this.props.dispatchError(error)
-    // })
   }
 
   render() {
@@ -152,16 +101,6 @@ class SignUpModal extends React.Component {
               <Message.Header>Passwords do not match!</Message.Header>
             </Message>
           ) : null}
-          {/* {this.state.emailError ? (
-            <Message negative>
-              <Message.Header>Emails do not match!</Message.Header>
-            </Message>
-          ) : null}
-          {this.state.parentPasswordError ? (
-            <Message negative>
-              <Message.Header>Parent Passwords do not match!</Message.Header>
-            </Message>
-          ) : null} */}
           <Form onSubmit={this.handleFormSubmit}>
             <Form.Field required>
               <label className="formLabel">Username</label>
@@ -203,48 +142,6 @@ class SignUpModal extends React.Component {
                 error={this.state.passwordMatchError}
               />
             </Form.Field>
-            {/* <Form.Field required>
-              <label className="formLabel">Parent's email</label>
-              <input
-                name="email"
-                type="email"
-                value={this.state.email}
-                onChange={this.handleFormChange}
-                placeholder="Parent's Email"
-              />
-            </Form.Field> */}
-            {/* <Form.Field required>
-              <label className="formLabel">Confirm Email</label>
-              <Input
-                name="confirmEmail"
-                type="email"
-                value={this.state.confirmEmail}
-                onChange={this.handleFormChange}
-                placeholder="Confirm Email"
-                error={this.state.emailMatchError}
-              />
-            </Form.Field> */}
-            {/* <Form.Field required>
-              <label className="formLabel">Parent's Password</label>
-              <input
-                name="parentPassword"
-                type="password"
-                value={this.state.parentPassword}
-                onChange={this.handleFormChange}
-                placeholder="Parent's Password"
-              />
-            </Form.Field> */}
-            {/* <Form.Field required>
-              <label className="formLabel">Confirm Parent's Password</label>
-              <Input
-                name="confirmParentPassword"
-                type="password"
-                value={this.state.confirmParentPassword}
-                onChange={this.handleFormChange}
-                placeholder="Confirm Parent's Password"
-                error={this.state.parentPasswordMatchError}
-              />
-            </Form.Field> */}
             <div className="formButtonContainer">
               <Button className="formButton" type="submit">
                 Submit
