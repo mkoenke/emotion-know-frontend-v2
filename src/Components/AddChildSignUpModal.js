@@ -1,6 +1,16 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Button, Confirm, Form, Input, Message, Modal } from 'semantic-ui-react'
+import {
+  Button,
+  Confirm,
+  Dropdown,
+  Form,
+  Input,
+  Message,
+  Modal,
+} from 'semantic-ui-react'
+import avatar1 from '../assets/images/avatar1.png'
+import avatar2 from '../assets/images/avatar2.png'
 import { setChild, setError, setSignUpModal } from '../Redux/actions'
 
 class SignUpModal extends React.Component {
@@ -15,6 +25,7 @@ class SignUpModal extends React.Component {
     usernameMatchError: false,
     passwordError: false,
     passwordMatchError: false,
+    avatar: null,
   }
   handleCancel = () => {
     this.props.dispatchSignUpModal(false)
@@ -23,6 +34,10 @@ class SignUpModal extends React.Component {
   handleFormChange = (e) => {
     this.setState({ [e.target.name]: e.target.value }, this.checkMatching)
   }
+  handleDropdownChange = (e, { value }) => {
+    this.setState({ avatar: value })
+  }
+
   checkMatching = () => {
     if (this.state.username !== this.state.confirmUsername) {
       this.setState({ usernameError: true, usernameMatchError: true })
@@ -51,6 +66,7 @@ class SignUpModal extends React.Component {
         username: this.state.username,
         password: this.state.password,
         parent_id: this.props.parentId,
+        image: this.state.avatar,
       }
     }
     fetch('http://localhost:3000/children', {
@@ -81,6 +97,22 @@ class SignUpModal extends React.Component {
   }
 
   render() {
+    console.log(this.state)
+
+    const avatarOptions = [
+      {
+        key: 1,
+        image: { avatar: true, src: avatar1 },
+
+        value: '../assets/images/avatar1.png',
+      },
+      {
+        key: 2,
+        image: { avatar: true, src: avatar2 },
+
+        value: '../assets/images/avatar2.png',
+      },
+    ]
     return (
       <>
         {this.state.openConfirm && (
@@ -159,6 +191,18 @@ class SignUpModal extends React.Component {
                   placeholder="Confirm Password"
                   error={this.state.passwordMatchError}
                 />
+              </Form.Field>
+              <Form.Field required>
+                <Dropdown
+                  placeholder="Choose Avatar"
+                  floating
+                  button
+                  selection
+                  options={avatarOptions}
+                  name="avatar"
+                  onChange={this.handleDropdownChange}
+                  value={this.state.avatar}
+                ></Dropdown>
               </Form.Field>
               <div className="formButtonContainer">
                 <Button className="formButton" type="submit">
