@@ -107,7 +107,7 @@ class SignUpModal extends React.Component {
           avatar: null,
         })
         this.props.dispatchError(null)
-        this.props.handleSignUpClick()
+        // this.props.handleSignUpClick()
       })
       .catch((error) => {
         this.props.dispatchError(error)
