@@ -166,9 +166,9 @@ i.icon.user.outline {
   background-color: white;
   /* box-shadow: 10px 10px 5px grey !important; */
 }
-.table {
-  /* box-shadow: 10px 10px 5px grey !important; */
-}
+/* .table {
+  box-shadow: 10px 10px 5px grey !important;
+} */
 .ui.celled.table.table.content {
   padding-left: 0px !important;
   padding-right: 0px !important;

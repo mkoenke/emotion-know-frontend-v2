@@ -32,7 +32,7 @@ class EmptyReportsModal extends React.Component {
             textAlign="center"
             style={{ fontSize: '24px', textAlign: 'center' }}
           >
-            Your child's reports will appear here, but you have to create
+            This child's reports will appear here, but you have to create
             journals first!
           </Modal.Description>
           <Modal.Actions className="actionsDiv">

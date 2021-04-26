@@ -99,7 +99,12 @@ class ReportGalleryPage extends React.Component {
             <div className="background">
               <Container>
                 <Header className="pageHeader" size="huge" textAlign="center">
-                  {this.props.child.username}'s Reports
+                  {/* {this.props.child.username}'s Reports */}
+                  {this.props.allReports.length ? (
+                    `${this.props.child.username}'s Reports`
+                  ) : (
+                    <EmptyReportsModal />
+                  )}
                 </Header>
               </Container>
               <Container textAlign="center">

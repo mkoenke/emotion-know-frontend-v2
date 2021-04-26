@@ -84,9 +84,11 @@ class SignUpModal extends React.Component {
   }
   handleConfirmCancel = () => {
     this.setState({ openConfirm: false, isOpen: false })
+    this.props.dispatchSignUpModal(false)
   }
   handleConfirm = () => {
     this.setState({ openChildModal: true, openConfirm: false, isOpen: false })
+    // this.props.dispatchSignUpModal(false)
   }
 
   render() {
@@ -94,6 +96,7 @@ class SignUpModal extends React.Component {
       <>
         {this.state.openConfirm && (
           <Confirm
+            closeOnDimmerClick={false}
             open={this.state.openConfirm}
             content="Parent's account has been created!  Would you like to add a child?"
             confirmButton="Add Child"
