@@ -80,7 +80,19 @@ class SignUpModal extends React.Component {
       .then((response) => response.json())
       .then((data) => {
         console.log('child data:', data)
-        this.setState({ isOpen: false, openConfirm: true })
+        this.setState({
+          isOpen: false,
+          openConfirm: true,
+          username: null,
+          confirmUsername: null,
+          password: null,
+          confirmPassword: null,
+          usernameError: false,
+          usernameMatchError: false,
+          passwordError: false,
+          passwordMatchError: false,
+          avatar: null,
+        })
         this.props.dispatchError(null)
         this.props.handleSignUpClick()
       })

@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Container, Header } from 'semantic-ui-react'
+import EmptyReportsModal from '../Components/EmptyReportsModal'
 import ReportGalleryReportsTable from '../Components/ReportGalleryReportsTable'
 import ReportGallerySingleGraph from '../Components/ReportGallerySingleGraph'
 import StackedBarChart from '../Components/StackedBarChart'
@@ -80,10 +81,14 @@ class ReportGalleryPage extends React.Component {
   }
 
   filterChildsName = () => {
-    const filteredChild = this.props.parent.children.filter(
-      (child) => child.id === this.props.filteredReports[0].child_id
-    )
-    return filteredChild[0].username
+    if (this.props.filteredReports.length) {
+      const filteredChild = this.props.parent.children.filter(
+        (child) => child.id === this.props.filteredReports[0].child_id
+      )
+      return filteredChild[0].username
+    } else {
+      return 'NO REPORTS'
+    }
   }
 
   render() {
@@ -132,7 +137,11 @@ class ReportGalleryPage extends React.Component {
           <div className="background">
             <Container>
               <Header className="pageHeader" size="huge" textAlign="center">
-                {this.filterChildsName()}'s Reports
+                {this.props.filteredReports.length ? (
+                  `${this.filterChildsName()}'s Reports`
+                ) : (
+                  <EmptyReportsModal />
+                )}
               </Header>
             </Container>
             <Container textAlign="center">

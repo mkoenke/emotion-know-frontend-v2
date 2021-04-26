@@ -72,7 +72,11 @@ class SignUpModal extends React.Component {
       .then((response) => response.json())
       .then((data) => {
         console.log('Parent data:', data)
-        this.setState({ openConfirm: true, parentId: data.parent.id })
+        this.setState({
+          openConfirm: true,
+          isOpen: false,
+          parentId: data.parent.id,
+        })
       })
       .catch((error) => {
         this.props.dispatchError(error)

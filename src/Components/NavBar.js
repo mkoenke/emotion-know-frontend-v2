@@ -214,13 +214,15 @@ class NavBar extends React.Component {
                     >
                       Change Profile
                     </Dropdown.Item>
-                    <Dropdown.Item
-                      name="logout"
-                      onClick={this.handleLogOutClick}
-                      className="navbar"
-                    >
-                      Log Out
-                    </Dropdown.Item>
+                    <NavLink to="/">
+                      <Dropdown.Item
+                        name="logout"
+                        onClick={this.handleLogOutClick}
+                        className="navbar"
+                      >
+                        Log Out
+                      </Dropdown.Item>
+                    </NavLink>
                     <Redirect to="/welcome" />
                   </Dropdown.Menu>
                 </Dropdown>
