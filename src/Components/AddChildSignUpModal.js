@@ -24,7 +24,7 @@ import avatar6 from '../assets/images/avatar6.png'
 import avatar7 from '../assets/images/avatar7.png'
 import avatar8 from '../assets/images/avatar8.png'
 import avatar9 from '../assets/images/avatar9.png'
-import { setChild, setError, setSignUpModal } from '../Redux/actions'
+import { setChild, setError, setParent, setSignUpModal } from '../Redux/actions'
 
 class SignUpModal extends React.Component {
   state = {
@@ -93,6 +93,7 @@ class SignUpModal extends React.Component {
       .then((response) => response.json())
       .then((data) => {
         console.log('child data:', data)
+        const child = data.child
         this.setState({
           isOpen: false,
           openConfirm: true,
@@ -108,6 +109,11 @@ class SignUpModal extends React.Component {
         })
         this.props.dispatchError(null)
         // this.props.handleSignUpClick()
+        if (this.props.parent) {
+          let parent = { ...this.props.parent }
+          parent.children = [...parent.children, child]
+          this.props.dispatchParent(parent)
+        }
       })
       .catch((error) => {
         this.props.dispatchError(error)
@@ -123,7 +129,7 @@ class SignUpModal extends React.Component {
   }
 
   render() {
-    console.log(this.state)
+    console.log(this.props)
 
     const avatarOptions = [
       {
@@ -316,12 +322,19 @@ class SignUpModal extends React.Component {
   }
 }
 
+function mapStateToProps(state) {
+  return {
+    parent: state.parent,
+  }
+}
+
 function mapDispatchToProps(dispatch) {
   return {
     dispatchChild: (child) => dispatch(setChild(child)),
+    dispatchParent: (parent) => dispatch(setParent(parent)),
     dispatchSignUpModal: (value) => dispatch(setSignUpModal(value)),
     dispatchError: (value) => dispatch(setError(value)),
   }
 }
 
-export default connect(null, mapDispatchToProps)(SignUpModal)
+export default connect(mapStateToProps, mapDispatchToProps)(SignUpModal)
