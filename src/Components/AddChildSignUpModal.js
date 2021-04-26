@@ -64,7 +64,7 @@ class SignUpModal extends React.Component {
       .then((response) => response.json())
       .then((data) => {
         console.log('child data:', data)
-        this.setState({ isOpen: false })
+        this.setState({ isOpen: false, openConfirm: true })
         this.props.dispatchError(null)
         this.props.handleSignUpClick()
       })
@@ -74,10 +74,10 @@ class SignUpModal extends React.Component {
   }
 
   handleConfirmCancel = () => {
-    this.setState({ openConfirm: false })
+    this.setState({ openConfirm: false, isOpen: false })
   }
   handleConfirm = () => {
-    this.setState({ isOpen: true })
+    this.setState({ isOpen: true, openConfirm: false })
   }
 
   render() {
@@ -87,6 +87,8 @@ class SignUpModal extends React.Component {
           <Confirm
             open={this.state.openConfirm}
             content="Would you like to add another a child?"
+            confirmButton="Yes"
+            cancelButton="No"
             onCancel={this.handleConfirmCancel}
             onConfirm={this.handleConfirm}
           />
@@ -99,7 +101,7 @@ class SignUpModal extends React.Component {
           dimmer="blurring"
         >
           <Modal.Header className="background pageHeader">
-            Welcome to EmotionKnow!
+            Create Child's Login
           </Modal.Header>
           <Modal.Content className="background">
             {this.props.error ? (
