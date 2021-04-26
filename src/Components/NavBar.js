@@ -158,30 +158,36 @@ class NavBar extends React.Component {
               <>
                 <Dropdown floating item text="Login">
                   <Dropdown.Menu>
-                    <Dropdown.Item
-                      name="childLogin"
-                      onClick={this.handleLoginClick}
-                      className="navbar"
-                    >
-                      Child Login
-                    </Dropdown.Item>
-                    <Redirect to="/" />
-                    <Dropdown.Item
-                      name="parentLogin"
-                      onClick={this.handleParentLoginClick}
-                      className="navbar"
-                    >
-                      Parent Login
-                    </Dropdown.Item>
-                    <Redirect to="/" />
-                    <Dropdown.Item
-                      name="signUp"
-                      onClick={this.handleSignUpClick}
-                      className="navbar"
-                    >
-                      Sign Up
-                    </Dropdown.Item>
-                    <Redirect to="/" />
+                    <NavLink to="/">
+                      <Dropdown.Item
+                        name="childLogin"
+                        onClick={this.handleLoginClick}
+                        className="navbar"
+                      >
+                        Child Login
+                      </Dropdown.Item>
+                    </NavLink>
+                    {/* <Redirect to="/" /> */}
+                    <NavLink to="/">
+                      <Dropdown.Item
+                        name="parentLogin"
+                        onClick={this.handleParentLoginClick}
+                        className="navbar"
+                      >
+                        Parent Login
+                      </Dropdown.Item>
+                    </NavLink>
+                    {/* <Redirect to="/" /> */}
+                    <NavLink to="/">
+                      <Dropdown.Item
+                        name="signUp"
+                        onClick={this.handleSignUpClick}
+                        className="navbar"
+                      >
+                        Sign Up
+                      </Dropdown.Item>
+                    </NavLink>
+                    {/* <Redirect to="/" /> */}
                   </Dropdown.Menu>
                 </Dropdown>
               </>
@@ -209,11 +215,13 @@ class NavBar extends React.Component {
                 </NavLink>
                 <Dropdown floating item icon="user outline">
                   <Dropdown.Menu>
-                    <Dropdown.Item
-                      onClick={() => this.handleProfileClick(true)}
-                    >
-                      Change Profile
-                    </Dropdown.Item>
+                    <a>
+                      <Dropdown.Item
+                        onClick={() => this.handleProfileClick(true)}
+                      >
+                        Change Profile
+                      </Dropdown.Item>
+                    </a>
                     <NavLink to="/">
                       <Dropdown.Item
                         name="logout"
@@ -240,18 +248,22 @@ class NavBar extends React.Component {
                 </NavLink>
                 <Dropdown floating item icon="user outline">
                   <Dropdown.Menu>
-                    <Dropdown.Item
-                      onClick={() => this.handleParentProfileClick(true)}
-                    >
-                      Change Profile
-                    </Dropdown.Item>
-                    <Dropdown.Item
-                      name="logout"
-                      onClick={this.handleLogOutClick}
-                      className="navbar"
-                    >
-                      Log Out
-                    </Dropdown.Item>
+                    <a>
+                      <Dropdown.Item
+                        onClick={() => this.handleParentProfileClick(true)}
+                      >
+                        Change Profile
+                      </Dropdown.Item>
+                    </a>
+                    <NavLink to="/">
+                      <Dropdown.Item
+                        name="logout"
+                        onClick={this.handleLogOutClick}
+                        className="navbar"
+                      >
+                        Log Out
+                      </Dropdown.Item>
+                    </NavLink>
                     <Redirect to="/welcome" />
                   </Dropdown.Menu>
                 </Dropdown>
