@@ -188,6 +188,7 @@ class FunWithEmotionsPage extends React.Component {
 
     return (
       <>
+        <img src="../assets/images/avatar1.png" />
         <BubbleChart data={data} yOffset={430} />
         <>
           <div className="pattern">

@@ -10,7 +10,20 @@ import {
   Modal,
 } from 'semantic-ui-react'
 import avatar1 from '../assets/images/avatar1.png'
+import avatar10 from '../assets/images/avatar10.png'
+import avatar11 from '../assets/images/avatar11.png'
+import avatar12 from '../assets/images/avatar12.png'
+import avatar13 from '../assets/images/avatar13.png'
+import avatar14 from '../assets/images/avatar14.png'
+import avatar15 from '../assets/images/avatar15.png'
 import avatar2 from '../assets/images/avatar2.png'
+import avatar3 from '../assets/images/avatar3.png'
+import avatar4 from '../assets/images/avatar4.png'
+import avatar5 from '../assets/images/avatar5.png'
+import avatar6 from '../assets/images/avatar6.png'
+import avatar7 from '../assets/images/avatar7.png'
+import avatar8 from '../assets/images/avatar8.png'
+import avatar9 from '../assets/images/avatar9.png'
 import { setChild, setError, setSignUpModal } from '../Redux/actions'
 
 class SignUpModal extends React.Component {
@@ -116,14 +129,77 @@ class SignUpModal extends React.Component {
       {
         key: 1,
         image: { avatar: true, src: avatar1 },
-
-        value: '../assets/images/avatar1.png',
+        value: avatar1,
       },
       {
         key: 2,
         image: { avatar: true, src: avatar2 },
-
-        value: '../assets/images/avatar2.png',
+        value: avatar2,
+      },
+      {
+        key: 3,
+        image: { avatar: true, src: avatar3 },
+        value: avatar3,
+      },
+      {
+        key: 4,
+        image: { avatar: true, src: avatar4 },
+        value: avatar4,
+      },
+      {
+        key: 5,
+        image: { avatar: true, src: avatar5 },
+        value: avatar5,
+      },
+      {
+        key: 6,
+        image: { avatar: true, src: avatar6 },
+        value: avatar6,
+      },
+      {
+        key: 7,
+        image: { avatar: true, src: avatar7 },
+        value: avatar7,
+      },
+      {
+        key: 8,
+        image: { avatar: true, src: avatar8 },
+        value: avatar8,
+      },
+      {
+        key: 9,
+        image: { avatar: true, src: avatar9 },
+        value: avatar9,
+      },
+      {
+        key: 10,
+        image: { avatar: true, src: avatar10 },
+        value: avatar10,
+      },
+      {
+        key: 11,
+        image: { avatar: true, src: avatar11 },
+        value: avatar11,
+      },
+      {
+        key: 12,
+        image: { avatar: true, src: avatar12 },
+        value: avatar12,
+      },
+      {
+        key: 13,
+        image: { avatar: true, src: avatar13 },
+        value: avatar13,
+      },
+      {
+        key: 14,
+        image: { avatar: true, src: avatar14 },
+        value: avatar14,
+      },
+      {
+        key: 15,
+        image: { avatar: true, src: avatar15 },
+        value: avatar15,
       },
     ]
     return (
@@ -212,6 +288,7 @@ class SignUpModal extends React.Component {
                   floating
                   button
                   selection
+                  scrolling
                   options={avatarOptions}
                   name="avatar"
                   onChange={this.handleDropdownChange}
