@@ -10,7 +10,6 @@ import {
   LOGOUT,
   MODAL_OPEN,
   PARENTS_REPORTS,
-  PARENT_MODAL_OPEN,
   PARENT_PROFILE_MODAL_OPEN,
   PROFILE_MODAL_OPEN,
   SET_CHILD,
@@ -108,10 +107,6 @@ export function setParent(parent) {
 
 export function setModal(value) {
   return { type: MODAL_OPEN, payload: value }
-}
-
-export function setParentModal(value) {
-  return { type: PARENT_MODAL_OPEN, payload: value }
 }
 
 export function setSignUpModal(value) {
