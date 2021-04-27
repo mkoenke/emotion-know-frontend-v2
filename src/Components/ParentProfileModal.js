@@ -16,6 +16,7 @@ import {
   setError,
   setParentProfileModal,
 } from '../Redux/actions'
+import AddChildSignUpModal from './AddChildSignUpModal'
 
 class ParentProfileModal extends React.Component {
   state = {
@@ -33,6 +34,7 @@ class ParentProfileModal extends React.Component {
     changePassword: false,
     deleteAccount: false,
     parentPassword: null,
+    addChild: false,
   }
   handleCancel = () => {
     this.setState({
@@ -95,10 +97,6 @@ class ParentProfileModal extends React.Component {
       })
         .then((response) => response.json())
         .then((data) => {
-          console.log(data)
-          // localStorage.setItem('token', data.jwt)
-          // this.props.dispatchChild(data.child)
-
           this.setState({
             openConfirm: true,
             changePassword: false,
@@ -263,8 +261,22 @@ class ParentProfileModal extends React.Component {
                 <Message.Header>Passwords do not match!</Message.Header>
               </Message>
             ) : null}
+            {this.state.addChild && (
+              <AddChildSignUpModal parentId={this.props.parent.id} />
+            )}
             {!this.state.changeEmail && !this.state.changePassword ? (
               <Segment basic textAlign="center">
+                <Button
+                  className="formButton"
+                  content="Add Child"
+                  onClick={() => {
+                    this.props.dispatchError(null)
+                    this.setState({ addChild: true })
+                  }}
+                />
+
+                <Divider horizontal>Or</Divider>
+
                 <Button
                   className="formButton"
                   content="Change Email"
@@ -289,6 +301,15 @@ class ParentProfileModal extends React.Component {
                   className="formButton"
                   content="Delete Account"
                   onClick={this.handleDelete}
+                />
+                <Divider horizontal>Or</Divider>
+                <Button
+                  className="formButton"
+                  content="Cancel"
+                  onClick={() => {
+                    this.props.dispatchParentProfileModal(false)
+                    this.setState({ isOpen: false })
+                  }}
                 />
               </Segment>
             ) : null}

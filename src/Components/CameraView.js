@@ -83,7 +83,6 @@ class RecordView extends React.Component {
         this.props.dispatchVideo(returnedVideoJournal)
         this.postReport(returnedVideoJournal)
         this.sendEmail()
-        // this.props.history.push('/videos')
       })
       .catch((error) => {
         console.log(error)

@@ -11,7 +11,6 @@ import {
   LOGOUT,
   MODAL_OPEN,
   PARENTS_REPORTS,
-  PARENT_MODAL_OPEN,
   PARENT_PROFILE_MODAL_OPEN,
   PROFILE_MODAL_OPEN,
   SET_CHILD,
@@ -29,7 +28,6 @@ const defaultState = {
   parentsReports: [],
   filteredReports: [],
   modalOpen: false,
-  parentModalOpen: false,
   signUpModalOpen: false,
   profileModalOpen: false,
   parentProfileModalOpen: false,
@@ -49,15 +47,6 @@ function signUpModalReducer(prevState = defaultState.signUpModalOpen, action) {
 function modalReducer(prevState = defaultState.modalOpen, action) {
   switch (action.type) {
     case MODAL_OPEN:
-      return action.payload
-    default:
-      return prevState
-  }
-}
-
-function parentModalReducer(prevState = defaultState.parentModalOpen, action) {
-  switch (action.type) {
-    case PARENT_MODAL_OPEN:
       return action.payload
     default:
       return prevState
@@ -197,7 +186,6 @@ const rootReducer = combineReducers({
   parentsReports: parentReportReducer,
   error: errorReducer,
   modalOpen: modalReducer,
-  parentModalOpen: parentModalReducer,
   signUpModalOpen: signUpModalReducer,
   profileModalOpen: profileModalReducer,
   parentProfileModalOpen: parentProfileModalReducer,

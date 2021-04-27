@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { Parallax } from 'react-scroll-parallax'
 import Webcam from 'react-webcam'
 import { Dimmer, Grid, Header, Loader, Message } from 'semantic-ui-react'
-import BubbleChart from '../Components/bubbleChart'
+import BubbleChart from '../Components/BubbleChart'
 
 let targetEmotionValues = []
 
@@ -188,7 +188,6 @@ class FunWithEmotionsPage extends React.Component {
 
     return (
       <>
-        <img src="../assets/images/avatar1.png" />
         <BubbleChart data={data} yOffset={430} />
         <>
           <div className="pattern">

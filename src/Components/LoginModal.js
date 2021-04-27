@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Button, Form, Message, Modal } from 'semantic-ui-react'
-import { login, setError, setModal } from '../Redux/actions'
+import { login, loginParent, setError, setModal } from '../Redux/actions'
 
 class LoginModal extends React.Component {
   state = {
@@ -19,12 +19,20 @@ class LoginModal extends React.Component {
 
   handleFormSubmit = (event) => {
     event.preventDefault()
-    let child = {
-      username: this.state.username,
-      password: this.state.password,
+    if (this.state.username.includes('@')) {
+      let parent = {
+        email: this.state.username,
+        password: this.state.password,
+      }
+      this.props.loginParent(parent)
+    } else {
+      let child = {
+        username: this.state.username,
+        password: this.state.password,
+      }
+
+      this.props.login(child)
     }
-    this.props.login(child)
-    this.props.handleLoginClick()
   }
 
   render() {
@@ -47,7 +55,7 @@ class LoginModal extends React.Component {
           ) : null}
           <Form onSubmit={this.handleFormSubmit}>
             <Form.Field required>
-              <label className="formLabel">Username</label>
+              <label className="formLabel">Username or Email</label>
               <input
                 name="username"
                 value={this.state.username}
@@ -90,6 +98,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
+  loginParent: (parentInfo) => dispatch(loginParent(parentInfo)),
   login: (childInfo) => dispatch(login(childInfo)),
   dispatchModal: (value) => dispatch(setModal(value)),
   dispatchError: (value) => dispatch(setError(value)),

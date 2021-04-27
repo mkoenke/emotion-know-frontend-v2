@@ -4,8 +4,6 @@ import { Grid } from 'semantic-ui-react'
 import { setFilteredReports } from '../Redux/actions'
 import ChildCard from './ChildCard'
 
-// import ReportGalleryPage from "./ReportGalleryPage"
-
 class ChooseChildList extends React.Component {
   listOfChildren = () => {
     return this.props.parent.children.map((child) => (

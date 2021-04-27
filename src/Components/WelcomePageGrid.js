@@ -4,11 +4,6 @@ import pastelblue from '../assets/images/pastelblue.jpeg'
 import pastelgreen from '../assets/images/pastelgreen.jpeg'
 import pastelindigo from '../assets/images/pastelindigo.jpeg'
 import pastelyellow from '../assets/images/pastelyellow.jpeg'
-// import videoGalleryImage from '../assets/images/3rainbowStacked.jpg'
-// import funWithEmotions from '../assets/images/funWithEmotions.jpg'
-// import reportImage from '../assets/images/pencilBar.jpeg'
-// import RainbowPyramid from '../assets/images/rainbowBlockPyramid.jpg'
-// import videoImage from '../assets/images/rainbowBlocks.jpg'
 import WelcomeCard from './WelcomeCard'
 
 class WelcomePageGrid extends React.Component {

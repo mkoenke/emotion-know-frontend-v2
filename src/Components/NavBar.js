@@ -5,13 +5,11 @@ import { Dropdown, Menu } from 'semantic-ui-react'
 import {
   logout,
   setModal,
-  setParentModal,
   setParentProfileModal,
   setProfileModal,
   setSignUpModal,
 } from '../Redux/actions'
 import LoginModal from './LoginModal'
-import ParentLoginModal from './ParentLoginModal'
 import ParentProfileModal from './ParentProfileModal'
 import SignUpModal from './ParentSignUpModal'
 import ProfileModal from './ProfileModal'
@@ -31,16 +29,11 @@ class NavBar extends React.Component {
   }
 
   handleLoginClick = () => {
-    if (!this.props.child) {
+    if (!this.props.child || !this.props.parent) {
       this.props.dispatchModal(true)
     }
   }
 
-  handleParentLoginClick = () => {
-    if (!this.props.parent) {
-      this.props.dispatchParentModal(true)
-    }
-  }
   handleProfileClick = (value) => {
     if (this.props.child) {
       this.props.dispatchProfileModal(value)
@@ -158,30 +151,25 @@ class NavBar extends React.Component {
               <>
                 <Dropdown floating item text="Login">
                   <Dropdown.Menu>
-                    <Dropdown.Item
-                      name="childLogin"
-                      onClick={this.handleLoginClick}
-                      className="navbar"
-                    >
-                      Child Login
-                    </Dropdown.Item>
-                    <Redirect to="/" />
-                    <Dropdown.Item
-                      name="parentLogin"
-                      onClick={this.handleParentLoginClick}
-                      className="navbar"
-                    >
-                      Parent Login
-                    </Dropdown.Item>
-                    <Redirect to="/" />
-                    <Dropdown.Item
-                      name="signUp"
-                      onClick={this.handleSignUpClick}
-                      className="navbar"
-                    >
-                      Sign Up
-                    </Dropdown.Item>
-                    <Redirect to="/" />
+                    <NavLink to="/">
+                      <Dropdown.Item
+                        name="childLogin"
+                        onClick={this.handleLoginClick}
+                        className="navbar"
+                      >
+                        Login
+                      </Dropdown.Item>
+                    </NavLink>
+
+                    <NavLink to="/">
+                      <Dropdown.Item
+                        name="signUp"
+                        onClick={this.handleSignUpClick}
+                        className="navbar"
+                      >
+                        Sign Up
+                      </Dropdown.Item>
+                    </NavLink>
                   </Dropdown.Menu>
                 </Dropdown>
               </>
@@ -189,11 +177,7 @@ class NavBar extends React.Component {
             {this.props.signUpModalOpen && (
               <SignUpModal handleSignUpClick={this.handleSignUpClick} />
             )}
-            {this.props.parentModalOpen && (
-              <ParentLoginModal
-                handleParentLoginClick={this.handleParentLoginClick}
-              />
-            )}
+
             {this.props.modalOpen && (
               <LoginModal handleLoginClick={this.handleLoginClick} />
             )}
@@ -209,11 +193,13 @@ class NavBar extends React.Component {
                 </NavLink>
                 <Dropdown floating item icon="user outline">
                   <Dropdown.Menu>
-                    <Dropdown.Item
-                      onClick={() => this.handleProfileClick(true)}
-                    >
-                      Change Profile
-                    </Dropdown.Item>
+                    <a>
+                      <Dropdown.Item
+                        onClick={() => this.handleProfileClick(true)}
+                      >
+                        Change Profile
+                      </Dropdown.Item>
+                    </a>
                     <NavLink to="/">
                       <Dropdown.Item
                         name="logout"
@@ -240,18 +226,22 @@ class NavBar extends React.Component {
                 </NavLink>
                 <Dropdown floating item icon="user outline">
                   <Dropdown.Menu>
-                    <Dropdown.Item
-                      onClick={() => this.handleParentProfileClick(true)}
-                    >
-                      Change Profile
-                    </Dropdown.Item>
-                    <Dropdown.Item
-                      name="logout"
-                      onClick={this.handleLogOutClick}
-                      className="navbar"
-                    >
-                      Log Out
-                    </Dropdown.Item>
+                    <a>
+                      <Dropdown.Item
+                        onClick={() => this.handleParentProfileClick(true)}
+                      >
+                        Change Profile
+                      </Dropdown.Item>
+                    </a>
+                    <NavLink to="/">
+                      <Dropdown.Item
+                        name="logout"
+                        onClick={this.handleLogOutClick}
+                        className="navbar"
+                      >
+                        Log Out
+                      </Dropdown.Item>
+                    </NavLink>
                     <Redirect to="/welcome" />
                   </Dropdown.Menu>
                 </Dropdown>
@@ -288,7 +278,7 @@ function mapDispatchToProps(dispatch) {
   return {
     logout: () => dispatch(logout()),
     dispatchModal: (value) => dispatch(setModal(value)),
-    dispatchParentModal: (value) => dispatch(setParentModal(value)),
+
     dispatchSignUpModal: (value) => dispatch(setSignUpModal(value)),
     dispatchProfileModal: (value) => dispatch(setProfileModal(value)),
     dispatchParentProfileModal: (value) =>

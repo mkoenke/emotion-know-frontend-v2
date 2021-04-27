@@ -1,8 +1,12 @@
-import { Grid, Menu, Table } from 'semantic-ui-react'
 import JwPagination from 'jw-react-pagination'
+import { Grid, Menu, Table } from 'semantic-ui-react'
 import ReportGalleryListOfReports from './ReportGalleryListOfReports'
 
-export default function ReportGalleryReportsTable(reports, handleReportClick, onChangePage) {
+export default function ReportGalleryReportsTable(
+  reports,
+  handleReportClick,
+  onChangePage
+) {
   const customLabels = {
     first: '<<',
     last: '>>',
@@ -19,7 +23,9 @@ export default function ReportGalleryReportsTable(reports, handleReportClick, on
             <Table.HeaderCell>Date</Table.HeaderCell>
           </Table.Row>
         </Table.Header>
-        <Table.Body>{ReportGalleryListOfReports(reports, handleReportClick)}</Table.Body>
+        <Table.Body>
+          {ReportGalleryListOfReports(reports, handleReportClick)}
+        </Table.Body>
 
         <Table.Footer>
           <Table.Row>
@@ -27,7 +33,6 @@ export default function ReportGalleryReportsTable(reports, handleReportClick, on
               <Menu floated="right">
                 <JwPagination
                   items={reports}
-                  // items={this.state.items}
                   onChangePage={onChangePage}
                   labels={customLabels}
                 />
