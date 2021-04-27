@@ -2,18 +2,11 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 import { Button, Modal } from 'semantic-ui-react'
-import { setEmptyGalleryModal } from '../Redux/actions'
 
 class EmptyReportsModal extends React.Component {
   state = {
     isOpen: true,
   }
-  // handleCancel = () => {
-  //   this.setState({
-  //     isOpen: false,
-  //   })
-  //   this.props.dispatchEmptyGalleryModal(false)
-  // }
 
   render() {
     return (
@@ -52,10 +45,4 @@ function mapStateToProps(state) {
   }
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    dispatchEmptyGalleryModal: (value) => dispatch(setEmptyGalleryModal(value)),
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(EmptyReportsModal)
+export default connect(mapStateToProps)(EmptyReportsModal)

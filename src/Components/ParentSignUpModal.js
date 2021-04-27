@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Button, Confirm, Form, Input, Message, Modal } from 'semantic-ui-react'
-import { setChild, setError, setSignUpModal } from '../Redux/actions'
+import { setError, setSignUpModal } from '../Redux/actions'
 import AddChildSignUpModal from './AddChildSignUpModal'
 
 class SignUpModal extends React.Component {
@@ -88,7 +88,6 @@ class SignUpModal extends React.Component {
   }
   handleConfirm = () => {
     this.setState({ openChildModal: true, openConfirm: false, isOpen: false })
-    // this.props.dispatchSignUpModal(false)
   }
 
   render() {
@@ -200,7 +199,6 @@ class SignUpModal extends React.Component {
 
 function mapDispatchToProps(dispatch) {
   return {
-    dispatchChild: (child) => dispatch(setChild(child)),
     dispatchSignUpModal: (value) => dispatch(setSignUpModal(value)),
     dispatchError: (value) => dispatch(setError(value)),
   }

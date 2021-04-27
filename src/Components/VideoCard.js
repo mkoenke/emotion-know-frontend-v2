@@ -8,7 +8,7 @@ import { deleteVideo } from '../Redux/actions'
 
 class VideoCard extends React.Component {
   handleDeleteClick = () => {
-    this.props.deleteAudio(this.props.cardObj)
+    this.props.deleteVideo(this.props.cardObj)
   }
   render() {
     return (
@@ -21,13 +21,7 @@ class VideoCard extends React.Component {
                 centered
                 className="welcomeCard cardSize"
               >
-                <Image
-                  src={this.props.image}
-                  // size="medium"
-                  // // circular
-                  // className="journalCardImage"
-                  className="cardImage"
-                />
+                <Image src={this.props.image} className="cardImage" />
                 <Card.Content>
                   <Card.Header className="content date">
                     {this.props.cardObj.date}
@@ -72,7 +66,7 @@ class VideoCard extends React.Component {
 
 function mapDispatchToProps(dispatch) {
   return {
-    deleteAudio: (journal) => dispatch(deleteVideo(journal)),
+    deleteVideo: (journal) => dispatch(deleteVideo(journal)),
   }
 }
 

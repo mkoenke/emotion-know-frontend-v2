@@ -97,10 +97,6 @@ class ParentProfileModal extends React.Component {
       })
         .then((response) => response.json())
         .then((data) => {
-          console.log(data)
-          // localStorage.setItem('token', data.jwt)
-          // this.props.dispatchChild(data.child)
-
           this.setState({
             openConfirm: true,
             changePassword: false,
@@ -275,8 +271,6 @@ class ParentProfileModal extends React.Component {
                   content="Add Child"
                   onClick={() => {
                     this.props.dispatchError(null)
-                    // this.props.dispatchParentProfileModal(false)
-
                     this.setState({ addChild: true })
                   }}
                 />

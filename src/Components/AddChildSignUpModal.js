@@ -24,7 +24,7 @@ import avatar6 from '../assets/images/avatar6.png'
 import avatar7 from '../assets/images/avatar7.png'
 import avatar8 from '../assets/images/avatar8.png'
 import avatar9 from '../assets/images/avatar9.png'
-import { setChild, setError, setParent, setSignUpModal } from '../Redux/actions'
+import { setError, setParent, setSignUpModal } from '../Redux/actions'
 
 class SignUpModal extends React.Component {
   state = {
@@ -41,7 +41,6 @@ class SignUpModal extends React.Component {
     avatar: null,
   }
   handleCancel = () => {
-    console.log('IN CANCEL')
     this.props.dispatchSignUpModal(false)
     this.props.dispatchError(null)
   }
@@ -109,7 +108,6 @@ class SignUpModal extends React.Component {
           avatar: null,
         })
         this.props.dispatchError(null)
-        // this.props.handleSignUpClick()
         if (this.props.parent) {
           let parent = { ...this.props.parent }
           parent.children = [...parent.children, child]
@@ -122,7 +120,6 @@ class SignUpModal extends React.Component {
   }
 
   handleConfirmCancel = () => {
-    console.log('IN CONFIRM CANCEL')
     this.setState({ openConfirm: false, isOpen: false })
     this.props.dispatchSignUpModal(false)
   }
@@ -332,7 +329,6 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    dispatchChild: (child) => dispatch(setChild(child)),
     dispatchParent: (parent) => dispatch(setParent(parent)),
     dispatchSignUpModal: (value) => dispatch(setSignUpModal(value)),
     dispatchError: (value) => dispatch(setError(value)),

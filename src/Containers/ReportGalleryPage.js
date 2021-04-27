@@ -185,7 +185,6 @@ function mapStateToProps(state) {
     parent: state.parent,
     allReports: state.allReports,
     parentsReports: state.parentsReports,
-    allJournals: state.allJournals,
     allVideos: state.allVideos,
     filteredReports: state.filteredReports,
   }

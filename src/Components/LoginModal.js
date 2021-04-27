@@ -25,8 +25,6 @@ class LoginModal extends React.Component {
         password: this.state.password,
       }
       this.props.loginParent(parent)
-
-      // this.props.handleLoginClick()
     } else {
       let child = {
         username: this.state.username,
@@ -34,7 +32,6 @@ class LoginModal extends React.Component {
       }
 
       this.props.login(child)
-      // this.props.handleLoginClick()
     }
   }
 
