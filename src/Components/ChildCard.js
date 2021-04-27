@@ -5,6 +5,7 @@ import { Card, Image } from 'semantic-ui-react'
 
 class ChildCard extends React.Component {
   render() {
+    console.log(this.props)
     return (
       <>
         <Animista type={AnimistaTypes.ROTATE_SCALE_DOWN}>

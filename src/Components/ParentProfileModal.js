@@ -275,6 +275,8 @@ class ParentProfileModal extends React.Component {
                   content="Add Child"
                   onClick={() => {
                     this.props.dispatchError(null)
+                    // this.props.dispatchParentProfileModal(false)
+
                     this.setState({ addChild: true })
                   }}
                 />
@@ -310,7 +312,10 @@ class ParentProfileModal extends React.Component {
                 <Button
                   className="formButton"
                   content="Cancel"
-                  onClick={() => this.setState({ isOpen: false })}
+                  onClick={() => {
+                    this.props.dispatchParentProfileModal(false)
+                    this.setState({ isOpen: false })
+                  }}
                 />
               </Segment>
             ) : null}

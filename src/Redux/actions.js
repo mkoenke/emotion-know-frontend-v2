@@ -67,7 +67,7 @@ export function loginParent(parent) {
 
           dispatch(setParent(data.parent))
           // dispatch(setChild(data.parent.child))
-          dispatch(setParentModal(false))
+          dispatch(setModal(false))
           dispatch(setError(null))
           // dispatch(allReports(data.parent.video_reports))
           dispatch(parentsReports(data.parent.video_reports))

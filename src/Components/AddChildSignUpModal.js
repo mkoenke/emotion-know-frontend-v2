@@ -41,6 +41,7 @@ class SignUpModal extends React.Component {
     avatar: null,
   }
   handleCancel = () => {
+    console.log('IN CANCEL')
     this.props.dispatchSignUpModal(false)
     this.props.dispatchError(null)
   }
@@ -121,6 +122,7 @@ class SignUpModal extends React.Component {
   }
 
   handleConfirmCancel = () => {
+    console.log('IN CONFIRM CANCEL')
     this.setState({ openConfirm: false, isOpen: false })
     this.props.dispatchSignUpModal(false)
   }

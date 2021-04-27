@@ -25,7 +25,6 @@ class LoginModal extends React.Component {
         password: this.state.password,
       }
       this.props.loginParent(parent)
-      this.props.dispatchModal(false)
 
       // this.props.handleLoginClick()
     } else {
@@ -35,8 +34,6 @@ class LoginModal extends React.Component {
       }
 
       this.props.login(child)
-      this.props.dispatchModal(false)
-
       // this.props.handleLoginClick()
     }
   }

@@ -11,7 +11,7 @@ import {
   setSignUpModal,
 } from '../Redux/actions'
 import LoginModal from './LoginModal'
-import ParentLoginModal from './ParentLoginModal'
+// import ParentLoginModal from './ParentLoginModal'
 import ParentProfileModal from './ParentProfileModal'
 import SignUpModal from './ParentSignUpModal'
 import ProfileModal from './ProfileModal'
@@ -36,11 +36,11 @@ class NavBar extends React.Component {
     }
   }
 
-  handleParentLoginClick = () => {
-    if (!this.props.parent) {
-      this.props.dispatchParentModal(true)
-    }
-  }
+  // handleParentLoginClick = () => {
+  //   if (!this.props.parent) {
+  //     this.props.dispatchParentModal(true)
+  //   }
+  // }
   handleProfileClick = (value) => {
     if (this.props.child) {
       this.props.dispatchProfileModal(value)
@@ -164,11 +164,11 @@ class NavBar extends React.Component {
                         onClick={this.handleLoginClick}
                         className="navbar"
                       >
-                        Child Login
+                        Login
                       </Dropdown.Item>
                     </NavLink>
                     {/* <Redirect to="/" /> */}
-                    <NavLink to="/">
+                    {/* <NavLink to="/">
                       <Dropdown.Item
                         name="parentLogin"
                         onClick={this.handleParentLoginClick}
@@ -176,7 +176,7 @@ class NavBar extends React.Component {
                       >
                         Parent Login
                       </Dropdown.Item>
-                    </NavLink>
+                    </NavLink> */}
                     {/* <Redirect to="/" /> */}
                     <NavLink to="/">
                       <Dropdown.Item
@@ -195,11 +195,11 @@ class NavBar extends React.Component {
             {this.props.signUpModalOpen && (
               <SignUpModal handleSignUpClick={this.handleSignUpClick} />
             )}
-            {this.props.parentModalOpen && (
+            {/* {this.props.parentModalOpen && (
               <ParentLoginModal
                 handleParentLoginClick={this.handleParentLoginClick}
               />
-            )}
+            )} */}
             {this.props.modalOpen && (
               <LoginModal handleLoginClick={this.handleLoginClick} />
             )}
