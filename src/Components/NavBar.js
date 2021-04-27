@@ -31,7 +31,7 @@ class NavBar extends React.Component {
   }
 
   handleLoginClick = () => {
-    if (!this.props.child) {
+    if (!this.props.child || !this.props.parent) {
       this.props.dispatchModal(true)
     }
   }
