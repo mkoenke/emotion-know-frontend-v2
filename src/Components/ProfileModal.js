@@ -284,6 +284,15 @@ class ProfileModal extends React.Component {
                   content="Delete Account"
                   onClick={this.handleDelete}
                 />
+                <Divider horizontal>Or</Divider>
+                <Button
+                  className="formButton"
+                  content="Cancel"
+                  onClick={() => {
+                    this.props.dispatchProfileModal(false)
+                    this.setState({ isOpen: false })
+                  }}
+                />
               </Segment>
             ) : null}
             {this.state.changePassword || this.state.changeUsername ? (

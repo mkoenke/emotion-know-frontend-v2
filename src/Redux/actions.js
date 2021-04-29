@@ -65,10 +65,8 @@ export function loginParent(parent) {
           localStorage.setItem('token', data.jwt)
 
           dispatch(setParent(data.parent))
-          // dispatch(setChild(data.parent.child))
           dispatch(setModal(false))
           dispatch(setError(null))
-          // dispatch(allReports(data.parent.video_reports))
           dispatch(parentsReports(data.parent.video_reports))
         } else {
           dispatch(setError(data.error))

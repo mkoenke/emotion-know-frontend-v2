@@ -41,7 +41,8 @@ class SignUpModal extends React.Component {
     avatar: null,
   }
   handleCancel = () => {
-    this.props.dispatchSignUpModal(false)
+    this.setState({ isOpen: false })
+    this.props.handleAddChildCancel()
     this.props.dispatchError(null)
   }
   handleFormChange = (e) => {
@@ -73,7 +74,8 @@ class SignUpModal extends React.Component {
       this.state.username === this.state.confirmUsername &&
       this.state.username &&
       this.state.password === this.state.confirmPassword &&
-      this.state.password
+      this.state.password &&
+      this.state.avatar
     ) {
       childData = {
         username: this.state.username,
@@ -82,41 +84,42 @@ class SignUpModal extends React.Component {
         image: this.state.avatar,
       }
     }
-    fetch('http://localhost:3000/children', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-      },
-      body: JSON.stringify(childData),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log('child data:', data)
-        const child = data.child
-        this.setState({
-          isOpen: false,
-          openConfirm: true,
-          username: null,
-          confirmUsername: null,
-          password: null,
-          confirmPassword: null,
-          usernameError: false,
-          usernameMatchError: false,
-          passwordError: false,
-          passwordMatchError: false,
-          avatar: null,
+    if (childData) {
+      fetch('http://localhost:3000/children', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify(childData),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          const child = data.child
+          this.setState({
+            isOpen: false,
+            openConfirm: true,
+            username: null,
+            confirmUsername: null,
+            password: null,
+            confirmPassword: null,
+            usernameError: false,
+            usernameMatchError: false,
+            passwordError: false,
+            passwordMatchError: false,
+            avatar: null,
+          })
+          this.props.dispatchError(null)
+          if (this.props.parent) {
+            let parent = { ...this.props.parent }
+            parent.children = [...parent.children, child]
+            this.props.dispatchParent(parent)
+          }
         })
-        this.props.dispatchError(null)
-        if (this.props.parent) {
-          let parent = { ...this.props.parent }
-          parent.children = [...parent.children, child]
-          this.props.dispatchParent(parent)
-        }
-      })
-      .catch((error) => {
-        this.props.dispatchError(error)
-      })
+        .catch((error) => {
+          this.props.dispatchError(error)
+        })
+    }
   }
 
   handleConfirmCancel = () => {
@@ -128,8 +131,6 @@ class SignUpModal extends React.Component {
   }
 
   render() {
-    console.log(this.props)
-
     const avatarOptions = [
       {
         key: 1,
@@ -207,6 +208,7 @@ class SignUpModal extends React.Component {
         value: avatar15,
       },
     ]
+
     return (
       <>
         {this.state.openConfirm && (

@@ -29,6 +29,7 @@ const defaultState = {
   filteredReports: [],
   modalOpen: false,
   signUpModalOpen: false,
+  childSignupOpen: false,
   profileModalOpen: false,
   parentProfileModalOpen: false,
   emptyGalleryModalOpen: false,

@@ -83,6 +83,7 @@ class SignUpModal extends React.Component {
       })
   }
   handleConfirmCancel = () => {
+    console.log('in confirm cancel for parent')
     this.setState({ openConfirm: false, isOpen: false })
     this.props.dispatchSignUpModal(false)
   }
@@ -101,10 +102,14 @@ class SignUpModal extends React.Component {
             confirmButton="Add Child"
             onCancel={this.handleConfirmCancel}
             onConfirm={this.handleConfirm}
+            className="confirmAddChild"
           />
         )}
         {this.state.openChildModal && (
-          <AddChildSignUpModal parentId={this.state.parentId} />
+          <AddChildSignUpModal
+            handleAddChildCancel={null}
+            parentId={this.state.parentId}
+          />
         )}
         <Modal
           onClose={() => this.setState({ isOpen: false })}

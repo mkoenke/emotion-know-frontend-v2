@@ -1,8 +1,8 @@
 import React from 'react'
 import { Parallax, ParallaxBanner } from 'react-scroll-parallax'
 import { Grid, Header, Image, List } from 'semantic-ui-react'
+import chooseSmile from '../assets/images/chooseSmile.jpeg'
 import childGif from '../assets/images/emGif2.gif'
-import handWith3Blocks from '../assets/images/handWith3Blocks.jpg'
 import handWithBlocks from '../assets/images/handWithBlocks.jpg'
 import handWithVerticalBlocks from '../assets/images/handWithVerticalBlocks.jpg'
 import resourceImage2 from '../assets/images/kidsPaperFamily.jpg'
@@ -109,7 +109,7 @@ class ResourcesPage extends React.Component {
         <ParallaxBanner
           layers={[
             {
-              image: handWith3Blocks,
+              image: chooseSmile,
               amount: 0.3,
             },
           ]}
