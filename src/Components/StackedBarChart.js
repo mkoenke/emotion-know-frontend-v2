@@ -10,7 +10,7 @@ import {
   zoom,
 } from 'd3'
 import React, { useEffect, useRef } from 'react'
-import useResizeObserver from './useResizeObserver'
+import useResizeObserver from '../HelperFunctions/useResizeObserver'
 
 //attach keys/colors to the data objects being passed in to use
 //them in the svg rendering
