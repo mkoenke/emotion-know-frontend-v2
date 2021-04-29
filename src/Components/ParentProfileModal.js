@@ -12,7 +12,7 @@ import {
 } from 'semantic-ui-react'
 import {
   logout,
-  setChild,
+  // setChildSignUpModal,
   setError,
   setParentProfileModal,
 } from '../Redux/actions'
@@ -178,7 +178,12 @@ class ParentProfileModal extends React.Component {
     this.setState({ [e.target.name]: e.target.value })
   }
 
+  handleAddChildCancel = () => {
+    this.setState({ addChild: false })
+  }
+
   render() {
+    console.log(this.state)
     return (
       <>
         {this.state.openConfirm ? (
@@ -261,8 +266,11 @@ class ParentProfileModal extends React.Component {
                 <Message.Header>Passwords do not match!</Message.Header>
               </Message>
             ) : null}
-            {this.state.addChild && (
-              <AddChildSignUpModal parentId={this.props.parent.id} />
+            {(this.state.addChild || this.props.childSignupOpen) && (
+              <AddChildSignUpModal
+                handleAddChildCancel={this.handleAddChildCancel}
+                parentId={this.props.parent.id}
+              />
             )}
             {!this.state.changeEmail && !this.state.changePassword ? (
               <Segment basic textAlign="center">
@@ -394,14 +402,17 @@ function mapStateToProps(state) {
   return {
     parent: state.parent,
     error: state.error,
+    childSignupOpen: state.childSignupOpen,
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    dispatchChild: (child) => dispatch(setChild(child)),
     dispatchParentProfileModal: (value) =>
       dispatch(setParentProfileModal(value)),
+    // dispatchAddChildSignUpModal: (value) =>
+    //   dispatch(setChildSignUpModal(value)),
+
     dispatchError: (value) => dispatch(setError(value)),
     logout: () => dispatch(logout()),
   }

@@ -24,7 +24,12 @@ import avatar6 from '../assets/images/avatar6.png'
 import avatar7 from '../assets/images/avatar7.png'
 import avatar8 from '../assets/images/avatar8.png'
 import avatar9 from '../assets/images/avatar9.png'
-import { setError, setParent, setSignUpModal } from '../Redux/actions'
+import {
+  setChildSignUpModal,
+  setError,
+  setParent,
+  setSignUpModal,
+} from '../Redux/actions'
 
 class SignUpModal extends React.Component {
   state = {
@@ -41,7 +46,8 @@ class SignUpModal extends React.Component {
     avatar: null,
   }
   handleCancel = () => {
-    this.props.dispatchSignUpModal(false)
+    this.setState({ isOpen: false })
+    this.props.handleAddChildCancel()
     this.props.dispatchError(null)
   }
   handleFormChange = (e) => {
@@ -67,13 +73,15 @@ class SignUpModal extends React.Component {
   }
 
   handleFormSubmit = (event) => {
+    console.log('in form submit for child')
     event.preventDefault()
     let childData = null
     if (
       this.state.username === this.state.confirmUsername &&
       this.state.username &&
       this.state.password === this.state.confirmPassword &&
-      this.state.password
+      this.state.password &&
+      this.state.avatar
     ) {
       childData = {
         username: this.state.username,
@@ -82,44 +90,48 @@ class SignUpModal extends React.Component {
         image: this.state.avatar,
       }
     }
-    fetch('http://localhost:3000/children', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-      },
-      body: JSON.stringify(childData),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log('child data:', data)
-        const child = data.child
-        this.setState({
-          isOpen: false,
-          openConfirm: true,
-          username: null,
-          confirmUsername: null,
-          password: null,
-          confirmPassword: null,
-          usernameError: false,
-          usernameMatchError: false,
-          passwordError: false,
-          passwordMatchError: false,
-          avatar: null,
+    if (childData) {
+      fetch('http://localhost:3000/children', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify(childData),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log('child data:', data)
+          const child = data.child
+          this.setState({
+            isOpen: false,
+            openConfirm: true,
+            username: null,
+            confirmUsername: null,
+            password: null,
+            confirmPassword: null,
+            usernameError: false,
+            usernameMatchError: false,
+            passwordError: false,
+            passwordMatchError: false,
+            avatar: null,
+          })
+          this.props.dispatchError(null)
+          if (this.props.parent) {
+            let parent = { ...this.props.parent }
+            parent.children = [...parent.children, child]
+            this.props.dispatchParent(parent)
+          }
         })
-        this.props.dispatchError(null)
-        if (this.props.parent) {
-          let parent = { ...this.props.parent }
-          parent.children = [...parent.children, child]
-          this.props.dispatchParent(parent)
-        }
-      })
-      .catch((error) => {
-        this.props.dispatchError(error)
-      })
+        .catch((error) => {
+          this.props.dispatchError(error)
+        })
+    }
   }
 
   handleConfirmCancel = () => {
+    console.log('in confirm cancel for child')
+
     this.setState({ openConfirm: false, isOpen: false })
     this.props.dispatchSignUpModal(false)
   }
@@ -207,6 +219,8 @@ class SignUpModal extends React.Component {
         value: avatar15,
       },
     ]
+    console.log(this.state)
+
     return (
       <>
         {this.state.openConfirm && (
@@ -329,6 +343,9 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
+    dispatchAddChildSignUpModal: (value) =>
+      dispatch(setChildSignUpModal(value)),
+
     dispatchParent: (parent) => dispatch(setParent(parent)),
     dispatchSignUpModal: (value) => dispatch(setSignUpModal(value)),
     dispatchError: (value) => dispatch(setError(value)),
