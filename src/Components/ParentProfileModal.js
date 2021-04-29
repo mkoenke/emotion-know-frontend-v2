@@ -10,12 +10,7 @@ import {
   Modal,
   Segment,
 } from 'semantic-ui-react'
-import {
-  logout,
-  // setChildSignUpModal,
-  setError,
-  setParentProfileModal,
-} from '../Redux/actions'
+import { logout, setError, setParentProfileModal } from '../Redux/actions'
 import AddChildSignUpModal from './AddChildSignUpModal'
 
 class ParentProfileModal extends React.Component {
@@ -105,7 +100,6 @@ class ParentProfileModal extends React.Component {
           this.props.dispatchError(null)
         })
         .catch((error) => {
-          console.log(error)
           this.props.dispatchError('Something went wrong, please try again.')
         })
     }
@@ -150,9 +144,7 @@ class ParentProfileModal extends React.Component {
 
                   localStorage.removeItem('token')
                   this.props.logout()
-                  console.log('DELETED:', data)
                 } else if (data.error) {
-                  console.log(data.error)
                   this.setState({
                     deleteAccount: false,
                   })
@@ -162,7 +154,6 @@ class ParentProfileModal extends React.Component {
                 }
               })
               .catch((error) => {
-                console.log(error)
                 this.props.dispatchError(
                   'Something went wrong, please try again.'
                 )
@@ -183,7 +174,6 @@ class ParentProfileModal extends React.Component {
   }
 
   render() {
-    console.log(this.state)
     return (
       <>
         {this.state.openConfirm ? (
@@ -410,9 +400,6 @@ function mapDispatchToProps(dispatch) {
   return {
     dispatchParentProfileModal: (value) =>
       dispatch(setParentProfileModal(value)),
-    // dispatchAddChildSignUpModal: (value) =>
-    //   dispatch(setChildSignUpModal(value)),
-
     dispatchError: (value) => dispatch(setError(value)),
     logout: () => dispatch(logout()),
   }

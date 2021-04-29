@@ -24,12 +24,7 @@ import avatar6 from '../assets/images/avatar6.png'
 import avatar7 from '../assets/images/avatar7.png'
 import avatar8 from '../assets/images/avatar8.png'
 import avatar9 from '../assets/images/avatar9.png'
-import {
-  // setChildSignUpModal,
-  setError,
-  setParent,
-  setSignUpModal,
-} from '../Redux/actions'
+import { setError, setParent, setSignUpModal } from '../Redux/actions'
 
 class SignUpModal extends React.Component {
   state = {
@@ -73,7 +68,6 @@ class SignUpModal extends React.Component {
   }
 
   handleFormSubmit = (event) => {
-    console.log('in form submit for child')
     event.preventDefault()
     let childData = null
     if (
@@ -101,7 +95,6 @@ class SignUpModal extends React.Component {
       })
         .then((response) => response.json())
         .then((data) => {
-          console.log('child data:', data)
           const child = data.child
           this.setState({
             isOpen: false,
@@ -130,8 +123,6 @@ class SignUpModal extends React.Component {
   }
 
   handleConfirmCancel = () => {
-    console.log('in confirm cancel for child')
-
     this.setState({ openConfirm: false, isOpen: false })
     this.props.dispatchSignUpModal(false)
   }
@@ -140,8 +131,6 @@ class SignUpModal extends React.Component {
   }
 
   render() {
-    console.log(this.props)
-
     const avatarOptions = [
       {
         key: 1,
@@ -219,7 +208,6 @@ class SignUpModal extends React.Component {
         value: avatar15,
       },
     ]
-    console.log(this.state)
 
     return (
       <>
@@ -343,9 +331,6 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    // dispatchAddChildSignUpModal: (value) =>
-    //   dispatch(setChildSignUpModal(value)),
-
     dispatchParent: (parent) => dispatch(setParent(parent)),
     dispatchSignUpModal: (value) => dispatch(setSignUpModal(value)),
     dispatchError: (value) => dispatch(setError(value)),

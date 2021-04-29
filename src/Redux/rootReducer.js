@@ -4,7 +4,6 @@ import {
   ADD_VIDEO,
   ALL_REPORTS,
   ALL_VIDEOS,
-  // CHILD_SIGNUP_OPEN,
   CLICKED_REPORT,
   DELETE_VIDEO,
   EMPTY_GALLERY_MODAL_OPEN,
@@ -45,18 +44,6 @@ function signUpModalReducer(prevState = defaultState.signUpModalOpen, action) {
       return prevState
   }
 }
-
-// function childSignUpModalReducer(
-//   prevState = defaultState.signUpModalOpen,
-//   action
-// ) {
-//   switch (action.type) {
-//     case CHILD_SIGNUP_OPEN:
-//       return action.payload
-//     default:
-//       return prevState
-//   }
-// }
 
 function modalReducer(prevState = defaultState.modalOpen, action) {
   switch (action.type) {
@@ -206,7 +193,6 @@ const rootReducer = combineReducers({
   emptyGalleryModalOpen: emptyGalleryModalReducer,
   clickedReport: clickedReportReducer,
   filteredReports: filteredReportsReducer,
-  // childSignupOpen: childSignUpModalReducer,
 })
 
 export default rootReducer

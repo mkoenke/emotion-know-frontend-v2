@@ -3,7 +3,6 @@ import {
   ADD_VIDEO,
   ALL_REPORTS,
   ALL_VIDEOS,
-  // CHILD_SIGNUP_OPEN,
   CLICKED_REPORT,
   DELETE_VIDEO,
   EMPTY_GALLERY_MODAL_OPEN,
@@ -66,10 +65,8 @@ export function loginParent(parent) {
           localStorage.setItem('token', data.jwt)
 
           dispatch(setParent(data.parent))
-          // dispatch(setChild(data.parent.child))
           dispatch(setModal(false))
           dispatch(setError(null))
-          // dispatch(allReports(data.parent.video_reports))
           dispatch(parentsReports(data.parent.video_reports))
         } else {
           dispatch(setError(data.error))
@@ -113,9 +110,6 @@ export function setModal(value) {
 export function setSignUpModal(value) {
   return { type: SIGN_UP_MODAL_OPEN, payload: value }
 }
-// export function setChildSignUpModal(value) {
-//   return { type: CHILD_SIGNUP_OPEN, payload: value }
-// }
 
 export function setProfileModal(value) {
   return { type: PROFILE_MODAL_OPEN, payload: value }
