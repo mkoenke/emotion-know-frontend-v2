@@ -25,7 +25,7 @@ import avatar7 from '../assets/images/avatar7.png'
 import avatar8 from '../assets/images/avatar8.png'
 import avatar9 from '../assets/images/avatar9.png'
 import {
-  setChildSignUpModal,
+  // setChildSignUpModal,
   setError,
   setParent,
   setSignUpModal,
@@ -343,8 +343,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    dispatchAddChildSignUpModal: (value) =>
-      dispatch(setChildSignUpModal(value)),
+    // dispatchAddChildSignUpModal: (value) =>
+    //   dispatch(setChildSignUpModal(value)),
 
     dispatchParent: (parent) => dispatch(setParent(parent)),
     dispatchSignUpModal: (value) => dispatch(setSignUpModal(value)),
