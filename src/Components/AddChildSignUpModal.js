@@ -42,7 +42,10 @@ class SignUpModal extends React.Component {
   }
   handleCancel = () => {
     this.setState({ isOpen: false })
-    this.props.handleAddChildCancel()
+    if (this.props.parent) {
+      this.props.handleAddChildCancel()
+    }
+    this.props.dispatchSignUpModal(false)
     this.props.dispatchError(null)
   }
   handleFormChange = (e) => {
