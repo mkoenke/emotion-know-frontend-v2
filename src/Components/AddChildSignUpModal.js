@@ -219,10 +219,10 @@ class SignUpModal extends React.Component {
             closeOnDimmerClick={false}
             open={this.state.openConfirm}
             content="Would you like to add another a child?"
-            confirmButton="Yes"
-            cancelButton="No"
-            onCancel={this.handleConfirmCancel}
-            onConfirm={this.handleConfirm}
+            confirmButton="No"
+            cancelButton="Yes"
+            onCancel={this.handleConfirm}
+            onConfirm={this.handleConfirmCancel}
           />
         )}
         <Modal
