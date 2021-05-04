@@ -41,7 +41,7 @@
 }
 
 .spanMargin {
-  margin-top: 40px;
+  margin: 50px 0px;
 }
 
 .subHeader {
@@ -583,4 +583,9 @@ canvas {
 /* Confirm Modals */
 
 .confirmAddChild {
+}
+
+i.bars.icon {
+  color: white;
+  font-size: 28px;
 }

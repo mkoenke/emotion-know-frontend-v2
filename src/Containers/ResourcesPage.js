@@ -24,7 +24,12 @@ class ResourcesPage extends React.Component {
         <div className="root height">
           <span className="copy h1 spanMargin">
             <Parallax x={[-80, 80]} className="letter">
-              About EmotionKnow
+              About
+            </Parallax>
+          </span>
+          <span className="copy h1 spanMargin">
+            <Parallax x={[-80, 80]} className="letter">
+              EmotionKnow
             </Parallax>
           </span>
           <Header size="large" className="subHeader">

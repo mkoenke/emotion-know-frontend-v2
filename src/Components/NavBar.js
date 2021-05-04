@@ -134,7 +134,7 @@ class NavBar extends React.Component {
                   onClick={this.handleItemClick}
                   className="navbar"
                 >
-                  <Icon name="smile" />
+                  <Icon name="game" />
                 </Menu.Item>
               </NavLink>
             </>
@@ -159,7 +159,7 @@ class NavBar extends React.Component {
                   onClick={this.handleItemClick}
                   className="navbar"
                 >
-                  <Icon name="smile" />
+                  <Icon name="game" />
                 </Menu.Item>
               </NavLink>
             </>
