@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { NavLink, Redirect } from 'react-router-dom'
-import { Dropdown, Menu } from 'semantic-ui-react'
+import { Dropdown, Icon, Menu } from 'semantic-ui-react'
 import {
   logout,
   setModal,
@@ -69,7 +69,9 @@ class NavBar extends React.Component {
                   active={activeItem === 'home'}
                   onClick={this.handleItemClick}
                   className="navbar"
-                />
+                >
+                  <Icon name="home" />
+                </Menu.Item>
               </NavLink>
               <NavLink to="/about">
                 <Menu.Item
@@ -77,7 +79,9 @@ class NavBar extends React.Component {
                   active={activeItem === 'about'}
                   onClick={this.handleItemClick}
                   className="navbar"
-                />
+                >
+                  <Icon name="info" />
+                </Menu.Item>
               </NavLink>
             </>
           ) : null}
@@ -89,7 +93,9 @@ class NavBar extends React.Component {
                   active={activeItem === 'home'}
                   onClick={this.handleItemClick}
                   className="navbar"
-                />
+                >
+                  <Icon name="home" />
+                </Menu.Item>
               </NavLink>
               <NavLink to="/webcam">
                 <Menu.Item
@@ -97,7 +103,9 @@ class NavBar extends React.Component {
                   active={activeItem === 'webcam'}
                   onClick={this.handleItemClick}
                   className="navbar"
-                />
+                >
+                  <Icon name="video" />
+                </Menu.Item>
               </NavLink>
               <NavLink to="/videos">
                 <Menu.Item
@@ -105,7 +113,9 @@ class NavBar extends React.Component {
                   active={activeItem === 'videos'}
                   onClick={this.handleItemClick}
                   className="navbar"
-                />
+                >
+                  <Icon name="th" />
+                </Menu.Item>
               </NavLink>
               <NavLink to="/reports">
                 <Menu.Item
@@ -113,7 +123,9 @@ class NavBar extends React.Component {
                   active={activeItem === 'reports'}
                   onClick={this.handleItemClick}
                   className="navbar"
-                />
+                >
+                  <Icon name="chart area" />
+                </Menu.Item>
               </NavLink>
               <NavLink to="/fun">
                 <Menu.Item
@@ -121,7 +133,9 @@ class NavBar extends React.Component {
                   active={activeItem === 'fun'}
                   onClick={this.handleItemClick}
                   className="navbar"
-                />
+                >
+                  <Icon name="game" />
+                </Menu.Item>
               </NavLink>
             </>
           ) : null}
@@ -134,7 +148,9 @@ class NavBar extends React.Component {
                   active={activeItem === 'home'}
                   onClick={this.handleItemClick}
                   className="navbar"
-                />
+                >
+                  <Icon name="home" />
+                </Menu.Item>
               </NavLink>
               <NavLink to="/fun">
                 <Menu.Item
@@ -142,14 +158,16 @@ class NavBar extends React.Component {
                   active={activeItem === 'fun'}
                   onClick={this.handleItemClick}
                   className="navbar"
-                />
+                >
+                  <Icon name="game" />
+                </Menu.Item>
               </NavLink>
             </>
           ) : null}
           <Menu.Menu position="right">
             {!this.props.child && !this.props.parent ? (
               <>
-                <Dropdown floating item text="Login">
+                <Dropdown floating item icon="bars">
                   <Dropdown.Menu>
                     <NavLink to="/">
                       <Dropdown.Item
@@ -189,7 +207,9 @@ class NavBar extends React.Component {
                     active={activeItem === 'about'}
                     onClick={this.handleItemClick}
                     className="navbar"
-                  />
+                  >
+                    <Icon name="info" />
+                  </Menu.Item>
                 </NavLink>
                 <Dropdown floating item icon="user outline">
                   <Dropdown.Menu>
@@ -222,7 +242,9 @@ class NavBar extends React.Component {
                     active={activeItem === 'about'}
                     onClick={this.handleItemClick}
                     className="navbar"
-                  />
+                  >
+                    <Icon name="info" />
+                  </Menu.Item>
                 </NavLink>
                 <Dropdown floating item icon="user outline">
                   <Dropdown.Menu>
