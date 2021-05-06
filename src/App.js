@@ -31,50 +31,21 @@ class App extends React.Component {
         this.startSDK = start
         start()
         stop()
-        // this.setState({ isLoading: false }, function () {
-        //   console.log('STOP')
-        //   stop()
-        // })
       })
     const faceEmotion = CY.modules().FACE_EMOTION.eventName
     const faceArousal = CY.modules().FACE_AROUSAL_VALENCE.eventName
 
-    const response = (evt) => {
-      console.log('adding:', evt)
-      window.removeEventListener(faceEmotion, response)
+    const emotionEventResponse = (evt) => {
+      window.removeEventListener(faceEmotion, emotionEventResponse)
     }
 
-    const response2 = (evt) => {
-      console.log('adding:', evt)
-      window.removeEventListener(faceArousal, response2)
+    const arousalEventResponse = (evt) => {
+      window.removeEventListener(faceArousal, arousalEventResponse)
       this.setState({ isLoading: false })
     }
-    window.addEventListener(faceEmotion, response)
-    window.addEventListener(faceArousal, response2)
-    // this.setState({ isLoading: false }, this.stopSDK())
-    // window.removeEventListener(CY.modules().FACE_EMOTION.eventName, (evt) => {
-    //   console.log('removing:', evt)
-    // })
-    // window.removeEventListener(
-    //   CY.modules().FACE_AROUSAL_VALENCE.eventName,
-    //   (evt) => {
-    //     console.log('removing:', evt)
-    //     this.setState({ isLoading: false }, this.stopSDK())
-    //   }
-    // )
+    window.addEventListener(faceEmotion, emotionEventResponse)
+    window.addEventListener(faceArousal, arousalEventResponse)
   }
-
-  // removeListeners = (faceEmotion, faceArousal) => {
-  //   console.log('HERE')
-  //   window.removeEventListener(faceEmotion, (evt) => {
-  //     console.log('removing:', evt)
-  //   })
-  //   window.removeEventListener(faceArousal, (evt) => {
-  //     console.log('removing:', evt)
-  //     // this.setState({ isLoading: false })
-  //     this.stopSDK()
-  //   })
-  // }
 
   render() {
     let history = createBrowserHistory()
