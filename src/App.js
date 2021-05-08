@@ -31,8 +31,20 @@ class App extends React.Component {
         this.startSDK = start
         start()
         stop()
-        this.setState({ isLoading: false })
       })
+    const faceEmotionEvent = CY.modules().FACE_EMOTION.eventName
+    const faceArousalEvent = CY.modules().FACE_AROUSAL_VALENCE.eventName
+
+    const emotionEventResponse = (evt) => {
+      window.removeEventListener(faceEmotionEvent, emotionEventResponse)
+    }
+    const arousalEventResponse = (evt) => {
+      window.removeEventListener(faceArousalEvent, arousalEventResponse)
+      this.setState({ isLoading: false })
+    }
+
+    window.addEventListener(faceEmotionEvent, emotionEventResponse)
+    window.addEventListener(faceArousalEvent, arousalEventResponse)
   }
 
   render() {
