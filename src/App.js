@@ -32,19 +32,19 @@ class App extends React.Component {
         start()
         stop()
       })
-    const faceEmotion = CY.modules().FACE_EMOTION.eventName
-    const faceArousal = CY.modules().FACE_AROUSAL_VALENCE.eventName
+    const faceEmotionEvent = CY.modules().FACE_EMOTION.eventName
+    const faceArousalEvent = CY.modules().FACE_AROUSAL_VALENCE.eventName
 
     const emotionEventResponse = (evt) => {
-      window.removeEventListener(faceEmotion, emotionEventResponse)
+      window.removeEventListener(faceEmotionEvent, emotionEventResponse)
     }
-
     const arousalEventResponse = (evt) => {
-      window.removeEventListener(faceArousal, arousalEventResponse)
+      window.removeEventListener(faceArousalEvent, arousalEventResponse)
       this.setState({ isLoading: false })
     }
-    window.addEventListener(faceEmotion, emotionEventResponse)
-    window.addEventListener(faceArousal, arousalEventResponse)
+
+    window.addEventListener(faceEmotionEvent, emotionEventResponse)
+    window.addEventListener(faceArousalEvent, arousalEventResponse)
   }
 
   render() {
