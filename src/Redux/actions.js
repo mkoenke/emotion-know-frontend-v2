@@ -79,7 +79,7 @@ export function loginParent(parent) {
 export const getCurrentParent = () => {
   return (dispatch) => {
     return fetch(`http://localhost:3000/get_current_user`, {
-      credentials: 'include',
+      // credentials: 'include',
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -101,7 +101,6 @@ export const getCurrentParent = () => {
 export const resetPassword = (credentials) => {
   return (dispatch) => {
     return fetch(`http://localhost:3000/reset_password`, {
-      credentials: 'include',
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

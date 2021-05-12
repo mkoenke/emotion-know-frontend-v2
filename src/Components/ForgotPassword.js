@@ -35,7 +35,12 @@ class ForgotPassword extends React.Component {
     this.setState({
       email: '',
     })
+    this.props.handleForgotPasswordClick(false)
     this.props.history.push('/')
+  }
+
+  closeModal = () => {
+    this.props.handleForgotPasswordClick(false)
   }
 
   render() {
@@ -60,6 +65,7 @@ class ForgotPassword extends React.Component {
               value={this.state.email}
             />
             <button>Submit</button>
+            <button onClick={this.closeModal}>Cancel</button>
           </form>
         </Modal>
       </>

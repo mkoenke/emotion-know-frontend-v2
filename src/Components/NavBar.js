@@ -57,7 +57,6 @@ class NavBar extends React.Component {
   }
 
   render() {
-    console.log(this.state)
     const { activeItem } = this.state
     return (
       <div>

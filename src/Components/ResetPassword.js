@@ -36,6 +36,7 @@ class ResetPassword extends React.Component {
         password: '',
         password_confirmation: '',
       })
+      this.props.history.push('/') // not quite right
     }
   }
   render() {
