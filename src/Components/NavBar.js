@@ -9,6 +9,7 @@ import {
   setProfileModal,
   setSignUpModal,
 } from '../Redux/actions'
+import ForgotPassword from './ForgotPassword'
 import LoginModal from './LoginModal'
 import ParentProfileModal from './ParentProfileModal'
 import SignUpModal from './ParentSignUpModal'
@@ -17,6 +18,7 @@ import ProfileModal from './ProfileModal'
 class NavBar extends React.Component {
   state = {
     activeItem: 'home',
+    forgotPassword: false,
   }
 
   handleItemClick = (e, { name }) => {
@@ -32,6 +34,9 @@ class NavBar extends React.Component {
     if (!this.props.child || !this.props.parent) {
       this.props.dispatchModal(true)
     }
+  }
+  handleForgotPasswordClick = () => {
+    this.setState({ forgotPassword: !this.state.forgotPassword })
   }
 
   handleProfileClick = (value) => {
@@ -51,6 +56,7 @@ class NavBar extends React.Component {
   }
 
   render() {
+    console.log(this.state)
     const { activeItem } = this.state
     return (
       <div>
@@ -188,6 +194,15 @@ class NavBar extends React.Component {
                         Sign Up
                       </Dropdown.Item>
                     </NavLink>
+                    <NavLink to="/">
+                      <Dropdown.Item
+                        name="forgotPassword"
+                        onClick={this.handleForgotPasswordClick}
+                        className="navbar"
+                      >
+                        Forgot Password
+                      </Dropdown.Item>
+                    </NavLink>
                   </Dropdown.Menu>
                 </Dropdown>
               </>
@@ -276,6 +291,9 @@ class NavBar extends React.Component {
               <ParentProfileModal
                 handleParentProfileClick={this.handleParentProfileClick}
               />
+            )}
+            {this.state.forgotPassword && (
+              <ForgotPassword forgotPassword={this.handleForgotPasswordClick} />
             )}
           </Menu.Menu>
         </Menu>

@@ -113,7 +113,7 @@ export const resetPassword = (credentials) => {
           alert(response.error)
         } else {
           alert(response.alert)
-          dispatch(getCurrentUser())
+          dispatch(getCurrentParent())
         }
       })
       .catch(console.log)

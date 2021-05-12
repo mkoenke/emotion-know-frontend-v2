@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { Modal } from 'semantic-ui-react'
 import { resetPassword } from '../Redux/actions'
 
 class ResetPassword extends React.Component {
@@ -8,6 +9,7 @@ class ResetPassword extends React.Component {
     email: '',
     password: '',
     password_confirmation: '',
+    isOpen: false,
   }
 
   handleChange = (event) => {
@@ -39,52 +41,60 @@ class ResetPassword extends React.Component {
   render() {
     return (
       <>
-        <p>Reset Password:</p>
-        <form onSubmit={this.handleSubmit}>
-          <label for="token">Token:</label>
-          <input
-            required
-            id="token"
-            onChange={this.handleChange}
-            name="token"
-            placeholder="token"
-            type="token"
-            value={this.state.token}
-          />
-          <p>The code that was emailed to you. This is case-sensitive.</p>
-          <label for="email">Email:</label>
-          <input
-            required
-            id="email"
-            onChange={this.handleChange}
-            name="email"
-            placeholder="email"
-            type="email"
-            value={this.state.email}
-          />
-          <label for="password">New password:</label>
-          <input
-            required
-            id="password"
-            onChange={this.handleChange}
-            name="password"
-            placeholder="password"
-            type="password"
-            value={this.state.password}
-          />
-          <p>Set your new password here.</p>
-          <label for="password_confirmation">Confirm new password:</label>
-          <input
-            required
-            id="password_confirmation"
-            onChange={this.handleChange}
-            name="password_confirmation"
-            placeholder="password confirmation"
-            type="password"
-            value={this.state.password_confirmation}
-          />
-          <button type="secondary">Reset Password</button>
-        </form>
+        <Modal
+          onClose={() => this.setState({ isOpen: false })}
+          onOpen={() => this.setState({ isOpen: true })}
+          open={this.state.isOpen}
+          closeOnDimmerClick={false}
+          dimmer="blurring"
+        >
+          <p>Reset Password:</p>
+          <form onSubmit={this.handleSubmit}>
+            <label for="token">Token:</label>
+            <input
+              required
+              id="token"
+              onChange={this.handleChange}
+              name="token"
+              placeholder="token"
+              type="token"
+              value={this.state.token}
+            />
+            <p>The code that was emailed to you. This is case-sensitive.</p>
+            <label for="email">Email:</label>
+            <input
+              required
+              id="email"
+              onChange={this.handleChange}
+              name="email"
+              placeholder="email"
+              type="email"
+              value={this.state.email}
+            />
+            <label for="password">New password:</label>
+            <input
+              required
+              id="password"
+              onChange={this.handleChange}
+              name="password"
+              placeholder="password"
+              type="password"
+              value={this.state.password}
+            />
+            <p>Set your new password here.</p>
+            <label for="password_confirmation">Confirm new password:</label>
+            <input
+              required
+              id="password_confirmation"
+              onChange={this.handleChange}
+              name="password_confirmation"
+              placeholder="password confirmation"
+              type="password"
+              value={this.state.password_confirmation}
+            />
+            <button type="secondary">Reset Password</button>
+          </form>
+        </Modal>
       </>
     )
   }

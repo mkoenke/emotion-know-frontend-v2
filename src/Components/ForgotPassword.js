@@ -1,9 +1,11 @@
 import React from 'react'
 import { withRouter } from 'react-router-dom'
+import { Modal } from 'semantic-ui-react'
 
 class ForgotPassword extends React.Component {
   state = {
     email: '',
+    isOpen: false,
   }
 
   handleChange = (event) => {
@@ -23,7 +25,7 @@ class ForgotPassword extends React.Component {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(email),
+      body: JSON.stringify(this.state.email),
     })
       .then((res) => res.json())
       .then((response) => {
@@ -39,19 +41,27 @@ class ForgotPassword extends React.Component {
   render() {
     return (
       <>
-        <p>Request password reset:</p>
-        <form onSubmit={this.handleSubmit}>
-          <input
-            required
-            id="forgotpasswordemail"
-            onChange={this.handleChange}
-            name="email"
-            placeholder="email"
-            type="email"
-            value={this.state.email}
-          />
-          <button>Submit</button>
-        </form>
+        <Modal
+          onClose={() => this.setState({ isOpen: false })}
+          onOpen={() => this.setState({ isOpen: true })}
+          open={this.state.isOpen}
+          closeOnDimmerClick={false}
+          dimmer="blurring"
+        >
+          <p>Request password reset:</p>
+          <form onSubmit={this.handleSubmit}>
+            <input
+              required
+              id="forgotpasswordemail"
+              onChange={this.handleChange}
+              name="email"
+              placeholder="email"
+              type="email"
+              value={this.state.email}
+            />
+            <button>Submit</button>
+          </form>
+        </Modal>
       </>
     )
   }
