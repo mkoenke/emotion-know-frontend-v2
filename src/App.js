@@ -35,6 +35,7 @@ class App extends React.Component {
     const faceArousalEvent = CY.modules().FACE_AROUSAL_VALENCE.eventName
 
     const emotionEventResponse = (evt) => {
+      console.log('here')
       window.removeEventListener(faceEmotionEvent, emotionEventResponse)
     }
     const arousalEventResponse = (evt) => {
@@ -102,6 +103,7 @@ class App extends React.Component {
                       </Header>{' '}
                       <Loader active inline />
                     </Dimmer> */}
+                    {/* <Homepage stopSDK={this.stopSDK} startSDK={this.startSDK} /> */}
                   </>
                 )
               }

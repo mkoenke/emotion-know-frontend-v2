@@ -1,6 +1,6 @@
 import React from 'react'
 import { withRouter } from 'react-router-dom'
-import { Modal } from 'semantic-ui-react'
+import { Button, Form, Modal } from 'semantic-ui-react'
 
 class ForgotPassword extends React.Component {
   state = {
@@ -20,7 +20,6 @@ class ForgotPassword extends React.Component {
     const baseURL = 'http://localhost:3000'
 
     fetch(`${baseURL}/forgot_password`, {
-      // credentials: 'include',
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -53,20 +52,28 @@ class ForgotPassword extends React.Component {
           closeOnDimmerClick={false}
           dimmer="blurring"
         >
-          <p>Request password reset:</p>
-          <form onSubmit={this.handleSubmit}>
-            <input
-              required
-              id="forgotpasswordemail"
-              onChange={this.handleChange}
-              name="email"
-              placeholder="email"
-              type="email"
-              value={this.state.email}
-            />
-            <button>Submit</button>
-            <button onClick={this.closeModal}>Cancel</button>
-          </form>
+          <Modal.Header className="pageHeader">
+            Request password reset:
+          </Modal.Header>
+          <Modal.Content>
+            <Form onSubmit={this.handleSubmit}>
+              <Form.Field>
+                <input
+                  required
+                  id="forgotpasswordemail"
+                  onChange={this.handleChange}
+                  name="email"
+                  placeholder="email"
+                  type="email"
+                  value={this.state.email}
+                />
+              </Form.Field>
+            </Form>
+          </Modal.Content>
+          <Modal.Actions>
+            <Button>Submit</Button>
+            <Button onClick={this.closeModal}>Cancel</Button>
+          </Modal.Actions>
         </Modal>
       </>
     )

@@ -35,10 +35,17 @@ class ResetPassword extends React.Component {
         email: '',
         password: '',
         password_confirmation: '',
+        isOpen: false,
       })
-      this.props.history.push('/') // not quite right
+      this.props.history.push('/')
     }
   }
+
+  handleCancel = () => {
+    this.setState({ isOpen: false })
+    this.props.history.push('/')
+  }
+
   render() {
     return (
       <>
@@ -94,6 +101,7 @@ class ResetPassword extends React.Component {
               value={this.state.password_confirmation}
             />
             <button type="secondary">Reset Password</button>
+            <button onClick={this.handleCancel}>Cancel</button>
           </form>
         </Modal>
       </>
