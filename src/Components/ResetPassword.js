@@ -60,51 +60,59 @@ class ResetPassword extends React.Component {
           <Modal.Content>
             <Form onSubmit={this.handleSubmit}>
               <Form.Field>
-                <label for="token">Token:</label>
+                <label className="formLabel" for="token">
+                  Token:
+                </label>
                 <input
                   required
                   id="token"
                   onChange={this.handleChange}
                   name="token"
-                  placeholder="token"
+                  placeholder="Token"
                   // type="token" //this removed sematic styling
                   value={this.state.token}
                 />
                 <p>The code that was emailed to you. This is case-sensitive.</p>
               </Form.Field>
               <Form.Field>
-                <label for="email">Email:</label>
+                <label className="formLabel" for="email">
+                  Email:
+                </label>
                 <input
                   required
                   id="email"
                   onChange={this.handleChange}
                   name="email"
-                  placeholder="email"
+                  placeholder="Email"
                   type="email"
                   value={this.state.email}
                 />
               </Form.Field>
               <Form.Field>
-                <label for="password">New password:</label>
+                <label className="formLabel" for="password">
+                  New password:
+                </label>
                 <input
                   required
                   id="password"
                   onChange={this.handleChange}
                   name="password"
-                  placeholder="password"
+                  placeholder="New Password"
                   type="password"
                   value={this.state.password}
                 />
                 <p>Set your new password here.</p>
               </Form.Field>
               <Form.Field>
-                <label for="password_confirmation">Confirm new password:</label>
+                <label className="formLabel" for="password_confirmation">
+                  Confirm new password:
+                </label>
                 <input
                   required
                   id="password_confirmation"
                   onChange={this.handleChange}
                   name="password_confirmation"
-                  placeholder="password confirmation"
+                  placeholder="New Password Confirmation"
                   type="password"
                   value={this.state.password_confirmation}
                 />
@@ -112,7 +120,7 @@ class ResetPassword extends React.Component {
             </Form>
           </Modal.Content>
           <Modal.Actions>
-            <Button type="secondary">Reset Password</Button>
+            <Button onClick={this.handleSubmit}>Reset Password</Button>
             <Button onClick={this.handleCancel}>Cancel</Button>
           </Modal.Actions>
         </Modal>

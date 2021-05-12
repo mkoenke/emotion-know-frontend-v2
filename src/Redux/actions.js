@@ -78,8 +78,7 @@ export function loginParent(parent) {
 
 export const getCurrentParent = () => {
   return (dispatch) => {
-    return fetch(`http://localhost:3000/get_current_user`, {
-      // credentials: 'include',
+    return fetch(`http://localhost:3000/get_current_parent`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -91,7 +90,7 @@ export const getCurrentParent = () => {
           alert(parent.error)
         } else {
           console.log(parent)
-          // dispatch(setCurrentParent(parent))
+          // maybe do something with logging in parent?
         }
       })
       .catch(console.log)

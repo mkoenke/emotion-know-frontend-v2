@@ -58,12 +58,15 @@ class ForgotPassword extends React.Component {
           <Modal.Content>
             <Form onSubmit={this.handleSubmit}>
               <Form.Field>
+                <label className="formLabel" for="email">
+                  Email:
+                </label>
                 <input
                   required
                   id="forgotpasswordemail"
                   onChange={this.handleChange}
                   name="email"
-                  placeholder="email"
+                  placeholder="Email"
                   type="email"
                   value={this.state.email}
                 />
@@ -71,7 +74,7 @@ class ForgotPassword extends React.Component {
             </Form>
           </Modal.Content>
           <Modal.Actions>
-            <Button>Submit</Button>
+            <Button onClick={this.handleSubmit}>Submit</Button>
             <Button onClick={this.closeModal}>Cancel</Button>
           </Modal.Actions>
         </Modal>
