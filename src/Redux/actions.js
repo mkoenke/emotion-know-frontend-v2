@@ -75,6 +75,51 @@ export function loginParent(parent) {
   }
 }
 
+export const getCurrentParent = () => {
+  return (dispatch) => {
+    return fetch(`http://localhost:3000/get_current_user`, {
+      credentials: 'include',
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((res) => res.json())
+      .then((parent) => {
+        if (parent.error) {
+          alert(parent.error)
+        } else {
+          console.log(parent)
+          // dispatch(setCurrentParent(parent))
+        }
+      })
+      .catch(console.log)
+  }
+}
+
+export const resetPassword = (credentials) => {
+  return (dispatch) => {
+    return fetch(`http://localhost:3000/reset_password`, {
+      credentials: 'include',
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(credentials),
+    })
+      .then((res) => res.json())
+      .then((response) => {
+        if (!!response.error) {
+          alert(response.error)
+        } else {
+          alert(response.alert)
+          dispatch(getCurrentUser())
+        }
+      })
+      .catch(console.log)
+  }
+}
+
 export function logout() {
   return (dispatch) => {
     localStorage.removeItem('token')
