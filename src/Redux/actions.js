@@ -7,6 +7,7 @@ import {
   DELETE_VIDEO,
   EMPTY_GALLERY_MODAL_OPEN,
   FILTERED_REPORTS,
+  FORGOT_PASSWORD_MODAL_OPEN,
   LOGOUT,
   MODAL_OPEN,
   PARENTS_REPORTS,
@@ -166,6 +167,10 @@ export function setParentProfileModal(value) {
 
 export function setEmptyGalleryModal(value) {
   return { type: EMPTY_GALLERY_MODAL_OPEN, payload: value }
+}
+
+export function setForgotPasswordModal(value) {
+  return { type: FORGOT_PASSWORD_MODAL_OPEN, payload: value }
 }
 
 //error action

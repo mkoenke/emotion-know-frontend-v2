@@ -9,7 +9,7 @@ class ResetPassword extends React.Component {
     email: '',
     password: '',
     password_confirmation: '',
-    isOpen: false,
+    isOpen: true,
   }
 
   handleChange = (event) => {

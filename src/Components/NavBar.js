@@ -4,6 +4,7 @@ import { NavLink, Redirect } from 'react-router-dom'
 import { Dropdown, Icon, Menu } from 'semantic-ui-react'
 import {
   logout,
+  setForgotPasswordModal,
   setModal,
   setParentProfileModal,
   setProfileModal,
@@ -35,8 +36,8 @@ class NavBar extends React.Component {
       this.props.dispatchModal(true)
     }
   }
-  handleForgotPasswordClick = () => {
-    this.setState({ forgotPassword: !this.state.forgotPassword })
+  handleForgotPasswordClick = (value) => {
+    this.props.dispatchForgotPasswordModalOpen(value)
   }
 
   handleProfileClick = (value) => {
@@ -292,8 +293,10 @@ class NavBar extends React.Component {
                 handleParentProfileClick={this.handleParentProfileClick}
               />
             )}
-            {this.state.forgotPassword && (
-              <ForgotPassword forgotPassword={this.handleForgotPasswordClick} />
+            {this.props.forgotPasswordModalOpen && (
+              <ForgotPassword
+                handleForgotPasswordClick={this.handleForgotPasswordClick}
+              />
             )}
           </Menu.Menu>
         </Menu>
@@ -311,6 +314,7 @@ function mapStateToProps(state) {
     signUpModalOpen: state.signUpModalOpen,
     profileModalOpen: state.profileModalOpen,
     parentProfileModalOpen: state.parentProfileModalOpen,
+    forgotPasswordModalOpen: state.forgotPasswordModalOpen,
   }
 }
 
@@ -323,6 +327,8 @@ function mapDispatchToProps(dispatch) {
     dispatchProfileModal: (value) => dispatch(setProfileModal(value)),
     dispatchParentProfileModal: (value) =>
       dispatch(setParentProfileModal(value)),
+    dispatchForgotPasswordModalOpen: (value) =>
+      dispatch(setForgotPasswordModal(value)),
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(NavBar)

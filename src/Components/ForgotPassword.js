@@ -5,7 +5,7 @@ import { Modal } from 'semantic-ui-react'
 class ForgotPassword extends React.Component {
   state = {
     email: '',
-    isOpen: false,
+    isOpen: true,
   }
 
   handleChange = (event) => {
@@ -20,7 +20,7 @@ class ForgotPassword extends React.Component {
     const baseURL = 'http://localhost:3000'
 
     fetch(`${baseURL}/forgot_password`, {
-      credentials: 'include',
+      // credentials: 'include',
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
