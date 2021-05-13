@@ -4,11 +4,13 @@ import { NavLink, Redirect } from 'react-router-dom'
 import { Dropdown, Icon, Menu } from 'semantic-ui-react'
 import {
   logout,
+  setForgotPasswordModal,
   setModal,
   setParentProfileModal,
   setProfileModal,
   setSignUpModal,
 } from '../Redux/actions'
+import ForgotPassword from './ForgotPassword'
 import LoginModal from './LoginModal'
 import ParentProfileModal from './ParentProfileModal'
 import SignUpModal from './ParentSignUpModal'
@@ -17,6 +19,7 @@ import ProfileModal from './ProfileModal'
 class NavBar extends React.Component {
   state = {
     activeItem: 'home',
+    forgotPassword: false,
   }
 
   handleItemClick = (e, { name }) => {
@@ -32,6 +35,9 @@ class NavBar extends React.Component {
     if (!this.props.child || !this.props.parent) {
       this.props.dispatchModal(true)
     }
+  }
+  handleForgotPasswordClick = (value) => {
+    this.props.dispatchForgotPasswordModalOpen(value)
   }
 
   handleProfileClick = (value) => {
@@ -188,6 +194,15 @@ class NavBar extends React.Component {
                         Sign Up
                       </Dropdown.Item>
                     </NavLink>
+                    <NavLink to="/">
+                      <Dropdown.Item
+                        name="forgotPassword"
+                        onClick={this.handleForgotPasswordClick}
+                        className="navbar"
+                      >
+                        Forgot Password
+                      </Dropdown.Item>
+                    </NavLink>
                   </Dropdown.Menu>
                 </Dropdown>
               </>
@@ -277,6 +292,11 @@ class NavBar extends React.Component {
                 handleParentProfileClick={this.handleParentProfileClick}
               />
             )}
+            {this.props.forgotPasswordModalOpen && (
+              <ForgotPassword
+                handleForgotPasswordClick={this.handleForgotPasswordClick}
+              />
+            )}
           </Menu.Menu>
         </Menu>
       </div>
@@ -293,6 +313,7 @@ function mapStateToProps(state) {
     signUpModalOpen: state.signUpModalOpen,
     profileModalOpen: state.profileModalOpen,
     parentProfileModalOpen: state.parentProfileModalOpen,
+    forgotPasswordModalOpen: state.forgotPasswordModalOpen,
   }
 }
 
@@ -305,6 +326,8 @@ function mapDispatchToProps(dispatch) {
     dispatchProfileModal: (value) => dispatch(setProfileModal(value)),
     dispatchParentProfileModal: (value) =>
       dispatch(setParentProfileModal(value)),
+    dispatchForgotPasswordModalOpen: (value) =>
+      dispatch(setForgotPasswordModal(value)),
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(NavBar)

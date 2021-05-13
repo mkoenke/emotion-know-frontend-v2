@@ -7,6 +7,7 @@ import {
   DELETE_VIDEO,
   EMPTY_GALLERY_MODAL_OPEN,
   FILTERED_REPORTS,
+  FORGOT_PASSWORD_MODAL_OPEN,
   LOGOUT,
   MODAL_OPEN,
   PARENTS_REPORTS,
@@ -75,6 +76,49 @@ export function loginParent(parent) {
   }
 }
 
+export const getCurrentParent = () => {
+  return (dispatch) => {
+    return fetch(`http://localhost:3000/get_current_parent`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((res) => res.json())
+      .then((parent) => {
+        if (parent.error) {
+          alert(parent.error)
+        } else {
+          console.log(parent)
+          // maybe do something with logging in parent?
+        }
+      })
+      .catch(console.log)
+  }
+}
+
+export const resetPassword = (credentials) => {
+  return (dispatch) => {
+    return fetch(`http://localhost:3000/reset_password`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(credentials),
+    })
+      .then((res) => res.json())
+      .then((response) => {
+        if (!!response.error) {
+          alert(response.error)
+        } else {
+          alert(response.alert)
+          dispatch(getCurrentParent())
+        }
+      })
+      .catch(console.log)
+  }
+}
+
 export function logout() {
   return (dispatch) => {
     localStorage.removeItem('token')
@@ -121,6 +165,10 @@ export function setParentProfileModal(value) {
 
 export function setEmptyGalleryModal(value) {
   return { type: EMPTY_GALLERY_MODAL_OPEN, payload: value }
+}
+
+export function setForgotPasswordModal(value) {
+  return { type: FORGOT_PASSWORD_MODAL_OPEN, payload: value }
 }
 
 //error action
