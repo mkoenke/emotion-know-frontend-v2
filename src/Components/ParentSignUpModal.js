@@ -11,6 +11,7 @@ class SignUpModal extends React.Component {
     openChildModal: false,
     parentId: null,
     email: null,
+    emailNotUnique: null,
     confirmEmail: null,
     parentPassword: null,
     confirmParentPassword: null,
@@ -72,11 +73,15 @@ class SignUpModal extends React.Component {
       .then((response) => response.json())
       .then((data) => {
         console.log('Parent data:', data)
-        this.setState({
-          openConfirm: true,
-          isOpen: false,
-          parentId: data.parent.id,
-        })
+        if(data.status === 422){
+          this.setState({ emailNotUnique: true })
+        } else {
+          this.setState({
+            openConfirm: true,
+            isOpen: false,
+            parentId: data.parent.id,
+          })
+        }
       })
       .catch((error) => {
         this.props.dispatchError(error)
@@ -152,6 +157,11 @@ class SignUpModal extends React.Component {
             {this.state.parentPasswordError ? (
               <Message negative>
                 <Message.Header>Parent Passwords do not match!</Message.Header>
+              </Message>
+            ) : null}
+            {this.state.emailNotUnique ? (
+              <Message negative>
+                <Message.Header>Email already taken. Please use a different email.</Message.Header>
               </Message>
             ) : null}
             <Form onSubmit={this.handleFormSubmit}>
