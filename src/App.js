@@ -102,8 +102,8 @@ class App extends React.Component {
                         Please wait a moment...
                       </Header>{' '}
                       <Loader active inline />
-                    </Dimmer> */}
-                    {/* <Homepage stopSDK={this.stopSDK} startSDK={this.startSDK} /> */}
+                    </Dimmer>
+                    <Homepage stopSDK={this.stopSDK} startSDK={this.startSDK} /> */}
                   </>
                 )
               }
