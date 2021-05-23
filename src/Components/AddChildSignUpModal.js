@@ -36,6 +36,7 @@ class SignUpModal extends React.Component {
     confirmPassword: null,
     usernameError: false,
     usernameMatchError: false,
+    userNameNotUnique: false,
     passwordError: false,
     passwordMatchError: false,
     avatar: null,
@@ -98,25 +99,30 @@ class SignUpModal extends React.Component {
       })
         .then((response) => response.json())
         .then((data) => {
-          const child = data.child
-          this.setState({
-            isOpen: false,
-            openConfirm: true,
-            username: null,
-            confirmUsername: null,
-            password: null,
-            confirmPassword: null,
-            usernameError: false,
-            usernameMatchError: false,
-            passwordError: false,
-            passwordMatchError: false,
-            avatar: null,
-          })
-          this.props.dispatchError(null)
-          if (this.props.parent) {
-            let parent = { ...this.props.parent }
-            parent.children = [...parent.children, child]
-            this.props.dispatchParent(parent)
+          if(data.status === 422){
+            this.setState({ userNameNotUnique: true })
+          } else {
+            const child = data.child
+            this.setState({
+              isOpen: false,
+              openConfirm: true,
+              username: null,
+              confirmUsername: null,
+              userNameNotUnique: false,
+              password: null,
+              confirmPassword: null,
+              usernameError: false,
+              usernameMatchError: false,
+              passwordError: false,
+              passwordMatchError: false,
+              avatar: null,
+            })
+            this.props.dispatchError(null)
+            if (this.props.parent) {
+              let parent = { ...this.props.parent }
+              parent.children = [...parent.children, child]
+              this.props.dispatchParent(parent)
+            }
           }
         })
         .catch((error) => {
