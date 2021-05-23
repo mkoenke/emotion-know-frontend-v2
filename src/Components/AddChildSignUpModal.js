@@ -83,6 +83,7 @@ class SignUpModal extends React.Component {
       this.state.avatar
     ) {
       childData = {
+        name: this.state.name,
         username: this.state.username,
         password: this.state.password,
         parent_id: this.props.parentId,
