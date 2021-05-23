@@ -12,7 +12,7 @@ class WelcomePageContainer extends React.Component {
           <>
             <div className="background">
               <Header className="pageHeader" textAlign="center">
-                Welcome to EmotionKnow, {this.props.child.username}!
+                Welcome to EmotionKnow, {this.props.child.name}!
               </Header>
 
               <WelcomePageGrid />

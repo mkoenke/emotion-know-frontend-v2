@@ -20,11 +20,11 @@ class ChildCard extends React.Component {
               <Image className="cardImage" src={this.props.childObj.image} />
               <Card.Content className="content">
                 <Card.Header textAlign="center" className="content">
-                  {this.props.childObj.username}
+                  {this.props.childObj.name}
                 </Card.Header>
 
                 <Card.Description textAlign="center" className="cardDesc">
-                  Check out {this.props.childObj.username}'s reports!
+                  Check out {this.props.childObj.name}'s reports!
                 </Card.Description>
               </Card.Content>
             </Card>
