@@ -30,6 +30,7 @@ class SignUpModal extends React.Component {
   state = {
     isOpen: true,
     openConfirm: false,
+    name: null,
     username: null,
     confirmUsername: null,
     password: null,
@@ -257,7 +258,21 @@ class SignUpModal extends React.Component {
                 <Message.Header>Passwords do not match!</Message.Header>
               </Message>
             ) : null}
+            {this.state.userNameNotUnique ? (
+              <Message negative>
+                <Message.Header>Username already taken. Please try another username.</Message.Header>
+              </Message>
+            ) : null}
             <Form onSubmit={this.handleFormSubmit}>
+              <Form.Field required>
+                <label className="formLabel">Name</label>
+                <input
+                  name="name"
+                  value={this.state.name}
+                  onChange={this.handleFormChange}
+                  placeholder="Name"
+                />
+              </Form.Field>
               <Form.Field required>
                 <label className="formLabel">Username</label>
                 <input
