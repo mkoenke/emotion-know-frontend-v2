@@ -40,8 +40,7 @@ export function login(child) {
           dispatch(setChild(data.child))
           dispatch(setModal(false))
           dispatch(setError(null))
-          dispatch(allVideos(data.child.video_entries))
-          dispatch(allReports(data.child.video_entries))
+          dispatch(allReports(data.child.video_reports))
         } else {
           dispatch(setError(data.error))
         }
@@ -205,9 +204,8 @@ function removeVideo(journal) {
 
 //Report actions
 
-export function allReports(arrayOfVideos) {
-  let arrayOfVideoReports = arrayOfVideos.map((video) => video.video_report)
-  let sortedReports = arrayOfVideoReports.sort(function (a, b) {
+export function allReports(arrayOfReports) {
+  const sortedReports = arrayOfReports.sort(function (a, b) {
     return new Date(a.created_at) - new Date(b.created_at)
   })
   return { type: ALL_REPORTS, payload: sortedReports }

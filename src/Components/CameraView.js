@@ -83,6 +83,7 @@ class RecordView extends React.Component {
         this.props.dispatchVideo(returnedVideoJournal)
         this.postReport(returnedVideoJournal)
         this.sendEmail()
+        console.log("Video successfully POSTed")
       })
       .catch((error) => {
         console.log(error)
