@@ -71,21 +71,7 @@ class ReportGalleryPage extends React.Component {
       {
         clickedReport: clickedReport,
       }
-      // this.findJournal
     );
-  };
-
-  findJournal = () => {
-    if (this.state.clickedReport.video_entry_id) {
-      let journal = this.props.allVideos.find(
-        (journal) => journal.id === this.state.clickedReport.video_entry_id
-      );
-
-      this.setState({
-        clickedJournal: journal,
-        beenClicked: true,
-      });
-    }
   };
 
   onChangePage = (pageOfItems) => {
