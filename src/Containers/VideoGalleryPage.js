@@ -20,7 +20,16 @@ class VideoGalleryPage extends React.Component {
   }
 
   componentDidMount() {
-    this.setState({ items: this.props.allVideos })
+    fetch(`http://localhost:3000/video_entries`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json'
+      }
+    })
+    .then(resp => resp.json())
+    .then(data => console.log("VIDEO DATA",data))
+    // this.setState({ items: this.props.allVideos })
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -74,7 +83,7 @@ class VideoGalleryPage extends React.Component {
               {this.props.child.username}'s Video Journals
             </Header>
           ) : null}
-          {this.props.allVideos.length ? (
+          {/* {this.props.allVideos.length ? (
             <Grid centered columns="three">
               <Grid.Row>{this.arrayOfJournals()}</Grid.Row>
               <div className="paginateLarge">
@@ -88,7 +97,7 @@ class VideoGalleryPage extends React.Component {
             </Grid>
           ) : (
             <EmptyGalleryModal />
-          )}
+          )} */}
         </div>
       </>
     )
