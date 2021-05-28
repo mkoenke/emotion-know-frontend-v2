@@ -5,6 +5,7 @@ import { Route, Switch } from 'react-router-dom'
 import 'semantic-ui-css/semantic.min.css'
 import './App.css'
 import NavBar from './Components/NavBar'
+import ResetChildPassword from './Components/ResetChildPassword'
 import ResetPassword from './Components/ResetPassword'
 import FunWithEmotionsPage from './Containers/FunWithEmotionsPage'
 import Homepage from './Containers/Homepage'
@@ -54,6 +55,10 @@ class App extends React.Component {
         <NavBar />
         <div className="containerPad">
           <Switch>
+            <Route
+              path="/reset_child_password"
+              component={ResetChildPassword}
+            />
             <Route path="/reset_password" component={ResetPassword} />
             <Route path="/about" component={ResourcesPage} />
             <Route path="/welcome" component={WelcomePageContainer} />
