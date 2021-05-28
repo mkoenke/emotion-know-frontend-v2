@@ -17,7 +17,6 @@ class ReportGalleryPage extends React.Component {
     clickedVideo: null,
     items: [],
     pageOfItems: [],
-    clickedJournal: {},
   };
 
   componentDidMount() {
