@@ -1,4 +1,3 @@
-import fetchSingleVideoEntry from '../HelperFunctions/fetchSingleVideoEntry'
 import {
   ADD_REPORT,
   ADD_VIDEO,
@@ -44,7 +43,6 @@ export function login(child) {
           dispatch(setError(data.error))
         }
       })
-      .then(fetchSingleVideoEntry(1))
   }
 }
 

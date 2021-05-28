@@ -7,7 +7,6 @@ import ReportGalleryReportsTable from "../Components/ReportGalleryReportsTable";
 import ReportGallerySingleGraph from "../Components/ReportGallerySingleGraph";
 import StackedBarChart from "../Components/StackedBarChart";
 import emotionsOverTimeCalculator from "../HelperFunctions/emotionsOverTimeCalculator";
-// import fetchSingleVideoEntry from "../HelperFunctions/fetchSingleVideoEntry";
 import { setClickedReport } from "../Redux/actions";
 
 class ReportGalleryPage extends React.Component {
