@@ -96,7 +96,7 @@ class ReportGalleryPage extends React.Component {
     console.log('inside child reset')
     const baseURL = 'http://localhost:3000'
 
-    fetch(`${baseURL}/forgot_password`, {
+    fetch(`${baseURL}/forgot_child_password`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -108,8 +108,6 @@ class ReportGalleryPage extends React.Component {
         alert(response.alert)
       })
       .catch(console.log)
-
-    this.props.history.push('/')
   }
 
   render() {
