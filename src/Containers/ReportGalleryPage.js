@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Container, Header } from 'semantic-ui-react'
+import { Button, Container, Header } from 'semantic-ui-react'
 // import D3OverTimeLineGraph from '../Components/D3OverTimeLineGraph'
 import EmptyReportsModal from '../Components/EmptyReportsModal'
 import ReportGalleryReportsTable from '../Components/ReportGalleryReportsTable'
@@ -92,6 +92,10 @@ class ReportGalleryPage extends React.Component {
     }
   }
 
+  initiateChildPasswordReset = () => {
+    console.log('inside child reset')
+  }
+
   render() {
     return (
       <>
@@ -141,6 +145,12 @@ class ReportGalleryPage extends React.Component {
           </>
         ) : (
           <div className="background">
+            <Button
+              className="formButton"
+              onClick={this.initiateChildPasswordReset}
+            >
+              Reset {this.filterChildsName()}'s Password
+            </Button>
             <Container>
               <Header className="pageHeader" size="huge" textAlign="center">
                 {this.props.filteredReports.length ? (
