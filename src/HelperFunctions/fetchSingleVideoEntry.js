@@ -2,7 +2,8 @@ export default function fetchSingleVideoEntry (entryId){
   return fetch(`http://localhost:3000/video_entries/${entryId}`, {
     method: 'GET',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json', 
+      // 'Authorization': localStorage.getItem('token'),
       Accept: 'application/json',
     },
     body: JSON.stringify()

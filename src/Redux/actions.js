@@ -1,3 +1,4 @@
+import fetchSingleVideoEntry from '../HelperFunctions/fetchSingleVideoEntry'
 import {
   ADD_REPORT,
   ADD_VIDEO,
@@ -35,8 +36,6 @@ export function login(child) {
       .then((data) => {
         if (!data.error) {
           localStorage.setItem('token', data.jwt)
-          console.log(data)
-
           dispatch(setChild(data.child))
           dispatch(setModal(false))
           dispatch(setError(null))
@@ -45,6 +44,7 @@ export function login(child) {
           dispatch(setError(data.error))
         }
       })
+      .then(fetchSingleVideoEntry(1))
   }
 }
 
