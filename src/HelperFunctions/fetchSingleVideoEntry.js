@@ -9,5 +9,5 @@ export default function fetchSingleVideoEntry (entryId){
     body: JSON.stringify()
   })
   .then(resp => resp.json())
-  .then(data => console.log(data))
+  .then(data => {return data})
 }
