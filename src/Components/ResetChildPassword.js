@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Button, Form, Modal } from 'semantic-ui-react'
-import { resetPassword } from '../Redux/actions'
+import { resetChildPassword } from '../Redux/actions'
 
 class ResetPassword extends React.Component {
   state = {
@@ -30,11 +30,12 @@ class ResetPassword extends React.Component {
         password_confirmation: '',
       })
     } else {
-      this.props.resetPassword(this.state)
+      this.props.resetChildPassword(this.state)
       this.setState({
         token: '',
         email: '',
         password: '',
+        username: '',
         password_confirmation: '',
         isOpen: false,
       })
@@ -57,7 +58,9 @@ class ResetPassword extends React.Component {
           closeOnDimmerClick={false}
           dimmer="blurring"
         >
-          <Modal.Header className="pageHeader">Reset Password:</Modal.Header>
+          <Modal.Header className="pageHeader">
+            Reset Child's Password:
+          </Modal.Header>
           <Modal.Content>
             <Form onSubmit={this.handleSubmit}>
               <Form.Field>
@@ -70,14 +73,13 @@ class ResetPassword extends React.Component {
                   onChange={this.handleChange}
                   name="token"
                   placeholder="Token"
-                  // type="token" //this removed sematic styling
                   value={this.state.token}
                 />
                 <p>The code that was emailed to you. This is case-sensitive.</p>
               </Form.Field>
               <Form.Field>
                 <label className="formLabel" for="email">
-                  Email:
+                  Parent's Email:
                 </label>
                 <input
                   required
@@ -90,8 +92,21 @@ class ResetPassword extends React.Component {
                 />
               </Form.Field>
               <Form.Field>
+                <label className="formLabel" for="email">
+                  Child's Username:
+                </label>
+                <input
+                  required
+                  id="username"
+                  onChange={this.handleChange}
+                  name="username"
+                  placeholder="Username"
+                  value={this.state.username}
+                />
+              </Form.Field>
+              <Form.Field>
                 <label className="formLabel" for="password">
-                  New password:
+                  Child's New Password:
                 </label>
                 <input
                   required
@@ -106,7 +121,7 @@ class ResetPassword extends React.Component {
               </Form.Field>
               <Form.Field>
                 <label className="formLabel" for="password_confirmation">
-                  Confirm new password:
+                  Confirm New Password:
                 </label>
                 <input
                   required
@@ -132,7 +147,8 @@ class ResetPassword extends React.Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    resetPassword: (credentials) => dispatch(resetPassword(credentials)),
+    resetChildPassword: (credentials) =>
+      dispatch(resetChildPassword(credentials)),
   }
 }
 

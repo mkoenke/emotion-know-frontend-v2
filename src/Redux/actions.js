@@ -119,6 +119,28 @@ export const resetPassword = (credentials) => {
   }
 }
 
+export const resetChildPassword = (credentials) => {
+  return (dispatch) => {
+    return fetch(`http://localhost:3000/reset_child_password`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(credentials),
+    })
+      .then((res) => res.json())
+      .then((response) => {
+        if (!!response.error) {
+          alert(response.error)
+        } else {
+          alert(response.alert)
+          // dispatch(getCurrentParent())
+        }
+      })
+      .catch(console.log)
+  }
+}
+
 export function logout() {
   return (dispatch) => {
     localStorage.removeItem('token')
