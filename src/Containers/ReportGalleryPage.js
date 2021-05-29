@@ -1,6 +1,6 @@
-import React from "react";
-import { connect } from "react-redux";
-import { Container, Header } from "semantic-ui-react";
+import React from 'react'
+import { connect } from 'react-redux'
+import { Button, Container, Header } from 'semantic-ui-react'
 // import D3OverTimeLineGraph from '../Components/D3OverTimeLineGraph'
 import EmptyReportsModal from "../Components/EmptyReportsModal";
 import ReportGalleryReportsTable from "../Components/ReportGalleryReportsTable";
@@ -91,6 +91,24 @@ class ReportGalleryPage extends React.Component {
     }
   };
 
+  initiateChildPasswordReset = () => {
+    console.log('inside child reset')
+    const baseURL = 'http://localhost:3000'
+
+    fetch(`${baseURL}/forgot_child_password`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(this.props.parent.email),
+    })
+      .then((res) => res.json())
+      .then((response) => {
+        alert(response.alert)
+      })
+      .catch(console.log)
+  }
+
   render() {
     console.log("LOCAL STATE", this.state)
     return (
@@ -141,6 +159,12 @@ class ReportGalleryPage extends React.Component {
           </>
         ) : (
           <div className="background">
+            <Button
+              className="formButton"
+              onClick={this.initiateChildPasswordReset}
+            >
+              Reset {this.filterChildsName()}'s Password
+            </Button>
             <Container>
               <Header className="pageHeader" size="huge" textAlign="center">
                 {this.props.filteredReports.length ? (
