@@ -210,14 +210,28 @@ export function addVideoToAllVideos(videoJournal) {
 }
 
 export function deleteVideo(journal) {
+  const token = localStorage.getItem('token')
+  console.log(token)
   return (dispatch) => {
     return fetch(`http://localhost:3000/video_entries/${journal.id}`, {
       method: 'DELETE',
+      // withCredentials: true,
+      // credentials: 'include',
+      headers: {
+        // 'Access-Control-Allow-Origin': 'http://localhost:3001',
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
     })
       .then((resp) => resp.json())
-      .then(() => {
+      .then((e) => {
+        console.log(e)
+        if (e.message) {
+          alert(e.message)
+        }
         dispatch(removeVideo(journal))
       })
+      .catch(console.log)
   }
 }
 
