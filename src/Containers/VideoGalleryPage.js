@@ -15,7 +15,7 @@ import VideoCard from "../Components/VideoCard";
 
 class VideoGalleryPage extends React.Component {
   state = {
-    items: [],
+    items: null,
     pageOfItems: [],
   };
 
@@ -29,15 +29,15 @@ class VideoGalleryPage extends React.Component {
     })
       .then((resp) => resp.json())
       .then((data) => {
-        this.setState({ items: data });
+        this.setState({ items: data }, console.log("DATA IN FETCH", data));
       });
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    if (this.state.items !== this.props.allVideos) {
-      this.setState({ items: this.props.allVideos });
-    }
-  }
+  // componentDidUpdate(prevProps, prevState) {
+  //   if (this.state.items !== this.props.allVideos) {
+  //     this.setState({ items: this.props.allVideos });
+  //   }
+  // }
 
   onChangePage = (pageOfItems) => {
     this.setState({ pageOfItems });
@@ -76,6 +76,7 @@ class VideoGalleryPage extends React.Component {
       previous: "<",
       next: ">",
     };
+    console.log("DATA", this.state.data)
     return (
       <>
         <div className="background pagePadding">
@@ -84,7 +85,7 @@ class VideoGalleryPage extends React.Component {
               {this.props.child.username}'s Video Journals
             </Header>
           ) : null}
-          {/* {this.props.allVideos.length ? (
+          {this.state.items ? (
             <Grid centered columns="three">
               <Grid.Row>{this.arrayOfJournals()}</Grid.Row>
               <div className="paginateLarge">
@@ -98,7 +99,7 @@ class VideoGalleryPage extends React.Component {
             </Grid>
           ) : (
             <EmptyGalleryModal />
-          )} */}
+          )}
         </div>
       </>
     );

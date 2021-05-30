@@ -73,7 +73,9 @@ class RecordView extends React.Component {
     journal.append('title', this.state.submittedTitle)
     journal.append('child_id', this.props.child.id)
     journal.append('video', file, `${this.state.submittedTitle}`)
+  
 
+    console.log("JOURNL", journal)
     fetch('http://localhost:3000/video_entries', {
       method: 'POST',
       body: journal,
@@ -83,7 +85,6 @@ class RecordView extends React.Component {
         this.props.dispatchVideo(returnedVideoJournal)
         this.postReport(returnedVideoJournal)
         this.sendEmail()
-        console.log("Video successfully POSTed")
       })
       .catch((error) => {
         console.log(error)
