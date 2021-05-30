@@ -29,7 +29,7 @@ class VideoGalleryPage extends React.Component {
     })
       .then((resp) => resp.json())
       .then((data) => {
-        this.setState({ items: data }, console.log("DATA IN FETCH", data));
+        this.setState({ items: data.reverse() });
       });
   }
 
