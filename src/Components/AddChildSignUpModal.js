@@ -101,7 +101,7 @@ class SignUpModal extends React.Component {
       })
         .then((response) => response.json())
         .then((data) => {
-          if(data.status === 422){
+          if (data.status === 422) {
             this.setState({ userNameNotUnique: true })
           } else {
             const child = data.child
@@ -118,6 +118,7 @@ class SignUpModal extends React.Component {
               passwordError: false,
               passwordMatchError: false,
               avatar: null,
+              name: null,
             })
             this.props.dispatchError(null)
             if (this.props.parent) {
@@ -261,7 +262,9 @@ class SignUpModal extends React.Component {
             ) : null}
             {this.state.userNameNotUnique ? (
               <Message negative>
-                <Message.Header>Username already taken. Please try another username.</Message.Header>
+                <Message.Header>
+                  Username already taken. Please try another username.
+                </Message.Header>
               </Message>
             ) : null}
             <Form onSubmit={this.handleFormSubmit}>
