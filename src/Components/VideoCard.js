@@ -1,15 +1,36 @@
-import React from 'react'
-import Animista, { AnimistaTypes } from 'react-animista'
-import Flippy, { BackSide, FrontSide } from 'react-flippy'
-import { connect } from 'react-redux'
-import { Button, Card, Image, Popup } from 'semantic-ui-react'
-import { BigPlayButton, ControlBar, LoadingSpinner, Player } from 'video-react'
-import { deleteVideo } from '../Redux/actions'
+import React from "react";
+import Animista, { AnimistaTypes } from "react-animista";
+import Flippy, { BackSide, FrontSide } from "react-flippy";
+import { connect } from "react-redux";
+import { Button, Card, Image, Popup } from "semantic-ui-react";
+import { BigPlayButton, ControlBar, LoadingSpinner, Player } from "video-react";
+import { deleteVideo } from "../Redux/actions";
 
 class VideoCard extends React.Component {
+  state = {
+    currentVideo: null,
+  };
+
   handleDeleteClick = () => {
-    this.props.deleteVideo(this.props.cardObj)
-  }
+    this.props.deleteVideo(this.props.cardObj);
+  };
+
+  handleVideoLoad = (e) => {
+    fetch(`http://localhost:3000/video_entries/${this.props.cardObj.id}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        // 'Authorization': localStorage.getItem('token'),
+        Accept: "application/json",
+      },
+      body: JSON.stringify(),
+    })
+      .then((resp) => resp.json())
+      .then((data) => {
+        this.setState({ currentVideo: data });
+      });
+  };
+
   render() {
     return (
       <>
@@ -36,7 +57,10 @@ class VideoCard extends React.Component {
               <div className="background">
                 <div className="videoCardDiv">
                   <Player>
-                    <source src={this.props.cardObj.url} />
+                    <Button onClick={this.handleVideoLoad}>Load video</Button>
+                    {this.state.currentVideo ? (
+                      <source src={this.state.currentVideo.url} />
+                    ) : null}
                     <ControlBar autoHide={false} />
                     <LoadingSpinner />
                     <BigPlayButton position="center" />
@@ -60,14 +84,14 @@ class VideoCard extends React.Component {
           </Flippy>
         </Animista>
       </>
-    )
+    );
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     deleteVideo: (journal) => dispatch(deleteVideo(journal)),
-  }
+  };
 }
 
-export default connect(null, mapDispatchToProps)(VideoCard)
+export default connect(null, mapDispatchToProps)(VideoCard);
