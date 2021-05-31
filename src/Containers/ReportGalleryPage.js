@@ -92,12 +92,13 @@ class ReportGalleryPage extends React.Component {
   };
 
   initiateChildPasswordReset = () => {
-    console.log('inside child reset')
     const baseURL = 'http://localhost:3000'
+    const token = localStorage.getItem('token')
 
     fetch(`${baseURL}/forgot_child_password`, {
       method: 'POST',
       headers: {
+        Authorization: `Bearer ${token}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(this.props.parent.email),
