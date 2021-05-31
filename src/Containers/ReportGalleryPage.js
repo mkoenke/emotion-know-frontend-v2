@@ -210,7 +210,6 @@ function mapStateToProps(state) {
     parent: state.parent,
     allReports: state.allReports,
     parentsReports: state.parentsReports,
-    allVideos: state.allVideos,
     filteredReports: state.filteredReports,
   };
 }
