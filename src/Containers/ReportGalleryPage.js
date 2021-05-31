@@ -2,95 +2,94 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Button, Container, Header } from 'semantic-ui-react'
 // import D3OverTimeLineGraph from '../Components/D3OverTimeLineGraph'
-import EmptyReportsModal from '../Components/EmptyReportsModal'
-import ReportGalleryReportsTable from '../Components/ReportGalleryReportsTable'
-import ReportGallerySingleGraph from '../Components/ReportGallerySingleGraph'
-import StackedBarChart from '../Components/StackedBarChart'
-import emotionsOverTimeCalculator from '../HelperFunctions/emotionsOverTimeCalculator'
-import { setClickedReport } from '../Redux/actions'
+import EmptyReportsModal from "../Components/EmptyReportsModal";
+import ReportGalleryReportsTable from "../Components/ReportGalleryReportsTable";
+import ReportGallerySingleGraph from "../Components/ReportGallerySingleGraph";
+import StackedBarChart from "../Components/StackedBarChart";
+import emotionsOverTimeCalculator from "../HelperFunctions/emotionsOverTimeCalculator";
+import { setClickedReport } from "../Redux/actions";
 
 class ReportGalleryPage extends React.Component {
   state = {
     beenClicked: false,
     clickedReport: null,
+    clickedVideo: null,
     items: [],
     pageOfItems: [],
-    clickedJournal: {},
-  }
+  };
 
   componentDidMount() {
     if (this.props.allReports.length) {
-      this.setState({ items: this.props.allReports })
+      this.setState({ items: this.props.allReports });
     } else if (this.props.filteredReports.length) {
-      this.setState({ items: this.props.filteredReports })
+      this.setState({ items: this.props.filteredReports });
     }
   }
 
   handleReportClick = (event) => {
     if (this.state.beenClicked) {
-      this.setState({ beenClicked: false })
+      this.setState({ beenClicked: false });
     }
-    let currentReports = []
+    let currentReports = [];
     if (!this.props.allReports.length)
-      currentReports = [...this.props.parentsReports]
-    else currentReports = [...this.props.allReports]
+      currentReports = [...this.props.parentsReports];
+    else currentReports = [...this.props.allReports];
 
     const clickedReport = currentReports.find(
-      (report) => report.created_at === event.target.closest('tr').id
-    )
-    this.props.dispatchClickedReport(clickedReport)
-    this.setState(
-      {
-        clickedReport: clickedReport,
+      (report) => report.created_at === event.target.closest("tr").id
+    );
+    
+    fetch(`http://localhost:3000/video_entries/${clickedReport.video_entry_id}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        // 'Authorization': localStorage.getItem('token'),
+        Accept: "application/json",
       },
-      this.findJournal
-    )
-  }
+      body: JSON.stringify(),
+    })
+      .then((resp) => resp.json())
+      .then((data) => {
+        this.setState(
+          {
+            clickedReport: clickedReport,
+            clickedVideo: data,
+            beenClicked: true
+          }
+        );
+      });
+  };
 
   handleParentReportClick = (event) => {
-    const clickedReport = this.props.filteredReports.find(
-      (report) => report.created_at === event.target.closest('tr').id
-    )
-    this.props.dispatchClickedReport(clickedReport)
+    let clickedReport = this.props.filteredReports.find(
+      (report) => report.created_at === event.target.closest("tr").id
+    );
+    this.props.dispatchClickedReport(clickedReport);
     this.setState(
       {
         clickedReport: clickedReport,
-      },
-      this.findJournal
-    )
-  }
-
-  findJournal = () => {
-    if (this.state.clickedReport.video_entry_id) {
-      const journal = this.props.allVideos.find(
-        (journal) => journal.id === this.state.clickedReport.video_entry_id
-      )
-
-      this.setState({
-        clickedJournal: journal,
-        beenClicked: true,
-      })
-    }
-  }
+      }
+    );
+  };
 
   onChangePage = (pageOfItems) => {
-    this.setState({ pageOfItems })
-  }
+    this.setState({ pageOfItems });
+  };
 
   emotionsOverTimeData = (itemsFromState) => {
-    return emotionsOverTimeCalculator(itemsFromState)
-  }
+    return emotionsOverTimeCalculator(itemsFromState);
+  };
 
   filterChildsName = () => {
     if (this.props.filteredReports.length) {
       const filteredChild = this.props.parent.children.filter(
         (child) => child.id === this.props.filteredReports[0].child_id
-      )
-      return filteredChild[0].username
+      );
+      return filteredChild[0].username;
     } else {
-      return 'NO REPORTS'
+      return "NO REPORTS";
     }
-  }
+  };
 
   initiateChildPasswordReset = () => {
     const baseURL = 'http://localhost:3000'
@@ -112,6 +111,7 @@ class ReportGalleryPage extends React.Component {
   }
 
   render() {
+    console.log("LOCAL STATE", this.state)
     return (
       <>
         {this.props.child ? (
@@ -202,7 +202,7 @@ class ReportGalleryPage extends React.Component {
           </div>
         )}
       </>
-    )
+    );
   }
 }
 function mapStateToProps(state) {
@@ -211,15 +211,14 @@ function mapStateToProps(state) {
     parent: state.parent,
     allReports: state.allReports,
     parentsReports: state.parentsReports,
-    allVideos: state.allVideos,
     filteredReports: state.filteredReports,
-  }
+  };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     dispatchClickedReport: (report) => dispatch(setClickedReport(report)),
-  }
+  };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ReportGalleryPage)
+export default connect(mapStateToProps, mapDispatchToProps)(ReportGalleryPage);

@@ -21,10 +21,10 @@ export default function ReportGallerySingleGraph(reportGalleryState, parent) {
                 {reportGalleryState.clickedReport.title}
               </Header>
               <div className="bargraph smallGraph pattern">
-                {parent || !reportGalleryState.clickedJournal.video 
+                {parent || !reportGalleryState.clickedVideo 
                   ? null
                   : <Player>
-                    <source src={reportGalleryState.clickedJournal.url} />
+                    <source src={reportGalleryState.clickedVideo.url} />
                     <ControlBar autoHide={false} />
                     <LoadingSpinner />
                     <BigPlayButton position="center" />

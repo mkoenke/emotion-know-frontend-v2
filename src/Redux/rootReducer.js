@@ -3,7 +3,6 @@ import {
   ADD_REPORT,
   ADD_VIDEO,
   ALL_REPORTS,
-  ALL_VIDEOS,
   CLICKED_REPORT,
   DELETE_VIDEO,
   EMPTY_GALLERY_MODAL_OPEN,
@@ -18,13 +17,14 @@ import {
   SET_ERROR,
   SET_PARENT,
   SIGN_UP_MODAL_OPEN,
+  VIDEO_ENTRIES
 } from './actionTypes'
 
 const defaultState = {
   child: null,
   parent: null,
   allReports: [],
-  allVideos: [],
+  videoEntries: [],
   error: null,
   parentsReports: [],
   filteredReports: [],
@@ -126,9 +126,9 @@ function parentReducer(prevState = defaultState.parent, action) {
   }
 }
 
-function videoArrayReducer(prevState = defaultState.allVideos, action) {
+function videoEntriesReducer(prevState = defaultState.videoEntries, action) {
   switch (action.type) {
-    case ALL_VIDEOS:
+    case VIDEO_ENTRIES:
       return action.payload
     case ADD_VIDEO:
       return prevState.concat(action.payload)
@@ -197,7 +197,7 @@ const rootReducer = combineReducers({
   child: childReducer,
   parent: parentReducer,
   allReports: reportArrayReducer,
-  allVideos: videoArrayReducer,
+  videoEntries: videoEntriesReducer,
   parentsReports: parentReportReducer,
   error: errorReducer,
   modalOpen: modalReducer,

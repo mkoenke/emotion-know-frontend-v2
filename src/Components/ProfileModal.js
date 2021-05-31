@@ -235,7 +235,7 @@ class ProfileModal extends React.Component {
                   onClick={this.handleCancel}
                   type="cancel"
                 >
-                  Cancel
+                  Close
                 </Button>
               </Modal.Actions>
             </Modal>

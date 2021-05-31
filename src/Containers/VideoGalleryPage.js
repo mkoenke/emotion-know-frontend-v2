@@ -11,31 +11,31 @@ import VideoCard from '../Components/VideoCard'
 
 class VideoGalleryPage extends React.Component {
   state = {
-    items: [],
+    items: null,
     pageOfItems: [],
-  }
+  };
 
   componentDidMount() {
-    this.setState({ items: this.props.allVideos })
+    this.setState({ items: this.props.videoEntries });
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (this.state.items !== this.props.allVideos) {
-      this.setState({ items: this.props.allVideos })
+    if (this.state.items !== this.props.videoEntries) {
+      this.setState({ items: this.props.videoEntries });
     }
   }
 
   onChangePage = (pageOfItems) => {
-    this.setState({ pageOfItems })
-  }
+    this.setState({ pageOfItems });
+  };
   arrayOfJournals = () => {
     const imageArray = [pastelgreen, pastelblue, pastelindigo, pastelyellow]
     let i = 0
     return this.state.pageOfItems.map((card) => {
       if (i < imageArray.length - 1) {
-        i++
+        i++;
       } else {
-        i = 0
+        i = 0;
       }
       return (
         <Grid.Column>
@@ -46,16 +46,17 @@ class VideoGalleryPage extends React.Component {
             image={imageArray[i]}
           />
         </Grid.Column>
-      )
-    })
-  }
+      );
+    });
+  };
   render() {
     const customLabels = {
-      first: '<<',
-      last: '>>',
-      previous: '<',
-      next: '>',
-    }
+      first: "<<",
+      last: ">>",
+      previous: "<",
+      next: ">",
+    };
+    console.log("DATA", this.state.data);
     return (
       <>
         <div className="background pagePadding">
@@ -64,7 +65,7 @@ class VideoGalleryPage extends React.Component {
               {this.props.child.username}'s Video Journals
             </Header>
           ) : null}
-          {this.props.allVideos.length ? (
+          {this.state.items ? (
             <Grid centered columns="three">
               <Grid.Row>{this.arrayOfJournals()}</Grid.Row>
               <div className="paginateLarge">
@@ -81,13 +82,13 @@ class VideoGalleryPage extends React.Component {
           )}
         </div>
       </>
-    )
+    );
   }
 }
 function mapStateToProps(state) {
   return {
     child: state.child,
-    allVideos: state.allVideos,
-  }
+    videoEntries: state.videoEntries,
+  };
 }
-export default connect(mapStateToProps)(VideoGalleryPage)
+export default connect(mapStateToProps)(VideoGalleryPage);

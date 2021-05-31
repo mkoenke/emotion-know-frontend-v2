@@ -75,6 +75,7 @@ class RecordView extends React.Component {
     journal.append('video', file, `${this.state.submittedTitle}`)
     const token = localStorage.getItem('token')
 
+    console.log("JOURNL", journal)
     fetch('http://localhost:3000/video_entries', {
       method: 'POST',
       // withCredentials: true,
