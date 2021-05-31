@@ -17,6 +17,7 @@ import {
   SET_ERROR,
   SET_PARENT,
   SIGN_UP_MODAL_OPEN,
+  VIDEO_ENTRIES,
 } from './actionTypes'
 
 ///login/logout actions
@@ -200,7 +201,7 @@ export function setError(error) {
 //Video journal actions
 
 export function allVideos(arrayOfVideos) {
-  return { type: ALL_VIDEOS, payload: arrayOfVideos }
+  return { type: VIDEO_ENTRIES, payload: arrayOfVideos }
 }
 
 export function addVideoToAllVideos(videoJournal) {
