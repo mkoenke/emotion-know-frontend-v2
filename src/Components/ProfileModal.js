@@ -78,11 +78,12 @@ class ProfileModal extends React.Component {
       }
     }
     const id = this.props.child.id
-
+    const token = localStorage.getItem('token')
     if (data) {
       fetch(`http://localhost:3000/children/${id}`, {
         method: 'PATCH',
         headers: {
+          Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json',
           Accept: 'application/json',
         },
@@ -120,6 +121,8 @@ class ProfileModal extends React.Component {
       password: this.state.parentPassword,
     }
     const id = this.props.child.id
+    const token = localStorage.getItem('token')
+
     fetch('http://localhost:3000/parentLogin', {
       method: 'POST',
       headers: {
@@ -131,9 +134,17 @@ class ProfileModal extends React.Component {
       .then((resp) => resp.json())
       .then((data) => {
         if (!data.error) {
-          if (data.parent.child.id === id) {
+          const foundChildArray = data.parent.children.filter(
+            (child) => child.id === id
+          )
+          if (foundChildArray.length) {
             fetch(`http://localhost:3000/children/${id}`, {
               method: 'DELETE',
+              headers: {
+                Authorization: `Bearer ${token}`,
+                // 'Content-Type': 'application/json',
+                // Accept: 'application/json',
+              },
             })
               .then((response) => response.json())
               .then((data) => {

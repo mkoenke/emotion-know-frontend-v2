@@ -7,10 +7,6 @@ import pastelgreen from '../assets/images/pastelgreen.jpeg'
 import pastelindigo from '../assets/images/pastelindigo.jpeg'
 import pastelyellow from '../assets/images/pastelyellow.jpeg'
 import EmptyGalleryModal from '../Components/EmptyGalleryModal'
-// import raindbowStacked from '../assets/images/3rainbowStackedOriginal.jpg'
-// import stackedRainbowBlocks from '../assets/images/stackedRainbowBlocksOriginal.jpg'
-// import rainbowWithHand from '../assets/images/stackedRainbowBlocksWithHandOriginal.jpg'
-// import threeRainbow from '../assets/images/threeRainbowBlocksOriginal.jpg'
 import VideoCard from '../Components/VideoCard'
 
 class VideoGalleryPage extends React.Component {
@@ -33,12 +29,6 @@ class VideoGalleryPage extends React.Component {
     this.setState({ pageOfItems })
   }
   arrayOfJournals = () => {
-    // const imageArray = [
-    //   raindbowStacked,
-    //   threeRainbow,
-    //   stackedRainbowBlocks,
-    //   rainbowWithHand,
-    // ]
     const imageArray = [pastelgreen, pastelblue, pastelindigo, pastelyellow]
     let i = 0
     return this.state.pageOfItems.map((card) => {

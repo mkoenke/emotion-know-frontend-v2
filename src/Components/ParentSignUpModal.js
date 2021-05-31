@@ -73,7 +73,7 @@ class SignUpModal extends React.Component {
       .then((response) => response.json())
       .then((data) => {
         console.log('Parent data:', data)
-        if(data.status === 422){
+        if (data.status === 422) {
           this.setState({ emailNotUnique: true })
         } else {
           this.setState({
@@ -100,21 +100,6 @@ class SignUpModal extends React.Component {
     return (
       <>
         {this.state.openConfirm && (
-          /* <Modal
-            closeOnDimmerClick={false}
-            onOpen={() => this.setState({ openConfirm: true })}
-            onClose={() => this.setState({ openConfirm: false })}
-            className="confirmAddChild"
-          >
-            <Modal.Content>
-              <Header as="h2">
-                Parent's account has been created! Would you like to add a
-                child?
-              </Header>
-              <Button onClick={this.handleConfirmCancel}>Cancel</Button>
-              <Button onClick={this.handleConfirm}>Add Child</Button>
-            </Modal.Content>
-          </Modal> */
           <Confirm
             closeOnDimmerClick={false}
             open={this.state.openConfirm}
@@ -161,7 +146,9 @@ class SignUpModal extends React.Component {
             ) : null}
             {this.state.emailNotUnique ? (
               <Message negative>
-                <Message.Header>Email already taken. Please use a different email.</Message.Header>
+                <Message.Header>
+                  Email already taken. Please use a different email.
+                </Message.Header>
               </Message>
             ) : null}
             <Form onSubmit={this.handleFormSubmit}>

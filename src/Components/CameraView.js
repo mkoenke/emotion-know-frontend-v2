@@ -73,9 +73,16 @@ class RecordView extends React.Component {
     journal.append('title', this.state.submittedTitle)
     journal.append('child_id', this.props.child.id)
     journal.append('video', file, `${this.state.submittedTitle}`)
+    const token = localStorage.getItem('token')
 
     fetch('http://localhost:3000/video_entries', {
       method: 'POST',
+      // withCredentials: true,
+      // credentials: 'include',
+      headers: {
+        // 'Access-Control-Allow-Origin': '*',
+        Authorization: `Bearer ${token}`,
+      },
       body: journal,
     })
       .then((resp) => resp.json())
@@ -123,9 +130,12 @@ class RecordView extends React.Component {
       sadness: this.state.sadnessArr,
       surprise: this.state.surpriseArr,
     }
+    const token = localStorage.getItem('token')
+
     return fetch('http://localhost:3000/video_reports', {
       method: 'POST',
       headers: {
+        Authorization: `Bearer ${token}`,
         'Content-Type': 'application/json',
         Accept: 'application/json',
       },
