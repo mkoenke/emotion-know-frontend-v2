@@ -20,17 +20,7 @@ class VideoGalleryPage extends React.Component {
   };
 
   componentDidMount() {
-    fetch(`http://localhost:3000/video_entries`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-    })
-      .then((resp) => resp.json())
-      .then((data) => {
-        this.setState({ items: data.reverse() });
-      });
+    this.setState({ items: this.props.videoEntries });
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -76,7 +66,7 @@ class VideoGalleryPage extends React.Component {
       previous: "<",
       next: ">",
     };
-    console.log("DATA", this.state.data)
+    console.log("DATA", this.state.data);
     return (
       <>
         <div className="background pagePadding">
