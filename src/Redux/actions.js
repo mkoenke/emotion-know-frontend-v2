@@ -145,7 +145,7 @@ export function logout() {
     localStorage.removeItem('token')
     dispatch(setParent(null))
     dispatch(setChild(null))
-    dispatch(allVideos([]))
+    dispatch(videoEntries([]))
     dispatch(allReports([]))
     dispatch(setError(null))
     dispatch(parentsReports([]))
@@ -200,7 +200,7 @@ export function setError(error) {
 
 //Video journal actions
 
-export function allVideos(arrayOfVideos) {
+export function videoEntries(arrayOfVideos) {
   return { type: VIDEO_ENTRIES, payload: arrayOfVideos }
 }
 

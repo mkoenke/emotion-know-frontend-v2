@@ -3,7 +3,6 @@ import {
   ADD_REPORT,
   ADD_VIDEO,
   ALL_REPORTS,
-  ALL_VIDEOS,
   CLICKED_REPORT,
   DELETE_VIDEO,
   EMPTY_GALLERY_MODAL_OPEN,
@@ -18,6 +17,7 @@ import {
   SET_ERROR,
   SET_PARENT,
   SIGN_UP_MODAL_OPEN,
+  VIDEO_ENTRIES
 } from './actionTypes'
 
 const defaultState = {
