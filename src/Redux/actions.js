@@ -76,6 +76,7 @@ export function loginParent(parent) {
   }
 }
 
+//not being used yet!
 export const getCurrentParent = () => {
   return (dispatch) => {
     return fetch(`http://localhost:3000/get_current_parent`, {
