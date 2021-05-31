@@ -38,6 +38,7 @@ export function login(child) {
           dispatch(setChild(data.child))
           dispatch(setModal(false))
           dispatch(setError(null))
+          dispatch(videoEntries(data.child))
           dispatch(allReports(data.child.video_reports))
         } else {
           dispatch(setError(data.error))

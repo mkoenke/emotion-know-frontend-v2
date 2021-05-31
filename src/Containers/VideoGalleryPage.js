@@ -33,11 +33,11 @@ class VideoGalleryPage extends React.Component {
       });
   }
 
-  // componentDidUpdate(prevProps, prevState) {
-  //   if (this.state.items !== this.props.allVideos) {
-  //     this.setState({ items: this.props.allVideos });
-  //   }
-  // }
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.items !== this.props.videoEntries) {
+      this.setState({ items: this.props.videoEntries });
+    }
+  }
 
   onChangePage = (pageOfItems) => {
     this.setState({ pageOfItems });
@@ -108,7 +108,7 @@ class VideoGalleryPage extends React.Component {
 function mapStateToProps(state) {
   return {
     child: state.child,
-    allVideos: state.allVideos,
+    videoEntries: state.videoEntries,
   };
 }
 export default connect(mapStateToProps)(VideoGalleryPage);
