@@ -239,7 +239,7 @@ function removeVideo(journal) {
   return { type: DELETE_VIDEO, payload: journal };
 }
 
-export function cacheVideo(videoId) {
+export function fetchVideoToCache(videoId) {
   return (dispatch) => {
     const token = localStorage.getItem("token");
 
@@ -253,8 +253,14 @@ export function cacheVideo(videoId) {
       body: JSON.stringify(),
     })
       .then((resp) => resp.json())
-      .then((data) => console.log("VIDEO DATA", data));
+      .then((video) => {
+        dispatch(addVideoToCache(video))
+      });
   };
+}
+
+function addVideoToCache(video) {
+  return { type: VIDEO, payload: video };
 }
 
 //Report actions
