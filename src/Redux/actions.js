@@ -239,11 +239,11 @@ function removeVideo(journal) {
   return { type: DELETE_VIDEO, payload: journal };
 }
 
-export function cacheVideo(video) {
+export function cacheVideo(videoId) {
   return (dispatch) => {
     const token = localStorage.getItem("token");
 
-    return fetch(`http://localhost:3000/video_entries/${video.id}`, {
+    return fetch(`http://localhost:3000/video_entries/${videoId}`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,

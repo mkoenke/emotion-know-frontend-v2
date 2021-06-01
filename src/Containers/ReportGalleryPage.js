@@ -7,7 +7,7 @@ import ReportGalleryReportsTable from "../Components/ReportGalleryReportsTable";
 import ReportGallerySingleGraph from "../Components/ReportGallerySingleGraph";
 import StackedBarChart from "../Components/StackedBarChart";
 import emotionsOverTimeCalculator from "../HelperFunctions/emotionsOverTimeCalculator";
-import { setClickedReport } from "../Redux/actions";
+import { cacheVideo, setClickedReport } from "../Redux/actions";
 
 class ReportGalleryPage extends React.Component {
   state = {
@@ -39,6 +39,8 @@ class ReportGalleryPage extends React.Component {
       (report) => report.created_at === event.target.closest("tr").id
     );
     
+    
+
     fetch(`http://localhost:3000/video_entries/${clickedReport.video_entry_id}`, {
       method: "GET",
       headers: {
@@ -218,6 +220,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     dispatchClickedReport: (report) => dispatch(setClickedReport(report)),
+    dispatchCacheVideo: (videoEntry) => dispatch(cacheVideo(videoEntry.id))
   };
 }
 
