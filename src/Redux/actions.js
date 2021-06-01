@@ -16,6 +16,7 @@ import {
   SET_ERROR,
   SET_PARENT,
   SIGN_UP_MODAL_OPEN,
+  VIDEO,
   VIDEO_ENTRIES,
 } from "./actionTypes";
 
@@ -209,33 +210,51 @@ export function addVideoToAllVideos(videoJournal) {
 }
 
 export function deleteVideo(journal) {
-  const token = localStorage.getItem('token')
-  console.log(token)
+  const token = localStorage.getItem("token");
+  console.log(token);
   return (dispatch) => {
     return fetch(`http://localhost:3000/video_entries/${journal.id}`, {
-      method: 'DELETE',
+      method: "DELETE",
       // withCredentials: true,
       // credentials: 'include',
       headers: {
         // 'Access-Control-Allow-Origin': 'http://localhost:3001',
         Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
     })
       .then((resp) => resp.json())
       .then((e) => {
-        console.log(e)
+        console.log(e);
         if (e.message) {
-          alert(e.message)
+          alert(e.message);
         }
-        dispatch(removeVideo(journal))
+        dispatch(removeVideo(journal));
       })
-      .catch(console.log)
-  }
+      .catch(console.log);
+  };
 }
 
 function removeVideo(journal) {
   return { type: DELETE_VIDEO, payload: journal };
+}
+
+export function cacheVideo(video) {
+  return (dispatch) => {
+    const token = localStorage.getItem("token");
+
+    return fetch(`http://localhost:3000/video_entries/${video.id}`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify(),
+    })
+      .then((resp) => resp.json())
+      .then((data) => console.log("VIDEO DATA", data));
+  };
 }
 
 //Report actions
