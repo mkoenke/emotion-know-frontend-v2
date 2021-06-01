@@ -219,6 +219,7 @@ const rootReducer = combineReducers({
   clickedReport: clickedReportReducer,
   filteredReports: filteredReportsReducer,
   forgotPasswordModalOpen: forgotPasswordModalReducer,
+  videoCache: videoCacheReducer
 });
 
 export default rootReducer;
