@@ -1,6 +1,6 @@
-import React from 'react'
-import { connect } from 'react-redux'
-import { Button, Container, Header } from 'semantic-ui-react'
+import React from "react";
+import { connect } from "react-redux";
+import { Button, Container, Header } from "semantic-ui-react";
 // import D3OverTimeLineGraph from '../Components/D3OverTimeLineGraph'
 import EmptyReportsModal from "../Components/EmptyReportsModal";
 import ReportGalleryReportsTable from "../Components/ReportGalleryReportsTable";
@@ -39,7 +39,10 @@ class ReportGalleryPage extends React.Component {
       (report) => report.created_at === event.target.closest("tr").id
     );
 
-    this.props.dispatchCacheVideo(clickedReport.video_entry_id)
+    //dispatch is complete, but need conditional to check if it needs to be fetched 
+    //first. setState() needs to account for async and pull from global. place inside
+    //conditional probably
+    this.props.dispatchCacheVideo(clickedReport.video_entry_id);
 
     // this.setState(
     //   {
@@ -54,11 +57,9 @@ class ReportGalleryPage extends React.Component {
       (report) => report.created_at === event.target.closest("tr").id
     );
     this.props.dispatchClickedReport(clickedReport);
-    this.setState(
-      {
-        clickedReport: clickedReport,
-      }
-    );
+    this.setState({
+      clickedReport: clickedReport,
+    });
   };
 
   onChangePage = (pageOfItems) => {
@@ -81,23 +82,23 @@ class ReportGalleryPage extends React.Component {
   };
 
   initiateChildPasswordReset = () => {
-    const baseURL = 'http://localhost:3000'
-    const token = localStorage.getItem('token')
+    const baseURL = "http://localhost:3000";
+    const token = localStorage.getItem("token");
 
     fetch(`${baseURL}/forgot_child_password`, {
-      method: 'POST',
+      method: "POST",
       headers: {
         Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(this.props.parent.email),
     })
       .then((res) => res.json())
       .then((response) => {
-        alert(response.alert)
+        alert(response.alert);
       })
-      .catch(console.log)
-  }
+      .catch(console.log);
+  };
 
   render() {
     // console.log("LOCAL STATE", this.state)
@@ -207,7 +208,8 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     dispatchClickedReport: (report) => dispatch(setClickedReport(report)),
-    dispatchCacheVideo: (videoEntryId) => dispatch(fetchVideoToCache(videoEntryId))
+    dispatchCacheVideo: (videoEntryId) =>
+      dispatch(fetchVideoToCache(videoEntryId)),
   };
 }
 
