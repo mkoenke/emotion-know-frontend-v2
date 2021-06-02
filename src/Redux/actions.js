@@ -239,12 +239,22 @@ function removeVideo(journal) {
   return { type: DELETE_VIDEO, payload: journal };
 }
 
-export function fetchVideoToCache({ clickedReport, cacheFunction }) {
+export function fetchVideoToCache(stateObject) {
   return (dispatch) => {
-
     const token = localStorage.getItem("token");
+    let videoId = null;
+    switch (stateObject.type) {
+      case "VIDEO_CARD":
+        videoId = stateObject.videoId;
+        break;
+      case "REPORT_GALLERY":
+        videoId = stateObject.clickedReport.id;
+        break;
+      default:
+        videoId = null;
+    }
 
-    return fetch(`http://localhost:3000/video_entries/${clickedReport.id}`, {
+    return fetch(`http://localhost:3000/video_entries/${videoId}`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -256,7 +266,16 @@ export function fetchVideoToCache({ clickedReport, cacheFunction }) {
       .then((resp) => resp.json())
       .then((video) => {
         dispatch(addVideoToCache(video));
-        cacheFunction(clickedReport, video);
+        switch (stateObject.type){
+          case "VIDEO_CARD":
+            stateObject.cacheFunction(video)
+            break
+          case "REPORT_GALLERY":
+            stateObject.cacheFunction(stateObject.clickedReport, video)
+            break
+          default:
+            return null
+        }
       });
   };
 }

@@ -27,6 +27,7 @@ class VideoCard extends React.Component {
     const videoCardStateObj = {
       type: "VIDEO_CARD",
       videoId,
+      cacheFunction: this.setVideoCardState
     };
     this.props.dispatchCacheVideo(videoCardStateObj);
   };
