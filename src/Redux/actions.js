@@ -241,8 +241,10 @@ function removeVideo(journal) {
 
 export function fetchVideoToCache(stateObject) {
   return (dispatch) => {
+    
     const token = localStorage.getItem("token");
     let videoId = null;
+
     switch (stateObject.type) {
       case "VIDEO_CARD":
         videoId = stateObject.videoId;
