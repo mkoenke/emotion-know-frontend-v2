@@ -89,10 +89,9 @@ class VideoCard extends React.Component {
               <div className="background">
                 <div className="videoCardDiv">
                   <Player>
-                    <Button onClick={this.handleVideoLoad}>Load video</Button>
                     {this.state.currentVideo ? (
                       <source src={this.state.currentVideo.url} />
-                    ) : null}
+                    ) : <Button onClick={this.handleVideoLoad}>Load video</Button>}
                     <ControlBar autoHide={false} />
                     <LoadingSpinner />
                     <BigPlayButton position="center" />
