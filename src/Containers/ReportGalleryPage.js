@@ -45,8 +45,9 @@ class ReportGalleryPage extends React.Component {
       this.setReportGalleryState(clickedReport, video);
     } else {
       const videoStateObject = {
-        clickedReport,
-        setReportGalleryState: this.setReportGalleryState,
+        type: "REPORT_GALLERY",
+        clickedReport: clickedReport,
+        cacheFunction: this.setReportGalleryState,
       };
       this.props.dispatchCacheVideo(videoStateObject);
     }

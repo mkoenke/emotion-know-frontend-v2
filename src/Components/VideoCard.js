@@ -22,32 +22,13 @@ class VideoCard extends React.Component {
     this.props.deleteVideo(this.props.cardObj);
   };
 
-  handleVideoLoad = (e) => {
-    console.log("event", e);
-    // const video = this.findVideoInCache(clickedReport.video_entry_id);
-
-    // if (video) {
-    //   this.setReportGalleryState(clickedReport, video);
-    // } else {
-    //   const videoStateObject = {
-    //     clickedReport,
-    //     setReportGalleryState: this.setReportGalleryState,
-    //   };
-    //   this.props.dispatchCacheVideo(videoStateObject);
-    // }
-    fetch(`http://localhost:3000/video_entries/${this.props.cardObj.id}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        // 'Authorization': localStorage.getItem('token'),
-        Accept: "application/json",
-      },
-      body: JSON.stringify(),
-    })
-      .then((resp) => resp.json())
-      .then((data) => {
-        this.setState({ currentVideo: data });
-      });
+  handleVideoLoad = () => {
+    const videoId = this.props.cardObj.id
+    const videoCardObj = {
+      type: "VIDEO_CARD",
+      videoId
+    }
+    this.props.dispatchFetchVideoToCache(videoCardObj)
   };
 
   findVideoInCache = (clickedVideoId) => {
@@ -91,7 +72,9 @@ class VideoCard extends React.Component {
                   <Player>
                     {this.state.currentVideo ? (
                       <source src={this.state.currentVideo.url} />
-                    ) : <Button onClick={this.handleVideoLoad}>Load video</Button>}
+                    ) : (
+                      <Button onClick={this.handleVideoLoad}>Load video</Button>
+                    )}
                     <ControlBar autoHide={false} />
                     <LoadingSpinner />
                     <BigPlayButton position="center" />
@@ -122,14 +105,14 @@ class VideoCard extends React.Component {
 function mapDispatchToProps(dispatch) {
   return {
     deleteVideo: (journal) => dispatch(deleteVideo(journal)),
-    dispatchFetchVideoToCache: () => dispatch(fetchVideoToCache()),
+    dispatchFetchVideoToCache: (videoId) => dispatch(fetchVideoToCache(videoId)),
   };
 }
 
-function mapStateToProps(state){
+function mapStateToProps(state) {
   return {
-    videoCache: state.videoCache
-  }
+    videoCache: state.videoCache,
+  };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(VideoCard);
