@@ -16,6 +16,7 @@ import {
   SET_ERROR,
   SET_PARENT,
   SIGN_UP_MODAL_OPEN,
+  VIDEO,
   VIDEO_ENTRIES,
 } from "./actionTypes";
 
@@ -209,33 +210,80 @@ export function addVideoToAllVideos(videoJournal) {
 }
 
 export function deleteVideo(journal) {
-  const token = localStorage.getItem('token')
-  console.log(token)
+  const token = localStorage.getItem("token");
+  console.log(token);
   return (dispatch) => {
     return fetch(`http://localhost:3000/video_entries/${journal.id}`, {
-      method: 'DELETE',
+      method: "DELETE",
       // withCredentials: true,
       // credentials: 'include',
       headers: {
         // 'Access-Control-Allow-Origin': 'http://localhost:3001',
         Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
     })
       .then((resp) => resp.json())
       .then((e) => {
-        console.log(e)
+        console.log(e);
         if (e.message) {
-          alert(e.message)
+          alert(e.message);
         }
-        dispatch(removeVideo(journal))
+        dispatch(removeVideo(journal));
       })
-      .catch(console.log)
-  }
+      .catch(console.log);
+  };
 }
 
 function removeVideo(journal) {
   return { type: DELETE_VIDEO, payload: journal };
+}
+
+export function fetchVideoToCache(stateObject) {
+  return (dispatch) => {
+    
+    const token = localStorage.getItem("token");
+    let videoId = null;
+
+    switch (stateObject.type) {
+      case "VIDEO_CARD":
+        videoId = stateObject.videoId;
+        break;
+      case "REPORT_GALLERY":
+        videoId = stateObject.clickedReport.id;
+        break;
+      default:
+        videoId = null;
+    }
+
+    return fetch(`http://localhost:3000/video_entries/${videoId}`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify(),
+    })
+      .then((resp) => resp.json())
+      .then((video) => {
+        dispatch(addVideoToCache(video));
+        switch (stateObject.type){
+          case "VIDEO_CARD":
+            stateObject.cacheFunction(video)
+            break
+          case "REPORT_GALLERY":
+            stateObject.cacheFunction(stateObject.clickedReport, video)
+            break
+          default:
+            return null
+        }
+      });
+  };
+}
+
+function addVideoToCache(video) {
+  return { type: VIDEO, payload: video };
 }
 
 //Report actions

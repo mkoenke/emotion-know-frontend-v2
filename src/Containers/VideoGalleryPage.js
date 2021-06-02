@@ -56,7 +56,7 @@ class VideoGalleryPage extends React.Component {
       previous: "<",
       next: ">",
     };
-    console.log("DATA", this.state.data);
+
     return (
       <>
         <div className="background pagePadding">

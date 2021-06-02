@@ -1,13 +1,13 @@
-import React from 'react'
-import { connect } from 'react-redux'
-import { Button, Container, Header } from 'semantic-ui-react'
+import React from "react";
+import { connect } from "react-redux";
+import { Button, Container, Header } from "semantic-ui-react";
 // import D3OverTimeLineGraph from '../Components/D3OverTimeLineGraph'
 import EmptyReportsModal from "../Components/EmptyReportsModal";
 import ReportGalleryReportsTable from "../Components/ReportGalleryReportsTable";
 import ReportGallerySingleGraph from "../Components/ReportGallerySingleGraph";
 import StackedBarChart from "../Components/StackedBarChart";
 import emotionsOverTimeCalculator from "../HelperFunctions/emotionsOverTimeCalculator";
-import { setClickedReport } from "../Redux/actions";
+import { fetchVideoToCache, setClickedReport } from "../Redux/actions";
 
 class ReportGalleryPage extends React.Component {
   state = {
@@ -38,26 +38,36 @@ class ReportGalleryPage extends React.Component {
     const clickedReport = currentReports.find(
       (report) => report.created_at === event.target.closest("tr").id
     );
-    
-    fetch(`http://localhost:3000/video_entries/${clickedReport.video_entry_id}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        // 'Authorization': localStorage.getItem('token'),
-        Accept: "application/json",
-      },
-      body: JSON.stringify(),
-    })
-      .then((resp) => resp.json())
-      .then((data) => {
-        this.setState(
-          {
-            clickedReport: clickedReport,
-            clickedVideo: data,
-            beenClicked: true
-          }
-        );
-      });
+
+    const video = this.findVideoInCache(clickedReport.video_entry_id);
+
+    if (video) {
+      this.setReportGalleryState(clickedReport, video);
+    } else {
+      const reportGalleryStateObject = {
+        type: "REPORT_GALLERY",
+        clickedReport: clickedReport,
+        cacheFunction: this.setReportGalleryState,
+      };
+      this.props.dispatchCacheVideo(reportGalleryStateObject);
+    }
+  };
+
+  setReportGalleryState = (clickedReport, video) => {
+    this.setState({
+      clickedReport: clickedReport,
+      clickedVideo: video,
+      beenClicked: true,
+    });
+  };
+
+  findVideoInCache = (clickedVideoId) => {
+    const video = this.props.videoCache.find((video) => {
+      if (video.id === clickedVideoId) {
+        return video;
+      }
+    });
+    return video || null;
   };
 
   handleParentReportClick = (event) => {
@@ -65,11 +75,9 @@ class ReportGalleryPage extends React.Component {
       (report) => report.created_at === event.target.closest("tr").id
     );
     this.props.dispatchClickedReport(clickedReport);
-    this.setState(
-      {
-        clickedReport: clickedReport,
-      }
-    );
+    this.setState({
+      clickedReport: clickedReport,
+    });
   };
 
   onChangePage = (pageOfItems) => {
@@ -92,26 +100,26 @@ class ReportGalleryPage extends React.Component {
   };
 
   initiateChildPasswordReset = () => {
-    const baseURL = 'http://localhost:3000'
-    const token = localStorage.getItem('token')
+    const baseURL = "http://localhost:3000";
+    const token = localStorage.getItem("token");
 
     fetch(`${baseURL}/forgot_child_password`, {
-      method: 'POST',
+      method: "POST",
       headers: {
         Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(this.props.parent.email),
     })
       .then((res) => res.json())
       .then((response) => {
-        alert(response.alert)
+        alert(response.alert);
       })
-      .catch(console.log)
-  }
+      .catch(console.log);
+  };
 
   render() {
-    console.log("LOCAL STATE", this.state)
+    // console.log("LOCAL STATE", this.state)
     return (
       <>
         {this.props.child ? (
@@ -212,12 +220,15 @@ function mapStateToProps(state) {
     allReports: state.allReports,
     parentsReports: state.parentsReports,
     filteredReports: state.filteredReports,
+    videoCache: state.videoCache,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     dispatchClickedReport: (report) => dispatch(setClickedReport(report)),
+    dispatchCacheVideo: (videoStateObject) =>
+      dispatch(fetchVideoToCache(videoStateObject)),
   };
 }
 

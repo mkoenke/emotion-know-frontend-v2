@@ -4,31 +4,45 @@ import Flippy, { BackSide, FrontSide } from "react-flippy";
 import { connect } from "react-redux";
 import { Button, Card, Image, Popup } from "semantic-ui-react";
 import { BigPlayButton, ControlBar, LoadingSpinner, Player } from "video-react";
-import { deleteVideo } from "../Redux/actions";
+import { deleteVideo, fetchVideoToCache } from "../Redux/actions";
 
 class VideoCard extends React.Component {
   state = {
     currentVideo: null,
   };
 
+  componentDidMount() {
+    const video = this.findVideoInCache(this.props.cardObj.id);
+    if (video) {
+      this.setState({ currentVideo: video });
+    }
+  }
+
   handleDeleteClick = () => {
     this.props.deleteVideo(this.props.cardObj);
   };
 
-  handleVideoLoad = (e) => {
-    fetch(`http://localhost:3000/video_entries/${this.props.cardObj.id}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        // 'Authorization': localStorage.getItem('token'),
-        Accept: "application/json",
-      },
-      body: JSON.stringify(),
-    })
-      .then((resp) => resp.json())
-      .then((data) => {
-        this.setState({ currentVideo: data });
-      });
+  handleVideoLoad = () => {
+    const videoId = this.props.cardObj.id;
+    const videoCardStateObj = {
+      type: "VIDEO_CARD",
+      videoId,
+      cacheFunction: this.setVideoCardState
+    };
+    this.props.dispatchCacheVideo(videoCardStateObj);
+  };
+
+  findVideoInCache = (clickedVideoId) => {
+    const video = this.props.videoCache.find((video) => {
+      if (video.id === clickedVideoId) {
+        return video;
+      }
+    });
+    return video || null;
+  };
+
+  setVideoCardState = (video) => {
+    this.setState({ currentVideo: video });
   };
 
   render() {
@@ -57,10 +71,11 @@ class VideoCard extends React.Component {
               <div className="background">
                 <div className="videoCardDiv">
                   <Player>
-                    <Button onClick={this.handleVideoLoad}>Load video</Button>
                     {this.state.currentVideo ? (
                       <source src={this.state.currentVideo.url} />
-                    ) : null}
+                    ) : (
+                      <Button onClick={this.handleVideoLoad}>Load video</Button>
+                    )}
                     <ControlBar autoHide={false} />
                     <LoadingSpinner />
                     <BigPlayButton position="center" />
@@ -91,7 +106,15 @@ class VideoCard extends React.Component {
 function mapDispatchToProps(dispatch) {
   return {
     deleteVideo: (journal) => dispatch(deleteVideo(journal)),
+    dispatchCacheVideo: (videoCardStateObj) =>
+      dispatch(fetchVideoToCache(videoCardStateObj)),
   };
 }
 
-export default connect(null, mapDispatchToProps)(VideoCard);
+function mapStateToProps(state) {
+  return {
+    videoCache: state.videoCache,
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(VideoCard);
