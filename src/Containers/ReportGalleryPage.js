@@ -39,14 +39,34 @@ class ReportGalleryPage extends React.Component {
       (report) => report.created_at === event.target.closest("tr").id
     );
 
-    this.props.dispatchCacheVideo(clickedReport.video_entry_id);
+    const video = this.findVideoInCache(clickedReport.video_entry_id);
 
-    // this.setState(
-    //   {
-    //     clickedReport: clickedReport,
-    //     clickedVideo: data,
-    //     beenClicked: true
-    //   })
+    if (video) {
+      this.setReportGalleryState(clickedReport, video);
+    } else {
+      const videoStateObject = {
+        clickedReport,
+        setReportGalleryState: this.setReportGalleryState,
+      };
+      this.props.dispatchCacheVideo(videoStateObject);
+    }
+  };
+
+  setReportGalleryState = (clickedReport, video) => {
+    this.setState({
+      clickedReport: clickedReport,
+      clickedVideo: video,
+      beenClicked: true,
+    });
+  };
+
+  findVideoInCache = (clickedVideoId) => {
+    const video = this.props.videoCache.find((video) => {
+      if (video.id === clickedVideoId) {
+        return video;
+      }
+    });
+    return video || null;
   };
 
   handleParentReportClick = (event) => {
@@ -199,15 +219,15 @@ function mapStateToProps(state) {
     allReports: state.allReports,
     parentsReports: state.parentsReports,
     filteredReports: state.filteredReports,
-    videoCache: state.videoCache
+    videoCache: state.videoCache,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     dispatchClickedReport: (report) => dispatch(setClickedReport(report)),
-    dispatchCacheVideo: (videoEntryId) =>
-      dispatch(fetchVideoToCache(videoEntryId)),
+    dispatchCacheVideo: (videoStateObject) =>
+      dispatch(fetchVideoToCache(videoStateObject)),
   };
 }
 

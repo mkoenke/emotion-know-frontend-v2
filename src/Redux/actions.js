@@ -239,11 +239,12 @@ function removeVideo(journal) {
   return { type: DELETE_VIDEO, payload: journal };
 }
 
-export function fetchVideoToCache(videoId) {
+export function fetchVideoToCache({ clickedReport, setReportGalleryState }) {
   return (dispatch) => {
+    
     const token = localStorage.getItem("token");
 
-    return fetch(`http://localhost:3000/video_entries/${videoId}`, {
+    return fetch(`http://localhost:3000/video_entries/${clickedReport.id}`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -254,7 +255,8 @@ export function fetchVideoToCache(videoId) {
     })
       .then((resp) => resp.json())
       .then((video) => {
-        dispatch(addVideoToCache(video))
+        dispatch(addVideoToCache(video));
+        setReportGalleryState(clickedReport, video);
       });
   };
 }
