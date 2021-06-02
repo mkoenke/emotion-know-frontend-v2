@@ -31,6 +31,10 @@ class VideoCard extends React.Component {
       });
   };
 
+  setVideoCardState = (video) => {
+    this.setState({currentVideo: video})
+  }
+
   render() {
     return (
       <>
