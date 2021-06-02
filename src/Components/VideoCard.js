@@ -28,7 +28,7 @@ class VideoCard extends React.Component {
       type: "VIDEO_CARD",
       videoId,
     };
-    this.props.dispatchFetchVideoToCache(videoCardStateObj);
+    this.props.dispatchCacheVideo(videoCardStateObj);
   };
 
   findVideoInCache = (clickedVideoId) => {
@@ -105,7 +105,7 @@ class VideoCard extends React.Component {
 function mapDispatchToProps(dispatch) {
   return {
     deleteVideo: (journal) => dispatch(deleteVideo(journal)),
-    dispatchFetchVideoToCache: (videoCardStateObj) =>
+    dispatchCacheVideo: (videoCardStateObj) =>
       dispatch(fetchVideoToCache(videoCardStateObj)),
   };
 }
