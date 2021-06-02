@@ -23,12 +23,12 @@ class VideoCard extends React.Component {
   };
 
   handleVideoLoad = () => {
-    const videoId = this.props.cardObj.id
-    const videoCardObj = {
+    const videoId = this.props.cardObj.id;
+    const videoCardStateObj = {
       type: "VIDEO_CARD",
-      videoId
-    }
-    this.props.dispatchFetchVideoToCache(videoCardObj)
+      videoId,
+    };
+    this.props.dispatchFetchVideoToCache(videoCardStateObj);
   };
 
   findVideoInCache = (clickedVideoId) => {
@@ -105,7 +105,8 @@ class VideoCard extends React.Component {
 function mapDispatchToProps(dispatch) {
   return {
     deleteVideo: (journal) => dispatch(deleteVideo(journal)),
-    dispatchFetchVideoToCache: (videoId) => dispatch(fetchVideoToCache(videoId)),
+    dispatchFetchVideoToCache: (videoCardStateObj) =>
+      dispatch(fetchVideoToCache(videoCardStateObj)),
   };
 }
 
