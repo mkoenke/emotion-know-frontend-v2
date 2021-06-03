@@ -120,6 +120,22 @@ class ReportGalleryPage extends React.Component {
 
   deleteChild = () => {
     console.log('Deleting child')
+    const baseURL = 'http://localhost:3000'
+    const token = localStorage.getItem('token')
+    const id = this.props.selectedChild.id
+    fetch(`${baseURL}/children/${id}`, {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(this.props.parent.email),
+    })
+      .then((res) => res.json())
+      .then((response) => {
+        console.log(response)
+      })
+      .catch(console.log)
   }
 
   render() {
@@ -243,6 +259,7 @@ function mapStateToProps(state) {
     parentsReports: state.parentsReports,
     filteredReports: state.filteredReports,
     videoCache: state.videoCache,
+    selectedChild: state.selectedChild,
   }
 }
 

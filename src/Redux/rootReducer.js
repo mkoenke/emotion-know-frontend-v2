@@ -1,4 +1,4 @@
-import { combineReducers } from "redux";
+import { combineReducers } from 'redux'
 import {
   ADD_REPORT,
   ADD_VIDEO,
@@ -13,13 +13,14 @@ import {
   PARENTS_REPORTS,
   PARENT_PROFILE_MODAL_OPEN,
   PROFILE_MODAL_OPEN,
+  SELECT_CHILD,
   SET_CHILD,
   SET_ERROR,
   SET_PARENT,
   SIGN_UP_MODAL_OPEN,
   VIDEO,
   VIDEO_ENTRIES,
-} from "./actionTypes";
+} from './actionTypes'
 
 const defaultState = {
   child: null,
@@ -38,14 +39,15 @@ const defaultState = {
   clickedReport: null,
   forgotPasswordModalOpen: false,
   videoCache: [],
-};
+  selectedChild: null,
+}
 
 function signUpModalReducer(prevState = defaultState.signUpModalOpen, action) {
   switch (action.type) {
     case SIGN_UP_MODAL_OPEN:
-      return action.payload;
+      return action.payload
     default:
-      return prevState;
+      return prevState
   }
 }
 
@@ -55,18 +57,18 @@ function forgotPasswordModalReducer(
 ) {
   switch (action.type) {
     case FORGOT_PASSWORD_MODAL_OPEN:
-      return action.payload;
+      return action.payload
     default:
-      return prevState;
+      return prevState
   }
 }
 
 function modalReducer(prevState = defaultState.modalOpen, action) {
   switch (action.type) {
     case MODAL_OPEN:
-      return action.payload;
+      return action.payload
     default:
-      return prevState;
+      return prevState
   }
 }
 
@@ -76,9 +78,9 @@ function profileModalReducer(
 ) {
   switch (action.type) {
     case PROFILE_MODAL_OPEN:
-      return action.payload;
+      return action.payload
     default:
-      return prevState;
+      return prevState
   }
 }
 
@@ -88,9 +90,9 @@ function parentProfileModalReducer(
 ) {
   switch (action.type) {
     case PARENT_PROFILE_MODAL_OPEN:
-      return action.payload;
+      return action.payload
     default:
-      return prevState;
+      return prevState
   }
 }
 
@@ -100,77 +102,77 @@ function emptyGalleryModalReducer(
 ) {
   switch (action.type) {
     case EMPTY_GALLERY_MODAL_OPEN:
-      return action.payload;
+      return action.payload
     default:
-      return prevState;
+      return prevState
   }
 }
 
 function childReducer(prevState = defaultState.child, action) {
   switch (action.type) {
     case SET_CHILD:
-      return action.payload;
+      return action.payload
     case LOGOUT:
-      return null;
+      return null
     default:
-      return prevState;
+      return prevState
   }
 }
 
 function parentReducer(prevState = defaultState.parent, action) {
   switch (action.type) {
     case SET_PARENT:
-      return action.payload;
+      return action.payload
     case LOGOUT:
-      return null;
+      return null
     default:
-      return prevState;
+      return prevState
   }
 }
 
 function videoEntriesReducer(prevState = defaultState.videoEntries, action) {
   switch (action.type) {
     case VIDEO_ENTRIES:
-      return action.payload;
+      return action.payload
     case ADD_VIDEO:
-      return prevState.concat(action.payload);
+      return prevState.concat(action.payload)
     case DELETE_VIDEO:
       let filteredArray = prevState.filter(
         (journal) => journal.id !== action.payload.id
-      );
-      return filteredArray;
+      )
+      return filteredArray
     default:
-      return prevState;
+      return prevState
   }
 }
 
 function reportArrayReducer(prevState = defaultState.allReports, action) {
   switch (action.type) {
     case ALL_REPORTS:
-      return action.payload;
+      return action.payload
     case ADD_REPORT:
-      let reportsWithAddition = [...prevState, action.payload];
-      return reportsWithAddition;
+      let reportsWithAddition = [...prevState, action.payload]
+      return reportsWithAddition
     default:
-      return prevState;
+      return prevState
   }
 }
 
 function clickedReportReducer(prevState = defaultState.clickedReport, action) {
   switch (action.type) {
     case CLICKED_REPORT:
-      return action.payload;
+      return action.payload
     default:
-      return prevState;
+      return prevState
   }
 }
 
 function parentReportReducer(prevState = defaultState.parentsReports, action) {
   switch (action.type) {
     case PARENTS_REPORTS:
-      return action.payload;
+      return action.payload
     default:
-      return prevState;
+      return prevState
   }
 }
 
@@ -180,25 +182,33 @@ function filteredReportsReducer(
 ) {
   switch (action.type) {
     case FILTERED_REPORTS:
-      return action.payload;
+      return action.payload
     default:
-      return prevState;
+      return prevState
   }
 }
 
 function errorReducer(prevState = defaultState.error, action) {
   switch (action.type) {
     case SET_ERROR:
-      return action.payload;
+      return action.payload
     default:
-      return prevState;
+      return prevState
   }
 }
 
 function videoCacheReducer(prevState = defaultState.videoCache, action) {
   switch (action.type) {
     case VIDEO:
-      return [...prevState, action.payload];
+      return [...prevState, action.payload]
+    default:
+      return prevState
+  }
+}
+function selectedChildReducer(prevState = defaultState.selectedChild, action) {
+  switch (action.type) {
+    case SELECT_CHILD:
+      return action.payload
     default:
       return prevState
   }
@@ -219,7 +229,8 @@ const rootReducer = combineReducers({
   clickedReport: clickedReportReducer,
   filteredReports: filteredReportsReducer,
   forgotPasswordModalOpen: forgotPasswordModalReducer,
-  videoCache: videoCacheReducer
-});
+  videoCache: videoCacheReducer,
+  selectedChild: selectedChildReducer,
+})
 
-export default rootReducer;
+export default rootReducer
