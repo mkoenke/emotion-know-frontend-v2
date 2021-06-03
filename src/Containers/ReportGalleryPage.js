@@ -1,13 +1,13 @@
-import React from "react";
-import { connect } from "react-redux";
-import { Button, Container, Header } from "semantic-ui-react";
+import React from 'react'
+import { connect } from 'react-redux'
+import { Container, Dropdown, Header } from 'semantic-ui-react'
 // import D3OverTimeLineGraph from '../Components/D3OverTimeLineGraph'
-import EmptyReportsModal from "../Components/EmptyReportsModal";
-import ReportGalleryReportsTable from "../Components/ReportGalleryReportsTable";
-import ReportGallerySingleGraph from "../Components/ReportGallerySingleGraph";
-import StackedBarChart from "../Components/StackedBarChart";
-import emotionsOverTimeCalculator from "../HelperFunctions/emotionsOverTimeCalculator";
-import { fetchVideoToCache, setClickedReport } from "../Redux/actions";
+import EmptyReportsModal from '../Components/EmptyReportsModal'
+import ReportGalleryReportsTable from '../Components/ReportGalleryReportsTable'
+import ReportGallerySingleGraph from '../Components/ReportGallerySingleGraph'
+import StackedBarChart from '../Components/StackedBarChart'
+import emotionsOverTimeCalculator from '../HelperFunctions/emotionsOverTimeCalculator'
+import { fetchVideoToCache, setClickedReport } from '../Redux/actions'
 
 class ReportGalleryPage extends React.Component {
   state = {
@@ -16,107 +16,111 @@ class ReportGalleryPage extends React.Component {
     clickedVideo: null,
     items: [],
     pageOfItems: [],
-  };
+  }
 
   componentDidMount() {
     if (this.props.allReports.length) {
-      this.setState({ items: this.props.allReports });
+      this.setState({ items: this.props.allReports })
     } else if (this.props.filteredReports.length) {
-      this.setState({ items: this.props.filteredReports });
+      this.setState({ items: this.props.filteredReports })
     }
   }
 
   handleReportClick = (event) => {
     if (this.state.beenClicked) {
-      this.setState({ beenClicked: false });
+      this.setState({ beenClicked: false })
     }
-    let currentReports = [];
+    let currentReports = []
     if (!this.props.allReports.length)
-      currentReports = [...this.props.parentsReports];
-    else currentReports = [...this.props.allReports];
+      currentReports = [...this.props.parentsReports]
+    else currentReports = [...this.props.allReports]
 
     const clickedReport = currentReports.find(
-      (report) => report.created_at === event.target.closest("tr").id
-    );
+      (report) => report.created_at === event.target.closest('tr').id
+    )
 
-    const video = this.findVideoInCache(clickedReport.video_entry_id);
+    const video = this.findVideoInCache(clickedReport.video_entry_id)
 
     if (video) {
-      this.setReportGalleryState(clickedReport, video);
+      this.setReportGalleryState(clickedReport, video)
     } else {
       const reportGalleryStateObject = {
-        type: "REPORT_GALLERY",
+        type: 'REPORT_GALLERY',
         clickedReport: clickedReport,
         cacheFunction: this.setReportGalleryState,
-      };
-      this.props.dispatchCacheVideo(reportGalleryStateObject);
+      }
+      this.props.dispatchCacheVideo(reportGalleryStateObject)
     }
-  };
+  }
 
   setReportGalleryState = (clickedReport, video) => {
     this.setState({
       clickedReport: clickedReport,
       clickedVideo: video,
       beenClicked: true,
-    });
-  };
+    })
+  }
 
   findVideoInCache = (clickedVideoId) => {
     const video = this.props.videoCache.find((video) => {
       if (video.id === clickedVideoId) {
-        return video;
+        return video
       }
-    });
-    return video || null;
-  };
+    })
+    return video || null
+  }
 
   handleParentReportClick = (event) => {
     let clickedReport = this.props.filteredReports.find(
-      (report) => report.created_at === event.target.closest("tr").id
-    );
-    this.props.dispatchClickedReport(clickedReport);
+      (report) => report.created_at === event.target.closest('tr').id
+    )
+    this.props.dispatchClickedReport(clickedReport)
     this.setState({
       clickedReport: clickedReport,
-    });
-  };
+    })
+  }
 
   onChangePage = (pageOfItems) => {
-    this.setState({ pageOfItems });
-  };
+    this.setState({ pageOfItems })
+  }
 
   emotionsOverTimeData = (itemsFromState) => {
-    return emotionsOverTimeCalculator(itemsFromState);
-  };
+    return emotionsOverTimeCalculator(itemsFromState)
+  }
 
   filterChildsName = () => {
     if (this.props.filteredReports.length) {
       const filteredChild = this.props.parent.children.filter(
         (child) => child.id === this.props.filteredReports[0].child_id
-      );
-      return filteredChild[0].username;
+      )
+      return filteredChild[0].username
     } else {
-      return "NO REPORTS";
+      return 'NO REPORTS'
     }
-  };
+  }
 
   initiateChildPasswordReset = () => {
-    const baseURL = "http://localhost:3000";
-    const token = localStorage.getItem("token");
+    const baseURL = 'http://localhost:3000'
+    const token = localStorage.getItem('token')
 
     fetch(`${baseURL}/forgot_child_password`, {
-      method: "POST",
+      method: 'POST',
       headers: {
         Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify(this.props.parent.email),
     })
       .then((res) => res.json())
       .then((response) => {
-        alert(response.alert);
+        alert(response.alert)
       })
-      .catch(console.log);
-  };
+      .catch(console.log)
+  }
+
+  deleteChild = () => {
+    console.log('Deleting child')
+  }
 
   render() {
     // console.log("LOCAL STATE", this.state)
@@ -168,12 +172,30 @@ class ReportGalleryPage extends React.Component {
           </>
         ) : (
           <div className="background">
-            <Button
+            <Dropdown floating item icon="bars">
+              <Dropdown.Menu>
+                <Dropdown.Item
+                  name="resetPassword"
+                  onClick={this.initiateChildPasswordReset}
+                  // className="navbar"
+                >
+                  Reset {this.filterChildsName()}'s Password
+                </Dropdown.Item>
+                <Dropdown.Item
+                  name="deleteChild"
+                  onClick={this.deleteChild}
+                  // className="navbar"
+                >
+                  Delete {this.filterChildsName()}'s Account
+                </Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+            {/* <Button
               className="formButton"
               onClick={this.initiateChildPasswordReset}
             >
               Reset {this.filterChildsName()}'s Password
-            </Button>
+            </Button> */}
             <Container>
               <Header className="pageHeader" size="huge" textAlign="center">
                 {this.props.filteredReports.length ? (
@@ -210,7 +232,7 @@ class ReportGalleryPage extends React.Component {
           </div>
         )}
       </>
-    );
+    )
   }
 }
 function mapStateToProps(state) {
@@ -221,7 +243,7 @@ function mapStateToProps(state) {
     parentsReports: state.parentsReports,
     filteredReports: state.filteredReports,
     videoCache: state.videoCache,
-  };
+  }
 }
 
 function mapDispatchToProps(dispatch) {
@@ -229,7 +251,7 @@ function mapDispatchToProps(dispatch) {
     dispatchClickedReport: (report) => dispatch(setClickedReport(report)),
     dispatchCacheVideo: (videoStateObject) =>
       dispatch(fetchVideoToCache(videoStateObject)),
-  };
+  }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ReportGalleryPage);
+export default connect(mapStateToProps, mapDispatchToProps)(ReportGalleryPage)
