@@ -591,9 +591,10 @@ i.bars.icon {
 }
 .editChildMenu > .bars.icon {
   color: rgb(85, 182, 193) !important;
-  margin-top: 15px;
+  position: fixed;
 }
 .editChildDropdown {
   background-color: rgba(10, 157, 174, 0.65) !important;
   color: white !important;
+  font-size: 16px !important;
 }

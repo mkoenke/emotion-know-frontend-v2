@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Container, Dropdown, Header } from 'semantic-ui-react'
+import { Confirm, Container, Dropdown, Header } from 'semantic-ui-react'
 // import D3OverTimeLineGraph from '../Components/D3OverTimeLineGraph'
 import EmptyReportsModal from '../Components/EmptyReportsModal'
 import ReportGalleryReportsTable from '../Components/ReportGalleryReportsTable'
@@ -16,6 +16,7 @@ class ReportGalleryPage extends React.Component {
     clickedVideo: null,
     items: [],
     pageOfItems: [],
+    openConfirm: false,
   }
 
   componentDidMount() {
@@ -135,14 +136,34 @@ class ReportGalleryPage extends React.Component {
       .then((response) => {
         console.log(response)
         //update redux and front end redirect and child cards for deleted child
+        this.props.history.push('/welcome')
       })
       .catch(console.log)
+  }
+
+  handleConfirmCancel = () => {
+    this.setState({ openConfirm: false })
+  }
+  handleConfirm = () => {
+    this.setState({ openConfirm: false })
+    this.deleteChild()
   }
 
   render() {
     // console.log("LOCAL STATE", this.state)
     return (
       <>
+        {this.state.openConfirm && (
+          <Confirm
+            closeOnDimmerClick={false}
+            open={this.state.openConfirm}
+            content="Are you sure? Deleting a child's account can not be undone!"
+            confirmButton="No"
+            cancelButton="Yes"
+            onCancel={this.handleConfirm}
+            onConfirm={this.handleConfirmCancel}
+          />
+        )}
         {this.props.child ? (
           <>
             <div className="background">
@@ -194,26 +215,18 @@ class ReportGalleryPage extends React.Component {
                   name="resetPassword"
                   onClick={this.initiateChildPasswordReset}
                   className="editChildDropdown"
-                  // className="navbar"
                 >
                   Reset {this.filterChildsName()}'s Password
                 </Dropdown.Item>
                 <Dropdown.Item
                   name="deleteChild"
-                  onClick={this.deleteChild}
+                  onClick={() => this.setState({ openConfirm: true })}
                   className="editChildDropdown"
-                  // className="navbar"
                 >
                   Delete {this.filterChildsName()}'s Account
                 </Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
-            {/* <Button
-              className="formButton"
-              onClick={this.initiateChildPasswordReset}
-            >
-              Reset {this.filterChildsName()}'s Password
-            </Button> */}
             <Container>
               <Header className="pageHeader" size="huge" textAlign="center">
                 {this.props.filteredReports.length ? (
