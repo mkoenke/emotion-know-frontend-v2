@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Grid } from 'semantic-ui-react'
-import { setFilteredReports } from '../Redux/actions'
+import { selectChild, setFilteredReports } from '../Redux/actions'
 import ChildCard from './ChildCard'
 
 class ChooseChildList extends React.Component {
@@ -16,6 +16,15 @@ class ChooseChildList extends React.Component {
       (report) => report.child_id === childId
     )
     this.props.dispatchFilteredReports(childsReports)
+    this.setSelectedChild(childId)
+  }
+
+  setSelectedChild = (childId) => {
+    const selectedChild = this.props.parent.children.filter(
+      (child) => child.id === childId
+    )
+    console.log(selectedChild[0])
+    this.props.dispatchSelectedChild(selectedChild[0])
   }
 
   render() {
@@ -39,6 +48,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     dispatchFilteredReports: (reports) => dispatch(setFilteredReports(reports)),
+    dispatchSelectedChild: (child) => dispatch(selectChild(child)),
   }
 }
 

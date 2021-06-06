@@ -24,7 +24,7 @@ class ChildCard extends React.Component {
                 </Card.Header>
 
                 <Card.Description textAlign="center" className="cardDesc">
-                  Check out {this.props.childObj.name}'s reports!
+                  {this.props.childObj.name}
                 </Card.Description>
               </Card.Content>
             </Card>
