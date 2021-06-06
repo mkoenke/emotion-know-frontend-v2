@@ -589,3 +589,11 @@ i.bars.icon {
   color: white;
   font-size: 28px;
 }
+.editChildMenu > .bars.icon {
+  color: rgb(85, 182, 193) !important;
+  margin-top: 15px;
+}
+.editChildDropdown {
+  background-color: rgba(10, 157, 174, 0.65) !important;
+  color: white !important;
+}

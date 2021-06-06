@@ -134,6 +134,7 @@ class ReportGalleryPage extends React.Component {
       .then((res) => res.json())
       .then((response) => {
         console.log(response)
+        //update redux and front end redirect and child cards for deleted child
       })
       .catch(console.log)
   }
@@ -147,7 +148,6 @@ class ReportGalleryPage extends React.Component {
             <div className="background">
               <Container>
                 <Header className="pageHeader" size="huge" textAlign="center">
-                  {/* {this.props.child.username}'s Reports */}
                   {this.props.allReports.length ? (
                     `${this.props.child.username}'s Reports`
                   ) : (
@@ -188,11 +188,12 @@ class ReportGalleryPage extends React.Component {
           </>
         ) : (
           <div className="background">
-            <Dropdown floating item icon="bars">
+            <Dropdown floating item icon="bars" className="editChildMenu">
               <Dropdown.Menu>
                 <Dropdown.Item
                   name="resetPassword"
                   onClick={this.initiateChildPasswordReset}
+                  className="editChildDropdown"
                   // className="navbar"
                 >
                   Reset {this.filterChildsName()}'s Password
@@ -200,6 +201,7 @@ class ReportGalleryPage extends React.Component {
                 <Dropdown.Item
                   name="deleteChild"
                   onClick={this.deleteChild}
+                  className="editChildDropdown"
                   // className="navbar"
                 >
                   Delete {this.filterChildsName()}'s Account
