@@ -124,27 +124,24 @@ class ReportGalleryPage extends React.Component {
   }
 
   deleteChild = () => {
-    console.log('Deleting child')
-    // const baseURL = 'http://localhost:3000'
-    // const token = localStorage.getItem('token')
-    // const id = this.props.selectedChild.id
-    // fetch(`${baseURL}/children/${id}`, {
-    //   method: 'DELETE',
-    //   headers: {
-    //     Authorization: `Bearer ${token}`,
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify(this.props.parent.email),
-    // })
-    //   .then((res) => res.json())
-    //   .then((response) => {
-    //     console.log(response)
-    //     //update redux and front end redirect and child cards for deleted child
-    //     this.props.history.push('/welcome')
-    //   })
-    //   .catch(console.log)
-    this.props.dispatchRemoveChild(this.props.selectedChild)
-    this.props.history.push('/welcome')
+    const baseURL = 'http://localhost:3000'
+    const token = localStorage.getItem('token')
+    const id = this.props.selectedChild.id
+    fetch(`${baseURL}/children/${id}`, {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(this.props.parent.email),
+    })
+      .then((res) => res.json())
+      .then((response) => {
+        console.log(response)
+        this.props.dispatchRemoveChild(this.props.selectedChild)
+        this.props.history.push('/welcome')
+      })
+      .catch(console.log)
   }
 
   handleConfirmCancel = () => {

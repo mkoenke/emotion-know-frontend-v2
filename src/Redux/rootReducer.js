@@ -125,13 +125,11 @@ function parentReducer(prevState = defaultState.parent, action) {
     case SET_PARENT:
       return action.payload
     case DELETE_CHILD:
-      console.log(prevState.children)
       let filteredChilrenArray = prevState.children.filter(
         (child) => child.id !== action.payload.id
       )
-      console.log(filteredChilrenArray)
-      prevState.childen = filteredChilrenArray // loosing the rest of the parent!!!
-      return prevState
+      const newState = { ...prevState, children: filteredChilrenArray }
+      return newState
     case LOGOUT:
       return null
     default:
