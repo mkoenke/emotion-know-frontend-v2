@@ -7,7 +7,11 @@ import ReportGalleryReportsTable from '../Components/ReportGalleryReportsTable'
 import ReportGallerySingleGraph from '../Components/ReportGallerySingleGraph'
 import StackedBarChart from '../Components/StackedBarChart'
 import emotionsOverTimeCalculator from '../HelperFunctions/emotionsOverTimeCalculator'
-import { fetchVideoToCache, setClickedReport } from '../Redux/actions'
+import {
+  fetchVideoToCache,
+  removeChild,
+  setClickedReport,
+} from '../Redux/actions'
 
 class ReportGalleryPage extends React.Component {
   state = {
@@ -121,24 +125,26 @@ class ReportGalleryPage extends React.Component {
 
   deleteChild = () => {
     console.log('Deleting child')
-    const baseURL = 'http://localhost:3000'
-    const token = localStorage.getItem('token')
-    const id = this.props.selectedChild.id
-    fetch(`${baseURL}/children/${id}`, {
-      method: 'DELETE',
-      headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(this.props.parent.email),
-    })
-      .then((res) => res.json())
-      .then((response) => {
-        console.log(response)
-        //update redux and front end redirect and child cards for deleted child
-        this.props.history.push('/welcome')
-      })
-      .catch(console.log)
+    // const baseURL = 'http://localhost:3000'
+    // const token = localStorage.getItem('token')
+    // const id = this.props.selectedChild.id
+    // fetch(`${baseURL}/children/${id}`, {
+    //   method: 'DELETE',
+    //   headers: {
+    //     Authorization: `Bearer ${token}`,
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body: JSON.stringify(this.props.parent.email),
+    // })
+    //   .then((res) => res.json())
+    //   .then((response) => {
+    //     console.log(response)
+    //     //update redux and front end redirect and child cards for deleted child
+    //     this.props.history.push('/welcome')
+    //   })
+    //   .catch(console.log)
+    this.props.dispatchRemoveChild(this.props.selectedChild)
+    this.props.history.push('/welcome')
   }
 
   handleConfirmCancel = () => {
@@ -283,6 +289,7 @@ function mapDispatchToProps(dispatch) {
     dispatchClickedReport: (report) => dispatch(setClickedReport(report)),
     dispatchCacheVideo: (videoStateObject) =>
       dispatch(fetchVideoToCache(videoStateObject)),
+    dispatchRemoveChild: (child) => dispatch(removeChild(child)),
   }
 }
 

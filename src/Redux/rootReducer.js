@@ -4,6 +4,7 @@ import {
   ADD_VIDEO,
   ALL_REPORTS,
   CLICKED_REPORT,
+  DELETE_CHILD,
   DELETE_VIDEO,
   EMPTY_GALLERY_MODAL_OPEN,
   FILTERED_REPORTS,
@@ -123,6 +124,14 @@ function parentReducer(prevState = defaultState.parent, action) {
   switch (action.type) {
     case SET_PARENT:
       return action.payload
+    case DELETE_CHILD:
+      console.log(prevState.children)
+      let filteredChilrenArray = prevState.children.filter(
+        (child) => child.id !== action.payload.id
+      )
+      console.log(filteredChilrenArray)
+      prevState.childen = filteredChilrenArray // loosing the rest of the parent!!!
+      return prevState
     case LOGOUT:
       return null
     default:

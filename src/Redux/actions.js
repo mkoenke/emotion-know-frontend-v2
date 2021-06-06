@@ -3,6 +3,7 @@ import {
   ADD_VIDEO,
   ALL_REPORTS,
   CLICKED_REPORT,
+  DELETE_CHILD,
   DELETE_VIDEO,
   EMPTY_GALLERY_MODAL_OPEN,
   FILTERED_REPORTS,
@@ -316,4 +317,8 @@ export function setFilteredReports(reports) {
 
 export function selectChild(child) {
   return { type: SELECT_CHILD, payload: child }
+}
+
+export function removeChild(child) {
+  return { type: DELETE_CHILD, payload: child }
 }
