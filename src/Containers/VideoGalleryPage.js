@@ -16,12 +16,12 @@ class VideoGalleryPage extends React.Component {
   };
 
   componentDidMount() {
-    this.setState({ items: this.props.videoEntries });
+    this.setState({ items: this.props.videoEntries.reverse() });
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (this.state.items !== this.props.videoEntries) {
-      this.setState({ items: this.props.videoEntries });
+    if (this.state.items !== this.props.videoEntries.reverse()) {
+      this.setState({ items: this.props.videoEntries.reverse() });
     }
   }
 
@@ -49,6 +49,8 @@ class VideoGalleryPage extends React.Component {
       );
     });
   };
+
+  
   render() {
     const customLabels = {
       first: "<<",
@@ -57,6 +59,7 @@ class VideoGalleryPage extends React.Component {
       next: ">",
     };
 
+    console.log(this.state)
     return (
       <>
         <div className="background pagePadding">
