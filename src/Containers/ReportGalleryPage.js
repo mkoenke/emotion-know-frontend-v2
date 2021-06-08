@@ -1,8 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Confirm, Container, Dropdown, Header } from 'semantic-ui-react';
-// import D3OverTimeLineGraph from '../Components/D3OverTimeLineGraph'
+import D3OverTimeLineGraph from '../Components/D3OverTimeLineGraph';
 import EmptyReportsModal from '../Components/EmptyReportsModal';
+import { GraphDisplayToggleButton } from '../Components/GraphDisplayToggleButton';
 import ReportGalleryReportsTable from '../Components/ReportGalleryReportsTable';
 import ReportGallerySingleGraph from '../Components/ReportGallerySingleGraph';
 import StackedBarChart from '../Components/StackedBarChart';
@@ -41,10 +42,9 @@ class ReportGalleryPage extends React.Component {
     else currentReports = [...this.props.allReports];
 
     const clickedReport = currentReports.find(
-      (report) =>
-        report.created_at === event.target.closest('tr').id
+      (report) => report.created_at === event.target.closest('tr').id
     );
-    console.log("clicked report",clickedReport);
+    console.log('clicked report', clickedReport);
 
     const video = this.findVideoInCache(clickedReport.video_entry_id);
 
@@ -199,14 +199,14 @@ class ReportGalleryPage extends React.Component {
                 <Header as="h2" className="content tableHeaderMargin">
                   Emotional Reports over Time
                 </Header>
-                <br />
-                {/* <div className="lineGraph pattern">
+                <GraphDisplayToggleButton />
+                <div className="lineGraph pattern">
                   <D3OverTimeLineGraph data={this.state.items} />
-                </div> */}
+                </div>
                 <div id="#EOT">
-                  {/* <StackedBarChart
+                  <StackedBarChart
                     data={this.emotionsOverTimeData(this.state.items)}
-                  /> */}
+                  />
                 </div>
               </Container>
               <div className="footer"></div>
