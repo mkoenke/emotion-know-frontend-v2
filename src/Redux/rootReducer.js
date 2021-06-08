@@ -138,11 +138,12 @@ function parentReducer(prevState = defaultState.parent, action) {
 }
 
 function videoEntriesReducer(prevState = defaultState.videoEntries, action) {
+  console.log("ACTION: ",action)
   switch (action.type) {
     case VIDEO_ENTRIES:
       return action.payload
     case ADD_VIDEO:
-      return prevState.concat(action.payload)
+      return [action.payload,...prevState]
     case DELETE_VIDEO:
       let filteredArray = prevState.filter(
         (journal) => journal.id !== action.payload.id

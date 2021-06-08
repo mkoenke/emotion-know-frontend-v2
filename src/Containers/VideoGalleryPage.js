@@ -72,7 +72,7 @@ class VideoGalleryPage extends React.Component {
               <Grid.Row>{this.arrayOfJournals()}</Grid.Row>
               <div className="paginateLarge">
                 <JwPagination
-                  items={this.state.items}
+                  items={this.state.items.reverse()}
                   onChangePage={this.onChangePage}
                   labels={customLabels}
                   pageSize={9}
