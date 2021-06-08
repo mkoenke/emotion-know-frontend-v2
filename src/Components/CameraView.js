@@ -131,6 +131,7 @@ class RecordView extends React.Component {
       sadness: this.state.sadnessArr,
       surprise: this.state.surpriseArr,
     }
+
     const token = localStorage.getItem('token')
 
     return fetch('http://localhost:3000/video_reports', {
@@ -144,6 +145,8 @@ class RecordView extends React.Component {
     })
       .then((resp) => resp.json())
       .then((returnedReport) => {
+        console.log("RETURNED REPORT", returnedReport)
+        console.log("token", token)
         this.props.dispatchReport(returnedReport)
       })
   }

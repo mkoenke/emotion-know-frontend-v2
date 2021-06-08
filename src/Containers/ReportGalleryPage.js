@@ -1,17 +1,17 @@
-import React from 'react'
-import { connect } from 'react-redux'
-import { Confirm, Container, Dropdown, Header } from 'semantic-ui-react'
+import React from 'react';
+import { connect } from 'react-redux';
+import { Confirm, Container, Dropdown, Header } from 'semantic-ui-react';
 // import D3OverTimeLineGraph from '../Components/D3OverTimeLineGraph'
-import EmptyReportsModal from '../Components/EmptyReportsModal'
-import ReportGalleryReportsTable from '../Components/ReportGalleryReportsTable'
-import ReportGallerySingleGraph from '../Components/ReportGallerySingleGraph'
-import StackedBarChart from '../Components/StackedBarChart'
-import emotionsOverTimeCalculator from '../HelperFunctions/emotionsOverTimeCalculator'
+import EmptyReportsModal from '../Components/EmptyReportsModal';
+import ReportGalleryReportsTable from '../Components/ReportGalleryReportsTable';
+import ReportGallerySingleGraph from '../Components/ReportGallerySingleGraph';
+import StackedBarChart from '../Components/StackedBarChart';
+import emotionsOverTimeCalculator from '../HelperFunctions/emotionsOverTimeCalculator';
 import {
   fetchVideoToCache,
   removeChild,
   setClickedReport,
-} from '../Redux/actions'
+} from '../Redux/actions';
 
 class ReportGalleryPage extends React.Component {
   state = {
@@ -21,92 +21,94 @@ class ReportGalleryPage extends React.Component {
     items: [],
     pageOfItems: [],
     openConfirm: false,
-  }
+  };
 
   componentDidMount() {
     if (this.props.allReports.length) {
-      this.setState({ items: this.props.allReports })
+      this.setState({ items: this.props.allReports });
     } else if (this.props.filteredReports.length) {
-      this.setState({ items: this.props.filteredReports })
+      this.setState({ items: this.props.filteredReports });
     }
   }
 
   handleReportClick = (event) => {
     if (this.state.beenClicked) {
-      this.setState({ beenClicked: false })
+      this.setState({ beenClicked: false });
     }
-    let currentReports = []
+    let currentReports = [];
     if (!this.props.allReports.length)
-      currentReports = [...this.props.parentsReports]
-    else currentReports = [...this.props.allReports]
+      currentReports = [...this.props.parentsReports];
+    else currentReports = [...this.props.allReports];
 
     const clickedReport = currentReports.find(
-      (report) => report.created_at === event.target.closest('tr').id
-    )
+      (report) =>
+        report.created_at === event.target.closest('tr').id
+    );
+    console.log("clicked report",clickedReport);
 
-    const video = this.findVideoInCache(clickedReport.video_entry_id)
+    const video = this.findVideoInCache(clickedReport.video_entry_id);
 
     if (video) {
-      this.setReportGalleryState(clickedReport, video)
+      this.setReportGalleryState(clickedReport, video);
     } else {
       const reportGalleryStateObject = {
         type: 'REPORT_GALLERY',
         clickedReport: clickedReport,
         cacheFunction: this.setReportGalleryState,
-      }
-      this.props.dispatchCacheVideo(reportGalleryStateObject)
+      };
+      this.props.dispatchCacheVideo(reportGalleryStateObject);
     }
-  }
+  };
 
   setReportGalleryState = (clickedReport, video) => {
     this.setState({
       clickedReport: clickedReport,
       clickedVideo: video,
       beenClicked: true,
-    })
-  }
+    });
+  };
 
   findVideoInCache = (clickedVideoId) => {
     const video = this.props.videoCache.find((video) => {
       if (video.id === clickedVideoId) {
-        return video
+        return video;
       }
-    })
-    return video || null
-  }
+    });
+    return video || null;
+  };
 
   handleParentReportClick = (event) => {
     let clickedReport = this.props.filteredReports.find(
       (report) => report.created_at === event.target.closest('tr').id
-    )
-    this.props.dispatchClickedReport(clickedReport)
+    );
+    this.props.dispatchClickedReport(clickedReport);
     this.setState({
       clickedReport: clickedReport,
-    })
-  }
+    });
+  };
 
   onChangePage = (pageOfItems) => {
-    this.setState({ pageOfItems })
-  }
+    this.setState({ pageOfItems });
+  };
 
   emotionsOverTimeData = (itemsFromState) => {
-    return emotionsOverTimeCalculator(itemsFromState)
-  }
+    return emotionsOverTimeCalculator(itemsFromState);
+  };
 
   filterChildsName = () => {
     if (this.props.filteredReports.length) {
       const filteredChild = this.props.parent.children.filter(
         (child) => child.id === this.props.filteredReports[0].child_id
-      )
-      return filteredChild[0].username
+      );
+      return filteredChild[0].username;
     } else {
-      return 'NO REPORTS'
+      return 'NO REPORTS';
     }
-  }
+  };
 
   initiateChildPasswordReset = () => {
-    const baseURL = 'http://localhost:3000'
-    const token = localStorage.getItem('token')
+    const baseURL = 'http://localhost:3000';
+    const token = localStorage.getItem('token');
 
     fetch(`${baseURL}/forgot_child_password`, {
       method: 'POST',
@@ -118,15 +120,15 @@ class ReportGalleryPage extends React.Component {
     })
       .then((res) => res.json())
       .then((response) => {
-        alert(response.alert)
+        alert(response.alert);
       })
-      .catch(console.log)
-  }
+      .catch(console.log);
+  };
 
   deleteChild = () => {
-    const baseURL = 'http://localhost:3000'
-    const token = localStorage.getItem('token')
-    const id = this.props.selectedChild.id
+    const baseURL = 'http://localhost:3000';
+    const token = localStorage.getItem('token');
+    const id = this.props.selectedChild.id;
     fetch(`${baseURL}/children/${id}`, {
       method: 'DELETE',
       headers: {
@@ -137,20 +139,20 @@ class ReportGalleryPage extends React.Component {
     })
       .then((res) => res.json())
       .then((response) => {
-        console.log(response)
-        this.props.dispatchRemoveChild(this.props.selectedChild)
-        this.props.history.push('/welcome')
+        console.log(response);
+        this.props.dispatchRemoveChild(this.props.selectedChild);
+        this.props.history.push('/welcome');
       })
-      .catch(console.log)
-  }
+      .catch(console.log);
+  };
 
   handleConfirmCancel = () => {
-    this.setState({ openConfirm: false })
-  }
+    this.setState({ openConfirm: false });
+  };
   handleConfirm = () => {
-    this.setState({ openConfirm: false })
-    this.deleteChild()
-  }
+    this.setState({ openConfirm: false });
+    this.deleteChild();
+  };
 
   render() {
     // console.log("LOCAL STATE", this.state)
@@ -184,7 +186,7 @@ class ReportGalleryPage extends React.Component {
                   Individual Journal Emotional Reports
                 </Header>
                 {ReportGalleryReportsTable(
-                  this.state.items,
+                  this.state.items.reverse(),
                   this.handleReportClick,
                   this.onChangePage
                 )}
@@ -202,9 +204,9 @@ class ReportGalleryPage extends React.Component {
                   <D3OverTimeLineGraph data={this.state.items} />
                 </div> */}
                 <div id="#EOT">
-                  <StackedBarChart
+                  {/* <StackedBarChart
                     data={this.emotionsOverTimeData(this.state.items)}
-                  />
+                  /> */}
                 </div>
               </Container>
               <div className="footer"></div>
@@ -266,7 +268,7 @@ class ReportGalleryPage extends React.Component {
           </div>
         )}
       </>
-    )
+    );
   }
 }
 function mapStateToProps(state) {
@@ -278,7 +280,7 @@ function mapStateToProps(state) {
     filteredReports: state.filteredReports,
     videoCache: state.videoCache,
     selectedChild: state.selectedChild,
-  }
+  };
 }
 
 function mapDispatchToProps(dispatch) {
@@ -287,7 +289,7 @@ function mapDispatchToProps(dispatch) {
     dispatchCacheVideo: (videoStateObject) =>
       dispatch(fetchVideoToCache(videoStateObject)),
     dispatchRemoveChild: (child) => dispatch(removeChild(child)),
-  }
+  };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ReportGalleryPage)
+export default connect(mapStateToProps, mapDispatchToProps)(ReportGalleryPage);

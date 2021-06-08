@@ -24,23 +24,23 @@ import {
 } from './actionTypes'
 
 const defaultState = {
-  child: null,
-  parent: null,
   allReports: [],
-  videoEntries: [],
-  error: null,
-  parentsReports: [],
-  filteredReports: [],
-  modalOpen: false,
-  signUpModalOpen: false,
+  child: null,
   childSignupOpen: false,
-  profileModalOpen: false,
-  parentProfileModalOpen: false,
-  emptyGalleryModalOpen: false,
   clickedReport: null,
+  emptyGalleryModalOpen: false,
+  error: null,
+  filteredReports: [],
   forgotPasswordModalOpen: false,
-  videoCache: [],
+  modalOpen: false,
+  parent: null,
+  parentProfileModalOpen: false,
+  parentsReports: [],
+  profileModalOpen: false,
   selectedChild: null,
+  signUpModalOpen: false,
+  videoCache: [],
+  videoEntries: [],
 }
 
 function signUpModalReducer(prevState = defaultState.signUpModalOpen, action) {
@@ -138,11 +138,12 @@ function parentReducer(prevState = defaultState.parent, action) {
 }
 
 function videoEntriesReducer(prevState = defaultState.videoEntries, action) {
+  // console.log("ACTION: ",action)
   switch (action.type) {
     case VIDEO_ENTRIES:
       return action.payload
     case ADD_VIDEO:
-      return prevState.concat(action.payload)
+      return [action.payload,...prevState]
     case DELETE_VIDEO:
       let filteredArray = prevState.filter(
         (journal) => journal.id !== action.payload.id
@@ -208,6 +209,8 @@ function videoCacheReducer(prevState = defaultState.videoCache, action) {
   switch (action.type) {
     case VIDEO:
       return [...prevState, action.payload]
+    case LOGOUT:
+      return action.payload
     default:
       return prevState
   }

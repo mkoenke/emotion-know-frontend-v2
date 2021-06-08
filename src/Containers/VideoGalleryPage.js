@@ -1,13 +1,13 @@
-import JwPagination from 'jw-react-pagination'
-import React from 'react'
-import { connect } from 'react-redux'
-import { Grid, Header } from 'semantic-ui-react'
-import pastelblue from '../assets/images/pastelblue.jpeg'
-import pastelgreen from '../assets/images/pastelgreen.jpeg'
-import pastelindigo from '../assets/images/pastelindigo.jpeg'
-import pastelyellow from '../assets/images/pastelyellow.jpeg'
-import EmptyGalleryModal from '../Components/EmptyGalleryModal'
-import VideoCard from '../Components/VideoCard'
+import JwPagination from 'jw-react-pagination';
+import React from 'react';
+import { connect } from 'react-redux';
+import { Grid, Header } from 'semantic-ui-react';
+import pastelblue from '../assets/images/pastelblue.jpeg';
+import pastelgreen from '../assets/images/pastelgreen.jpeg';
+import pastelindigo from '../assets/images/pastelindigo.jpeg';
+import pastelyellow from '../assets/images/pastelyellow.jpeg';
+import EmptyGalleryModal from '../Components/EmptyGalleryModal';
+import VideoCard from '../Components/VideoCard';
 
 class VideoGalleryPage extends React.Component {
   state = {
@@ -29,8 +29,8 @@ class VideoGalleryPage extends React.Component {
     this.setState({ pageOfItems });
   };
   arrayOfJournals = () => {
-    const imageArray = [pastelgreen, pastelblue, pastelindigo, pastelyellow]
-    let i = 0
+    const imageArray = [pastelgreen, pastelblue, pastelindigo, pastelyellow];
+    let i = 0;
     return this.state.pageOfItems.map((card) => {
       if (i < imageArray.length - 1) {
         i++;
@@ -49,12 +49,21 @@ class VideoGalleryPage extends React.Component {
       );
     });
   };
+
+  // reverseItems = () => {
+  //   if (this.state.items) {
+  //     const reversedItems = [...this.state.items].reverse();
+  //     console.log('reversed', reversedItems);
+  //     return reversedItems;
+  //   }
+  // };
+
   render() {
     const customLabels = {
-      first: "<<",
-      last: ">>",
-      previous: "<",
-      next: ">",
+      first: '<<',
+      last: '>>',
+      previous: '<',
+      next: '>',
     };
 
     return (

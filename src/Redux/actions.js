@@ -37,12 +37,13 @@ export function login(child) {
       .then((resp) => resp.json())
       .then((data) => {
         if (!data.error) {
+          console.log(data.child)
           localStorage.setItem('token', data.jwt)
           dispatch(setChild(data.child))
           dispatch(setModal(false))
           dispatch(setError(null))
           dispatch(videoEntries(data.child.video_entries.reverse()))
-          dispatch(allReports(data.child.video_reports))
+          dispatch(allReports(data.child.video_reports.reverse()))
         } else {
           dispatch(setError(data.error))
         }
@@ -153,6 +154,7 @@ export function logout() {
     dispatch(setError(null))
     dispatch(parentsReports([]))
     dispatch(setSignUpModal(false))
+    dispatch(clearVideoCacheOnLogOut([]))
     return { type: LOGOUT }
   }
 }
@@ -248,10 +250,10 @@ export function fetchVideoToCache(stateObject) {
 
     switch (stateObject.type) {
       case 'VIDEO_CARD':
-        videoId = stateObject.videoId
+        videoId = stateObject.videoId 
         break
       case 'REPORT_GALLERY':
-        videoId = stateObject.clickedReport.id
+        videoId = stateObject.clickedReport.video_entry_id
         break
       default:
         videoId = null
@@ -281,6 +283,10 @@ export function fetchVideoToCache(stateObject) {
         }
       })
   }
+}
+
+function clearVideoCacheOnLogOut(clearCache){
+  return { type: LOGOUT, payload: clearCache}
 }
 
 function addVideoToCache(video) {
