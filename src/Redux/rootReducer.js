@@ -209,6 +209,8 @@ function videoCacheReducer(prevState = defaultState.videoCache, action) {
   switch (action.type) {
     case VIDEO:
       return [...prevState, action.payload]
+    case LOGOUT:
+      return action.payload
     default:
       return prevState
   }

@@ -154,7 +154,7 @@ export function logout() {
     dispatch(setError(null))
     dispatch(parentsReports([]))
     dispatch(setSignUpModal(false))
-    //new function to clear video cache
+    dispatch(clearVideoCacheOnLogOut([]))
     return { type: LOGOUT }
   }
 }
@@ -283,6 +283,10 @@ export function fetchVideoToCache(stateObject) {
         }
       })
   }
+}
+
+function clearVideoCacheOnLogOut(clearCache){
+  return { type: LOGOUT, payload: clearCache}
 }
 
 function addVideoToCache(video) {
