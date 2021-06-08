@@ -41,8 +41,10 @@ class ReportGalleryPage extends React.Component {
     else currentReports = [...this.props.allReports];
 
     const clickedReport = currentReports.find(
-      (report) => report.created_at === event.target.closest('tr').id
+      (report) =>
+        report.created_at === event.target.closest('tr').id
     );
+    console.log("clicked report",clickedReport);
 
     const video = this.findVideoInCache(clickedReport.video_entry_id);
 

@@ -138,7 +138,7 @@ function parentReducer(prevState = defaultState.parent, action) {
 }
 
 function videoEntriesReducer(prevState = defaultState.videoEntries, action) {
-  console.log("ACTION: ",action)
+  // console.log("ACTION: ",action)
   switch (action.type) {
     case VIDEO_ENTRIES:
       return action.payload

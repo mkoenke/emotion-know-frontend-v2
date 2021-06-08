@@ -50,6 +50,14 @@ class VideoGalleryPage extends React.Component {
     });
   };
 
+  // reverseItems = () => {
+  //   if (this.state.items) {
+  //     const reversedItems = [...this.state.items].reverse();
+  //     console.log('reversed', reversedItems);
+  //     return reversedItems;
+  //   }
+  // };
+
   render() {
     const customLabels = {
       first: '<<',
@@ -58,7 +66,6 @@ class VideoGalleryPage extends React.Component {
       next: '>',
     };
 
-    console.log(this.state);
     return (
       <>
         <div className="background pagePadding">
@@ -72,7 +79,7 @@ class VideoGalleryPage extends React.Component {
               <Grid.Row>{this.arrayOfJournals()}</Grid.Row>
               <div className="paginateLarge">
                 <JwPagination
-                  items={this.state.items.reverse()}
+                  items={this.state.items}
                   onChangePage={this.onChangePage}
                   labels={customLabels}
                   pageSize={9}
