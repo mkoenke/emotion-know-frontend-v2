@@ -22,6 +22,7 @@ class ReportGalleryPage extends React.Component {
     items: [],
     pageOfItems: [],
     openConfirm: false,
+    isToggled: false,
   };
 
   componentDidMount() {
@@ -199,7 +200,12 @@ class ReportGalleryPage extends React.Component {
                 <Header as="h2" className="content tableHeaderMargin">
                   Emotional Reports over Time
                 </Header>
-                <GraphDisplayToggleButton />
+                <GraphDisplayToggleButton
+                  isToggled={this.state.isToggled}
+                  onToggle={() =>
+                    this.setState({ isToggled: !this.state.isToggled })
+                  }
+                />
                 <div className="lineGraph pattern">
                   <D3OverTimeLineGraph data={this.state.items} />
                 </div>
