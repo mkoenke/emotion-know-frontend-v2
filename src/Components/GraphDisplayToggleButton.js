@@ -1,9 +1,14 @@
-export const GraphDisplayToggleButton = () => {
+import React, { useState } from 'react';
+
+export const GraphDisplayToggleButton = ({ isToggled, onToggle }) => {
   return (
-    <div class="ui large buttons">
-      <button class="ui button active">Line Graph</button>
-      <div class="or"></div>
-      <button class="ui button">Bar Chart</button>
+    <div>
+      <label>Line Graph</label>
+      <label class="switch">
+        <input type="checkbox" checked={isToggled} onChange={onToggle} />
+        <span class="slider round" />
+      </label>
+      <label>Bar Chart</label>
     </div>
   );
 };
