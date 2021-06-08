@@ -24,23 +24,23 @@ import {
 } from './actionTypes'
 
 const defaultState = {
-  child: null,
-  parent: null,
   allReports: [],
-  videoEntries: [],
-  error: null,
-  parentsReports: [],
-  filteredReports: [],
-  modalOpen: false,
-  signUpModalOpen: false,
+  child: null,
   childSignupOpen: false,
-  profileModalOpen: false,
-  parentProfileModalOpen: false,
-  emptyGalleryModalOpen: false,
   clickedReport: null,
+  emptyGalleryModalOpen: false,
+  error: null,
+  filteredReports: [],
   forgotPasswordModalOpen: false,
-  videoCache: [],
+  modalOpen: false,
+  parent: null,
+  parentProfileModalOpen: false,
+  parentsReports: [],
+  profileModalOpen: false,
   selectedChild: null,
+  signUpModalOpen: false,
+  videoCache: [],
+  videoEntries: [],
 }
 
 function signUpModalReducer(prevState = defaultState.signUpModalOpen, action) {
