@@ -206,14 +206,17 @@ class ReportGalleryPage extends React.Component {
                     this.setState({ isToggled: !this.state.isToggled })
                   }
                 />
-                <div className="lineGraph pattern">
-                  <D3OverTimeLineGraph data={this.state.items} />
-                </div>
-                <div id="#EOT">
-                  <StackedBarChart
-                    data={this.emotionsOverTimeData(this.state.items)}
-                  />
-                </div>
+                {!this.state.isToggled ? (
+                  <div className="lineGraph pattern">
+                    <D3OverTimeLineGraph data={this.state.items} />
+                  </div>
+                ) : (
+                  <div id="#EOT">
+                    <StackedBarChart
+                      data={this.emotionsOverTimeData(this.state.items)}
+                    />
+                  </div>
+                )}
               </Container>
               <div className="footer"></div>
             </div>
